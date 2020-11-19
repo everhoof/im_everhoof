@@ -3,9 +3,12 @@
     <div class="page__header" />
     <div class="page__main">
       <nuxt />
-      <aside class="page__aside">
+      <aside class="page__aside scrollbar" :class="{ page__aside_state_open: asideOpened }">
         <b-aside-panel />
       </aside>
+      <div class="page__aside-button" @click="asideOpened = !asideOpened">
+        <svg-icon name="apps" class="page__aside-icon" />
+      </div>
     </div>
     <div class="page__footer">
       <b-footer />
@@ -35,6 +38,8 @@ import BRegisterModal from '~/components/register-modal/register-modal.vue';
   components: { BRegisterModal, BModal, BLoginModal, BAsidePanel, BFooter },
 })
 export default class Default extends Vue {
+  asideOpened: boolean = false;
+
   get login(): boolean {
     return this.$accessor.auth.loginModal;
   }
