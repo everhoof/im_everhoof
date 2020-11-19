@@ -1,5 +1,5 @@
 <template>
-  <div class="page__wrapper">
+  <div v-touch:swipe.left="swipeLeft" v-touch:swipe.right="swipeRight" class="page__wrapper">
     <div class="page__header" />
     <div class="page__main">
       <nuxt />
@@ -54,6 +54,14 @@ export default class Default extends Vue {
 
   setRegister(value: boolean): void {
     this.$accessor.auth.SET_REGISTER_MODAL(value);
+  }
+
+  swipeLeft() {
+    this.asideOpened = true;
+  }
+
+  swipeRight() {
+    this.asideOpened = false;
   }
 }
 </script>

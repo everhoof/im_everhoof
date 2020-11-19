@@ -92,7 +92,7 @@ ul
 	&__aside
 		position absolute
 		top 0
-		right 0
+		right -226px
 		bottom 0
 		overflow hidden auto
 		flex-shrink 0
@@ -102,22 +102,20 @@ ul
 
 		+above(size-m)
 			position relative
+			right 0
 
 		&_state
 			&_open
-				right -226px
-
-				+above(size-m)
-					right 0
+				right 0
 
 				& +
 					& ^[0]__aside-button
-						right 0
+						right 226px
 
 		&-button
 			position absolute
 			top 0
-			right 226px
+			right 0
 			bottom 0
 			z-index 3
 			display flex

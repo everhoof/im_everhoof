@@ -53,6 +53,10 @@ export default {
       src: '~/plugins/nuxt-client-init.client.ts',
       ssr: false,
     },
+    {
+      src: '~/plugins/vue2-touch-events.ts',
+      ssr: false,
+    },
   ],
   /*
    ** Nuxt.js dev-modules
