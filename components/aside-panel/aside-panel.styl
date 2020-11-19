@@ -1,0 +1,61 @@
+.aside-panel
+	position absolute
+	left -30px
+	z-index 2
+	visibility visible
+	overflow-y auto
+	width 250px
+	height 100%
+	padding 8px 0 0
+	background-color var(--secondary-background)
+	opacity 1
+	box-shadow -3px 0 6px rgba(0, 0, 0, .16)
+	defaultTransition()
+
+	+above(size-m)
+		position relative
+		left 0
+
+	&_type
+		&_open
+			left -300px
+
+			+above(size-m)
+				left 0
+
+	&__section
+		padding 0 17px 30px 40px
+
+		+above(size-m)
+			padding 0 17px 30px 10px
+
+		&-title
+			margin-bottom 10px
+			padding 0 5px
+			color var(--secondary-text)
+			font-size 14px
+			font-weight 600
+			user-select none
+
+		&:first-child
+			padding-top 30px
+
+	&__open
+		&-button
+			position absolute
+			z-index 3
+			display flex
+			justify-content center
+			align-items center
+			width 30px
+			height 100%
+			fill currentColor
+			cursor pointer
+			background-color var(--gray_700)
+
+			+above(size-m)
+				display none
+
+		&-icon
+			width 20px
+			height 20px

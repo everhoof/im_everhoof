@@ -1,0 +1,87 @@
+.footer
+	position relative
+	display flex
+	padding 10px 12px
+	box-shadow 0 -3px 6px rgba(0, 0, 0, .16)
+
+	&__emoji-panel
+		position absolute
+		left 0
+		bottom 100%
+		max-width 376px
+		height 250px
+		max-height 250px
+		padding 12px 12px 0
+
+	&__attach-panel
+		position absolute
+		left 0
+		bottom 100%
+		padding 12px 12px 0
+
+	&__input-field
+		position relative
+		display flex
+		overflow hidden
+		align-items center
+		width 100%
+		height 32px
+		margin-right 12px
+		padding 0 12px
+		background-color var(--secondary-background)
+		border-radius 5px
+		box-shadow 0 0 6px rgba(0, 0, 0, .16)
+
+	&__actions-left
+		position relative
+		display flex
+		align-items center
+		flex-shrink 0
+		margin-right 12px
+
+	&__actions-button
+		display block
+		width 24px
+		height 24px
+		fill var(--primary-text)
+		cursor pointer
+
+		&:hover
+			fill var(--accent-text)
+
+		&:not(:last-child)
+			margin-right 8px
+
+	&__emoji-button
+		background-image url('~assets/emoji/faces.png')
+		background-position 0 0
+		background-size 264px 120px
+		filter grayscale(1)
+
+		&^[0]__actions-button_type_active,
+		&:hover
+			filter grayscale(0)
+
+	&__attach-button
+		transform rotate(225deg)
+
+		&^[0]__actions-button_type_active,
+		&:hover
+			fill var(--accent-text)
+
+	&__input
+		display block
+		flex-grow 1
+		flex-basis 100%
+		width 100%
+		height 100%
+		margin-right 8px
+		color var(--primary-text)
+		background transparent
+		border none
+		outline none
+
+	&__actions-right
+		display flex
+		align-items center
+		flex-shrink 0

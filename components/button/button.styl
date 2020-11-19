@@ -1,0 +1,60 @@
+$button-active-color = var(--primary)
+$button-disabled-color = var(--secondary)
+$button-text-color = var(--primary-text)
+$button-active-text-color = var(--primary-text)
+$button-border-color = var(--gray_800)
+$button-border-width = 1px
+$button-border-radius = .25em
+$button-margin = 10px 0
+
+.button
+	position relative
+	z-index 1
+	display inline-block
+	vertical-align middle
+	overflow hidden
+	max-width 100%
+	padding 8px 16px
+	color $button-text-color
+	font-size 14px
+	line-height 1.4
+	text-align center
+	text-decoration none
+	word-break break-all
+	cursor pointer
+	user-select none
+	background-color transparent
+	border $button-border-width solid $button-border-color
+	border-radius $button-border-radius
+	outline none
+	-webkit-tap-highlight-color transparent
+	defaultTransition(background-color, border-color)
+
+	&_display
+		&_block
+			display block
+
+	&_width
+		&_full
+			width 100%
+
+	&_no
+		&_wrap
+			white-space nowrap
+			text-overflow ellipsis
+
+	&_with
+		&_margin
+			margin $button-margin
+
+	&_type_active,
+	&:hover:not(:disabled),
+	&:active,
+	&:focus
+		color $button-active-text-color
+		background-color $button-active-color
+		border-color $button-active-color
+
+	&:disabled
+		border-color $button-disabled-color
+		opacity var(--disabled-alpha)

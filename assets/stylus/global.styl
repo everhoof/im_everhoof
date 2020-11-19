@@ -1,0 +1,88 @@
+*,
+*:before,
+*:after
+	box-sizing border-box
+	margin 0
+
+#__nuxt,
+#__layout
+	height 100%
+
+a
+	color var(--primary)
+
+	&:hover,
+	&:active,
+	&:focus
+		color var(--primary)
+		text-decoration none
+
+.scrollbar
+	&::-webkit-scrollbar
+		width 10px
+
+	&::-webkit-scrollbar-thumb
+		background-color #303030
+		border-radius 20px
+
+	&::-webkit-scrollbar-track
+		background-color #202020
+
+.link
+	&_no
+		&_styles
+			color inherit
+			text-decoration none
+
+ul
+	margin 0
+	padding 0
+	list-style none
+
+.icon
+	max-width 100%
+	max-height 100%
+
+.page
+	overflow hidden
+	height 100%
+	min-height 100%
+
+	&__wrapper
+		display flex
+		flex-direction column
+		height 100%
+
+	&__body
+		overflow hidden
+		height 100%
+		min-height 100%
+		color var(--primary-text)
+		font-family 'Open Sans', sans-serif
+		font-size 14px
+		line-height 1.4
+		background var(--primary-background)
+
+		&_overflow
+			&_hidden
+				overflow hidden
+
+	&__header
+		z-index 99
+		width 100%
+
+	&__main
+		display flex
+		overflow hidden
+		flex-grow 1
+
+	&__chat
+		display flex
+		width 100%
+		height 100%
+
+	&__footer
+		background transparent
+
+	&__aside
+		position relative

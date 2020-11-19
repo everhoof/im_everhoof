@@ -1,0 +1,23 @@
+query GetCurrentUser {
+  getCurrentUser {
+    id
+    username
+    email
+    avatar {
+      id
+      m {
+        height
+        width
+        link
+        size
+      }
+      o {
+        height
+        width
+        link
+        size
+      }
+    }
+    createdAt
+  }
+}

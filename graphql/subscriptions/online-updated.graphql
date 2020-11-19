@@ -1,0 +1,12 @@
+subscription OnlineUpdated {
+  onlineUpdated {
+    id
+    username
+    avatar {
+      s {
+        link
+      }
+    }
+  }
+}
+

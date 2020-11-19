@@ -1,0 +1,84 @@
+.message
+	position relative
+	display block
+	flex-shrink 0
+	min-height 60px
+	padding 8px 50px 8px 70px
+	line-height 22px
+	defaultTransition()
+
+	&:hover
+		background-color var(--secondary-background)
+
+	&__avatar
+		position absolute
+		top 10px
+		left 20px
+		width 40px
+		height 40px
+		user-select none
+		border-radius 50%
+		object-fit cover
+		object-position center center
+
+		&_type
+			&_default
+				font-size 18px
+				line-height 40px
+				text-align center
+				text-transform uppercase
+				background rgba(255, 255, 255, .1)
+				border-radius 50%
+
+	&__author-name
+		display inline-block
+		vertical-align middle
+		overflow hidden
+		max-width 150px
+		font-size 14px
+		font-weight 600
+		white-space nowrap
+		text-overflow ellipsis
+		cursor pointer
+
+		&:hover
+			text-decoration underline
+
+	&__header
+		min-height 22px
+		font-size 0
+		white-space pre-line
+
+	&__timestamp
+		display inline
+		vertical-align middle
+		margin-left 8px
+		color var(--gray_600)
+		font-size 11px
+		cursor default
+
+	&__text
+		margin 0 0 6px
+		color var(--gray_200)
+
+		&:last-child
+			margin-bottom 0
+
+	&__emoji
+		vertical-align bottom
+		width 24px
+		height 24px
+		padding 1px
+		object-fit contain
+
+	&__body
+		flex-shrink 0
+
+	&__image
+		display block
+		max-width 80%
+		cursor pointer
+		object-fit cover
+
+	&__text
+		display block

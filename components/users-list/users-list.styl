@@ -1,0 +1,59 @@
+.users-list
+	display block
+	list-style none
+
+	&__item
+		display flex
+		align-items center
+		height 46px
+		margin-bottom 2px
+		padding 5px 10px
+		cursor pointer
+		user-select none
+		border-radius 5px
+		defaultTransition()
+
+		&:hover
+			background-color var(--gray_700)
+
+		&:active
+			background-color var(--gray_600)
+
+		&:last-child
+			margin-bottom 0
+
+	&__info
+		overflow hidden
+
+	&__avatar
+		flex-shrink 0
+		width 34px
+		height 34px
+		margin-right 10px
+		border-radius 50%
+		object-fit cover
+
+		&_type
+			&_default
+				font-size 18px
+				line-height 34px
+				text-align center
+				text-transform uppercase
+				background rgba(255, 255, 255, .1)
+				border-radius 50%
+
+	&__username
+		overflow hidden
+		font-size 14px
+		font-weight normal
+		line-height 20px
+		white-space nowrap
+		text-overflow ellipsis
+
+	&__status
+		overflow hidden
+		color var(--secondary-text)
+		font-size 12px
+		line-height 16px
+		white-space nowrap
+		text-overflow ellipsis

@@ -1,0 +1,39 @@
+query GetChatData {
+  getMessages {
+    id
+    owner {
+      id
+      username
+      avatar {
+        s {
+          link
+        }
+      }
+    }
+    content
+    username
+    pictures {
+      m {
+        link
+        width
+        height
+      }
+      o {
+        link
+        width
+        height
+      }
+    }
+    createdAt
+    updatedAt
+  }
+  getOnline {
+    id
+    username
+    avatar {
+      s {
+        link
+      }
+    }
+  }
+}

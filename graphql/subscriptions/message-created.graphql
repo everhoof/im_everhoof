@@ -1,0 +1,30 @@
+subscription MessageCreated {
+  messageCreated {
+    id
+    owner {
+      id
+      username
+      avatar {
+        s {
+          link
+        }
+      }
+    }
+    content
+    username
+    pictures {
+      m {
+        link
+        width
+        height
+      }
+      o {
+        link
+        width
+        height
+      }
+    }
+    createdAt
+    updatedAt
+  }
+}
