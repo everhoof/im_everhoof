@@ -19,13 +19,14 @@ a
 
 .scrollbar
 	&::-webkit-scrollbar
-		width 10px
+		width 8px
 
 	&::-webkit-scrollbar-thumb
 		background-color #3f3f3f
-		border-radius 20px
+		border-radius 8px
 
 	&::-webkit-scrollbar-track
+		margin 8px 0
 		background-color #202020
 
 .link
@@ -77,40 +78,63 @@ ul
 		overflow hidden
 		flex-grow 1
 
+		+above(size-m)
+			&_state
+				&_open
+					& ^[0]__chat
+						margin-right 254px
+
+					& ^[0]__footer
+						margin-right -4px
+
+					& ^[0]__aside-footer
+						right 0
+
+					& ^[0]__aside-menu
+						transform rotate(180deg)
+
 	&__chat
 		display flex
+		flex-direction column
 		width 100%
 		height 100%
-		margin 0 26px 0 0
+		margin 0 20px 0 0
+		defaultTransition(margin-right)
 
 		+above(size-m)
-			margin-right 0
+			margin-right 4px
 
 	&__footer
 		background transparent
+		defaultTransition(margin-right)
+
+		+above(size-m)
+			margin-right 36px
 
 	&__aside
 		position absolute
 		top 0
-		right -226px
+		right -250px
 		bottom 0
 		overflow hidden auto
 		flex-shrink 0
 		width 250px
-		box-shadow -3px 0 6px rgba(0, 0, 0, .16)
 		defaultTransition()
 
-		+above(size-m)
-			position relative
-			right 0
-
 		&_state
-			&_open
+			&_mobile-open
 				right 0
+
+				+above(size-m)
+					right -250px
 
 				& +
 					& ^[0]__aside-button
-						right 226px
+						right 232px
+
+			&_pc-open
+				+above(size-m)
+					right 0
 
 		&-button
 			position absolute
@@ -121,7 +145,7 @@ ul
 			display flex
 			justify-content center
 			align-items center
-			width 24px
+			width 18px
 			fill currentColor
 			cursor pointer
 			background-color var(--gray_700)
@@ -133,3 +157,37 @@ ul
 		&-icon
 			width 17px
 			height 17px
+
+	&__aside-footer
+		position absolute
+		right -250px
+		bottom 0
+		width 250px
+		height 52px
+		padding 10px 4px
+		background-color var(--primary-background)
+		defaultTransition(right)
+
+		+above(size-m)
+			right -210px
+
+	&__aside-menu
+		display none
+		width 32px
+		height 32px
+		margin 0
+		padding 4px 0
+		color var(--primary-text)
+		cursor pointer
+		background transparent
+		border none
+		outline none
+
+		+above(size-m)
+			display block
+
+		&:hover
+			color var(--accent-text)
+
+		& .icon
+			fill currentColor

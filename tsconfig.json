@@ -21,6 +21,7 @@
       "@nuxtjs/apollo",
       "vue-apollo",
       "vue-cli-plugin-apollo/types",
+      "cookie-universal-nuxt",
       "nuxt-i18n"
     ]
   },

@@ -16,6 +16,7 @@ export const namespaced = true;
 export const state = () => ({
   messages: [] as GetChatDataQuery['getMessages'],
   online: [] as GetChatDataQuery['getOnline'],
+  asidePcOpened: true as boolean,
 });
 
 export type ChatState = ReturnType<typeof state>;
@@ -27,6 +28,7 @@ export const mutations = mutationTree(state, {
     if (index === -1) _state.messages.push(payload);
   },
   SET_ONLINE: (_state, payload: GetChatDataQuery['getOnline']) => (_state.online = payload),
+  SET_ASIDE_PC_OPENED: (_state, payload: boolean) => (_state.asidePcOpened = payload),
 });
 
 export const getters = getterTree(state, {});
@@ -34,7 +36,9 @@ export const getters = getterTree(state, {});
 export const actions = actionTree(
   { state, mutations, getters },
   {
-    async nuxtServerInit({ dispatch }, context: Context) {
+    async nuxtServerInit({ dispatch, commit }, context: Context) {
+      const asidePcOpened = (context.app.$cookies.get('aside_pc_opened') ?? true) === true;
+      commit('SET_ASIDE_PC_OPENED', asidePcOpened);
       await dispatch('getChatData', context);
     },
 
