@@ -693,9 +693,12 @@ const actions = Object(typed_vuex__WEBPACK_IMPORTED_MODULE_0__["actionTree"])({
   }) {
     await this.app.$apolloHelpers.onLogout(undefined);
     commit('SET_LOGGED_IN', false);
-    await this.$router.push({
-      name: 'main'
-    });
+
+    if (this.$router.currentRoute.name !== 'main') {
+      await this.$router.push({
+        name: 'main'
+      });
+    }
   },
 
   async getCurrentUser({
@@ -5050,11 +5053,13 @@ __webpack_require__.r(__webpack_exports__);
       graphQLErrors.forEach(error => {
         var _a;
 
-        const statusCode = (_a = error.message) === null || _a === void 0 ? void 0 : _a.statusCode;
+        const response = graphQLErrors && graphQLErrors[0] && ((_a = graphQLErrors[0].extensions) === null || _a === void 0 ? void 0 : _a.exception.response);
+        if (!response) return;
+        const statusCode = response.statusCode;
         if (!statusCode || statusCode !== 401) return;
         const isLoginPath = Array.isArray(error.path) && error.path.find(p => p === 'login');
         if (isLoginPath) return;
-        ctx.redirect('/logout');
+        ctx.app.$accessor.auth.logout();
       });
     }
   });
@@ -7154,18 +7159,18 @@ var nuxt_loading_component = normalizeComponent(
 )
 
 /* harmony default export */ var nuxt_loading = (nuxt_loading_component.exports);
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./layouts/default.vue?vue&type=template&id=473d435a&
-var defaultvue_type_template_id_473d435a_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{directives:[{name:"touch",rawName:"v-touch:swipe.left",value:(_vm.swipeLeft),expression:"swipeLeft",arg:"swipe",modifiers:{"left":true}},{name:"touch",rawName:"v-touch:swipe.right",value:(_vm.swipeRight),expression:"swipeRight",arg:"swipe",modifiers:{"right":true}}],staticClass:"page__wrapper"},[_vm._ssrNode("<div class=\"page__header\"></div> "),_vm._ssrNode("<div"+(_vm._ssrClass("page__main",{
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./layouts/default.vue?vue&type=template&id=d3fa567c&
+var defaultvue_type_template_id_d3fa567c_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{directives:[{name:"touch",rawName:"v-touch:swipe.left",value:(_vm.swipeLeft),expression:"swipeLeft",arg:"swipe",modifiers:{"left":true}},{name:"touch",rawName:"v-touch:swipe.right",value:(_vm.swipeRight),expression:"swipeRight",arg:"swipe",modifiers:{"right":true}}],staticClass:"page__wrapper"},[_vm._ssrNode("<div class=\"page__header\"></div> "),_vm._ssrNode("<div"+(_vm._ssrClass("page__main",{
       'page__main_state_pc-open': _vm.asidePcOpened,
       'page__main_state_mobile-open': _vm.asideMobileOpened,
     }))+">","</div>",[_c('nuxt'),_vm._ssrNode(" "),_vm._ssrNode("<aside"+(_vm._ssrClass("page__aside scrollbar",{
         'page__aside_state_mobile-open': _vm.asideMobileOpened,
         'page__aside_state_pc-open': _vm.asidePcOpened,
-      }))+">","</aside>",[_c('b-aside-panel')],1),_vm._ssrNode(" "),_vm._ssrNode("<div class=\"page__aside-button page__aside-button_type_mobile\">","</div>",[_c('svg-icon',{staticClass:"page__aside-icon",attrs:{"name":"menu"}})],1),_vm._ssrNode(" "),_vm._ssrNode("<div class=\"page__aside-footer\">","</div>",[_vm._ssrNode("<button class=\"page__aside-menu\">","</button>",[_c('svg-icon',{attrs:{"name":"menu_open"}})],1),_vm._ssrNode(" "),_c('b-aside-footer')],2)],2),_vm._ssrNode(" <div class=\"page__footer\"></div> "),_c('b-modal',{attrs:{"value":_vm.login,"title":"Вход"},on:{"input":_vm.setLogin}},[_c('b-login-modal')],1),_vm._ssrNode(" "),_c('b-modal',{attrs:{"value":_vm.register,"title":"Регистрация"},on:{"input":_vm.setRegister}},[_c('b-register-modal')],1)],2)}
-var defaultvue_type_template_id_473d435a_staticRenderFns = []
+      }))+">","</aside>",[_c('b-aside-panel')],1),_vm._ssrNode(" "),_vm._ssrNode("<div class=\"page__aside-button page__aside-button_type_mobile\">","</div>",[_c('svg-icon',{staticClass:"page__aside-icon",attrs:{"name":"menu"}})],1),_vm._ssrNode(" "),_vm._ssrNode("<div class=\"page__aside-footer\">","</div>",[_vm._ssrNode("<button class=\"page__aside-menu\">","</button>",[_c('svg-icon',{attrs:{"name":"menu_open"}})],1),_vm._ssrNode(" "),(_vm.$accessor.auth.loggedIn)?_c('b-aside-footer'):_vm._e()],2)],2),_vm._ssrNode(" <div class=\"page__footer\"></div> "),_c('b-modal',{attrs:{"value":_vm.login,"title":"Вход"},on:{"input":_vm.setLogin}},[_c('b-login-modal')],1),_vm._ssrNode(" "),_c('b-modal',{attrs:{"value":_vm.register,"title":"Регистрация"},on:{"input":_vm.setRegister}},[_c('b-register-modal')],1)],2)}
+var defaultvue_type_template_id_d3fa567c_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./layouts/default.vue?vue&type=template&id=473d435a&
+// CONCATENATED MODULE: ./layouts/default.vue?vue&type=template&id=d3fa567c&
 
 // EXTERNAL MODULE: ./assets/stylus/normalize.styl
 var normalize = __webpack_require__(91);
@@ -8198,8 +8203,8 @@ defaultvue_type_script_lang_ts_Default = defaultvue_type_script_lang_ts_decorate
 
 var default_component = normalizeComponent(
   layouts_defaultvue_type_script_lang_ts_,
-  defaultvue_type_template_id_473d435a_render,
-  defaultvue_type_template_id_473d435a_staticRenderFns,
+  defaultvue_type_template_id_d3fa567c_render,
+  defaultvue_type_template_id_d3fa567c_staticRenderFns,
   false,
   null,
   null,
