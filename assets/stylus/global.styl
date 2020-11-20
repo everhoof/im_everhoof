@@ -1,3 +1,5 @@
+$aside-width = 250px
+
 *,
 *:before,
 *:after
@@ -78,11 +80,19 @@ ul
 		overflow hidden
 		flex-grow 1
 
+		&_state
+			&_mobile-open
+				& ^[0]__aside-footer
+					right 0
+
+					+above(size-m)
+						right 'calc(-%s + 40px)' % $aside-width
+
 		+above(size-m)
 			&_state
-				&_open
+				&_pc-open
 					& ^[0]__chat
-						margin-right 254px
+						margin-right 'calc(%s + 4px)' % $aside-width
 
 					& ^[0]__footer
 						margin-right -4px
@@ -114,11 +124,11 @@ ul
 	&__aside
 		position absolute
 		top 0
-		right -250px
+		right -($aside-width)
 		bottom 0
 		overflow hidden auto
 		flex-shrink 0
-		width 250px
+		width $aside-width
 		defaultTransition()
 
 		&_state
@@ -126,11 +136,11 @@ ul
 				right 0
 
 				+above(size-m)
-					right -250px
+					right -$aside-width
 
 				& +
 					& ^[0]__aside-button
-						right 232px
+						right $aside-width
 
 			&_pc-open
 				+above(size-m)
@@ -160,18 +170,23 @@ ul
 
 	&__aside-footer
 		position absolute
-		right -250px
+		right -($aside-width)
 		bottom 0
-		width 250px
+		display flex
+		width $aside-width
 		height 52px
-		padding 10px 4px
+		padding 4px
 		background-color var(--primary-background)
 		defaultTransition(right)
 
 		+above(size-m)
-			right -210px
+			right 'calc(-%s + 40px)' % $aside-width
+			padding 4px 4px 4px 50px
 
 	&__aside-menu
+		position absolute
+		top 10px
+		left 4px
 		display none
 		width 32px
 		height 32px

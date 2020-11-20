@@ -41,12 +41,13 @@ export const getters = getterTree(state, {});
 export const actions = actionTree(
   { state, mutations, getters },
   {
-    nuxtServerInit({ commit }, { app }: Context) {
-      const id = app.$cookies.get('user_id');
-      const token = app.$cookies.get('token');
+    async nuxtServerInit({ commit, dispatch }, context: Context) {
+      const id = context.app.$cookies.get('user_id');
+      const token = context.app.$cookies.get('token');
 
       if (id) commit('SET_USER_ID', parseInt(id, 10));
       if (token) commit('SET_LOGGED_IN', true);
+      await dispatch('getCurrentUser', context);
     },
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars

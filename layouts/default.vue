@@ -1,7 +1,13 @@
 <template>
   <div v-touch:swipe.left="swipeLeft" v-touch:swipe.right="swipeRight" class="page__wrapper">
     <div class="page__header" />
-    <div class="page__main" :class="{ page__main_state_open: asidePcOpened }">
+    <div
+      class="page__main"
+      :class="{
+        'page__main_state_pc-open': asidePcOpened,
+        'page__main_state_mobile-open': asideMobileOpened,
+      }"
+    >
       <nuxt />
       <aside
         class="page__aside scrollbar"
@@ -22,6 +28,7 @@
         <button class="page__aside-menu" @click="setAsidePcOpened(!asidePcOpened)">
           <svg-icon name="menu_open" />
         </button>
+        <b-aside-footer />
       </div>
     </div>
     <div class="page__footer"></div>
@@ -45,9 +52,11 @@ import BAsidePanel from '~/components/aside-panel/aside-panel.vue';
 import BModal from '~/components/modal/modal.vue';
 import BLoginModal from '~/components/login-modal/login-modal.vue';
 import BRegisterModal from '~/components/register-modal/register-modal.vue';
+import BButton from '~/components/button/button.vue';
+import BAsideFooter from '~/components/aside-footer/aside-footer.vue';
 
 @Component({
-  components: { BRegisterModal, BModal, BLoginModal, BAsidePanel, BFooter },
+  components: { BAsideFooter, BButton, BRegisterModal, BModal, BLoginModal, BAsidePanel, BFooter },
 })
 export default class Default extends Vue {
   asideMobileOpened: boolean = false;

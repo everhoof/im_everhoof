@@ -1,5 +1,5 @@
 export type Maybe<T> = T | null;
-export type Exact<T extends { [key: string]: any }> = { [K in keyof T]: T[K] };
+export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -9,6 +9,61 @@ export type Scalars = {
   Float: number;
   /** A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format. */
   DateTime: any;
+};
+
+export type Query = {
+  __typename?: 'Query';
+  getCurrentUser: User;
+  getOnline: Array<User>;
+  getHello: Scalars['String'];
+  getPictureById: Picture;
+  getMessages: Array<Message>;
+};
+
+export type QueryGetPictureByIdArgs = {
+  pictureId: Scalars['Int'];
+};
+
+export type QueryGetMessagesArgs = {
+  count?: Maybe<Scalars['Int']>;
+  page?: Maybe<Scalars['Int']>;
+};
+
+export type User = {
+  __typename?: 'User';
+  id: Scalars['Int'];
+  email: Scalars['String'];
+  username?: Maybe<Scalars['String']>;
+  avatarId?: Maybe<Scalars['String']>;
+  wasOnlineAt?: Maybe<Scalars['DateTime']>;
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
+  avatar?: Maybe<Picture>;
+};
+
+export type Picture = {
+  __typename?: 'Picture';
+  id: Scalars['Int'];
+  ownerId?: Maybe<Scalars['Int']>;
+  sId: Scalars['Int'];
+  mId: Scalars['Int'];
+  oId: Scalars['Int'];
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
+  owner: User;
+  s: PictureRepresentation;
+  m: PictureRepresentation;
+  o: PictureRepresentation;
+};
+
+export type PictureRepresentation = {
+  __typename?: 'PictureRepresentation';
+  id: Scalars['Int'];
+  height: Scalars['Float'];
+  width: Scalars['Float'];
+  size: Scalars['Float'];
+  path: Scalars['String'];
+  link: Scalars['String'];
 };
 
 export type Message = {
@@ -46,55 +101,6 @@ export type MutationCreateMessageArgs = {
   pictures?: Maybe<Array<Scalars['Int']>>;
 };
 
-export type Picture = {
-  __typename?: 'Picture';
-  id: Scalars['Int'];
-  ownerId?: Maybe<Scalars['Int']>;
-  sId: Scalars['Int'];
-  mId: Scalars['Int'];
-  oId: Scalars['Int'];
-  createdAt: Scalars['DateTime'];
-  updatedAt: Scalars['DateTime'];
-  owner: User;
-  s: PictureRepresentation;
-  m: PictureRepresentation;
-  o: PictureRepresentation;
-};
-
-export type PictureRepresentation = {
-  __typename?: 'PictureRepresentation';
-  id: Scalars['Int'];
-  height: Scalars['Float'];
-  width: Scalars['Float'];
-  size: Scalars['Float'];
-  path: Scalars['String'];
-  link: Scalars['String'];
-};
-
-export type Query = {
-  __typename?: 'Query';
-  getCurrentUser: User;
-  getOnline: Array<User>;
-  getHello: Scalars['String'];
-  getPictureById: Picture;
-  getMessages: Array<Message>;
-};
-
-export type QueryGetPictureByIdArgs = {
-  pictureId: Scalars['Int'];
-};
-
-export type QueryGetMessagesArgs = {
-  count?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
-};
-
-export type Subscription = {
-  __typename?: 'Subscription';
-  onlineUpdated: Array<User>;
-  messageCreated: Message;
-};
-
 export type Token = {
   __typename?: 'Token';
   id: Scalars['Int'];
@@ -105,16 +111,10 @@ export type Token = {
   usedAt?: Maybe<Scalars['DateTime']>;
 };
 
-export type User = {
-  __typename?: 'User';
-  id: Scalars['Int'];
-  email: Scalars['String'];
-  username?: Maybe<Scalars['String']>;
-  avatarId?: Maybe<Scalars['String']>;
-  wasOnlineAt?: Maybe<Scalars['DateTime']>;
-  createdAt: Scalars['DateTime'];
-  updatedAt: Scalars['DateTime'];
-  avatar?: Maybe<Picture>;
+export type Subscription = {
+  __typename?: 'Subscription';
+  onlineUpdated: Array<User>;
+  messageCreated: Message;
 };
 
 export type CreateMessageMutationVariables = Exact<{
@@ -192,6 +192,10 @@ export type GetCurrentUserQuery = { __typename?: 'Query' } & {
   getCurrentUser: { __typename?: 'User' } & Pick<User, 'id' | 'username' | 'email' | 'createdAt'> & {
       avatar?: Maybe<
         { __typename?: 'Picture' } & Pick<Picture, 'id'> & {
+            s: { __typename?: 'PictureRepresentation' } & Pick<
+              PictureRepresentation,
+              'height' | 'width' | 'link' | 'size'
+            >;
             m: { __typename?: 'PictureRepresentation' } & Pick<
               PictureRepresentation,
               'height' | 'width' | 'link' | 'size'

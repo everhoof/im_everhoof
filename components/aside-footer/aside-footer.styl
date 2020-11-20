@@ -1,0 +1,47 @@
+.aside-footer
+	display block
+	width 100%
+
+	&__profile
+		display flex
+		align-items center
+		flex-direction row-reverse
+		padding 5px 10px
+		cursor pointer
+		user-select none
+		border-radius 5px
+		defaultTransition()
+
+		&:hover
+			background-color var(--gray_700)
+
+		&:active
+			background-color var(--gray_600)
+
+		&:last-child
+			margin-bottom 0
+
+	&__avatar
+		flex-shrink 0
+		width 34px
+		height 34px
+		border-radius 50%
+		object-fit cover
+
+		&_type
+			&_default
+				font-size 18px
+				line-height 34px
+				text-align center
+				text-transform uppercase
+				background rgba(255, 255, 255, .1)
+				border-radius 50%
+
+	&__username
+		overflow hidden
+		margin-right 10px
+		font-size 14px
+		font-weight normal
+		line-height 20px
+		white-space nowrap
+		text-overflow ellipsis

@@ -5,6 +5,12 @@ query GetCurrentUser {
     email
     avatar {
       id
+      s {
+        height
+        width
+        link
+        size
+      }
       m {
         height
         width
