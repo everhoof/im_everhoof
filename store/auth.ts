@@ -96,7 +96,9 @@ export const actions = actionTree(
     async logout({ commit }): Promise<void> {
       await this.app.$apolloHelpers.onLogout(undefined);
       commit('SET_LOGGED_IN', false);
-      await this.$router.push({ name: 'main' });
+      if (this.$router.currentRoute.name !== 'main') {
+        await this.$router.push({ name: 'main' });
+      }
     },
 
     async getCurrentUser({ commit }, context?: Context) {

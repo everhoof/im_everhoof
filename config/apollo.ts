@@ -14,11 +14,13 @@ export default function (ctx: Context) {
 
     if (graphQLErrors) {
       graphQLErrors.forEach((error: any) => {
-        const statusCode = error.message?.statusCode;
+        const response = graphQLErrors && graphQLErrors[0] && graphQLErrors[0].extensions?.exception.response;
+        if (!response) return;
+        const statusCode = response.statusCode;
         if (!statusCode || statusCode !== 401) return;
         const isLoginPath = Array.isArray(error.path) && error.path.find((p: string) => p === 'login');
         if (isLoginPath) return;
-        ctx.redirect('/logout');
+        ctx.app.$accessor.auth.logout();
       });
     }
   });
