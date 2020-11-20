@@ -27,6 +27,7 @@
       </div>
       <input
         v-model="text"
+        name="message"
         type="text"
         class="footer__input"
         placeholder="Введите сообщение"
