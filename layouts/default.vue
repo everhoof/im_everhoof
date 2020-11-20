@@ -28,7 +28,7 @@
         <button class="page__aside-menu" @click="setAsidePcOpened(!asidePcOpened)">
           <svg-icon name="menu_open" />
         </button>
-        <b-aside-footer />
+        <b-aside-footer v-if="$accessor.auth.loggedIn" />
       </div>
     </div>
     <div class="page__footer"></div>
