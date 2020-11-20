@@ -6,7 +6,8 @@
         <b-text-field
           id="register_email"
           v-model="email"
-          placeholder="Email"
+          name="email"
+          placeholder="E-mail"
           width-full
           @keydown.enter="usernameInput.focus()"
         />
@@ -16,7 +17,8 @@
           id="register_username"
           ref="usernameInput"
           v-model="username"
-          placeholder="Username"
+          name="username"
+          placeholder="Логин"
           width-full
           @keydown.enter="passwordInput.focus()"
         />
@@ -26,15 +28,16 @@
           id="register_password"
           ref="passwordInput"
           v-model="password"
-          placeholder="Password"
+          name="password"
+          placeholder="Пароль"
           width-full
           type="password"
           @keydown.enter="signUp()"
         />
       </div>
       <div class="form__row register-modal__buttons">
-        <b-button class="register-modal__button" large @click="signIn()">Login In</b-button>
-        <b-button class="register-modal__button" large @click="signUp()">Register</b-button>
+        <b-button class="register-modal__button" large @click="signIn()">Вход</b-button>
+        <b-button class="register-modal__button" large @click="signUp()">Зарегистрироваться</b-button>
       </div>
     </b-form>
   </div>

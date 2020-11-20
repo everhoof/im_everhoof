@@ -6,7 +6,8 @@
         <b-text-field
           id="login_username"
           v-model="username"
-          placeholder="Username"
+          name="username"
+          placeholder="Логин"
           width-full
           @keydown.enter="passwordInput.focus()"
         />
@@ -16,18 +17,19 @@
           id="login_password"
           ref="passwordInput"
           v-model="password"
-          placeholder="Password"
+          name="password"
+          placeholder="Пароль"
           width-full
           type="password"
           @keydown.enter="signIn()"
         />
       </div>
-      <div class="form__row form__row_align_center">
-        <a href="#" class="login-modal__link">Forgot password</a>
-      </div>
+      <!--      <div class="form__row form__row_align_center">-->
+      <!--        <a href="#" class="login-modal__link">Forgot password</a>-->
+      <!--      </div>-->
       <div class="form__row login-modal__buttons">
-        <b-button class="login-modal__button" large @click="signIn()">Login In</b-button>
-        <b-button class="login-modal__button" large @click="signUp()">Register</b-button>
+        <b-button class="login-modal__button" large @click="signIn()">Войти</b-button>
+        <b-button class="login-modal__button" large @click="signUp()">Регистрация</b-button>
       </div>
     </b-form>
   </div>

@@ -25,10 +25,10 @@
       </div>
     </div>
     <div class="page__footer"></div>
-    <b-modal :value="login" title="Login" @input="setLogin">
+    <b-modal :value="login" title="Вход" @input="setLogin">
       <b-login-modal />
     </b-modal>
-    <b-modal :value="register" title="Register" @input="setRegister">
+    <b-modal :value="register" title="Регистрация" @input="setRegister">
       <b-register-modal />
     </b-modal>
   </div>
