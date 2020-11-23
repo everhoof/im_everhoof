@@ -28,6 +28,7 @@
       <input
         v-model="text"
         name="message"
+        autocomplete="off"
         type="text"
         class="footer__input"
         placeholder="Введите сообщение"

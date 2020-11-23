@@ -17,7 +17,7 @@
         }}</time>
       </div>
       <div class="message__body">
-        <span class="message__text">{{ message }}</span>
+        <span class="message__text" v-html="text" />
         <img
           v-for="picture in pictures"
           :key="picture.id"
@@ -49,6 +49,13 @@ export default class Message extends Vue {
   @Prop({ type: Object }) owner?: User;
   @Prop({ type: String }) username!: string;
   @Prop({ type: String }) timestamp!: string;
+
+  get text() {
+    return this.message.replace(
+      /(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*))/g,
+      '<a href="$1" target="_blank">$1</a>',
+    );
+  }
 
   get avatar() {
     return this.owner?.avatar?.s.link;
