@@ -1,5 +1,6 @@
 import { actionTree, getterTree, mutationTree } from 'typed-vuex';
 import { Context } from '@nuxt/types';
+import Vue from 'vue';
 import MessageCreated from '~/graphql/subscriptions/message-created.graphql';
 import OnlineUpdated from '~/graphql/subscriptions/online-updated.graphql';
 import UpdateOnlineStatus from '~/graphql/mutations/update-online-status.graphql';
@@ -24,8 +25,9 @@ export type ChatState = ReturnType<typeof state>;
 export const mutations = mutationTree(state, {
   SET_MESSAGES: (_state, payload: GetChatDataQuery['getMessages']) => (_state.messages = payload),
   ADD_MESSAGE: (_state, payload: MessageCreatedSubscription['messageCreated']) => {
-    const index = _state.messages.findIndex(({ id }) => id === payload.id);
+    const index = _state.messages.findIndex(({ randomId }) => randomId === payload.randomId);
     if (index === -1) _state.messages.push(payload);
+    else Vue.set(_state.messages, index, payload);
   },
   SET_ONLINE: (_state, payload: GetChatDataQuery['getOnline']) => (_state.online = payload),
   SET_ASIDE_PC_OPENED: (_state, payload: boolean) => (_state.asidePcOpened = payload),

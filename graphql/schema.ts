@@ -69,6 +69,8 @@ export type PictureRepresentation = {
 export type Message = {
   __typename?: 'Message';
   id: Scalars['Int'];
+  ownerId?: Maybe<Scalars['Float']>;
+  randomId?: Maybe<Scalars['String']>;
   content: Scalars['String'];
   username?: Maybe<Scalars['String']>;
   createdAt: Scalars['DateTime'];
@@ -98,6 +100,7 @@ export type MutationSignUpArgs = {
 
 export type MutationCreateMessageArgs = {
   content?: Maybe<Scalars['String']>;
+  randomId?: Maybe<Scalars['String']>;
   pictures?: Maybe<Array<Scalars['Int']>>;
 };
 
@@ -119,6 +122,7 @@ export type Subscription = {
 
 export type CreateMessageMutationVariables = Exact<{
   content?: Maybe<Scalars['String']>;
+  randomId?: Maybe<Scalars['String']>;
   pictures?: Maybe<Array<Scalars['Int']>>;
 }>;
 
@@ -153,7 +157,10 @@ export type GetChatDataQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetChatDataQuery = { __typename?: 'Query' } & {
   getMessages: Array<
-    { __typename?: 'Message' } & Pick<Message, 'id' | 'content' | 'username' | 'createdAt' | 'updatedAt'> & {
+    { __typename?: 'Message' } & Pick<
+      Message,
+      'id' | 'randomId' | 'content' | 'username' | 'createdAt' | 'updatedAt'
+    > & {
         owner: { __typename?: 'User' } & Pick<User, 'id' | 'username'> & {
             avatar?: Maybe<
               { __typename?: 'Picture' } & {
@@ -214,7 +221,7 @@ export type MessageCreatedSubscriptionVariables = Exact<{ [key: string]: never }
 export type MessageCreatedSubscription = { __typename?: 'Subscription' } & {
   messageCreated: { __typename?: 'Message' } & Pick<
     Message,
-    'id' | 'content' | 'username' | 'createdAt' | 'updatedAt'
+    'id' | 'randomId' | 'content' | 'username' | 'createdAt' | 'updatedAt'
   > & {
       owner: { __typename?: 'User' } & Pick<User, 'id' | 'username'> & {
           avatar?: Maybe<

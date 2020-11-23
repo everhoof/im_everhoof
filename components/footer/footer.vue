@@ -43,12 +43,13 @@
 
 <script lang="ts">
 import { Component, Ref, Vue } from 'nuxt-property-decorator';
-import { getRandomIntInRange } from '~/tools/util';
+import { DateTime } from 'luxon';
+import { getRandomIntInRange, getRandomString } from '~/tools/util';
 import BEmojiPanel from '~/components/emoji-panel/emoji-panel.vue';
 import BAttachPanel from '~/components/attach-panel/attach-panel.vue';
 import BButton from '~/components/button/button.vue';
 import CreateMessage from '~/graphql/mutations/create-message.graphql';
-import { CreateMessageMutation, CreateMessageMutationVariables } from '~/graphql/schema';
+import { CreateMessageMutation, CreateMessageMutationVariables, User } from '~/graphql/schema';
 
 @Component({
   name: 'b-footer',
@@ -102,13 +103,27 @@ export default class Footer extends Vue {
   }
 
   async createMessage() {
+    if (!this.text.trim()) return;
+    const randomId = getRandomString(32);
+    this.$accessor.chat.ADD_MESSAGE({
+      id: getRandomIntInRange(0, 10000),
+      content: this.text,
+      randomId,
+      username: this.$accessor.auth.user?.username,
+      owner: this.$accessor.auth.user as User,
+      createdAt: DateTime.local().toISO(),
+      updatedAt: DateTime.local().toISO(),
+      pictures: [],
+    });
+    const content = this.text;
+    this.text = '';
     await this.$apollo.mutate<CreateMessageMutation, CreateMessageMutationVariables>({
       mutation: CreateMessage,
       variables: {
-        content: this.text,
+        content,
+        randomId,
       },
     });
-    this.text = '';
   }
 }
 </script>

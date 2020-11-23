@@ -1,6 +1,7 @@
 query GetChatData {
   getMessages {
     id
+    randomId
     owner {
       id
       username

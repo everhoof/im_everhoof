@@ -1,6 +1,7 @@
 subscription MessageCreated {
   messageCreated {
     id
+    randomId
     owner {
       id
       username

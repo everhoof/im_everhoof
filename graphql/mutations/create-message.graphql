@@ -1,5 +1,5 @@
-mutation CreateMessage($content: String, $pictures: [Int!]) {
-  createMessage(content: $content, pictures: $pictures) {
+mutation CreateMessage($content: String, $randomId: String, $pictures: [Int!]) {
+  createMessage(content: $content, randomId: $randomId, pictures: $pictures) {
     id
   }
 }

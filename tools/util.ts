@@ -3,6 +3,13 @@ export function getRandomIntInRange(min: number, max: number): number {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+export function getRandomString(length = 64): string {
+  return Array(length)
+    .fill(null)
+    .map(() => Math.floor(Math.random() * 16).toString(16))
+    .join('');
+}
+
 export function getUserColor(id?: number) {
   const colors = [
     '#EF5350',
