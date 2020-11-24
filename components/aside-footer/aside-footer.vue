@@ -43,8 +43,8 @@ export default class AsideFooter extends Vue {
   dropdown: boolean = false;
 
   mounted() {
-    document.addEventListener('click', (event) => {
-      if (!this.dropdownEl.contains(event.target)) {
+    document.addEventListener('click', (event: MouseEvent) => {
+      if (!this.dropdownEl.contains(event.target as Node)) {
         this.dropdown = false;
       }
     });
