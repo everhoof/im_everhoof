@@ -4,13 +4,13 @@
     <b-upload-file />
     <div class="chat__messages">
       <b-message
-        v-for="message in messages"
-        :key="message.id"
-        :message="message.content"
-        :owner="message.owner"
-        :timestamp="message.createdAt"
-        :username="message.username"
-        :pictures="message.pictures"
+        v-for="i in messages.length"
+        :key="messages[messages.length - i].id"
+        :message="messages[messages.length - i].content"
+        :owner="messages[messages.length - i].owner"
+        :timestamp="messages[messages.length - i].createdAt"
+        :username="messages[messages.length - i].username"
+        :pictures="messages[messages.length - i].pictures"
       />
     </div>
   </div>

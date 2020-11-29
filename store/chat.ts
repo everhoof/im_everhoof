@@ -26,7 +26,8 @@ export const mutations = mutationTree(state, {
   SET_MESSAGES: (_state, payload: GetChatDataQuery['getMessages']) => (_state.messages = payload),
   ADD_MESSAGE: (_state, payload: MessageCreatedSubscription['messageCreated']) => {
     const index = _state.messages.findIndex(({ randomId }) => randomId === payload.randomId);
-    if (index === -1) _state.messages.push(payload);
+    if (index === -1) _state.messages.unshift(payload);
+    if (_state.messages.length > 300) _state.messages.splice(-1);
     else Vue.set(_state.messages, index, payload);
   },
   SET_ONLINE: (_state, payload: GetChatDataQuery['getOnline']) => (_state.online = payload),
