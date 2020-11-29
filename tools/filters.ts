@@ -25,13 +25,9 @@ export function toLocalDateTime(iso: string, compact: boolean = false) {
   }
 
   if (currentDate.minus({ days: 1 }).startOf('day').toSeconds() === date.startOf('day').toSeconds()) {
-    if (compact) return date.setLocale('ru').toLocaleString(DateTime.DATE_SHORT);
+    if (compact) return date.setLocale('ru').toFormat('dd.LL.yyyy HH:mm');
     return date.setLocale('ru').toFormat('Вчера, в HH:mm');
   }
 
-  return (
-    date.setLocale('ru').toLocaleString(DateTime.DATE_SHORT) +
-    ' ' +
-    date.setLocale('ru').toLocaleString(DateTime.TIME_24_SIMPLE)
-  );
+  return date.setLocale('ru').toFormat('dd.LL.yyyy HH:mm');
 }
