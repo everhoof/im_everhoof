@@ -1,6 +1,6 @@
 <template>
   <!-- begin .message-->
-  <div class="message">
+  <div class="message" :class="{ message_view_compact: compact }">
     <img v-if="avatar" :src="avatar" class="message__avatar" />
     <div
       v-else
@@ -21,7 +21,7 @@
         <img
           v-for="picture in pictures"
           :key="picture.id"
-          :src="picture.m.link"
+          :src="picture.o.link"
           class="message__image"
           :width="picture.m.width"
           :height="picture.m.height"
@@ -57,6 +57,10 @@ export default class Message extends Vue {
     );
   }
 
+  get compact() {
+    return true;
+  }
+
   get avatar() {
     return this.owner?.avatar?.s.link;
   }
@@ -66,7 +70,7 @@ export default class Message extends Vue {
   }
 
   get localDateTime(): string {
-    return toLocalDateTime(this.timestamp);
+    return toLocalDateTime(this.timestamp, this.compact);
   }
 
   get localDateTimeFull(): string {

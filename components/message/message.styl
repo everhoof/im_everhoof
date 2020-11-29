@@ -10,6 +10,33 @@
 	&:hover
 		background-color var(--secondary-background)
 
+	&_view
+		&_compact
+			min-height unset
+			padding 2px 50px 2px 16px
+
+			& ^[0]
+				&__content
+					display flex
+
+				&__header
+					display flex
+					margin-right 8px
+
+				&__timestamp
+					margin-right 8px
+					margin-left 0
+					order -1
+
+				&__body
+					flex-shrink 1
+
+				&__text
+					margin-bottom 0
+
+				&__avatar
+					display none
+
 	&__avatar
 		position absolute
 		top 10px
@@ -55,6 +82,7 @@
 		margin-left 8px
 		color var(--gray_600)
 		font-size 11px
+		white-space nowrap
 		cursor default
 
 	&__text

@@ -15,17 +15,23 @@ export function toHHMMSS(time: string | number) {
   return `${hours ? `${hours}:` : ''}${minutes}:${seconds}`;
 }
 
-export function toLocalDateTime(iso: string) {
+export function toLocalDateTime(iso: string, compact: boolean = false) {
   const date = DateTime.fromISO(iso);
   const currentDate = DateTime.local();
 
   if (currentDate.startOf('day').toSeconds() === date.startOf('day').toSeconds()) {
+    if (compact) return date.setLocale('ru').toFormat('HH:mm');
     return date.setLocale('ru').toFormat('Сегодня, в HH:mm');
   }
 
   if (currentDate.minus({ days: 1 }).startOf('day').toSeconds() === date.startOf('day').toSeconds()) {
+    if (compact) return date.setLocale('ru').toLocaleString(DateTime.DATE_MED);
     return date.setLocale('ru').toFormat('Вчера, в HH:mm');
   }
 
-  return date.setLocale('ru').toLocaleString(DateTime.DATE_MED);
+  return (
+    date.setLocale('ru').toLocaleString(DateTime.DATE_SHORT) +
+    ' ' +
+    date.setLocale('ru').toLocaleString(DateTime.TIME_24_SIMPLE)
+  );
 }
