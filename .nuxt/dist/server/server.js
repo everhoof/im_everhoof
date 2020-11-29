@@ -6129,7 +6129,7 @@ function toLocalDateTime(iso, compact = false) {
   if (currentDate.minus({
     days: 1
   }).startOf('day').toSeconds() === date.startOf('day').toSeconds()) {
-    if (compact) return date.setLocale('ru').toLocaleString(external_luxon_["DateTime"].DATE_MED);
+    if (compact) return date.setLocale('ru').toLocaleString(external_luxon_["DateTime"].DATE_SHORT);
     return date.setLocale('ru').toFormat('Вчера, в HH:mm');
   }
 
