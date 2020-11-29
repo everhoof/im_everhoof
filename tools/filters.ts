@@ -25,7 +25,7 @@ export function toLocalDateTime(iso: string, compact: boolean = false) {
   }
 
   if (currentDate.minus({ days: 1 }).startOf('day').toSeconds() === date.startOf('day').toSeconds()) {
-    if (compact) return date.setLocale('ru').toLocaleString(DateTime.DATE_MED);
+    if (compact) return date.setLocale('ru').toLocaleString(DateTime.DATE_SHORT);
     return date.setLocale('ru').toFormat('Вчера, в HH:mm');
   }
 
