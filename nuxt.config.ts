@@ -1,5 +1,4 @@
 export default {
-  mode: 'universal',
   server: {
     port: 3000,
     host: '0.0.0.0',
@@ -8,14 +7,14 @@ export default {
    ** Headers of the page
    */
   head: {
-    title: process.env.npm_package_name || '',
+    title: 'Чат - Everhoof Radio',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       {
         hid: 'description',
         name: 'description',
-        content: process.env.npm_package_description || '',
+        content: 'Чат интернет-радиостанции Everhoof Radio',
       },
     ],
     link: [
@@ -28,7 +27,7 @@ export default {
       },
     ],
     htmlAttrs: {
-      class: ['page page_theme_dark'],
+      class: ['page page_theme_light'],
     },
     bodyAttrs: {
       class: ['page__body grid grid_type_default'],

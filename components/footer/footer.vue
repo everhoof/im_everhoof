@@ -7,7 +7,7 @@
     <div v-show="attachPanelActive" ref="attachPanel" class="footer__attach-panel">
       <b-attach-panel />
     </div>
-    <b-button v-show="!loggedIn" @click="openLoginModal()"> Войти в чат </b-button>
+    <b-button v-show="!loggedIn" class="button_size_compact" @click="openLoginModal()">Войти в чат</b-button>
     <div v-show="loggedIn" class="footer__input-field">
       <div v-show="false" class="footer__actions-left">
         <div

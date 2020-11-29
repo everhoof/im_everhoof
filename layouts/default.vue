@@ -31,7 +31,6 @@
         <b-aside-footer v-if="$accessor.auth.loggedIn" />
       </div>
     </div>
-    <div class="page__footer"></div>
     <b-modal :value="login" title="Вход" @input="setLogin">
       <b-login-modal />
     </b-modal>
