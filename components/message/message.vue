@@ -1,6 +1,9 @@
 <template>
   <!-- begin .message-->
   <div class="message" :class="{ message_view_compact: compact }">
+    <div v-show="separator" class="message__separator">
+      <span class="message__separator-date">{{ date }}</span>
+    </div>
     <img v-if="avatar" :src="avatar" class="message__avatar" />
     <div
       v-else
@@ -10,11 +13,21 @@
       {{ username[0] }}
     </div>
     <div class="message__content">
-      <div class="message__header">
-        <router-link to="/" class="message__author-name link_no_styles">{{ username }}</router-link>
-        <time class="message__timestamp" :datetime="timestamp" :title="localDateTimeFull">{{
-          localDateTime
-        }}</time>
+      <div v-if="compact" class="message__header">
+        <time class="message__timestamp" :datetime="timestamp" :title="localDateTimeFull">
+          {{ localDateTime }}
+        </time>
+        <router-link to="/" class="message__author-name link_no_styles" :style="{ color: avatarColor }">
+          {{ username + ':' }}
+        </router-link>
+      </div>
+      <div v-else class="message__header">
+        <router-link to="/" class="message__author-name link_no_styles">
+          {{ username }}
+        </router-link>
+        <time class="message__timestamp" :datetime="timestamp" :title="localDateTimeFull">
+          {{ localDateTime }}
+        </time>
       </div>
       <div class="message__body">
         <span class="message__text" v-html="text" />
@@ -49,6 +62,7 @@ export default class Message extends Vue {
   @Prop({ type: Object }) owner?: User;
   @Prop({ type: String }) username!: string;
   @Prop({ type: String }) timestamp!: string;
+  @Prop({ required: false, type: Boolean, default: false }) separator!: boolean;
 
   get text() {
     return this.message.replace(
@@ -73,8 +87,12 @@ export default class Message extends Vue {
     return toLocalDateTime(this.timestamp, this.compact);
   }
 
+  get date(): string {
+    return DateTime.fromISO(this.timestamp).toFormat('dd LLLL yyyy');
+  }
+
   get localDateTimeFull(): string {
-    return DateTime.fromISO(this.timestamp).toFormat('cccc, dd LLLL yyyy г., HH:mm ');
+    return DateTime.fromISO(this.timestamp).toFormat('cccc, dd LLLL yyyy г., HH:mm');
   }
 
   openPicture(picture: Picture) {
