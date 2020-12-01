@@ -6092,12 +6092,12 @@ var upload_file_component = normalizeComponent(
 )
 
 /* harmony default export */ var upload_file = (upload_file_component.exports);
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./components/message/message.vue?vue&type=template&id=76feddd1&
-var messagevue_type_template_id_76feddd1_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"message",class:{ message_view_compact: _vm.compact }},[_vm._ssrNode(((_vm.separator)?("<div class=\"message__separator\"><span class=\"message__separator-date\">"+_vm._ssrEscape(_vm._s(_vm.date))+"</span></div>"):"<!---->")+" "+((_vm.avatar)?("<img"+(_vm._ssrAttr("src",_vm.avatar))+" class=\"message__avatar\">"):("<div class=\"message__avatar message__avatar_type_default\""+(_vm._ssrStyle(null,{ backgroundColor: _vm.avatarColor }, null))+">"+_vm._ssrEscape("\n    "+_vm._s(_vm.username[0])+"\n  ")+"</div>"))+" "),_vm._ssrNode("<div class=\"message__content\">","</div>",[_vm._ssrNode("<div class=\"message__header\">","</div>",[(_vm.compact)?_c('router-link',{staticClass:"message__author-name link_no_styles",style:({ color: _vm.avatarColor }),attrs:{"to":"/"}},[_vm._v("\n        "+_vm._s(_vm.username + ':')+"\n      ")]):_c('router-link',{staticClass:"message__author-name link_no_styles",attrs:{"to":"/"}},[_vm._v("\n        "+_vm._s(_vm.username)+"\n      ")]),_vm._ssrNode(" <time"+(_vm._ssrAttr("datetime",_vm.timestamp))+(_vm._ssrAttr("title",_vm.localDateTimeFull))+" class=\"message__timestamp\">"+_vm._ssrEscape("\n        "+_vm._s(_vm.localDateTime)+"\n      ")+"</time>")],2),_vm._ssrNode(" <div class=\"message__body\"><span class=\"message__text\">"+(_vm._s(_vm.text))+"</span> "+(_vm._ssrList((_vm.pictures),function(picture){return ("<img"+(_vm._ssrAttr("src",picture.o.link))+(_vm._ssrAttr("width",picture.m.width))+(_vm._ssrAttr("height",picture.m.height))+" class=\"message__image\">")}))+"</div>")],2)],2)}
-var messagevue_type_template_id_76feddd1_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./components/message/message.vue?vue&type=template&id=b4f44040&
+var messagevue_type_template_id_b4f44040_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"message",class:{ message_view_compact: _vm.compact }},[_vm._ssrNode(((_vm.separator)?("<div class=\"message__separator\"><span class=\"message__separator-date\">"+_vm._ssrEscape(_vm._s(_vm.date))+"</span></div>"):"<!---->")+" "+((_vm.avatar)?("<img"+(_vm._ssrAttr("src",_vm.avatar))+" class=\"message__avatar\">"):("<div class=\"message__avatar message__avatar_type_default\""+(_vm._ssrStyle(null,{ backgroundColor: _vm.avatarColor }, null))+">"+_vm._ssrEscape("\n    "+_vm._s(_vm.username[0])+"\n  ")+"</div>"))+" "),_vm._ssrNode("<div class=\"message__content\">","</div>",[(_vm.compact)?_vm._ssrNode("<div class=\"message__header\">","</div>",[_c('router-link',{staticClass:"message__author-name link_no_styles",style:({ color: _vm.avatarColor }),attrs:{"to":"/"}},[_vm._v("\n        "+_vm._s(_vm.username + ':')+"\n      ")]),_vm._ssrNode(" <time"+(_vm._ssrAttr("datetime",_vm.timestamp))+(_vm._ssrAttr("title",_vm.localDateTimeFull))+" class=\"message__timestamp\">"+_vm._ssrEscape("\n        "+_vm._s(_vm.localDateTime)+"\n      ")+"</time>")],2):_vm._ssrNode("<div class=\"message__header\">","</div>",[_c('router-link',{staticClass:"message__author-name link_no_styles",attrs:{"to":"/"}},[_vm._v("\n        "+_vm._s(_vm.username)+"\n      ")]),_vm._ssrNode(" <time"+(_vm._ssrAttr("datetime",_vm.timestamp))+(_vm._ssrAttr("title",_vm.localDateTimeFull))+" class=\"message__timestamp\">"+_vm._ssrEscape("\n        "+_vm._s(_vm.localDateTime)+"\n      ")+"</time>")],2),_vm._ssrNode(" <div class=\"message__body\"><span class=\"message__text\">"+(_vm._s(_vm.text))+"</span> "+(_vm._ssrList((_vm.pictures),function(picture){return ("<img"+(_vm._ssrAttr("src",picture.o.link))+(_vm._ssrAttr("width",picture.m.width))+(_vm._ssrAttr("height",picture.m.height))+" class=\"message__image\">")}))+"</div>")],2)],2)}
+var messagevue_type_template_id_b4f44040_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./components/message/message.vue?vue&type=template&id=76feddd1&
+// CONCATENATED MODULE: ./components/message/message.vue?vue&type=template&id=b4f44040&
 
 // CONCATENATED MODULE: ./tools/filters.ts
 
@@ -6266,8 +6266,8 @@ if (style0.__inject__) style0.__inject__(context)
 
 var message_component = normalizeComponent(
   message_messagevue_type_script_lang_ts_,
-  messagevue_type_template_id_76feddd1_render,
-  messagevue_type_template_id_76feddd1_staticRenderFns,
+  messagevue_type_template_id_b4f44040_render,
+  messagevue_type_template_id_b4f44040_staticRenderFns,
   false,
   message_injectStyles,
   null,
