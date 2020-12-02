@@ -35,9 +35,11 @@
           @keydown.enter="signUp()"
         />
       </div>
-      <div class="form__row register-modal__buttons">
-        <b-button class="register-modal__button" large @click="signIn()">Вход</b-button>
-        <b-button class="register-modal__button" large @click="signUp()">Зарегистрироваться</b-button>
+      <div class="form__row">
+        <b-button large width-full @click="signUp()">Зарегистрироваться</b-button>
+      </div>
+      <div class="form__row form__row_align_center">
+        <a href="#" @click.prevent="signIn()">Уже есть аккаунт? Войти</a>
       </div>
     </b-form>
   </div>

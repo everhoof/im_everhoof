@@ -18,6 +18,7 @@
       class="text-field__input"
       :placeholder="placeholder"
       :disabled="disabled"
+      :name="name"
       @input="$emit('input', $event.target.value)"
       @keydown="$emit('keydown', $event)"
       @keyup="$emit('keyup', $event)"
@@ -44,6 +45,7 @@ export default class TextField extends Vue {
   @Prop({ type: Boolean }) widthFull!: boolean;
   @Prop({ type: String }) icon!: string;
   @Prop({ type: Boolean }) margin!: boolean;
+  @Prop({ type: String }) name?: string;
 
   @Ref() input!: HTMLInputElement;
 

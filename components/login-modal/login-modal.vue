@@ -27,9 +27,11 @@
       <!--      <div class="form__row form__row_align_center">-->
       <!--        <a href="#" class="login-modal__link">Forgot password</a>-->
       <!--      </div>-->
-      <div class="form__row login-modal__buttons">
-        <b-button class="login-modal__button" large @click="signIn()">Войти</b-button>
-        <b-button class="login-modal__button" large @click="signUp()">Регистрация</b-button>
+      <div class="form__row">
+        <b-button large width-full @click="signIn()">Войти</b-button>
+      </div>
+      <div class="form__row form__row_align_center">
+        <a href="#" @click.prevent="signUp()">Нет аккаунта.</a>
       </div>
     </b-form>
   </div>
