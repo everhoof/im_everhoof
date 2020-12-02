@@ -28,7 +28,9 @@ export default class Modal extends Vue {
 
   mounted() {
     document.addEventListener('mousedown', (event: MouseEvent) => {
-      if (!this.modal.childNodes[0].contains(event.target as Node)) this.$emit('input', false);
+      if (this.value) {
+        if (!this.modal.childNodes[0].contains(event.target as Node)) this.$emit('input', false);
+      }
     });
   }
 }
