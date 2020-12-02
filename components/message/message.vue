@@ -65,10 +65,16 @@ export default class Message extends Vue {
   @Prop({ required: false, type: Boolean, default: false }) separator!: boolean;
 
   get text() {
-    return this.message.replace(
-      /(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*))/g,
+    const message = this.message.replace(
+      /(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*))/gm,
       '<a href="$1" target="_blank">$1</a>',
     );
+    const emojiRegex = new RegExp(`:(${this.$accessor.chat.emoji.map(({ name }) => name).join('|')}):`, 'mg');
+    return message.replace(emojiRegex, (_match, p1) => {
+      const emoji = this.$accessor.chat.emoji.find((e) => e.name === p1);
+      if (!emoji) return p1;
+      return `<img src="/emoji/${emoji.name}.${emoji.ext}" class="message__emoji" title=":${emoji.name}:"/>`;
+    });
   }
 
   get compact() {

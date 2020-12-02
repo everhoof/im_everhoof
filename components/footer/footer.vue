@@ -1,7 +1,7 @@
 <template>
   <!-- begin .footer-->
   <div class="footer">
-    <div v-show="emojisPanelActive" ref="emojiPanel" class="footer__emoji-panel">
+    <div v-show="emojisPanelActive" ref="emojiPanel" class="footer__emoji-panel scrollbar">
       <b-emoji-panel />
     </div>
     <div v-show="attachPanelActive" ref="attachPanel" class="footer__attach-panel">
@@ -9,15 +9,15 @@
     </div>
     <b-button v-show="!loggedIn" class="button_size_compact" @click="openLoginModal()">Войти в чат</b-button>
     <div v-show="loggedIn" class="footer__input-field">
-      <div v-show="false" class="footer__actions-left">
+      <div class="footer__actions-left">
         <div
           ref="emoji"
           class="footer__actions-button footer__emoji-button"
           :class="{ 'footer__actions-button_type_active': emojisPanelActive }"
-          @mouseover="changeEmoji"
           @click="$accessor.TOGGLE_EMOJIS_PANEL()"
         />
         <svg-icon
+          v-if="false"
           ref="attach"
           name="attach_file"
           class="footer__actions-button footer__attach-button"
@@ -26,12 +26,13 @@
         />
       </div>
       <input
-        v-model="text"
+        :value="$accessor.chat.message"
         name="message"
         autocomplete="off"
         type="text"
         class="footer__input"
         placeholder="Введите сообщение"
+        @input="input"
         @keydown.enter="createMessage"
       />
     </div>
@@ -61,8 +62,6 @@ export default class Footer extends Vue {
   @Ref() emojiPanel!: HTMLDivElement;
   @Ref() attach!: HTMLDivElement;
   @Ref() attachPanel!: HTMLDivElement;
-
-  text: string = '';
 
   get loggedIn(): boolean {
     return this.$accessor.auth.loggedIn;
@@ -98,17 +97,22 @@ export default class Footer extends Vue {
     document.body.addEventListener('click', (event: MouseEvent) => {
       if (!this.emoji.contains(event.target as Node) && !this.emojiPanel.contains(event.target as Node))
         this.$accessor.SET_EMOJIS_PANEL_ACTIVE(false);
-      if (!this.attach.contains(event.target as Node) && !this.attachPanel.contains(event.target as Node))
-        this.$accessor.SET_ATTACH_PANEL_ACTIVE(false);
+      // if (!this.attach.contains(event.target as Node) && !this.attachPanel.contains(event.target as Node))
+      //   this.$accessor.SET_ATTACH_PANEL_ACTIVE(false);
     });
   }
 
+  input(event: InputEvent) {
+    const input: HTMLInputElement = event.target as HTMLInputElement;
+    this.$accessor.chat.SET_MESSAGE(input.value);
+  }
+
   async createMessage() {
-    if (!this.text.trim()) return;
+    if (!this.$accessor.chat.message.trim()) return;
     const randomId = getRandomString(32);
     this.$accessor.chat.ADD_MESSAGE({
       id: getRandomIntInRange(0, 10000),
-      content: this.text,
+      content: this.$accessor.chat.message,
       randomId,
       username: this.$accessor.auth.user?.username,
       owner: this.$accessor.auth.user as User,
@@ -116,8 +120,8 @@ export default class Footer extends Vue {
       updatedAt: DateTime.local().toISO(),
       pictures: [],
     });
-    const content = this.text;
-    this.text = '';
+    const content = this.$accessor.chat.message;
+    this.$accessor.chat.SET_MESSAGE('');
     await this.$apollo.mutate<CreateMessageMutation, CreateMessageMutationVariables>({
       mutation: CreateMessage,
       variables: {

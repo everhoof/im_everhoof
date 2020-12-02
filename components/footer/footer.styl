@@ -7,12 +7,15 @@
 
 	&__emoji-panel
 		position absolute
-		left 0
+		left 12px
 		bottom 100%
-		max-width 376px
+		overflow-y auto
+		max-width 362px
 		height 250px
 		max-height 250px
-		padding 12px 12px 0
+		background var(--secondary-background)
+		border-radius 5px
+		box-shadow 0 0 6px rgba(0, 0, 0, .4)
 
 	&__attach-panel
 		position absolute
@@ -58,8 +61,9 @@
 
 	&__emoji-button
 		background-image url('~assets/emoji/faces.png')
-		background-position 0 0
+		background-position -48px -24px
 		background-size 264px 120px
+		image-rendering -webkit-optimize-contrast
 		filter grayscale(1)
 
 		&^[0]__actions-button_type_active,

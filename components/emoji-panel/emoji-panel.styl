@@ -1,27 +1,22 @@
 .emoji-panel
-	display block
-	background var(--secondary-background)
-	border-radius 5px
-
-	&__group
-		display flex
-		flex-wrap wrap
-		padding 12px
-		box-shadow 0 0 6px rgba(0, 0, 0, .4)
+	display flex
+	flex-wrap wrap
+	padding 12px
 
 	&__item
 		width 40px
 		height 40px
-		padding 4px
+		padding 2.5px
 		border-radius 5px
 
 		&:hover
 			background var(--gray_700)
 
 	&__icon
-		width 32px
-		height 32px
+		width 35px
+		height 35px
 		cursor pointer
-		background-image url('~assets/emoji/faces.png')
-		background-position 0 0
-		background-size 352px 160px
+		background-repeat no-repeat
+		background-position center
+		background-size contain
+		// image-rendering -webkit-optimize-contrast
