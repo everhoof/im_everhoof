@@ -34,7 +34,7 @@
         <img
           v-for="picture in pictures"
           :key="picture.id"
-          :src="picture.o.link"
+          :src="picture.m.link"
           class="message__image"
           :width="picture.m.width"
           :height="picture.m.height"
