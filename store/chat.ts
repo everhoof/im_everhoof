@@ -136,7 +136,6 @@ export const actions = actionTree(
     async nuxtClientInit({ dispatch }, context?: Context) {
       dispatch('subscribeMessageCreated', context);
       dispatch('subscribeOnlineUpdated', context);
-      await dispatch('updateOnlineStatus', context);
       if (this.app.$accessor.auth.loggedIn) {
         await dispatch('updateOnlineStatus', context);
         window.setInterval(async () => await dispatch('updateOnlineStatus', context), 30 * 1000);
