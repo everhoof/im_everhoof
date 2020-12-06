@@ -18,10 +18,15 @@ type User {
   wasOnlineAt: DateTime
   createdAt: DateTime!
   updatedAt: DateTime!
+  roles: [Role!]!
   avatar: Picture
 }
 """A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format."""
 scalar DateTime
+type Role {
+  id: Int!
+  name: String!
+}
 type Picture {
   id: Int!
   ownerId: Int
@@ -49,16 +54,20 @@ type Message {
   randomId: String
   content: String!
   username: String
+  deletedById: Float
   createdAt: DateTime!
   updatedAt: DateTime!
-  owner: User!
+  deletedAt: DateTime
+  owner: User
   pictures: [Picture!]!
+  deletedBy: User
 }
 type Mutation {
   updateOnlineStatus: Boolean!
   signIn(email: String!, password: String!): Token!
   signUp(email: String!, username: String, password: String!): User!
   createMessage(content: String, randomId: String, pictures: [Int!] = []): Message!
+  deleteMessage(messageId: Int!): Message!
 }
 type Token {
   id: Int!
@@ -71,4 +80,5 @@ type Token {
 type Subscription {
   onlineUpdated: [User!]!
   messageCreated: Message!
+  messageDeleted: Message!
 }

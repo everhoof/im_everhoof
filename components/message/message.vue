@@ -1,6 +1,6 @@
 <template>
   <!-- begin .message-->
-  <div class="message" :class="{ message_view_compact: compact }">
+  <div class="message" :class="{ message_view_compact: compact }" @contextmenu="openContextMenu">
     <div v-show="separator" class="message__separator">
       <span class="message__separator-date">{{ date }}</span>
     </div>
@@ -10,7 +10,7 @@
       class="message__avatar message__avatar_type_default"
       :style="{ backgroundColor: avatarColor }"
     >
-      {{ username[0] }}
+      {{ message.username[0] }}
     </div>
     <div class="message__content">
       <div v-if="compact" class="message__header">
@@ -18,12 +18,12 @@
           {{ localDateTime }}
         </time>
         <router-link to="/" class="message__author-name link_no_styles" :style="{ color: avatarColor }">
-          {{ username + ':' }}
+          {{ message.username + ':' }}
         </router-link>
       </div>
       <div v-else class="message__header">
         <router-link to="/" class="message__author-name link_no_styles">
-          {{ username }}
+          {{ message.username }}
         </router-link>
         <time class="message__timestamp" :datetime="timestamp" :title="localDateTimeFull">
           {{ localDateTime }}
@@ -47,25 +47,23 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'nuxt-property-decorator';
+import { Component, Prop, Vue, InjectReactive } from 'nuxt-property-decorator';
 import { DateTime } from 'luxon';
-import { Picture, User } from '~/graphql/schema';
+import { Picture, Message as ChatMessage } from '~/graphql/schema';
 import { toLocalDateTime } from '~/tools/filters';
 import { getUserColor } from '~/tools/util';
+import BContextMenu from '~/components/context-menu/context-menu.vue';
 
 @Component({
   name: 'b-message',
 })
 export default class Message extends Vue {
-  @Prop({ type: String }) message!: string;
-  @Prop({ type: Array, default: () => [] }) pictures!: Picture[];
-  @Prop({ type: Object }) owner?: User;
-  @Prop({ type: String }) username!: string;
-  @Prop({ type: String }) timestamp!: string;
+  @InjectReactive('message-context-menu') readonly contextMenu!: BContextMenu;
+  @Prop({ required: true, type: Object, default: () => {} }) message!: ChatMessage;
   @Prop({ required: false, type: Boolean, default: false }) separator!: boolean;
 
   get text() {
-    const message = this.message.replace(
+    const message = this.message.content.replace(
       /(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*))/gm,
       '<a href="$1" target="_blank">$1</a>',
     );
@@ -77,16 +75,24 @@ export default class Message extends Vue {
     });
   }
 
+  get pictures() {
+    return this.message.pictures || [];
+  }
+
+  get timestamp() {
+    return this.message.createdAt;
+  }
+
   get compact() {
     return true;
   }
 
   get avatar() {
-    return this.owner?.avatar?.s.link;
+    return this.message?.owner?.avatar?.s.link;
   }
 
   get avatarColor() {
-    return getUserColor(this.owner?.id);
+    return getUserColor(this.message?.owner?.id);
   }
 
   get localDateTime(): string {
@@ -118,6 +124,14 @@ export default class Message extends Vue {
       picture.o.link,
       `height=${dimensions.height}px,width=${dimensions.width}px,resizable=1`,
     );
+  }
+
+  openContextMenu(event: MouseEvent) {
+    if (this.$accessor.auth.isAdmin) {
+      event.preventDefault();
+      event.stopPropagation();
+      this.contextMenu.open(event, { messageId: this.message.id });
+    }
   }
 }
 </script>

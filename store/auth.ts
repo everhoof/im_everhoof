@@ -36,7 +36,9 @@ export const mutations = mutationTree(state, {
   },
 });
 
-export const getters = getterTree(state, {});
+export const getters = getterTree(state, {
+  isAdmin: (_state): boolean => !!_state.user?.roles.find((role) => role.name === 'ADMIN') || false,
+});
 
 export const actions = actionTree(
   { state, mutations, getters },

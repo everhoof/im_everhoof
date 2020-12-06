@@ -1,0 +1,42 @@
+.context-menu
+	position relative
+	z-index 100
+	display block
+	padding 8px
+	background #101010
+	border-radius 3px
+	defaultShadow()
+
+	&__item
+		margin 0 0 4px
+
+		&:last-child
+			margin-bottom 0
+
+	&__button
+		display flex
+		align-items center
+		padding 4px
+		color var(--primary-text)
+		font-size 13px
+		font-weight 600
+		cursor pointer
+		background transparent
+		border none
+		outline none
+
+		&:hover
+			color var(--primary-text)
+			background var(--primary-dark)
+			border-radius 3px
+
+		&_color
+			&_danger
+				color #f04747
+
+	&__icon
+		display inline-block
+		width 24px
+		height 24px
+		margin-right 8px
+		fill currentColor

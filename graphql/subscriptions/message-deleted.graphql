@@ -1,5 +1,5 @@
-subscription MessageCreated {
-  messageCreated {
+subscription MessageDeleted {
+  messageDeleted {
     id
     randomId
     owner {

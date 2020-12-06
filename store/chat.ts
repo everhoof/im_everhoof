@@ -2,12 +2,17 @@ import { actionTree, getterTree, mutationTree } from 'typed-vuex';
 import { Context } from '@nuxt/types';
 import Vue from 'vue';
 import MessageCreated from '~/graphql/subscriptions/message-created.graphql';
+import MessageDeleted from '~/graphql/subscriptions/message-deleted.graphql';
 import OnlineUpdated from '~/graphql/subscriptions/online-updated.graphql';
 import UpdateOnlineStatus from '~/graphql/mutations/update-online-status.graphql';
+import DeleteMessage from '~/graphql/mutations/delete-message.graphql';
 import GetChatData from '~/graphql/queries/get-chat-data.graphql';
 import {
+  DeleteMessageMutation,
+  DeleteMessageMutationVariables,
   GetChatDataQuery,
   MessageCreatedSubscription,
+  MessageDeletedSubscription,
   OnlineUpdatedSubscription,
   UpdateOnlineStatusMutation,
 } from '~/graphql/schema';
@@ -109,8 +114,8 @@ export const mutations = mutationTree(state, {
   ADD_MESSAGE: (_state, payload: MessageCreatedSubscription['messageCreated']) => {
     const index = _state.messages.findIndex(({ randomId }) => randomId === payload.randomId);
     if (index === -1) _state.messages.unshift(payload);
-    if (_state.messages.length > 300) _state.messages.splice(-1);
     else Vue.set(_state.messages, index, payload);
+    if (_state.messages.length > 300) _state.messages.splice(-1);
   },
   SET_ONLINE: (_state, payload: GetChatDataQuery['getOnline']) => (_state.online = payload),
   SET_ASIDE_PC_OPENED: (_state, payload: boolean) => (_state.asidePcOpened = payload),
@@ -169,6 +174,21 @@ export const actions = actionTree(
       }
     },
 
+    subscribeMessageDeleted({ commit }, context?: Context) {
+      const client = context?.app.apolloProvider?.defaultClient ?? this.app.apolloProvider?.defaultClient;
+      if (client) {
+        const onlineUpdatedObserver = client.subscribe<MessageDeletedSubscription>({
+          query: MessageDeleted,
+        });
+        onlineUpdatedObserver.subscribe({
+          next({ data }) {
+            if (!data?.messageDeleted) return;
+            commit('ADD_MESSAGE', data.messageDeleted);
+          },
+        });
+      }
+    },
+
     async updateOnlineStatus(_context, context?: Context) {
       const client = context?.app.apolloProvider?.defaultClient ?? this.app.apolloProvider?.defaultClient;
       if (!client) return;
@@ -187,6 +207,19 @@ export const actions = actionTree(
         if (errors || !data) return;
         commit('SET_MESSAGES', data.getMessages);
         commit('SET_ONLINE', data.getOnline);
+      } catch (e) {}
+    },
+
+    async deleteMessage({ commit }, payload: DeleteMessageMutationVariables) {
+      const client = this.app.apolloProvider?.defaultClient;
+      if (!client) return;
+      try {
+        const { data, errors } = await client.query<DeleteMessageMutation, DeleteMessageMutationVariables>({
+          query: DeleteMessage,
+          variables: payload,
+        });
+        if (errors || !data?.deleteMessage) return;
+        commit('ADD_MESSAGE', data.deleteMessage);
       } catch (e) {}
     },
   },

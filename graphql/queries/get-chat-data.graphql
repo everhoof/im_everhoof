@@ -25,8 +25,13 @@ query GetChatData {
         height
       }
     }
+    deletedBy {
+      id
+      username
+    }
     createdAt
     updatedAt
+    deletedAt
   }
   getOnline {
     id

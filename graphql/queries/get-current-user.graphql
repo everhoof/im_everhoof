@@ -25,5 +25,8 @@ query GetCurrentUser {
       }
     }
     createdAt
+    roles {
+      name
+    }
   }
 }

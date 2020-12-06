@@ -6,11 +6,7 @@
       <b-message
         v-for="i in messages.length"
         :key="messages[messages.length - i].id"
-        :message="messages[messages.length - i].content"
-        :owner="messages[messages.length - i].owner"
-        :timestamp="messages[messages.length - i].createdAt"
-        :username="messages[messages.length - i].username"
-        :pictures="messages[messages.length - i].pictures"
+        :message="messages[messages.length - i]"
         :separator="isDayLastMessage(messages.length - i)"
       />
     </div>
@@ -39,7 +35,7 @@ export default class Chat extends Vue {
   }
 
   get messages(): GetChatDataQuery['getMessages'] {
-    return this.$accessor.chat.messages;
+    return this.$accessor.chat.messages.filter((message) => !message.deletedAt);
   }
 
   get isDayLastMessage() {

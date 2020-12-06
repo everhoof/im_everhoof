@@ -1,5 +1,5 @@
-subscription MessageCreated {
-  messageCreated {
+mutation DeleteMessage($messageId: Int!) {
+  deleteMessage(messageId: $messageId) {
     id
     randomId
     owner {

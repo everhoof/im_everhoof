@@ -38,7 +38,14 @@ export type User = {
   wasOnlineAt?: Maybe<Scalars['DateTime']>;
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
+  roles: Array<Role>;
   avatar?: Maybe<Picture>;
+};
+
+export type Role = {
+  __typename?: 'Role';
+  id: Scalars['Int'];
+  name: Scalars['String'];
 };
 
 export type Picture = {
@@ -73,10 +80,13 @@ export type Message = {
   randomId?: Maybe<Scalars['String']>;
   content: Scalars['String'];
   username?: Maybe<Scalars['String']>;
+  deletedById?: Maybe<Scalars['Float']>;
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
-  owner: User;
+  deletedAt?: Maybe<Scalars['DateTime']>;
+  owner?: Maybe<User>;
   pictures: Array<Picture>;
+  deletedBy?: Maybe<User>;
 };
 
 export type Mutation = {
@@ -85,6 +95,7 @@ export type Mutation = {
   signIn: Token;
   signUp: User;
   createMessage: Message;
+  deleteMessage: Message;
 };
 
 export type MutationSignInArgs = {
@@ -104,6 +115,10 @@ export type MutationCreateMessageArgs = {
   pictures?: Maybe<Array<Scalars['Int']>>;
 };
 
+export type MutationDeleteMessageArgs = {
+  messageId: Scalars['Int'];
+};
+
 export type Token = {
   __typename?: 'Token';
   id: Scalars['Int'];
@@ -118,6 +133,7 @@ export type Subscription = {
   __typename?: 'Subscription';
   onlineUpdated: Array<User>;
   messageCreated: Message;
+  messageDeleted: Message;
 };
 
 export type CreateMessageMutationVariables = Exact<{
@@ -128,6 +144,40 @@ export type CreateMessageMutationVariables = Exact<{
 
 export type CreateMessageMutation = { __typename?: 'Mutation' } & {
   createMessage: { __typename?: 'Message' } & Pick<Message, 'id'>;
+};
+
+export type DeleteMessageMutationVariables = Exact<{
+  messageId: Scalars['Int'];
+}>;
+
+export type DeleteMessageMutation = { __typename?: 'Mutation' } & {
+  deleteMessage: { __typename?: 'Message' } & Pick<
+    Message,
+    'id' | 'randomId' | 'content' | 'username' | 'createdAt' | 'updatedAt' | 'deletedAt'
+  > & {
+      owner?: Maybe<
+        { __typename?: 'User' } & Pick<User, 'id' | 'username'> & {
+            avatar?: Maybe<
+              { __typename?: 'Picture' } & {
+                s: { __typename?: 'PictureRepresentation' } & Pick<PictureRepresentation, 'link'>;
+              }
+            >;
+          }
+      >;
+      pictures: Array<
+        { __typename?: 'Picture' } & {
+          m: { __typename?: 'PictureRepresentation' } & Pick<
+            PictureRepresentation,
+            'link' | 'width' | 'height'
+          >;
+          o: { __typename?: 'PictureRepresentation' } & Pick<
+            PictureRepresentation,
+            'link' | 'width' | 'height'
+          >;
+        }
+      >;
+      deletedBy?: Maybe<{ __typename?: 'User' } & Pick<User, 'id' | 'username'>>;
+    };
 };
 
 export type SignInMutationVariables = Exact<{
@@ -159,15 +209,17 @@ export type GetChatDataQuery = { __typename?: 'Query' } & {
   getMessages: Array<
     { __typename?: 'Message' } & Pick<
       Message,
-      'id' | 'randomId' | 'content' | 'username' | 'createdAt' | 'updatedAt'
+      'id' | 'randomId' | 'content' | 'username' | 'createdAt' | 'updatedAt' | 'deletedAt'
     > & {
-        owner: { __typename?: 'User' } & Pick<User, 'id' | 'username'> & {
-            avatar?: Maybe<
-              { __typename?: 'Picture' } & {
-                s: { __typename?: 'PictureRepresentation' } & Pick<PictureRepresentation, 'link'>;
-              }
-            >;
-          };
+        owner?: Maybe<
+          { __typename?: 'User' } & Pick<User, 'id' | 'username'> & {
+              avatar?: Maybe<
+                { __typename?: 'Picture' } & {
+                  s: { __typename?: 'PictureRepresentation' } & Pick<PictureRepresentation, 'link'>;
+                }
+              >;
+            }
+        >;
         pictures: Array<
           { __typename?: 'Picture' } & {
             m: { __typename?: 'PictureRepresentation' } & Pick<
@@ -180,6 +232,7 @@ export type GetChatDataQuery = { __typename?: 'Query' } & {
             >;
           }
         >;
+        deletedBy?: Maybe<{ __typename?: 'User' } & Pick<User, 'id' | 'username'>>;
       }
   >;
   getOnline: Array<
@@ -213,6 +266,7 @@ export type GetCurrentUserQuery = { __typename?: 'Query' } & {
             >;
           }
       >;
+      roles: Array<{ __typename?: 'Role' } & Pick<Role, 'name'>>;
     };
 };
 
@@ -221,15 +275,17 @@ export type MessageCreatedSubscriptionVariables = Exact<{ [key: string]: never }
 export type MessageCreatedSubscription = { __typename?: 'Subscription' } & {
   messageCreated: { __typename?: 'Message' } & Pick<
     Message,
-    'id' | 'randomId' | 'content' | 'username' | 'createdAt' | 'updatedAt'
+    'id' | 'randomId' | 'content' | 'username' | 'createdAt' | 'updatedAt' | 'deletedAt'
   > & {
-      owner: { __typename?: 'User' } & Pick<User, 'id' | 'username'> & {
-          avatar?: Maybe<
-            { __typename?: 'Picture' } & {
-              s: { __typename?: 'PictureRepresentation' } & Pick<PictureRepresentation, 'link'>;
-            }
-          >;
-        };
+      owner?: Maybe<
+        { __typename?: 'User' } & Pick<User, 'id' | 'username'> & {
+            avatar?: Maybe<
+              { __typename?: 'Picture' } & {
+                s: { __typename?: 'PictureRepresentation' } & Pick<PictureRepresentation, 'link'>;
+              }
+            >;
+          }
+      >;
       pictures: Array<
         { __typename?: 'Picture' } & {
           m: { __typename?: 'PictureRepresentation' } & Pick<
@@ -242,6 +298,39 @@ export type MessageCreatedSubscription = { __typename?: 'Subscription' } & {
           >;
         }
       >;
+      deletedBy?: Maybe<{ __typename?: 'User' } & Pick<User, 'id' | 'username'>>;
+    };
+};
+
+export type MessageDeletedSubscriptionVariables = Exact<{ [key: string]: never }>;
+
+export type MessageDeletedSubscription = { __typename?: 'Subscription' } & {
+  messageDeleted: { __typename?: 'Message' } & Pick<
+    Message,
+    'id' | 'randomId' | 'content' | 'username' | 'createdAt' | 'updatedAt' | 'deletedAt'
+  > & {
+      owner?: Maybe<
+        { __typename?: 'User' } & Pick<User, 'id' | 'username'> & {
+            avatar?: Maybe<
+              { __typename?: 'Picture' } & {
+                s: { __typename?: 'PictureRepresentation' } & Pick<PictureRepresentation, 'link'>;
+              }
+            >;
+          }
+      >;
+      pictures: Array<
+        { __typename?: 'Picture' } & {
+          m: { __typename?: 'PictureRepresentation' } & Pick<
+            PictureRepresentation,
+            'link' | 'width' | 'height'
+          >;
+          o: { __typename?: 'PictureRepresentation' } & Pick<
+            PictureRepresentation,
+            'link' | 'width' | 'height'
+          >;
+        }
+      >;
+      deletedBy?: Maybe<{ __typename?: 'User' } & Pick<User, 'id' | 'username'>>;
     };
 };
 
