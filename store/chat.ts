@@ -135,6 +135,7 @@ export const actions = actionTree(
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async nuxtClientInit({ dispatch }, context?: Context) {
       dispatch('subscribeMessageCreated', context);
+      dispatch('subscribeMessageDeleted', context);
       dispatch('subscribeOnlineUpdated', context);
       if (this.app.$accessor.auth.loggedIn) {
         await dispatch('updateOnlineStatus', context);
