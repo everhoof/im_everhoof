@@ -1040,6 +1040,7 @@ const actions = Object(typed_vuex__WEBPACK_IMPORTED_MODULE_0__["actionTree"])({
     dispatch
   }, context) {
     dispatch('subscribeMessageCreated', context);
+    dispatch('subscribeMessageDeleted', context);
     dispatch('subscribeOnlineUpdated', context);
 
     if (this.app.$accessor.auth.loggedIn) {
