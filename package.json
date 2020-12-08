@@ -36,6 +36,7 @@
     "@nuxtjs/apollo": "^4.0.1-rc.1",
     "@nuxtjs/dotenv": "^1.4.0",
     "@nuxtjs/svg-sprite": "^0.4.10",
+    "accesscontrol": "^2.2.1",
     "apollo-client": "^2.6.10",
     "apollo-link": "^1.2.14",
     "apollo-link-error": "^1.1.13",
