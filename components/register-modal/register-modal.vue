@@ -1,7 +1,7 @@
 <template>
   <!-- begin .register-modal -->
   <div class="register-modal">
-    <b-form :errors="errors">
+    <b-form :errors="errors" name="register-form">
       <div class="form__row">
         <b-text-field
           id="register_email"
@@ -36,7 +36,7 @@
         />
       </div>
       <div class="form__row">
-        <b-button large width-full @click="signUp()">Зарегистрироваться</b-button>
+        <b-button large width-full @click.prevent="signUp()">Зарегистрироваться</b-button>
       </div>
       <div class="form__row form__row_align_center">
         <a href="#" @click.prevent="signIn()">Уже есть аккаунт? Войти</a>

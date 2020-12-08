@@ -1,7 +1,7 @@
 <template>
   <!-- begin .login-modal -->
   <div class="login-modal">
-    <b-form :errors="errors">
+    <b-form :errors="errors" name="login-form">
       <div class="form__row">
         <b-text-field
           id="login_username"
@@ -28,7 +28,7 @@
       <!--        <a href="#" class="login-modal__link">Forgot password</a>-->
       <!--      </div>-->
       <div class="form__row">
-        <b-button large width-full @click="signIn()">Войти</b-button>
+        <b-button large width-full @click.prevent="signIn()">Войти</b-button>
       </div>
       <div class="form__row form__row_align_center">
         <a href="#" @click.prevent="signUp()">Нет аккаунта.</a>

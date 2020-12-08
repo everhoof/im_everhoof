@@ -1,6 +1,6 @@
 <template>
   <!-- begin .form-->
-  <div class="form">
+  <form class="form" :name="name">
     <h3 v-if="title" class="form__title">{{ title }}</h3>
     <div class="form__content">
       <div v-if="errors.length > 0" class="form__row">
@@ -8,7 +8,7 @@
       </div>
       <slot />
     </div>
-  </div>
+  </form>
   <!-- end .form-->
 </template>
 
@@ -23,6 +23,7 @@ import BFormError from '~/components/form-error/form-error.vue';
 export default class Form extends Vue {
   @Prop({ type: Array, default: () => [] }) errors!: string[];
   @Prop({ type: String }) title!: string;
+  @Prop({ type: String, required: true }) name!: string;
 }
 </script>
 
