@@ -127,10 +127,13 @@ export default class Message extends Vue {
   }
 
   openContextMenu(event: MouseEvent) {
-    if (this.$accessor.auth.isAdmin) {
+    if (
+      this.$accessor.auth.can.deleteAny('message') ||
+      (this.$accessor.auth.can.deleteOwn('message') && this.message.id === this.$accessor.auth.user?.id)
+    ) {
       event.preventDefault();
       event.stopPropagation();
-      this.contextMenu.open(event, { messageId: this.message.id });
+      this.contextMenu.open(event, { message: this.message });
     }
   }
 }

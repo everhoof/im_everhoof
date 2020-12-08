@@ -1,4 +1,5 @@
 query GetCurrentUser {
+  getGrants
   getCurrentUser {
     id
     username

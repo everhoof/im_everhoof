@@ -15,6 +15,7 @@ export type Query = {
   __typename?: 'Query';
   getCurrentUser: User;
   getOnline: Array<User>;
+  getGrants: Scalars['String'];
   getHello: Scalars['String'];
   getPictureById: Picture;
   getMessages: Array<Message>;
@@ -248,27 +249,31 @@ export type GetChatDataQuery = { __typename?: 'Query' } & {
 
 export type GetCurrentUserQueryVariables = Exact<{ [key: string]: never }>;
 
-export type GetCurrentUserQuery = { __typename?: 'Query' } & {
-  getCurrentUser: { __typename?: 'User' } & Pick<User, 'id' | 'username' | 'email' | 'createdAt'> & {
-      avatar?: Maybe<
-        { __typename?: 'Picture' } & Pick<Picture, 'id'> & {
-            s: { __typename?: 'PictureRepresentation' } & Pick<
-              PictureRepresentation,
-              'height' | 'width' | 'link' | 'size'
-            >;
-            m: { __typename?: 'PictureRepresentation' } & Pick<
-              PictureRepresentation,
-              'height' | 'width' | 'link' | 'size'
-            >;
-            o: { __typename?: 'PictureRepresentation' } & Pick<
-              PictureRepresentation,
-              'height' | 'width' | 'link' | 'size'
-            >;
-          }
-      >;
-      roles: Array<{ __typename?: 'Role' } & Pick<Role, 'name'>>;
-    };
-};
+export type GetCurrentUserQuery = { __typename?: 'Query' } & Pick<Query, 'getGrants'> & {
+    getCurrentUser: { __typename?: 'User' } & Pick<User, 'id' | 'username' | 'email' | 'createdAt'> & {
+        avatar?: Maybe<
+          { __typename?: 'Picture' } & Pick<Picture, 'id'> & {
+              s: { __typename?: 'PictureRepresentation' } & Pick<
+                PictureRepresentation,
+                'height' | 'width' | 'link' | 'size'
+              >;
+              m: { __typename?: 'PictureRepresentation' } & Pick<
+                PictureRepresentation,
+                'height' | 'width' | 'link' | 'size'
+              >;
+              o: { __typename?: 'PictureRepresentation' } & Pick<
+                PictureRepresentation,
+                'height' | 'width' | 'link' | 'size'
+              >;
+            }
+        >;
+        roles: Array<{ __typename?: 'Role' } & Pick<Role, 'name'>>;
+      };
+  };
+
+export type GetGrantsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetGrantsQuery = { __typename?: 'Query' } & Pick<Query, 'getGrants'>;
 
 export type MessageCreatedSubscriptionVariables = Exact<{ [key: string]: never }>;
 

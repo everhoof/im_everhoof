@@ -13,6 +13,13 @@
 		&:last-child
 			margin-bottom 0
 
+		&_display
+			&_only-child
+				display none
+
+				&:only-child
+					display block
+
 	&__button
 		display flex
 		align-items center
@@ -25,10 +32,14 @@
 		border none
 		outline none
 
-		&:hover
-			color var(--primary-text)
-			background var(--primary-dark)
-			border-radius 3px
+		&:disabled
+			opacity .3
+
+		&:not(:disabled)
+			&:hover
+				color var(--primary-text)
+				background var(--primary-dark)
+				border-radius 3px
 
 		&_color
 			&_danger
