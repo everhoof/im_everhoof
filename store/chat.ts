@@ -7,10 +7,13 @@ import OnlineUpdated from '~/graphql/subscriptions/online-updated.graphql';
 import UpdateOnlineStatus from '~/graphql/mutations/update-online-status.graphql';
 import DeleteMessage from '~/graphql/mutations/delete-message.graphql';
 import GetChatData from '~/graphql/queries/get-chat-data.graphql';
+import GetUserById from '~/graphql/queries/get-user-by-id.graphql';
 import {
   DeleteMessageMutation,
   DeleteMessageMutationVariables,
   GetChatDataQuery,
+  GetUserByIdQuery,
+  GetUserByIdQueryVariables,
   MessageCreatedSubscription,
   MessageDeletedSubscription,
   OnlineUpdatedSubscription,
@@ -103,6 +106,7 @@ export const state = () => ({
     { name: 'pink5', ext: 'png' },
     { name: 'bad', ext: 'png' },
   ] as Emoji[],
+  users: [] as GetUserByIdQuery['getUserById'][],
   asidePcOpened: true as boolean,
 });
 
@@ -119,9 +123,13 @@ export const mutations = mutationTree(state, {
   },
   SET_ONLINE: (_state, payload: GetChatDataQuery['getOnline']) => (_state.online = payload),
   SET_ASIDE_PC_OPENED: (_state, payload: boolean) => (_state.asidePcOpened = payload),
+  ADD_USER: (_state, payload: GetUserByIdQuery['getUserById']) => _state.users.push(payload),
 });
 
-export const getters = getterTree(state, {});
+export const getters = getterTree(state, {
+  user: (_state) => (id: number): GetUserByIdQuery['getUserById'] | undefined =>
+    _state.users.find((user) => user.id === id),
+});
 
 export const actions = actionTree(
   { state, mutations, getters },
@@ -220,6 +228,19 @@ export const actions = actionTree(
         });
         if (errors || !data?.deleteMessage) return;
         commit('ADD_MESSAGE', data.deleteMessage);
+      } catch (e) {}
+    },
+
+    async fetchUserById({ commit }, payload: GetUserByIdQueryVariables) {
+      const client = this.app.apolloProvider?.defaultClient;
+      if (!client) return;
+      try {
+        const { data, errors } = await client.query<GetUserByIdQuery, GetUserByIdQueryVariables>({
+          query: GetUserById,
+          variables: payload,
+        });
+        if (errors || !data?.getUserById) return;
+        commit('ADD_USER', data.getUserById);
       } catch (e) {}
     },
   },

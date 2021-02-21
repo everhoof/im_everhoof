@@ -1,0 +1,30 @@
+query GetUserById($id: Int!) {
+  getUserById(id: $id) {
+    id
+    username
+    email
+    avatar {
+      id
+      s {
+        height
+        width
+        link
+        size
+      }
+      m {
+        height
+        width
+        link
+        size
+      }
+      o {
+        height
+        width
+        link
+        size
+      }
+    }
+    createdAt
+    wasOnlineAt
+  }
+}

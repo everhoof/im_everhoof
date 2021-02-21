@@ -48,6 +48,9 @@
       </b-context-menu-item>
     </b-context-menu>
     <b-context-menu ref="context-menu" />
+    <b-modal :value="profileModalOpened" title="Профиль" @input="setProfileModalOpened">
+      <b-profile-modal />
+    </b-modal>
   </div>
 </template>
 
@@ -66,9 +69,11 @@ import BButton from '~/components/button/button.vue';
 import BAsideFooter from '~/components/aside-footer/aside-footer.vue';
 import BContextMenu from '~/components/context-menu/context-menu.vue';
 import BContextMenuItem from '~/components/context-menu-item/context-menu-item.vue';
+import BProfileModal from '~/components/profile-modal/profile-modal.vue';
 
 @Component({
   components: {
+    BProfileModal,
     BContextMenuItem,
     BContextMenu,
     BAsideFooter,
@@ -98,6 +103,10 @@ export default class Default extends Vue {
     return this.$accessor.auth.loginModal;
   }
 
+  get profileModalOpened(): boolean {
+    return this.$accessor.modals.profileModalOpened;
+  }
+
   setLogin(value: boolean): void {
     this.$accessor.auth.SET_LOGIN_MODAL(value);
   }
@@ -125,6 +134,10 @@ export default class Default extends Vue {
       sameSite: 'lax',
       maxAge: 86400 * 365 * 10,
     });
+  }
+
+  setProfileModalOpened(value: boolean): void {
+    this.$accessor.modals.SET_PROFILE_MODAL_OPENED(value);
   }
 
   closeContextMenus() {

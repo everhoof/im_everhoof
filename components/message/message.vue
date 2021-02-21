@@ -17,12 +17,17 @@
         <time class="message__timestamp" :datetime="timestamp" :title="localDateTimeFull">
           {{ localDateTime }}
         </time>
-        <router-link to="/" class="message__author-name link_no_styles" :style="{ color: avatarColor }">
+        <router-link
+          to="/"
+          class="message__author-name link_no_styles"
+          :style="{ color: avatarColor }"
+          @click.native="interactUser()"
+        >
           {{ message.username + ':' }}
         </router-link>
       </div>
       <div v-else class="message__header">
-        <router-link to="/" class="message__author-name link_no_styles">
+        <router-link to="/" class="message__author-name link_no_styles" @click.native="interactUser()">
           {{ message.username }}
         </router-link>
         <time class="message__timestamp" :datetime="timestamp" :title="localDateTimeFull">
@@ -135,6 +140,11 @@ export default class Message extends Vue {
       event.stopPropagation();
       this.contextMenu.open(event, { message: this.message });
     }
+  }
+
+  interactUser(): void {
+    this.$accessor.modals.SET_PROFILE_MODAL_TARGET_ID(this.message.owner?.id || -1);
+    this.$accessor.modals.SET_PROFILE_MODAL_OPENED(true);
   }
 }
 </script>

@@ -10,4 +10,11 @@ export default {
   email_regex_error: 'Wrong email format.',
   password_fill_error: 'Fill in the password field.',
   passport_length_error: 'Password must be at least 5 characters long.',
+
+  modals: {
+    profile: {
+      registered: 'Зарегистрирован',
+      was_online: 'Был в сети',
+    },
+  },
 };

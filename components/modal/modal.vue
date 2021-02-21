@@ -21,7 +21,7 @@ import BTile from '~/components/tile/tile.vue';
   components: { BTile },
 })
 export default class Modal extends Vue {
-  @Prop({ required: true, type: String }) title!: string;
+  @Prop({ required: false, type: String }) title?: string;
   @Prop({ required: true, type: Boolean }) value!: boolean;
 
   @Ref() modal!: HTMLDivElement;

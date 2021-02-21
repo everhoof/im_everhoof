@@ -14,11 +14,16 @@ export type Scalars = {
 export type Query = {
   __typename?: 'Query';
   getCurrentUser: User;
+  getUserById: User;
   getOnline: Array<User>;
   getGrants: Scalars['String'];
   getHello: Scalars['String'];
   getPictureById: Picture;
   getMessages: Array<Message>;
+};
+
+export type QueryGetUserByIdArgs = {
+  id: Scalars['Int'];
 };
 
 export type QueryGetPictureByIdArgs = {
@@ -274,6 +279,34 @@ export type GetCurrentUserQuery = { __typename?: 'Query' } & Pick<Query, 'getGra
 export type GetGrantsQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetGrantsQuery = { __typename?: 'Query' } & Pick<Query, 'getGrants'>;
+
+export type GetUserByIdQueryVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+export type GetUserByIdQuery = { __typename?: 'Query' } & {
+  getUserById: { __typename?: 'User' } & Pick<
+    User,
+    'id' | 'username' | 'email' | 'createdAt' | 'wasOnlineAt'
+  > & {
+      avatar?: Maybe<
+        { __typename?: 'Picture' } & Pick<Picture, 'id'> & {
+            s: { __typename?: 'PictureRepresentation' } & Pick<
+              PictureRepresentation,
+              'height' | 'width' | 'link' | 'size'
+            >;
+            m: { __typename?: 'PictureRepresentation' } & Pick<
+              PictureRepresentation,
+              'height' | 'width' | 'link' | 'size'
+            >;
+            o: { __typename?: 'PictureRepresentation' } & Pick<
+              PictureRepresentation,
+              'height' | 'width' | 'link' | 'size'
+            >;
+          }
+      >;
+    };
+};
 
 export type MessageCreatedSubscriptionVariables = Exact<{ [key: string]: never }>;
 

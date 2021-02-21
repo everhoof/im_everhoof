@@ -1,7 +1,7 @@
 <template>
   <!-- begin .users-list-->
   <ul class="users-list">
-    <li v-for="user in users" :key="user.id" class="users-list__item">
+    <li v-for="user in users" :key="user.id" class="users-list__item" @click="interactUser(user.id)">
       <img v-if="user.avatar" :src="user.avatar.s.link" class="users-list__avatar" />
       <div
         v-else
@@ -31,6 +31,11 @@ export default class UsersList extends Vue {
 
   get avatarColor() {
     return (id: number): string => getUserColor(id);
+  }
+
+  interactUser(id: number): void {
+    this.$accessor.modals.SET_PROFILE_MODAL_TARGET_ID(id || -1);
+    this.$accessor.modals.SET_PROFILE_MODAL_OPENED(true);
   }
 }
 </script>

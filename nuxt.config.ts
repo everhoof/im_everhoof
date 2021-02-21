@@ -85,7 +85,7 @@ export default {
             file: 'ru-RU.js',
           },
           {
-            code: 'ru',
+            code: 'en',
             name: 'English',
             iso: 'en-US',
             file: 'en-US.js',

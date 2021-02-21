@@ -3,6 +3,7 @@ import { actionTree, getAccessorType, getterTree, mutationTree } from 'typed-vue
 import { Context } from '@nuxt/types';
 import * as auth from '~/store/auth.ts';
 import * as chat from '~/store/chat.ts';
+import * as modals from '~/store/modals.ts';
 
 export const state = () => ({
   now: 0 as number,
@@ -47,5 +48,6 @@ export const accessorType = getAccessorType({
   modules: {
     auth,
     chat,
+    modals,
   },
 });

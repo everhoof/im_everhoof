@@ -31,7 +31,7 @@ export type AuthState = ReturnType<typeof state>;
 export const mutations = mutationTree(state, {
   SET_USER_ID: (_state, payload: number | null) => (_state.userId = payload),
   SET_USER: (_state, payload: GetCurrentUserQuery['getCurrentUser']) => (_state.user = payload),
-  SET_GRANTS: (_state, payload: any) => (_state.grants = payload),
+  SET_GRANTS: (_state, payload: any) => (_state.grants = JSON.stringify(payload)),
   SET_LOGGED_IN: (_state, payload: boolean) => (_state.loggedIn = payload),
   SET_LOGIN_MODAL: (_state, payload: boolean) => {
     _state.loginModal = payload;
@@ -43,7 +43,7 @@ export const mutations = mutationTree(state, {
 
 export const getters = getterTree(state, {
   isAdmin: (_state): boolean => !!_state.user?.roles.find((role) => role.name === 'ADMIN') || false,
-  ac: (_state): AccessControl => new AccessControl(_state.grants),
+  ac: (_state): AccessControl => new AccessControl(JSON.parse(_state.grants)),
   can: (_state, _getters): Query =>
     (_state.user && _getters.ac.can(_state.user.roles.map((role) => role.name))) ||
     _getters.ac.can('UNVERIFIED_USER'),

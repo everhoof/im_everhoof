@@ -1,0 +1,89 @@
+.avatar
+	position relative
+	display inline-block
+	overflow hidden
+	width 100%
+	max-width 100%
+	height 100%
+	max-height 100%
+	color var(--secondary-text)
+	text-align center
+	border-radius 50%
+
+	&__image
+		position absolute
+		width 100%
+		height 100%
+		object-fit cover
+
+	&__content
+		fill currentColor
+		color #ffffff
+		font-size 16px
+		text-transform uppercase
+
+	&__upload
+		position absolute
+		top 0
+		right 0
+		left 0
+		bottom 0
+		padding 20px
+		cursor pointer
+		background-color rgba(0, 0, 0, .5)
+		opacity 0
+		transition opacity .2s ease
+
+		&:hover
+			opacity 1
+
+		&-icon
+			fill rgba(255, 255, 255, .5)
+
+		&-input
+			display none
+
+	&_size
+		&_tiny
+			$size = 30px
+			width $size
+			max-width $size
+			height $size
+			max-height $size
+
+			& ^[0]__content
+				font-size 16px
+				line-height $size
+
+		&_medium
+			$size = 50px
+			width $size
+			max-width $size
+			height $size
+			max-height $size
+
+			& ^[0]__content
+				font-size 24px
+				line-height $size
+
+		&_large
+			$size = 70px
+			width $size
+			max-width $size
+			height $size
+			max-height $size
+
+			& ^[0]__content
+				font-size 32px
+				line-height $size
+
+		&_stretch
+			$size = 100%
+			width $size
+			max-width $size
+			height $size
+			max-height $size
+
+			& ^[0]__content
+				font-size 48px
+				line-height $size
