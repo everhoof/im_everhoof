@@ -5,6 +5,8 @@ export const namespaced = true;
 export const state = () => ({
   profileModalOpened: false as boolean,
   profileModalTargetId: -1 as number,
+  punishmentModalOpened: false as boolean,
+  punishmentModalTargetId: -1 as number,
 });
 
 export type ModalsState = ReturnType<typeof state>;
@@ -16,7 +18,14 @@ export const mutations = mutationTree(state, {
       _state.profileModalTargetId = -1;
     }
   },
+  SET_PUNISHMENT_MODAL_OPENED: (_state, payload: boolean) => {
+    _state.punishmentModalOpened = payload;
+    if (!payload) {
+      _state.punishmentModalTargetId = -1;
+    }
+  },
   SET_PROFILE_MODAL_TARGET_ID: (_state, payload: number) => (_state.profileModalTargetId = payload),
+  SET_PUNISHMENT_MODAL_TARGET_ID: (_state, payload: number) => (_state.punishmentModalTargetId = payload),
 });
 
 export const getters = getterTree(state, {});

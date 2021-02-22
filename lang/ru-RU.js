@@ -16,5 +16,20 @@ export default {
       registered: 'Зарегистрирован',
       was_online: 'Был в сети',
     },
+
+    punishment: {
+      times: {
+        forever: 'Навсегда',
+        day: '1 День',
+        hour: '1 Час',
+        ten_minutes: '10 Минут',
+        custom: 'Свой вариант',
+      },
+      mute_time: 'Время наказания',
+      mute_reason: 'Причина наказания',
+      mute_reason_placeholder: 'Нарушение правил чата',
+      delete_all_users_messages: 'Удалить все сообщения пользователя',
+      mute: 'Заглушить',
+    },
   },
 };

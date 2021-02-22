@@ -8,6 +8,7 @@
       'text-field_width_full': widthFull,
       'text-field_with_margin': margin,
       'text-field_with_icon': icon,
+      'text-field_size_small': small,
     }"
   >
     <input
@@ -46,6 +47,7 @@ export default class TextField extends Vue {
   @Prop({ type: String }) icon!: string;
   @Prop({ type: Boolean }) margin!: boolean;
   @Prop({ type: String }) name?: string;
+  @Prop({ type: Boolean, default: false }) small!: boolean;
 
   @Ref() input!: HTMLInputElement;
 

@@ -43,13 +43,24 @@
       <b-register-modal />
     </b-modal>
     <b-context-menu ref="message-context-menu">
+      <b-context-menu-item @click="openProfileModal">Профиль</b-context-menu-item>
       <b-context-menu-item v-if="showDeleteMessage" icon="delete" @click="deleteMessage">
         Удалить сообщение
+      </b-context-menu-item>
+      <b-context-menu-item v-if="showPunish" icon="hammer" important @click="punish">
+        {{ $t('modals.punishment.mute') }}
       </b-context-menu-item>
     </b-context-menu>
     <b-context-menu ref="context-menu" />
     <b-modal :value="profileModalOpened" title="Профиль" @input="setProfileModalOpened">
       <b-profile-modal />
+    </b-modal>
+    <b-modal
+      :value="punishmentModalOpened"
+      :title="$t('modals.punishment.mute')"
+      @input="setPunishmentModalOpened"
+    >
+      <b-punishment-modal />
     </b-modal>
   </div>
 </template>
@@ -70,9 +81,11 @@ import BAsideFooter from '~/components/aside-footer/aside-footer.vue';
 import BContextMenu from '~/components/context-menu/context-menu.vue';
 import BContextMenuItem from '~/components/context-menu-item/context-menu-item.vue';
 import BProfileModal from '~/components/profile-modal/profile-modal.vue';
+import BPunishmentModal from '~/components/punishment-modal/punishment-modal.vue';
 
 @Component({
   components: {
+    BPunishmentModal,
     BProfileModal,
     BContextMenuItem,
     BContextMenu,
@@ -105,6 +118,10 @@ export default class Default extends Vue {
 
   get profileModalOpened(): boolean {
     return this.$accessor.modals.profileModalOpened;
+  }
+
+  get punishmentModalOpened(): boolean {
+    return this.$accessor.modals.punishmentModalOpened;
   }
 
   setLogin(value: boolean): void {
@@ -140,6 +157,10 @@ export default class Default extends Vue {
     this.$accessor.modals.SET_PROFILE_MODAL_OPENED(value);
   }
 
+  setPunishmentModalOpened(value: boolean): void {
+    this.$accessor.modals.SET_PUNISHMENT_MODAL_OPENED(value);
+  }
+
   closeContextMenus() {
     this.contextMenu?.close();
     this.messageContextMenu?.close();
@@ -147,8 +168,7 @@ export default class Default extends Vue {
 
   openContextMenu(event: MouseEvent) {
     event.preventDefault();
-    this.messageContextMenu?.close();
-    this.contextMenu?.open(event);
+    this.closeContextMenus();
   }
 
   get showDeleteMessage(): boolean {
@@ -161,11 +181,31 @@ export default class Default extends Vue {
     );
   }
 
+  get showPunish(): boolean {
+    const ownerId = this.messageContextMenu?.contextData?.message.owner.id;
+    return (
+      (this.$accessor.auth.can.update('ban').granted || this.$accessor.auth.can.update('mute').granted) &&
+      ownerId !== this.$accessor.auth.user?.id
+    );
+  }
+
   async deleteMessage() {
     const messageId: number = this.messageContextMenu?.contextData?.message.id;
     this.closeContextMenus();
     if (!messageId) return;
     await this.$accessor.chat.deleteMessage({ messageId });
+  }
+
+  punish(): void {
+    const ownerId = this.messageContextMenu?.contextData?.message.owner.id;
+    this.$accessor.modals.SET_PUNISHMENT_MODAL_TARGET_ID(ownerId);
+    this.$accessor.modals.SET_PUNISHMENT_MODAL_OPENED(true);
+  }
+
+  openProfileModal(): void {
+    const ownerId = this.messageContextMenu?.contextData?.message.owner.id;
+    this.$accessor.modals.SET_PROFILE_MODAL_TARGET_ID(ownerId);
+    this.$accessor.modals.SET_PROFILE_MODAL_OPENED(true);
   }
 }
 </script>
