@@ -72,7 +72,7 @@ export default class Message extends Vue {
     return message.replace(emojiRegex, (_match, p1) => {
       const emoji = this.$accessor.chat.emoji.find((e) => e.name === p1);
       if (!emoji) return p1;
-      return `<img src="/emoji/${emoji.name}.${emoji.ext}" class="message__emoji" title=":${emoji.name}:"/>`;
+      return `<img src="/emoji/${emoji.name}.${emoji.ext}" class="message__emoji" title=":${emoji.name}:" width="70px" height="70px" />`;
     });
   }
 
