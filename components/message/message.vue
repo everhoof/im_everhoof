@@ -1,9 +1,6 @@
 <template>
   <!-- begin .message-->
   <div class="message" :class="{ message_view_compact: compact }" @contextmenu="openContextMenu">
-    <div v-show="separator" class="message__separator">
-      <span class="message__separator-date">{{ date }}</span>
-    </div>
     <img v-if="avatar" :src="avatar" class="message__avatar" />
     <div
       v-else
@@ -65,7 +62,6 @@ import BContextMenu from '~/components/context-menu/context-menu.vue';
 export default class Message extends Vue {
   @InjectReactive('message-context-menu') readonly contextMenu!: BContextMenu;
   @Prop({ required: true, type: Object, default: () => {} }) message!: ChatMessage;
-  @Prop({ required: false, type: Boolean, default: false }) separator!: boolean;
 
   get text() {
     const message = this.message.content.replace(
@@ -102,10 +98,6 @@ export default class Message extends Vue {
 
   get localDateTime(): string {
     return toLocalDateTime(this.timestamp, this.compact);
-  }
-
-  get date(): string {
-    return DateTime.fromISO(this.timestamp).toFormat('dd LLLL yyyy');
   }
 
   get localDateTimeFull(): string {
