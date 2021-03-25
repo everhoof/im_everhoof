@@ -7,10 +7,10 @@ type Query {
   getCurrentUser: User!
   getUserById(id: Int!): User!
   getOnline: [User!]!
+  getMessages(count: Int = 100, page: Int = 1): [Message!]!
   getGrants: String!
   getHello: String!
   getPictureById(pictureId: Int!): Picture!
-  getMessages(count: Int = 100, page: Int = 1): [Message!]!
 }
 type User {
   id: Int!
@@ -54,6 +54,7 @@ type Message {
   id: Int!
   ownerId: Float
   randomId: String
+  system: Boolean!
   content: String!
   username: String
   deletedById: Float
@@ -66,10 +67,16 @@ type Message {
 }
 type Mutation {
   updateOnlineStatus: Boolean!
-  signIn(email: String!, password: String!): Token!
-  signUp(email: String!, username: String, password: String!): User!
+  punish(userId: Int!, type: PunishmentTypes!, reason: String!, duration: Int): User!
+  unpunish(userId: Int!): User!
   createMessage(content: String, randomId: String, pictures: [Int!] = []): Message!
   deleteMessage(messageId: Int!): Message!
+  signIn(email: String!, password: String!): Token!
+  signUp(email: String!, username: String, password: String!): User!
+}
+enum PunishmentTypes {
+  ban
+  mute
 }
 type Token {
   id: Int!

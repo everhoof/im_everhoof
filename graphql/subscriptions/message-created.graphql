@@ -13,6 +13,7 @@ subscription MessageCreated {
     }
     content
     username
+    system
     pictures {
       m {
         link

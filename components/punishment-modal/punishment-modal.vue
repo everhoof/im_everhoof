@@ -45,13 +45,13 @@
         </div>
       </div>
     </div>
-    <div class="punishment-modal__row">
+    <div v-show="false" class="punishment-modal__row">
       <b-checkbox id="punishment-delete-messages" v-model="deleteMessages">
         {{ $t('modals.punishment.delete_all_users_messages') }}
       </b-checkbox>
     </div>
     <div class="punishment-modal__row">
-      <b-button width-full>{{ $t('modals.punishment.mute') }}!</b-button>
+      <b-button width-full @click="punish()">{{ $t('modals.punishment.mute') }}!</b-button>
     </div>
   </div>
   <!-- end .punishment-modal-->
@@ -63,6 +63,7 @@ import BSelect from '~/components/select/select.vue';
 import BTextField from '~/components/text-field/text-field.vue';
 import BCheckbox from '~/components/checkbox/checkbox.vue';
 import BButton from '~/components/button/button.vue';
+import { PunishmentTypes } from '~/graphql/schema';
 
 @Component({
   name: 'b-punishment-modal',
@@ -77,9 +78,10 @@ export default class PunishmentModal extends Vue {
     this.$t('modals.punishment.times.ten_minutes').toString(),
     this.$t('modals.punishment.times.custom').toString(),
   ];
+  timeValues: (number | undefined)[] = [undefined, 1440, 60, 10, undefined];
   selectedTypeIndex: number = 0;
   selectedTimeIndex: number = 0;
-  customTime: number = 30;
+  customTime: string = '30';
   deleteMessages: boolean = false;
   reason: string = this.$t('modals.punishment.mute_reason_placeholder').toString();
 
@@ -91,12 +93,25 @@ export default class PunishmentModal extends Vue {
     return this.selectedTimeIndex === this.time.length - 1;
   }
 
+  get duration(): number | undefined {
+    return this.isCustomTime ? +this.customTime : this.timeValues[this.selectedTimeIndex];
+  }
+
   setSelectedTypeIndex(value: number) {
     this.selectedTypeIndex = value;
   }
 
   setSelectedTimeIndex(value: number) {
     this.selectedTimeIndex = value;
+  }
+
+  async punish() {
+    await this.$accessor.chat.punishUser({
+      userId: this.id,
+      type: PunishmentTypes.Mute,
+      duration: this.duration,
+      reason: this.reason,
+    });
   }
 }
 </script>

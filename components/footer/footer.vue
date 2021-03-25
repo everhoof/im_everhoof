@@ -113,6 +113,7 @@ export default class Footer extends Vue {
     this.$accessor.chat.ADD_MESSAGE({
       id: getRandomIntInRange(0, 10000),
       content: this.$accessor.chat.message,
+      system: false,
       randomId,
       username: this.$accessor.auth.user?.username,
       owner: this.$accessor.auth.user as User,

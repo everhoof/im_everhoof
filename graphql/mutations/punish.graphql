@@ -1,0 +1,5 @@
+mutation Punish($userId: Int!, $reason: String!, $duration: Int, $type: PunishmentTypes!) {
+  punish(userId: $userId, reason: $reason, duration: $duration, type: $type) {
+    id
+  }
+}

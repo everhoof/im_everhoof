@@ -16,23 +16,23 @@ export type Query = {
   getCurrentUser: User;
   getUserById: User;
   getOnline: Array<User>;
+  getMessages: Array<Message>;
   getGrants: Scalars['String'];
   getHello: Scalars['String'];
   getPictureById: Picture;
-  getMessages: Array<Message>;
 };
 
 export type QueryGetUserByIdArgs = {
   id: Scalars['Int'];
 };
 
-export type QueryGetPictureByIdArgs = {
-  pictureId: Scalars['Int'];
-};
-
 export type QueryGetMessagesArgs = {
   count?: Maybe<Scalars['Int']>;
   page?: Maybe<Scalars['Int']>;
+};
+
+export type QueryGetPictureByIdArgs = {
+  pictureId: Scalars['Int'];
 };
 
 export type User = {
@@ -84,6 +84,7 @@ export type Message = {
   id: Scalars['Int'];
   ownerId?: Maybe<Scalars['Float']>;
   randomId?: Maybe<Scalars['String']>;
+  system: Scalars['Boolean'];
   content: Scalars['String'];
   username?: Maybe<Scalars['String']>;
   deletedById?: Maybe<Scalars['Float']>;
@@ -98,10 +99,33 @@ export type Message = {
 export type Mutation = {
   __typename?: 'Mutation';
   updateOnlineStatus: Scalars['Boolean'];
-  signIn: Token;
-  signUp: User;
+  punish: User;
+  unpunish: User;
   createMessage: Message;
   deleteMessage: Message;
+  signIn: Token;
+  signUp: User;
+};
+
+export type MutationPunishArgs = {
+  userId: Scalars['Int'];
+  type: PunishmentTypes;
+  reason: Scalars['String'];
+  duration?: Maybe<Scalars['Int']>;
+};
+
+export type MutationUnpunishArgs = {
+  userId: Scalars['Int'];
+};
+
+export type MutationCreateMessageArgs = {
+  content?: Maybe<Scalars['String']>;
+  randomId?: Maybe<Scalars['String']>;
+  pictures?: Maybe<Array<Scalars['Int']>>;
+};
+
+export type MutationDeleteMessageArgs = {
+  messageId: Scalars['Int'];
 };
 
 export type MutationSignInArgs = {
@@ -115,15 +139,10 @@ export type MutationSignUpArgs = {
   password: Scalars['String'];
 };
 
-export type MutationCreateMessageArgs = {
-  content?: Maybe<Scalars['String']>;
-  randomId?: Maybe<Scalars['String']>;
-  pictures?: Maybe<Array<Scalars['Int']>>;
-};
-
-export type MutationDeleteMessageArgs = {
-  messageId: Scalars['Int'];
-};
+export enum PunishmentTypes {
+  Ban = 'ban',
+  Mute = 'mute',
+}
 
 export type Token = {
   __typename?: 'Token';
@@ -159,7 +178,7 @@ export type DeleteMessageMutationVariables = Exact<{
 export type DeleteMessageMutation = { __typename?: 'Mutation' } & {
   deleteMessage: { __typename?: 'Message' } & Pick<
     Message,
-    'id' | 'randomId' | 'content' | 'username' | 'createdAt' | 'updatedAt' | 'deletedAt'
+    'id' | 'randomId' | 'content' | 'username' | 'system' | 'createdAt' | 'updatedAt' | 'deletedAt'
   > & {
       owner?: Maybe<
         { __typename?: 'User' } & Pick<User, 'id' | 'username'> & {
@@ -184,6 +203,17 @@ export type DeleteMessageMutation = { __typename?: 'Mutation' } & {
       >;
       deletedBy?: Maybe<{ __typename?: 'User' } & Pick<User, 'id' | 'username'>>;
     };
+};
+
+export type PunishMutationVariables = Exact<{
+  userId: Scalars['Int'];
+  reason: Scalars['String'];
+  duration?: Maybe<Scalars['Int']>;
+  type: PunishmentTypes;
+}>;
+
+export type PunishMutation = { __typename?: 'Mutation' } & {
+  punish: { __typename?: 'User' } & Pick<User, 'id'>;
 };
 
 export type SignInMutationVariables = Exact<{
@@ -215,7 +245,7 @@ export type GetChatDataQuery = { __typename?: 'Query' } & {
   getMessages: Array<
     { __typename?: 'Message' } & Pick<
       Message,
-      'id' | 'randomId' | 'content' | 'username' | 'createdAt' | 'updatedAt' | 'deletedAt'
+      'id' | 'randomId' | 'content' | 'username' | 'system' | 'createdAt' | 'updatedAt' | 'deletedAt'
     > & {
         owner?: Maybe<
           { __typename?: 'User' } & Pick<User, 'id' | 'username'> & {
@@ -313,7 +343,7 @@ export type MessageCreatedSubscriptionVariables = Exact<{ [key: string]: never }
 export type MessageCreatedSubscription = { __typename?: 'Subscription' } & {
   messageCreated: { __typename?: 'Message' } & Pick<
     Message,
-    'id' | 'randomId' | 'content' | 'username' | 'createdAt' | 'updatedAt' | 'deletedAt'
+    'id' | 'randomId' | 'content' | 'username' | 'system' | 'createdAt' | 'updatedAt' | 'deletedAt'
   > & {
       owner?: Maybe<
         { __typename?: 'User' } & Pick<User, 'id' | 'username'> & {
@@ -345,7 +375,7 @@ export type MessageDeletedSubscriptionVariables = Exact<{ [key: string]: never }
 export type MessageDeletedSubscription = { __typename?: 'Subscription' } & {
   messageDeleted: { __typename?: 'Message' } & Pick<
     Message,
-    'id' | 'randomId' | 'content' | 'username' | 'createdAt' | 'updatedAt' | 'deletedAt'
+    'id' | 'randomId' | 'content' | 'username' | 'system' | 'createdAt' | 'updatedAt' | 'deletedAt'
   > & {
       owner?: Maybe<
         { __typename?: 'User' } & Pick<User, 'id' | 'username'> & {

@@ -8,6 +8,7 @@ import UpdateOnlineStatus from '~/graphql/mutations/update-online-status.graphql
 import DeleteMessage from '~/graphql/mutations/delete-message.graphql';
 import GetChatData from '~/graphql/queries/get-chat-data.graphql';
 import GetUserById from '~/graphql/queries/get-user-by-id.graphql';
+import Punish from '~/graphql/mutations/punish.graphql';
 import {
   DeleteMessageMutation,
   DeleteMessageMutationVariables,
@@ -17,6 +18,8 @@ import {
   MessageCreatedSubscription,
   MessageDeletedSubscription,
   OnlineUpdatedSubscription,
+  PunishMutation,
+  PunishMutationVariables,
   UpdateOnlineStatusMutation,
 } from '~/graphql/schema';
 import { Emoji } from '~/types/emoji';
@@ -116,7 +119,9 @@ export const mutations = mutationTree(state, {
   SET_MESSAGES: (_state, payload: GetChatDataQuery['getMessages']) => (_state.messages = payload),
   SET_MESSAGE: (_state, payload: string) => (_state.message = payload),
   ADD_MESSAGE: (_state, payload: MessageCreatedSubscription['messageCreated']) => {
-    const index = _state.messages.findIndex(({ randomId }) => randomId === payload.randomId);
+    const index = payload.randomId
+      ? _state.messages.findIndex(({ randomId }) => randomId === payload.randomId)
+      : -1;
     if (index === -1) _state.messages.unshift(payload);
     else Vue.set(_state.messages, index, payload);
     if (_state.messages.length > 300) _state.messages.splice(-1);
@@ -241,6 +246,20 @@ export const actions = actionTree(
         });
         if (errors || !data?.getUserById) return;
         commit('ADD_USER', data.getUserById);
+      } catch (e) {}
+    },
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    async punishUser({ commit }, payload: PunishMutationVariables) {
+      const client = this.app.apolloProvider?.defaultClient;
+      if (!client) return;
+      try {
+        const { data, errors } = await client.query<PunishMutation, PunishMutationVariables>({
+          query: Punish,
+          variables: payload,
+        });
+        // eslint-disable-next-line no-useless-return
+        if (errors || !data?.punish) return;
       } catch (e) {}
     },
   },

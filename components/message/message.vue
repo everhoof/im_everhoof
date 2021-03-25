@@ -1,13 +1,17 @@
 <template>
   <!-- begin .message-->
-  <div class="message" :class="{ message_view_compact: compact }" @contextmenu="openContextMenu">
+  <div
+    class="message"
+    :class="{ message_view_compact: compact, message_type_system: system }"
+    @contextmenu="openContextMenu"
+  >
     <img v-if="avatar" :src="avatar" class="message__avatar" />
     <div
       v-else
       class="message__avatar message__avatar_type_default"
       :style="{ backgroundColor: avatarColor }"
     >
-      {{ message.username[0] }}
+      {{ message.username && message.username[0] }}
     </div>
     <div class="message__content">
       <div v-if="compact" class="message__header">
@@ -88,6 +92,10 @@ export default class Message extends Vue {
     return true;
   }
 
+  get system() {
+    return this.message.system;
+  }
+
   get avatar() {
     return this.message?.owner?.avatar?.s.link;
   }
@@ -124,6 +132,7 @@ export default class Message extends Vue {
   }
 
   openContextMenu(event: MouseEvent) {
+    if (this.message.system) return;
     if (
       this.$accessor.auth.can.deleteAny('message') ||
       (this.$accessor.auth.can.deleteOwn('message') && this.message.id === this.$accessor.auth.user?.id)

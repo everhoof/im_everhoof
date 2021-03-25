@@ -172,7 +172,7 @@ export default class Default extends Vue {
   }
 
   get showDeleteMessage(): boolean {
-    const ownerId = this.messageContextMenu?.contextData?.message.owner.id;
+    const ownerId = this.messageContextMenu?.contextData?.message.owner?.id;
     return (
       this.$accessor.auth.can.deleteAny('message').granted ||
       (this.$accessor.auth.can.deleteOwn('message').granted &&
@@ -182,7 +182,7 @@ export default class Default extends Vue {
   }
 
   get showPunish(): boolean {
-    const ownerId = this.messageContextMenu?.contextData?.message.owner.id;
+    const ownerId = this.messageContextMenu?.contextData?.message.owner?.id;
     return (
       (this.$accessor.auth.can.update('ban').granted || this.$accessor.auth.can.update('mute').granted) &&
       ownerId !== this.$accessor.auth.user?.id
@@ -197,13 +197,13 @@ export default class Default extends Vue {
   }
 
   punish(): void {
-    const ownerId = this.messageContextMenu?.contextData?.message.owner.id;
+    const ownerId = this.messageContextMenu?.contextData?.message.owner?.id;
     this.$accessor.modals.SET_PUNISHMENT_MODAL_TARGET_ID(ownerId);
     this.$accessor.modals.SET_PUNISHMENT_MODAL_OPENED(true);
   }
 
   openProfileModal(): void {
-    const ownerId = this.messageContextMenu?.contextData?.message.owner.id;
+    const ownerId = this.messageContextMenu?.contextData?.message.owner?.id;
     this.$accessor.modals.SET_PROFILE_MODAL_TARGET_ID(ownerId);
     this.$accessor.modals.SET_PROFILE_MODAL_OPENED(true);
   }

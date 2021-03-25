@@ -24,6 +24,7 @@ export default {
         hour: '1 Час',
         ten_minutes: '10 Минут',
         custom: 'Свой вариант',
+        minutes: 'минут',
       },
       mute_time: 'Время наказания',
       mute_reason: 'Причина наказания',

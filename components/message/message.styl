@@ -40,6 +40,26 @@
 				&__avatar
 					display none
 
+	&_type
+		&_system
+			&:hover,
+			&:active,
+			&:focus
+				background inherit
+
+			& ^[0]
+				&__header
+					margin-right 0
+
+				&__timestamp
+					font-style italic
+
+				&__author-name
+					display none
+
+				&__text
+					font-style italic
+
 	&__avatar
 		position absolute
 		top 33px
@@ -94,6 +114,7 @@
 	&__text
 		margin 0 0 6px
 		color var(--secondary-text)
+		line-height 20px
 		word-break break-word
 
 		&:last-child
