@@ -1,23 +1,33 @@
+$select-background-color = var(--select-background)
+$select-border-color = var(--select-border)
+
 .select
 	position relative
 	display block
 
 	&__title
+		position relative
 		overflow hidden
-		padding 8px 20px
-		color var(--secondary-text)
+		padding 8px 36px 8px 20px
+		color var(--primary-text)
 		white-space nowrap
-		text-transform uppercase
 		text-overflow ellipsis
 		cursor pointer
-		background rgba(255, 255, 255, .04)
-		border 1px solid rgba(0, 0, 0, .2)
+		background $select-background-color
+		border 1px solid $select-border-color
 		border-radius 3px
 		outline none
 
 		&:hover,
 		&:focus
 			background rgba(255, 255, 255, .06)
+
+		&:after
+			content '▼'
+			position absolute
+			right 8px
+			font-size 11px
+			line-height 16px
 
 	&__list
 		position absolute
@@ -26,7 +36,6 @@
 		overflow hidden
 		min-width 100%
 		margin 4px 0
-		text-transform uppercase
 		background var(--primary-background)
 		border-radius 4px
 		box-shadow 0 0 5px rgba(0, 0, 0, .6)
