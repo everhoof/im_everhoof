@@ -6,7 +6,7 @@
       <div class="profile-modal__user-info">
         <div class="profile-modal__username">
           <span>{{ username }}</span>
-          <button class="profile-modal__username-edit">
+          <button v-if="false" class="profile-modal__username-edit">
             <svg-icon name="edit" />
           </button>
         </div>
