@@ -89,6 +89,7 @@ type Token {
 }
 type Subscription {
   onlineUpdated: [User!]!
+  userUpdated: User!
   messageCreated: Message!
   messageDeleted: Message!
 }

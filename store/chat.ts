@@ -4,6 +4,7 @@ import Vue from 'vue';
 import MessageCreated from '~/graphql/subscriptions/message-created.graphql';
 import MessageDeleted from '~/graphql/subscriptions/message-deleted.graphql';
 import OnlineUpdated from '~/graphql/subscriptions/online-updated.graphql';
+import UserUpdated from '~/graphql/subscriptions/user-updated.graphql';
 import UpdateOnlineStatus from '~/graphql/mutations/update-online-status.graphql';
 import DeleteMessage from '~/graphql/mutations/delete-message.graphql';
 import GetChatData from '~/graphql/queries/get-chat-data.graphql';
@@ -21,6 +22,7 @@ import {
   PunishMutation,
   PunishMutationVariables,
   UpdateOnlineStatusMutation,
+  UserUpdatedSubscription,
 } from '~/graphql/schema';
 import { Emoji } from '~/types/emoji';
 
@@ -128,7 +130,11 @@ export const mutations = mutationTree(state, {
   },
   SET_ONLINE: (_state, payload: GetChatDataQuery['getOnline']) => (_state.online = payload),
   SET_ASIDE_PC_OPENED: (_state, payload: boolean) => (_state.asidePcOpened = payload),
-  ADD_USER: (_state, payload: GetUserByIdQuery['getUserById']) => _state.users.push(payload),
+  ADD_USER: (_state, payload: GetUserByIdQuery['getUserById']) => {
+    const index = _state.users.findIndex(({ id }) => id === payload.id);
+    if (index === -1) _state.users.push(payload);
+    else Vue.set(_state.users, index, payload);
+  },
 });
 
 export const getters = getterTree(state, {
@@ -197,6 +203,21 @@ export const actions = actionTree(
           next({ data }) {
             if (!data?.messageDeleted) return;
             commit('ADD_MESSAGE', data.messageDeleted);
+          },
+        });
+      }
+    },
+
+    subscribeUserUpdated({ commit }, context?: Context) {
+      const client = context?.app.apolloProvider?.defaultClient ?? this.app.apolloProvider?.defaultClient;
+      if (client) {
+        const userUpdatedObserver = client.subscribe<UserUpdatedSubscription>({
+          query: UserUpdated,
+        });
+        userUpdatedObserver.subscribe({
+          next({ data }) {
+            if (!data?.userUpdated) return;
+            commit('ADD_USER', data.userUpdated);
           },
         });
       }

@@ -162,6 +162,7 @@ export type Token = {
 export type Subscription = {
   __typename?: 'Subscription';
   onlineUpdated: Array<User>;
+  userUpdated: User;
   messageCreated: Message;
   messageDeleted: Message;
 };
@@ -444,4 +445,27 @@ export type OnlineUpdatedSubscription = { __typename?: 'Subscription' } & {
         >;
       }
   >;
+};
+
+export type UserUpdatedSubscriptionVariables = Exact<{ [key: string]: never }>;
+
+export type UserUpdatedSubscription = { __typename?: 'Subscription' } & {
+  userUpdated: { __typename?: 'User' } & Pick<User, 'id' | 'username' | 'email' | 'createdAt'> & {
+      avatar?: Maybe<
+        { __typename?: 'Picture' } & Pick<Picture, 'id'> & {
+            s: { __typename?: 'PictureRepresentation' } & Pick<
+              PictureRepresentation,
+              'height' | 'width' | 'link' | 'size'
+            >;
+            m: { __typename?: 'PictureRepresentation' } & Pick<
+              PictureRepresentation,
+              'height' | 'width' | 'link' | 'size'
+            >;
+            o: { __typename?: 'PictureRepresentation' } & Pick<
+              PictureRepresentation,
+              'height' | 'width' | 'link' | 'size'
+            >;
+          }
+      >;
+    };
 };

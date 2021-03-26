@@ -1,0 +1,30 @@
+subscription UserUpdated {
+  userUpdated {
+    id
+    username
+    email
+    avatar {
+      id
+      s {
+        height
+        width
+        link
+        size
+      }
+      m {
+        height
+        width
+        link
+        size
+      }
+      o {
+        height
+        width
+        link
+        size
+      }
+    }
+    createdAt
+  }
+}
+
