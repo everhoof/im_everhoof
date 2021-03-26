@@ -1,6 +1,6 @@
 import { getAccessorFromStore } from 'typed-vuex'
 
-import { createStore } from 'C:/Users/intel/Dev/@everhoof/im_everhoof/.nuxt/store'
+import { createStore } from '/root/TeamCity/buildAgent/work/d1b81347e707aeef/.nuxt/store'
 
 const storeAccessor = getAccessorFromStore(createStore())
 

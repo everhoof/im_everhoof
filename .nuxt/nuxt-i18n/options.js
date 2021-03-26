@@ -1,6 +1,6 @@
 export const vueI18n = {}
 export const vueI18nLoader = false
-export const locales = [{"code":"ru","name":"Русский","iso":"ru-RU","file":"ru-RU.js"},{"code":"ru","name":"English","iso":"en-US","file":"en-US.js"}]
+export const locales = [{"code":"ru","name":"Русский","iso":"ru-RU","file":"ru-RU.js"},{"code":"en","name":"English","iso":"en-US","file":"en-US.js"}]
 export const defaultLocale = 'ru'
 export const routesNameSeparator = '___'
 export const defaultLocaleRouteNameSuffix = 'default'
@@ -25,5 +25,5 @@ export const LOCALE_DOMAIN_KEY = 'domain'
 export const LOCALE_FILE_KEY = 'file'
 export const STRATEGIES = {"PREFIX":"prefix","PREFIX_EXCEPT_DEFAULT":"prefix_except_default","PREFIX_AND_DEFAULT":"prefix_and_default","NO_PREFIX":"no_prefix"}
 export const COMPONENT_OPTIONS_KEY = 'nuxtI18n'
-export const localeCodes = ["ru","ru"]
+export const localeCodes = ["ru","en"]
 export const trailingSlash = undefined

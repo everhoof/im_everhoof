@@ -150,7 +150,7 @@ export async function setContext (app, context) {
       payload: context.payload,
       error: context.error,
       base: '/',
-      env: {"GRAPHQL_HTTP":"https://im.everhoof.ru/api/graphql","GRAPHQL_WS":"wss://im.everhoof.ru/api/graphql"}
+      env: {"API_HTTP":"https://im.everhoof.ru/api/","GRAPHQL_HTTP":"https://im.everhoof.ru/api/graphql","GRAPHQL_WS":"wss://im.everhoof.ru/api/graphql"}
     }
     // Only set once
     if (!process.static && context.req) {

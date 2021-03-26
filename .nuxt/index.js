@@ -13,15 +13,15 @@ import { createStore } from './store.js'
 
 /* Plugins */
 
-import nuxt_plugin_pluginrouting_68908690 from 'nuxt_plugin_pluginrouting_68908690' // Source: .\\nuxt-i18n\\plugin.routing.js (mode: 'all')
-import nuxt_plugin_pluginmain_39a129b7 from 'nuxt_plugin_pluginmain_39a129b7' // Source: .\\nuxt-i18n\\plugin.main.js (mode: 'all')
-import nuxt_plugin_apollomodule_5fee00ad from 'nuxt_plugin_apollomodule_5fee00ad' // Source: .\\apollo-module.js (mode: 'all')
-import nuxt_plugin_nuxtsvgsprite_36a75bbf from 'nuxt_plugin_nuxtsvgsprite_36a75bbf' // Source: .\\nuxt-svg-sprite.js (mode: 'all')
-import nuxt_plugin_cookieuniversalnuxt_14566389 from 'nuxt_plugin_cookieuniversalnuxt_14566389' // Source: .\\cookie-universal-nuxt.js (mode: 'all')
-import nuxt_plugin_nuxttypedvuex_209d1d10 from 'nuxt_plugin_nuxttypedvuex_209d1d10' // Source: .\\nuxt-typed-vuex.js (mode: 'all')
-import nuxt_plugin_router_fcb2bc24 from 'nuxt_plugin_router_fcb2bc24' // Source: .\\router.js (mode: 'all')
-import nuxt_plugin_nuxtclientinitclient_a74159dc from 'nuxt_plugin_nuxtclientinitclient_a74159dc' // Source: ..\\plugins\\nuxt-client-init.client.ts (mode: 'client')
-import nuxt_plugin_vue2touchevents_147d6a7b from 'nuxt_plugin_vue2touchevents_147d6a7b' // Source: ..\\plugins\\vue2-touch-events.ts (mode: 'client')
+import nuxt_plugin_pluginrouting_262ee9d7 from 'nuxt_plugin_pluginrouting_262ee9d7' // Source: ./nuxt-i18n/plugin.routing.js (mode: 'all')
+import nuxt_plugin_pluginmain_fcd9ae10 from 'nuxt_plugin_pluginmain_fcd9ae10' // Source: ./nuxt-i18n/plugin.main.js (mode: 'all')
+import nuxt_plugin_apollomodule_b46f894a from 'nuxt_plugin_apollomodule_b46f894a' // Source: ./apollo-module.js (mode: 'all')
+import nuxt_plugin_nuxtsvgsprite_6edda2ed from 'nuxt_plugin_nuxtsvgsprite_6edda2ed' // Source: ./nuxt-svg-sprite.js (mode: 'all')
+import nuxt_plugin_cookieuniversalnuxt_27da1037 from 'nuxt_plugin_cookieuniversalnuxt_27da1037' // Source: ./cookie-universal-nuxt.js (mode: 'all')
+import nuxt_plugin_nuxttypedvuex_27e7b8a6 from 'nuxt_plugin_nuxttypedvuex_27e7b8a6' // Source: ./nuxt-typed-vuex.js (mode: 'all')
+import nuxt_plugin_router_623e2200 from 'nuxt_plugin_router_623e2200' // Source: ./router.js (mode: 'all')
+import nuxt_plugin_nuxtclientinitclient_a74159dc from 'nuxt_plugin_nuxtclientinitclient_a74159dc' // Source: ../plugins/nuxt-client-init.client.ts (mode: 'client')
+import nuxt_plugin_vue2touchevents_147d6a7b from 'nuxt_plugin_vue2touchevents_147d6a7b' // Source: ../plugins/vue2-touch-events.ts (mode: 'client')
 
 // Component: <ClientOnly>
 Vue.component(ClientOnly.name, ClientOnly)
@@ -81,7 +81,7 @@ async function createApp(ssrContext, config = {}) {
   // here we inject the router and store to all child components,
   // making them available everywhere as `this.$router` and `this.$store`.
   const app = {
-    head: {"title":"Чат - Everhoof Radio","meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"hid":"description","name":"description","content":"Чат интернет-радиостанции Everhoof Radio"}],"link":[{"rel":"icon","type":"image\u002Fpng","href":"\u002Ffavicon.png"},{"rel":"stylesheet","href":"https:\u002F\u002Ffonts.googleapis.com\u002Fcss2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap\" rel=\"stylesheet"}],"htmlAttrs":{"class":["page page_theme_dark"]},"bodyAttrs":{"class":["page__body grid grid_type_default"]},"style":[],"script":[]},
+    head: {"title":"Чат - Everhoof Radio","meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"hid":"description","name":"description","content":"Чат интернет-радиостанции Everhoof Radio"}],"link":[{"rel":"icon","type":"image\u002Fpng","href":"\u002Ffavicon.png"},{"rel":"stylesheet","href":"https:\u002F\u002Ffonts.googleapis.com\u002Fcss2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap\" rel=\"stylesheet"}],"htmlAttrs":{"class":["page"]},"bodyAttrs":{"class":["page__body grid grid_type_default"]},"style":[],"script":[]},
 
     store,
     router,
@@ -210,32 +210,32 @@ async function createApp(ssrContext, config = {}) {
   }
   // Plugin execution
 
-  if (typeof nuxt_plugin_pluginrouting_68908690 === 'function') {
-    await nuxt_plugin_pluginrouting_68908690(app.context, inject)
+  if (typeof nuxt_plugin_pluginrouting_262ee9d7 === 'function') {
+    await nuxt_plugin_pluginrouting_262ee9d7(app.context, inject)
   }
 
-  if (typeof nuxt_plugin_pluginmain_39a129b7 === 'function') {
-    await nuxt_plugin_pluginmain_39a129b7(app.context, inject)
+  if (typeof nuxt_plugin_pluginmain_fcd9ae10 === 'function') {
+    await nuxt_plugin_pluginmain_fcd9ae10(app.context, inject)
   }
 
-  if (typeof nuxt_plugin_apollomodule_5fee00ad === 'function') {
-    await nuxt_plugin_apollomodule_5fee00ad(app.context, inject)
+  if (typeof nuxt_plugin_apollomodule_b46f894a === 'function') {
+    await nuxt_plugin_apollomodule_b46f894a(app.context, inject)
   }
 
-  if (typeof nuxt_plugin_nuxtsvgsprite_36a75bbf === 'function') {
-    await nuxt_plugin_nuxtsvgsprite_36a75bbf(app.context, inject)
+  if (typeof nuxt_plugin_nuxtsvgsprite_6edda2ed === 'function') {
+    await nuxt_plugin_nuxtsvgsprite_6edda2ed(app.context, inject)
   }
 
-  if (typeof nuxt_plugin_cookieuniversalnuxt_14566389 === 'function') {
-    await nuxt_plugin_cookieuniversalnuxt_14566389(app.context, inject)
+  if (typeof nuxt_plugin_cookieuniversalnuxt_27da1037 === 'function') {
+    await nuxt_plugin_cookieuniversalnuxt_27da1037(app.context, inject)
   }
 
-  if (typeof nuxt_plugin_nuxttypedvuex_209d1d10 === 'function') {
-    await nuxt_plugin_nuxttypedvuex_209d1d10(app.context, inject)
+  if (typeof nuxt_plugin_nuxttypedvuex_27e7b8a6 === 'function') {
+    await nuxt_plugin_nuxttypedvuex_27e7b8a6(app.context, inject)
   }
 
-  if (typeof nuxt_plugin_router_fcb2bc24 === 'function') {
-    await nuxt_plugin_router_fcb2bc24(app.context, inject)
+  if (typeof nuxt_plugin_router_623e2200 === 'function') {
+    await nuxt_plugin_router_623e2200(app.context, inject)
   }
 
   if (process.client && typeof nuxt_plugin_nuxtclientinitclient_a74159dc === 'function') {
