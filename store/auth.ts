@@ -20,7 +20,7 @@ export const namespaced = true;
 export const state = () => ({
   userId: null as number | null,
   user: null as GetCurrentUserQuery['getCurrentUser'] | null,
-  grants: null as any,
+  grants: '{"UNVERIFIED_USER":{"message":{"read:any":["*"]}}}' as any,
   loggedIn: false as boolean,
   loginModal: false as boolean,
   registerModal: false as boolean,
