@@ -14,7 +14,7 @@
     <span v-else class="avatar__content">{{ letter }}</span>
     <label for="avatar-upload" class="avatar__upload">
       <svg-icon class="avatar__upload-icon" name="upload" />
-      <input id="avatar-upload" class="avatar__upload-input" type="file" />
+      <input id="avatar-upload" class="avatar__upload-input" type="file" @change="onFileChanged" />
     </label>
   </div>
   <!-- end .avatar-->
@@ -22,8 +22,10 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'nuxt-property-decorator';
-import { User } from '~/graphql/schema';
+import { UpdateAvatarMutation, UpdateAvatarMutationVariables, User } from '~/graphql/schema';
 import { getUserColor } from '~/tools/util';
+import UpdateAvatar from '~/graphql/mutations/update-avatar.graphql';
+import { HttpClient } from '~/tools/http-client';
 
 @Component({
   name: 'b-avatar',
@@ -45,6 +47,26 @@ export default class Avatar extends Vue {
 
   get color(): string {
     return getUserColor(this.user?.id);
+  }
+
+  async onFileChanged(e: Event & { target: { files: File[] } }) {
+    const file = e.target.files[0];
+    const id = await HttpClient.uploadPicture(file);
+    if (id) await this.updateAvatar(id);
+  }
+
+  async updateAvatar(pictureId: number): Promise<void> {
+    const { errors, data } = await this.$apollo.mutate<UpdateAvatarMutation, UpdateAvatarMutationVariables>({
+      mutation: UpdateAvatar,
+      variables: { pictureId },
+    });
+    if (errors || data?.updateAvatar) return;
+
+    const user = this.$accessor.auth.user;
+    if (user) {
+      user.avatar = data?.updateAvatar.avatar;
+      this.$accessor.auth.SET_USER(user);
+    }
   }
 }
 </script>

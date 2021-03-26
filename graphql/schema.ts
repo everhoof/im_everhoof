@@ -99,12 +99,17 @@ export type Message = {
 export type Mutation = {
   __typename?: 'Mutation';
   updateOnlineStatus: Scalars['Boolean'];
+  updateAvatar: User;
   punish: User;
   unpunish: User;
   createMessage: Message;
   deleteMessage: Message;
   signIn: Token;
   signUp: User;
+};
+
+export type MutationUpdateAvatarArgs = {
+  pictureId: Scalars['Int'];
 };
 
 export type MutationPunishArgs = {
@@ -233,6 +238,31 @@ export type SignUpMutationVariables = Exact<{
 
 export type SignUpMutation = { __typename?: 'Mutation' } & {
   signUp: { __typename?: 'User' } & Pick<User, 'id' | 'email'>;
+};
+
+export type UpdateAvatarMutationVariables = Exact<{
+  pictureId: Scalars['Int'];
+}>;
+
+export type UpdateAvatarMutation = { __typename?: 'Mutation' } & {
+  updateAvatar: { __typename?: 'User' } & {
+    avatar?: Maybe<
+      { __typename?: 'Picture' } & Pick<Picture, 'id'> & {
+          s: { __typename?: 'PictureRepresentation' } & Pick<
+            PictureRepresentation,
+            'height' | 'width' | 'link' | 'size'
+          >;
+          m: { __typename?: 'PictureRepresentation' } & Pick<
+            PictureRepresentation,
+            'height' | 'width' | 'link' | 'size'
+          >;
+          o: { __typename?: 'PictureRepresentation' } & Pick<
+            PictureRepresentation,
+            'height' | 'width' | 'link' | 'size'
+          >;
+        }
+    >;
+  };
 };
 
 export type UpdateOnlineStatusMutationVariables = Exact<{ [key: string]: never }>;

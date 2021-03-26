@@ -1,0 +1,25 @@
+mutation UpdateAvatar($pictureId: Int!) {
+  updateAvatar(pictureId: $pictureId) {
+    avatar {
+      id
+      s {
+        height
+        width
+        link
+        size
+      }
+      m {
+        height
+        width
+        link
+        size
+      }
+      o {
+        height
+        width
+        link
+        size
+      }
+    }
+  }
+}
