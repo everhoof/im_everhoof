@@ -4,6 +4,7 @@ import { Context } from '@nuxt/types';
 import * as auth from '~/store/auth.ts';
 import * as chat from '~/store/chat.ts';
 import * as modals from '~/store/modals.ts';
+import * as settings from '~/store/settings.ts';
 
 export const state = () => ({
   now: 0 as number,
@@ -29,12 +30,14 @@ export const actions = actionTree(
     async nuxtServerInit({ commit }, context: Context) {
       await context.app.$accessor.auth.nuxtServerInit(context);
       await context.app.$accessor.chat.nuxtServerInit(context);
+      await context.app.$accessor.settings.nuxtServerInit(context);
       commit('SET_NOW', Date.now());
     },
 
     async nuxtClientInit({ commit }, context) {
       await context.app.$accessor.auth.nuxtClientInit(context);
       await context.app.$accessor.chat.nuxtClientInit(context);
+      await context.app.$accessor.settings.nuxtClientInit(context);
       commit('SET_NOW', Date.now());
       setInterval(() => commit('SET_NOW', Date.now()), 1000);
     },
@@ -49,5 +52,6 @@ export const accessorType = getAccessorType({
     auth,
     chat,
     modals,
+    settings,
   },
 });

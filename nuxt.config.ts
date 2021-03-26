@@ -27,7 +27,7 @@ export default {
       },
     ],
     htmlAttrs: {
-      class: ['page page_theme_dark'],
+      class: ['page'],
     },
     bodyAttrs: {
       class: ['page__body grid grid_type_default'],

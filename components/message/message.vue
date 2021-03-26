@@ -89,7 +89,7 @@ export default class Message extends Vue {
   }
 
   get compact() {
-    return true;
+    return this.$accessor.settings.compact;
   }
 
   get system() {

@@ -62,6 +62,9 @@
     >
       <b-punishment-modal />
     </b-modal>
+    <b-modal :value="settingsModalOpened" title="Настройки" @input="setSettingsModalOpened">
+      <b-settings-modal />
+    </b-modal>
   </div>
 </template>
 
@@ -82,9 +85,18 @@ import BContextMenu from '~/components/context-menu/context-menu.vue';
 import BContextMenuItem from '~/components/context-menu-item/context-menu-item.vue';
 import BProfileModal from '~/components/profile-modal/profile-modal.vue';
 import BPunishmentModal from '~/components/punishment-modal/punishment-modal.vue';
+import BSettingsModal from '~/components/settings-modal/settings-modal.vue';
 
 @Component({
+  head() {
+    return {
+      htmlAttrs: {
+        class: ['page_theme_' + this.$accessor.settings.theme],
+      },
+    };
+  },
   components: {
+    BSettingsModal,
     BPunishmentModal,
     BProfileModal,
     BContextMenuItem,
@@ -114,6 +126,10 @@ export default class Default extends Vue {
 
   get login(): boolean {
     return this.$accessor.auth.loginModal;
+  }
+
+  get settingsModalOpened(): boolean {
+    return this.$accessor.modals.settingsModalOpened;
   }
 
   get profileModalOpened(): boolean {
@@ -151,6 +167,10 @@ export default class Default extends Vue {
       sameSite: 'lax',
       maxAge: 86400 * 365 * 10,
     });
+  }
+
+  setSettingsModalOpened(value: boolean): void {
+    this.$accessor.modals.SET_SETTINGS_MODAL_OPENED(value);
   }
 
   setProfileModalOpened(value: boolean): void {

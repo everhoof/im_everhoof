@@ -19,6 +19,9 @@
             <b-button width-full>Профиль</b-button>
           </li>
           <li class="aside-footer__dropdown-item">
+            <b-button width-full @click="openSettingsModal">Настройки</b-button>
+          </li>
+          <li class="aside-footer__dropdown-item">
             <b-button width-full @click.stop="logout">Выйти</b-button>
           </li>
         </ul>
@@ -69,6 +72,10 @@ export default class AsideFooter extends Vue {
   logout() {
     this.$apolloHelpers.onLogout();
     this.$accessor.auth.SET_LOGGED_IN(false);
+  }
+
+  openSettingsModal() {
+    this.$accessor.modals.SET_SETTINGS_MODAL_OPENED(true);
   }
 }
 </script>

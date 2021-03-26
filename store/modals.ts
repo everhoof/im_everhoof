@@ -3,6 +3,7 @@ import { actionTree, getterTree, mutationTree } from 'typed-vuex';
 export const namespaced = true;
 
 export const state = () => ({
+  settingsModalOpened: false as boolean,
   profileModalOpened: false as boolean,
   profileModalTargetId: -1 as number,
   punishmentModalOpened: false as boolean,
@@ -12,6 +13,9 @@ export const state = () => ({
 export type ModalsState = ReturnType<typeof state>;
 
 export const mutations = mutationTree(state, {
+  SET_SETTINGS_MODAL_OPENED: (_state, payload: boolean) => {
+    _state.settingsModalOpened = payload;
+  },
   SET_PROFILE_MODAL_OPENED: (_state, payload: boolean) => {
     _state.profileModalOpened = payload;
     if (!payload) {
