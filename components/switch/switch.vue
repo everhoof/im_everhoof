@@ -14,8 +14,6 @@
   <!-- end .switch-->
 </template>
 
-<style lang="stylus" src="./switch.styl" />
-
 <script lang="ts">
 import { Component, Prop, PropSync, Vue } from 'nuxt-property-decorator';
 
@@ -31,3 +29,5 @@ export default class Switch extends Vue {
   checkedSynced!: boolean;
 }
 </script>
+
+<style lang="stylus" src="./switch.styl" />
