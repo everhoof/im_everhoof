@@ -156,6 +156,7 @@ export const actions = actionTree(
       dispatch('subscribeMessageCreated', context);
       dispatch('subscribeMessageDeleted', context);
       dispatch('subscribeOnlineUpdated', context);
+      dispatch('subscribeUserUpdated', context);
       if (this.app.$accessor.auth.loggedIn) {
         await dispatch('updateOnlineStatus', context);
         window.setInterval(async () => await dispatch('updateOnlineStatus', context), 30 * 1000);

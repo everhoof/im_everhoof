@@ -37,8 +37,8 @@ export default class Avatar extends Vue {
   @Prop({ required: false, type: Boolean, default: false }) large!: boolean;
   @Prop({ required: false, type: Boolean, default: false }) stretch!: boolean;
 
-  get avatar(): string | undefined {
-    return this.user?.avatar?.s.link;
+  get avatar(): string {
+    return this.user?.avatar?.s.link || '';
   }
 
   get letter(): string {
@@ -64,7 +64,7 @@ export default class Avatar extends Vue {
       mutation: UpdateAvatar,
       variables: { pictureId },
     });
-    if (errors || data?.updateAvatar) return;
+    if (errors || !data?.updateAvatar) return;
 
     const user = this.$accessor.auth.user;
     if (user) {
