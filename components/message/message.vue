@@ -2,7 +2,11 @@
   <!-- begin .message-->
   <div
     class="message"
-    :class="{ message_view_compact: compact, message_type_system: system }"
+    :class="{
+      message_view_compact: compact,
+      message_type_system: system,
+      'message_state_not-delivered': !delivered,
+    }"
     @contextmenu="openContextMenu"
   >
     <img v-if="avatar" :src="avatar" class="message__avatar" />
@@ -53,12 +57,13 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue, InjectReactive } from 'nuxt-property-decorator';
+import { Component, InjectReactive, Prop, Vue } from 'nuxt-property-decorator';
 import { DateTime } from 'luxon';
-import { Picture, Message as ChatMessage } from '~/graphql/schema';
+import { Picture } from '~/graphql/schema';
 import { toLocalDateTime } from '~/tools/filters';
 import { getUserColor } from '~/tools/util';
 import BContextMenu from '~/components/context-menu/context-menu.vue';
+import { ChatMessage, ChatMessageState } from '~/types/messages';
 
 @Component({
   name: 'b-message',
@@ -94,6 +99,10 @@ export default class Message extends Vue {
 
   get system() {
     return this.message.system;
+  }
+
+  get delivered(): boolean {
+    return this.message.state === undefined || this.message.state === ChatMessageState.delivered;
   }
 
   get avatar() {

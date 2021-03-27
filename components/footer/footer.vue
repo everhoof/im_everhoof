@@ -51,7 +51,8 @@ import BEmojiPanel from '~/components/emoji-panel/emoji-panel.vue';
 import BAttachPanel from '~/components/attach-panel/attach-panel.vue';
 import BButton from '~/components/button/button.vue';
 import CreateMessage from '~/graphql/mutations/create-message.graphql';
-import { CreateMessageMutation, CreateMessageMutationVariables, Message, User } from '~/graphql/schema';
+import { CreateMessageMutation, CreateMessageMutationVariables, User } from '~/graphql/schema';
+import { ChatMessage, ChatMessageState } from '~/types/messages';
 
 @Component({
   name: 'b-footer',
@@ -110,9 +111,10 @@ export default class Footer extends Vue {
   async createMessage() {
     if (!this.$accessor.chat.message.trim()) return;
     const randomId = getRandomString(32);
-    const message: Message = {
+    const message: ChatMessage = {
       id: getRandomIntInRange(0, 10000),
       content: this.$accessor.chat.message,
+      state: ChatMessageState.sent,
       system: false,
       randomId,
       username: this.$accessor.auth.user?.username,
@@ -124,17 +126,24 @@ export default class Footer extends Vue {
     this.$accessor.chat.ADD_MESSAGE(message);
     const content = this.$accessor.chat.message;
     this.$accessor.chat.SET_MESSAGE('');
-    const { errors } = await this.$apollo.mutate<CreateMessageMutation, CreateMessageMutationVariables>({
-      mutation: CreateMessage,
-      variables: {
-        content,
-        randomId,
+    const { errors, data } = await this.$apollo.mutate<CreateMessageMutation, CreateMessageMutationVariables>(
+      {
+        mutation: CreateMessage,
+        variables: {
+          content,
+          randomId,
+        },
       },
-    });
+    );
 
-    if (errors && errors[0] && errors[0].message) {
-      message.content = errors && errors[0].message;
-      message.system = true;
+    if (errors) {
+      if (errors[0] && errors[0].message) {
+        message.content = errors && errors[0].message;
+        message.system = true;
+        this.$accessor.chat.ADD_MESSAGE(message);
+      }
+    } else if (data?.createMessage) {
+      message.state = ChatMessageState.delivered;
       this.$accessor.chat.ADD_MESSAGE(message);
     }
   }

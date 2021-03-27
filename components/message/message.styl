@@ -6,7 +6,7 @@
 	min-height 60px
 	padding 8px 50px 8px 70px
 	line-height 22px
-	defaultTransition(background)
+	defaultTransition(background, opacity)
 
 	&:hover,
 	&:active,
@@ -61,6 +61,10 @@
 
 				&__text
 					font-style italic
+
+	&_state
+		&_not-delivered
+			opacity .5
 
 	&__avatar
 		position absolute
