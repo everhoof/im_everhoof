@@ -450,7 +450,10 @@ export type OnlineUpdatedSubscription = { __typename?: 'Subscription' } & {
 export type UserUpdatedSubscriptionVariables = Exact<{ [key: string]: never }>;
 
 export type UserUpdatedSubscription = { __typename?: 'Subscription' } & {
-  userUpdated: { __typename?: 'User' } & Pick<User, 'id' | 'username' | 'email' | 'createdAt'> & {
+  userUpdated: { __typename?: 'User' } & Pick<
+    User,
+    'id' | 'username' | 'email' | 'createdAt' | 'wasOnlineAt'
+  > & {
       avatar?: Maybe<
         { __typename?: 'Picture' } & Pick<Picture, 'id'> & {
             s: { __typename?: 'PictureRepresentation' } & Pick<

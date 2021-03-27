@@ -12,10 +12,13 @@
   >
     <img v-if="avatar" :src="avatar" alt="avatar" class="avatar__image" />
     <span v-else class="avatar__content">{{ letter }}</span>
-    <label v-if="isOwner" for="avatar-upload" class="avatar__upload">
+    <label v-if="isOwner && !loading" for="avatar-upload" class="avatar__upload">
       <svg-icon class="avatar__upload-icon" name="upload" />
       <input id="avatar-upload" class="avatar__upload-input" type="file" @change="onFileChanged" />
     </label>
+    <div v-if="loading" class="avatar__loading">
+      <img class="avatar__loading-image" src="@/assets/icons/loading.png" alt="loading" />
+    </div>
   </div>
   <!-- end .avatar-->
 </template>
@@ -37,6 +40,8 @@ export default class Avatar extends Vue {
   @Prop({ required: false, type: Boolean, default: false }) large!: boolean;
   @Prop({ required: false, type: Boolean, default: false }) stretch!: boolean;
 
+  private loading: boolean = false;
+
   get avatar(): string {
     return this.user?.avatar?.s.link || '';
   }
@@ -54,9 +59,14 @@ export default class Avatar extends Vue {
   }
 
   async onFileChanged(e: Event & { target: { files: File[] } }) {
-    const file = e.target.files[0];
-    const id = await HttpClient.uploadPicture(file);
-    if (id) await this.updateAvatar(id);
+    this.loading = true;
+    try {
+      const file = e.target.files[0];
+      const id = await HttpClient.uploadPicture(file);
+      if (id) await this.updateAvatar(id);
+    } finally {
+      this.loading = false;
+    }
   }
 
   async updateAvatar(pictureId: number): Promise<void> {

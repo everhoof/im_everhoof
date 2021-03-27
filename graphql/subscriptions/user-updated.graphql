@@ -25,6 +25,7 @@ subscription UserUpdated {
       }
     }
     createdAt
+    wasOnlineAt
   }
 }
 
