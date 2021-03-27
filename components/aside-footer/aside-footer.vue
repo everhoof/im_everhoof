@@ -62,7 +62,7 @@ export default class AsideFooter extends Vue {
   }
 
   get avatar(): string {
-    return this.$accessor.auth.user?.avatar?.o.link || '';
+    return this.$accessor.auth.user?.avatar?.s.link || '';
   }
 
   get avatarColor() {
