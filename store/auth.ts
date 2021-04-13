@@ -1,12 +1,16 @@
 import { actionTree, getterTree, mutationTree } from 'typed-vuex';
 import { Context } from '@nuxt/types';
-import { FetchResult } from 'apollo-link';
+import { ExecutionResult, FetchResult } from 'apollo-link';
 import { AccessControl, Query } from 'accesscontrol';
 import GetCurrentUser from '~/graphql/queries/get-current-user.graphql';
 import GetGrants from '~/graphql/queries/get-grants.graphql';
 import {
   GetCurrentUserQuery,
   GetGrantsQuery,
+  RequestPasswordResetMutation,
+  RequestPasswordResetMutationVariables,
+  ResetPasswordMutation,
+  ResetPasswordMutationVariables,
   SignInMutation,
   SignInMutationVariables,
   SignUpMutation,
@@ -14,6 +18,8 @@ import {
 } from '~/graphql/schema';
 import SignIn from '~/graphql/mutations/sign-in.graphql';
 import SignUp from '~/graphql/mutations/sign-up.graphql';
+import RequestPasswordReset from '~/graphql/mutations/request-password-reset.graphql';
+import ResetPassword from '~/graphql/mutations/reset-password.graphql';
 
 export const namespaced = true;
 
@@ -106,6 +112,44 @@ export const actions = actionTree(
       }
 
       return response;
+    },
+
+    async requestPasswordReset(_context, variables: RequestPasswordResetMutationVariables): Promise<boolean> {
+      const client = this.app.apolloProvider?.defaultClient;
+      if (!client) return false;
+      const response = await client.mutate<
+        RequestPasswordResetMutation,
+        RequestPasswordResetMutationVariables
+      >({
+        mutation: RequestPasswordReset,
+        variables,
+      });
+
+      return !!(!response.errors && response.data);
+    },
+
+    async resetPassword(
+      { commit, dispatch },
+      variables: ResetPasswordMutationVariables,
+    ): Promise<ExecutionResult<ResetPasswordMutation>> {
+      const client = this.app.apolloProvider?.defaultClient;
+      if (!client) return Promise.resolve({ data: null });
+      const result = await client.mutate<ResetPasswordMutation, ResetPasswordMutationVariables>({
+        mutation: ResetPassword,
+        variables,
+      });
+
+      if (!result.errors && result.data) {
+        await this.app.$apolloHelpers.onLogin(result.data.resetPassword.value);
+        commit('SET_USER_ID', result.data.resetPassword.ownerId);
+        commit('SET_LOGGED_IN', true);
+        commit('SET_LOGIN_MODAL', false);
+        commit('SET_REGISTER_MODAL', false);
+        await dispatch('getCurrentUser');
+        await this.app.$accessor.chat.nuxtClientInit();
+      }
+
+      return result;
     },
 
     async logout({ commit }): Promise<void> {

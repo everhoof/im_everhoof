@@ -3,6 +3,7 @@ subscription UserUpdated {
     id
     username
     email
+    emailConfirmed
     avatar {
       id
       s {
@@ -26,6 +27,9 @@ subscription UserUpdated {
     }
     createdAt
     wasOnlineAt
+    roles {
+      name
+    }
   }
 }
 

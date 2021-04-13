@@ -4,6 +4,7 @@ query GetCurrentUser {
     id
     username
     email
+    emailConfirmed
     avatar {
       id
       s {
@@ -26,6 +27,7 @@ query GetCurrentUser {
       }
     }
     createdAt
+    wasOnlineAt
     roles {
       name
     }

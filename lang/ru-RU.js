@@ -10,6 +10,7 @@ export default {
   email_regex_error: 'Wrong email format.',
   password_fill_error: 'Fill in the password field.',
   passport_length_error: 'Password must be at least 5 characters long.',
+  passwords_do_not_match: 'Passwords do not match.',
 
   modals: {
     profile: {

@@ -219,6 +219,9 @@ export const actions = actionTree(
           next({ data }) {
             if (!data?.userUpdated) return;
             commit('ADD_USER', data.userUpdated);
+            if (data.userUpdated.id === context?.app.$accessor.auth.user?.id) {
+              context?.app.$accessor.auth.SET_USER(data.userUpdated);
+            }
           },
         });
       }

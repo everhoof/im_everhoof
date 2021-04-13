@@ -22,6 +22,8 @@ type User {
   updatedAt: DateTime!
   roles: [Role!]!
   avatar: Picture
+  emailConfirmed: Boolean
+  muted: Boolean
 }
 """A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format."""
 scalar DateTime
@@ -74,6 +76,10 @@ type Mutation {
   deleteMessage(messageId: Int!): Message!
   signIn(email: String!, password: String!): Token!
   signUp(email: String!, username: String, password: String!): User!
+  confirmEmail(token: String!): Token!
+  requestEmailConfirmation(email: String!, password: String!): User!
+  requestPasswordReset(email: String!): Boolean!
+  resetPassword(token: String!, password: String!): Token!
 }
 enum PunishmentTypes {
   ban

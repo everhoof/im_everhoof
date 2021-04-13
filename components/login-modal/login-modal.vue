@@ -24,11 +24,11 @@
           @keydown.enter="signIn()"
         />
       </div>
-      <!--      <div class="form__row form__row_align_center">-->
-      <!--        <a href="#" class="login-modal__link">Forgot password</a>-->
-      <!--      </div>-->
       <div class="form__row">
         <b-button large width-full @click.prevent="signIn()">Войти</b-button>
+      </div>
+      <div class="form__row form__row_align_center">
+        <a href="#" class="login-modal__link" @click="requestPasswordReset()">Восстановить пароль</a>
       </div>
       <div class="form__row form__row_align_center">
         <a href="#" @click.prevent="signUp()">Нет аккаунта.</a>
@@ -108,6 +108,11 @@ export default class Login extends Vue {
     });
 
     if (errors) this.errors.push(errors[0].message);
+  }
+
+  requestPasswordReset() {
+    this.$accessor.auth.SET_LOGIN_MODAL(false);
+    this.$accessor.modals.SET_PASSWORD_RESET_MODAL_OPENED(true);
   }
 }
 </script>

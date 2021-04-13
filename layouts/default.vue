@@ -65,6 +65,34 @@
     <b-modal :value="settingsModalOpened" title="Настройки" @input="setSettingsModalOpened">
       <b-settings-modal />
     </b-modal>
+    <b-modal
+      :value="emailConfirmationModalOpened"
+      title="Подтверждение E-mail"
+      @input="setEmailConfirmationModalOpened"
+    >
+      <b-email-confirmation-modal />
+    </b-modal>
+    <b-modal
+      :value="emailConfirmedModalOpened"
+      title="E-mail подтверждён"
+      @input="setEmailConfirmedModalOpened"
+    >
+      <b-email-confirmed-modal />
+    </b-modal>
+    <b-modal
+      :value="passwordResetModalOpened"
+      title="Восстановление пароля"
+      @input="setPasswordResetModalOpened"
+    >
+      <b-password-reset-modal />
+    </b-modal>
+    <b-modal
+      :value="passwordResetRequestedModalOpened"
+      title="Восстановление пароля"
+      @input="setPasswordResetRequestedModalOpened"
+    >
+      <b-password-reset-requested-modal />
+    </b-modal>
   </div>
 </template>
 
@@ -73,7 +101,7 @@ import '~/assets/stylus/normalize.styl';
 import '~/assets/stylus/grid.styl';
 import '~/assets/stylus/global.styl';
 import '~/assets/stylus/colors.styl';
-import { Component, Vue, ProvideReactive } from 'nuxt-property-decorator';
+import { Component, Vue, ProvideReactive, Watch } from 'nuxt-property-decorator';
 import BFooter from '~/components/footer/footer.vue';
 import BAsidePanel from '~/components/aside-panel/aside-panel.vue';
 import BModal from '~/components/modal/modal.vue';
@@ -86,6 +114,11 @@ import BContextMenuItem from '~/components/context-menu-item/context-menu-item.v
 import BProfileModal from '~/components/profile-modal/profile-modal.vue';
 import BPunishmentModal from '~/components/punishment-modal/punishment-modal.vue';
 import BSettingsModal from '~/components/settings-modal/settings-modal.vue';
+import { ReminderTypes } from '~/types/reminderTypes';
+import BEmailConfirmationModal from '~/components/email-confirmation-modal/email-confirmation-modal.vue';
+import BEmailConfirmedModal from '~/components/email-confirmed-modal/email-confirmed-modal.vue';
+import BPasswordResetModal from '~/components/password-reset-modal/password-reset-modal.vue';
+import BPasswordResetRequestedModal from '~/components/password-reset-requested-modal/password-reset-requested-modal.vue';
 
 @Component({
   head() {
@@ -96,6 +129,10 @@ import BSettingsModal from '~/components/settings-modal/settings-modal.vue';
     };
   },
   components: {
+    BPasswordResetRequestedModal,
+    BPasswordResetModal,
+    BEmailConfirmedModal,
+    BEmailConfirmationModal,
     BSettingsModal,
     BPunishmentModal,
     BProfileModal,
@@ -115,9 +152,48 @@ export default class Default extends Vue {
   @ProvideReactive('message-context-menu') messageContextMenu: BContextMenu | null = null;
   asideMobileOpened: boolean = false;
 
+  created() {
+    this.onRouteChanged();
+  }
+
   mounted() {
+    this.onUserChanged();
     this.contextMenu = this.$refs['context-menu'] as BContextMenu;
     this.messageContextMenu = this.$refs['message-context-menu'] as BContextMenu;
+  }
+
+  @Watch('$accessor.auth.user')
+  onUserChanged() {
+    if (!process.client) return;
+    const user = this.$accessor.auth.user;
+    if (!user) return;
+    if (user?.emailConfirmed === false) {
+      const reminder = this.$accessor.modals.reminders.find(
+        (reminder) => reminder.type === ReminderTypes.EMAIL_CONFIRMATION,
+      );
+      if (
+        (reminder &&
+          reminder.disabledAt !== null &&
+          reminder.userId === user.id &&
+          Date.now() > reminder.disabledAt + reminder.timeout) ||
+        !reminder
+      ) {
+        this.$accessor.modals.addReminder(ReminderTypes.EMAIL_CONFIRMATION);
+      }
+    }
+  }
+
+  @Watch('$route')
+  onRouteChanged() {
+    const query = Object.assign({}, this.$route.query);
+    if (query) {
+      if (query.modal === 'email-confirmed') {
+        this.$accessor.modals.SET_EMAIL_CONFIRMED_MODAL_OPENED(true);
+      }
+
+      delete query.modal;
+      this.$router.replace({ query }).catch(() => {});
+    }
   }
 
   get asidePcOpened(): boolean {
@@ -138,6 +214,22 @@ export default class Default extends Vue {
 
   get punishmentModalOpened(): boolean {
     return this.$accessor.modals.punishmentModalOpened;
+  }
+
+  get emailConfirmationModalOpened(): boolean {
+    return this.$accessor.modals.emailConfirmationModalOpened;
+  }
+
+  get emailConfirmedModalOpened(): boolean {
+    return this.$accessor.modals.emailConfirmedModalOpened;
+  }
+
+  get passwordResetModalOpened(): boolean {
+    return this.$accessor.modals.passwordResetModalOpened;
+  }
+
+  get passwordResetRequestedModalOpened(): boolean {
+    return this.$accessor.modals.passwordResetRequestedModalOpened;
   }
 
   setLogin(value: boolean): void {
@@ -179,6 +271,22 @@ export default class Default extends Vue {
 
   setPunishmentModalOpened(value: boolean): void {
     this.$accessor.modals.SET_PUNISHMENT_MODAL_OPENED(value);
+  }
+
+  setEmailConfirmationModalOpened(value: boolean): void {
+    this.$accessor.modals.SET_EMAIL_CONFIRMATION_MODAL_OPENED(value);
+  }
+
+  setEmailConfirmedModalOpened(value: boolean): void {
+    this.$accessor.modals.SET_EMAIL_CONFIRMED_MODAL_OPENED(value);
+  }
+
+  setPasswordResetModalOpened(value: boolean): void {
+    this.$accessor.modals.SET_PASSWORD_RESET_MODAL_OPENED(value);
+  }
+
+  setPasswordResetRequestedModalOpened(value: boolean): void {
+    this.$accessor.modals.SET_PASSWORD_RESET_REQUESTED_MODAL_OPENED(value);
   }
 
   closeContextMenus() {

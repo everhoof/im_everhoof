@@ -105,6 +105,7 @@ ul
 						transform rotate(180deg)
 
 	&__chat
+		position relative
 		display flex
 		flex-direction column
 		width 100%
@@ -209,3 +210,40 @@ ul
 
 		& .icon
 			fill currentColor
+
+	&__reminder
+		position absolute
+		top 0
+		right 0
+		left 0
+		z-index 10
+
+	&__error
+		margin 0 auto
+		align-self center
+
+.page-error
+	max-width 320px
+	padding 24px
+	background var(--secondary-background)
+	border-radius 4px
+	defaultShadow()
+
+	&__illustration
+		margin 0 0 16px
+		text-align center
+
+		&:last-child
+			margin-bottom 0
+
+	&__image
+		display inline-block
+		max-height 100px
+
+	&__text
+		margin 0 0 16px
+		font-size 20px
+		text-align center
+
+		&:last-child
+			margin-bottom 0

@@ -46,6 +46,8 @@ export type User = {
   updatedAt: Scalars['DateTime'];
   roles: Array<Role>;
   avatar?: Maybe<Picture>;
+  emailConfirmed?: Maybe<Scalars['Boolean']>;
+  muted?: Maybe<Scalars['Boolean']>;
 };
 
 export type Role = {
@@ -106,6 +108,10 @@ export type Mutation = {
   deleteMessage: Message;
   signIn: Token;
   signUp: User;
+  confirmEmail: Token;
+  requestEmailConfirmation: User;
+  requestPasswordReset: Scalars['Boolean'];
+  resetPassword: Token;
 };
 
 export type MutationUpdateAvatarArgs = {
@@ -144,6 +150,24 @@ export type MutationSignUpArgs = {
   password: Scalars['String'];
 };
 
+export type MutationConfirmEmailArgs = {
+  token: Scalars['String'];
+};
+
+export type MutationRequestEmailConfirmationArgs = {
+  email: Scalars['String'];
+  password: Scalars['String'];
+};
+
+export type MutationRequestPasswordResetArgs = {
+  email: Scalars['String'];
+};
+
+export type MutationResetPasswordArgs = {
+  token: Scalars['String'];
+  password: Scalars['String'];
+};
+
 export enum PunishmentTypes {
   Ban = 'ban',
   Mute = 'mute',
@@ -165,6 +189,14 @@ export type Subscription = {
   userUpdated: User;
   messageCreated: Message;
   messageDeleted: Message;
+};
+
+export type ConfirmEmailMutationVariables = Exact<{
+  token: Scalars['String'];
+}>;
+
+export type ConfirmEmailMutation = { __typename?: 'Mutation' } & {
+  confirmEmail: { __typename?: 'Token' } & Pick<Token, 'id'>;
 };
 
 export type CreateMessageMutationVariables = Exact<{
@@ -220,6 +252,24 @@ export type PunishMutationVariables = Exact<{
 
 export type PunishMutation = { __typename?: 'Mutation' } & {
   punish: { __typename?: 'User' } & Pick<User, 'id'>;
+};
+
+export type RequestPasswordResetMutationVariables = Exact<{
+  email: Scalars['String'];
+}>;
+
+export type RequestPasswordResetMutation = { __typename?: 'Mutation' } & Pick<
+  Mutation,
+  'requestPasswordReset'
+>;
+
+export type ResetPasswordMutationVariables = Exact<{
+  token: Scalars['String'];
+  password: Scalars['String'];
+}>;
+
+export type ResetPasswordMutation = { __typename?: 'Mutation' } & {
+  resetPassword: { __typename?: 'Token' } & Pick<Token, 'ownerId' | 'value'>;
 };
 
 export type SignInMutationVariables = Exact<{
@@ -316,7 +366,10 @@ export type GetChatDataQuery = { __typename?: 'Query' } & {
 export type GetCurrentUserQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetCurrentUserQuery = { __typename?: 'Query' } & Pick<Query, 'getGrants'> & {
-    getCurrentUser: { __typename?: 'User' } & Pick<User, 'id' | 'username' | 'email' | 'createdAt'> & {
+    getCurrentUser: { __typename?: 'User' } & Pick<
+      User,
+      'id' | 'username' | 'email' | 'emailConfirmed' | 'createdAt' | 'wasOnlineAt'
+    > & {
         avatar?: Maybe<
           { __typename?: 'Picture' } & Pick<Picture, 'id'> & {
               s: { __typename?: 'PictureRepresentation' } & Pick<
@@ -452,7 +505,7 @@ export type UserUpdatedSubscriptionVariables = Exact<{ [key: string]: never }>;
 export type UserUpdatedSubscription = { __typename?: 'Subscription' } & {
   userUpdated: { __typename?: 'User' } & Pick<
     User,
-    'id' | 'username' | 'email' | 'createdAt' | 'wasOnlineAt'
+    'id' | 'username' | 'email' | 'emailConfirmed' | 'createdAt' | 'wasOnlineAt'
   > & {
       avatar?: Maybe<
         { __typename?: 'Picture' } & Pick<Picture, 'id'> & {
@@ -470,5 +523,6 @@ export type UserUpdatedSubscription = { __typename?: 'Subscription' } & {
             >;
           }
       >;
+      roles: Array<{ __typename?: 'Role' } & Pick<Role, 'name'>>;
     };
 };

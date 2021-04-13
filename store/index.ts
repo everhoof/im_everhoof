@@ -28,16 +28,22 @@ export const actions = actionTree(
   { state, getters, mutations },
   {
     async nuxtServerInit({ commit }, context: Context) {
-      await context.app.$accessor.auth.nuxtServerInit(context);
-      await context.app.$accessor.chat.nuxtServerInit(context);
-      await context.app.$accessor.settings.nuxtServerInit(context);
+      await Promise.allSettled([
+        context.app.$accessor.auth.nuxtServerInit(context),
+        context.app.$accessor.chat.nuxtServerInit(context),
+        context.app.$accessor.modals.nuxtServerInit(context),
+        context.app.$accessor.settings.nuxtServerInit(context),
+      ]);
       commit('SET_NOW', Date.now());
     },
 
     async nuxtClientInit({ commit }, context) {
-      await context.app.$accessor.auth.nuxtClientInit(context);
-      await context.app.$accessor.chat.nuxtClientInit(context);
-      await context.app.$accessor.settings.nuxtClientInit(context);
+      await Promise.allSettled([
+        context.app.$accessor.auth.nuxtClientInit(context),
+        context.app.$accessor.chat.nuxtClientInit(context),
+        context.app.$accessor.modals.nuxtClientInit(context),
+        context.app.$accessor.settings.nuxtClientInit(context),
+      ]);
       commit('SET_NOW', Date.now());
       setInterval(() => commit('SET_NOW', Date.now()), 1000);
     },
