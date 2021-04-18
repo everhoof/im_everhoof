@@ -5,50 +5,12 @@ import { Reminder, ReminderTypes } from '~/types/reminderTypes';
 export const namespaced = true;
 
 export const state = () => ({
-  settingsModalOpened: false as boolean,
-  profileModalOpened: false as boolean,
-  profileModalTargetId: -1 as number,
-  punishmentModalOpened: false as boolean,
-  punishmentModalTargetId: -1 as number,
-  emailConfirmationModalOpened: false as boolean,
-  emailConfirmedModalOpened: false as boolean,
-  passwordResetModalOpened: false as boolean,
-  passwordResetRequestedModalOpened: false as boolean,
   reminders: [] as Reminder[],
 });
 
 export type ModalsState = ReturnType<typeof state>;
 
 export const mutations = mutationTree(state, {
-  SET_SETTINGS_MODAL_OPENED: (_state, payload: boolean) => {
-    _state.settingsModalOpened = payload;
-  },
-  SET_PROFILE_MODAL_OPENED: (_state, payload: boolean) => {
-    _state.profileModalOpened = payload;
-    if (!payload) {
-      _state.profileModalTargetId = -1;
-    }
-  },
-  SET_PUNISHMENT_MODAL_OPENED: (_state, payload: boolean) => {
-    _state.punishmentModalOpened = payload;
-    if (!payload) {
-      _state.punishmentModalTargetId = -1;
-    }
-  },
-  SET_PROFILE_MODAL_TARGET_ID: (_state, payload: number) => (_state.profileModalTargetId = payload),
-  SET_PUNISHMENT_MODAL_TARGET_ID: (_state, payload: number) => (_state.punishmentModalTargetId = payload),
-  SET_EMAIL_CONFIRMATION_MODAL_OPENED: (_state, payload: boolean) => {
-    _state.emailConfirmationModalOpened = payload;
-  },
-  SET_EMAIL_CONFIRMED_MODAL_OPENED: (_state, payload: boolean) => {
-    _state.emailConfirmedModalOpened = payload;
-  },
-  SET_PASSWORD_RESET_MODAL_OPENED: (_state, payload: boolean) => {
-    _state.passwordResetModalOpened = payload;
-  },
-  SET_PASSWORD_RESET_REQUESTED_MODAL_OPENED: (_state, payload: boolean) => {
-    _state.passwordResetRequestedModalOpened = payload;
-  },
   GET_REMINDERS_FROM_STORAGE: (_state) => {
     const storage = localStorage.getItem('reminders');
     _state.reminders = (storage && JSON.parse(storage)) || [];

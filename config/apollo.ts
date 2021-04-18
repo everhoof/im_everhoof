@@ -18,7 +18,7 @@ export default function (ctx: Context) {
         if (!response) return;
         const statusCode = response.statusCode;
         if (!statusCode || statusCode !== 401) return;
-        const isLoginPath = Array.isArray(error.path) && error.path.find((p: string) => p === 'login');
+        const isLoginPath = Array.isArray(error.path) && error.path.find((p: string) => p === 'signIn');
         if (isLoginPath) return;
         ctx.app.$accessor.auth.logout();
       });

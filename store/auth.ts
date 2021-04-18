@@ -28,8 +28,6 @@ export const state = () => ({
   user: null as GetCurrentUserQuery['getCurrentUser'] | null,
   grants: '{"UNVERIFIED_USER":{"message":{"read:any":["*"]}}}' as any,
   loggedIn: false as boolean,
-  loginModal: false as boolean,
-  registerModal: false as boolean,
 });
 
 export type AuthState = ReturnType<typeof state>;
@@ -39,12 +37,6 @@ export const mutations = mutationTree(state, {
   SET_USER: (_state, payload: GetCurrentUserQuery['getCurrentUser']) => (_state.user = payload),
   SET_GRANTS: (_state, payload: any) => (_state.grants = JSON.stringify(payload)),
   SET_LOGGED_IN: (_state, payload: boolean) => (_state.loggedIn = payload),
-  SET_LOGIN_MODAL: (_state, payload: boolean) => {
-    _state.loginModal = payload;
-  },
-  SET_REGISTER_MODAL: (_state, payload: boolean) => {
-    _state.registerModal = payload;
-  },
 });
 
 export const getters = getterTree(state, {
@@ -90,8 +82,6 @@ export const actions = actionTree(
         await this.app.$apolloHelpers.onLogin(result.data.signIn.value);
         commit('SET_USER_ID', result.data.signIn.ownerId);
         commit('SET_LOGGED_IN', true);
-        commit('SET_LOGIN_MODAL', false);
-        commit('SET_REGISTER_MODAL', false);
         await dispatch('getCurrentUser');
         await this.app.$accessor.chat.nuxtClientInit();
       }
@@ -143,8 +133,6 @@ export const actions = actionTree(
         await this.app.$apolloHelpers.onLogin(result.data.resetPassword.value);
         commit('SET_USER_ID', result.data.resetPassword.ownerId);
         commit('SET_LOGGED_IN', true);
-        commit('SET_LOGIN_MODAL', false);
-        commit('SET_REGISTER_MODAL', false);
         await dispatch('getCurrentUser');
         await this.app.$accessor.chat.nuxtClientInit();
       }

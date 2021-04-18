@@ -1,41 +1,43 @@
 <template>
-  <!-- begin .login-modal -->
-  <div class="login-modal">
-    <b-form :errors="errors" name="login-form">
-      <div class="form__row">
-        <b-text-field
-          id="login_username"
-          v-model="username"
-          name="username"
-          placeholder="Логин"
-          width-full
-          @keydown.enter="passwordInput.focus()"
-        />
+  <b-modal @close="$emit('close', $event)">
+    <template #title>Вход</template>
+    <template #default>
+      <div class="login-modal">
+        <b-form :errors="errors" name="login-form">
+          <div class="form__row">
+            <b-text-field
+              id="login_username"
+              v-model="username"
+              name="username"
+              placeholder="Логин"
+              width-full
+              @keydown.enter="passwordInput.focus()"
+            />
+          </div>
+          <div class="form__row">
+            <b-text-field
+              id="login_password"
+              ref="passwordInput"
+              v-model="password"
+              name="password"
+              placeholder="Пароль"
+              width-full
+              type="password"
+            />
+          </div>
+          <div class="form__row">
+            <b-button large width-full @click.prevent="signIn()">Войти</b-button>
+          </div>
+          <div class="form__row form__row_align_center">
+            <router-link :to="{ name: 'modal_request_password_reset' }">Восстановить пароль</router-link>
+          </div>
+          <div class="form__row form__row_align_center">
+            <router-link :to="{ name: 'modal_register' }">Нет аккаунта</router-link>
+          </div>
+        </b-form>
       </div>
-      <div class="form__row">
-        <b-text-field
-          id="login_password"
-          ref="passwordInput"
-          v-model="password"
-          name="password"
-          placeholder="Пароль"
-          width-full
-          type="password"
-          @keydown.enter="signIn()"
-        />
-      </div>
-      <div class="form__row">
-        <b-button large width-full @click.prevent="signIn()">Войти</b-button>
-      </div>
-      <div class="form__row form__row_align_center">
-        <a href="#" class="login-modal__link" @click="requestPasswordReset()">Восстановить пароль</a>
-      </div>
-      <div class="form__row form__row_align_center">
-        <a href="#" @click.prevent="signUp()">Нет аккаунта.</a>
-      </div>
-    </b-form>
-  </div>
-  <!-- end .login-modal -->
+    </template>
+  </b-modal>
 </template>
 
 <script lang="ts">
@@ -45,10 +47,11 @@ import BForm from '~/components/form/form.vue';
 import BTextField from '~/components/text-field/text-field.vue';
 import BCheckbox from '~/components/checkbox/checkbox.vue';
 import BButton from '~/components/button/button.vue';
+import BModal from '~/components/modals/modal/modal.vue';
 
 @Component({
   name: 'b-login-modal',
-  components: { BButton, BCheckbox, BTextField, BForm },
+  components: { BModal, BButton, BCheckbox, BTextField, BForm },
 })
 export default class Login extends Vue {
   @Ref() passwordInput!: BTextField;
@@ -61,11 +64,6 @@ export default class Login extends Vue {
 
   username: string = '';
   password: string = '';
-
-  signUp() {
-    this.$accessor.auth.SET_REGISTER_MODAL(true);
-    this.$accessor.auth.SET_LOGIN_MODAL(false);
-  }
 
   clearErrors() {
     this.errors = [];
@@ -108,11 +106,7 @@ export default class Login extends Vue {
     });
 
     if (errors) this.errors.push(errors[0].message);
-  }
-
-  requestPasswordReset() {
-    this.$accessor.auth.SET_LOGIN_MODAL(false);
-    this.$accessor.modals.SET_PASSWORD_RESET_MODAL_OPENED(true);
+    await this.$emit('close');
   }
 }
 </script>

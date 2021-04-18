@@ -1,19 +1,25 @@
 <template>
-  <!-- begin .settings-modal-->
-  <div class="settings-modal">
-    <b-switch id="settings_theme" :checked="dark" @update:checked="setTheme">Тёмная тема</b-switch>
-    <b-switch id="settings_compact" :checked="compact" @update:checked="setCompact">Компактный вид</b-switch>
-  </div>
-  <!-- end .settings-modal-->
+  <b-modal @close="$emit('close', $event)">
+    <template #title>Регистрация</template>
+    <template #default>
+      <div class="settings-modal">
+        <b-switch id="settings_theme" :checked="dark" @update:checked="setTheme">Тёмная тема</b-switch>
+        <b-switch id="settings_compact" :checked="compact" @update:checked="setCompact">
+          Компактный вид
+        </b-switch>
+      </div>
+    </template>
+  </b-modal>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator';
 import BSwitch from '~/components/switch/switch.vue';
+import BModal from '~/components/modals/modal/modal.vue';
 
 @Component({
   name: 'b-settings-modal',
-  components: { BSwitch },
+  components: { BModal, BSwitch },
 })
 export default class SettingsModal extends Vue {
   get dark(): boolean {

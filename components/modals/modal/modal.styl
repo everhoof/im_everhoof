@@ -1,16 +1,10 @@
 .modal
-	position fixed
-	top 0
-	right 0
-	left 0
-	bottom 0
-	z-index 900
 	display flex
 	justify-content center
 	align-items center
 	min-width 320px
 	padding 8px 16px
-	background rgba(0, 0, 0, .5)
+	background transparent
 
 	&__tile
 		display flex
@@ -54,15 +48,20 @@
 		height 32px
 		margin-right 12px
 		padding 4px
-		fill currentColor
 		color var(--primary-text)
 		font-size 16px
 		font-weight 600
 		cursor pointer
+		background transparent
+		border none
 		border-radius 50%
+		outline none
 
 		&:hover
 			background rgba(255, 255, 255, .07)
 
 		&:last-child
 			margin-right 0
+
+		& .icon
+			fill currentColor

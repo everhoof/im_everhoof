@@ -42,7 +42,7 @@ import BButton from '~/components/button/button.vue';
           } else if (!data?.confirmEmail) {
             error = 'Произошла неизвестная ошибка';
           } else {
-            await ctx.redirect({ name: 'main', query: { modal: 'email-confirmed' }, replace: true });
+            await ctx.redirect({ name: 'modal_email_confirmed', replace: true });
           }
         } catch (e) {
           error = 'Произошла неизвестная ошибка';

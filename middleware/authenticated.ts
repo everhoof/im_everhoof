@@ -1,7 +1,7 @@
 import { Context } from '@nuxt/types';
 
 export default function ({ app, route, store, redirect }: Context) {
-  const blockedForLoggedIn: string[] = ['login'];
+  const blockedForLoggedIn: string[] = ['modal_login', 'modal_register'];
   const blockedForLoggedOut: string[] = [];
   if (blockedForLoggedIn.includes(route.name || '') && store.state.logged && app.router) {
     redirect(302, '/');

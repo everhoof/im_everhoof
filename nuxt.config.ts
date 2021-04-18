@@ -56,6 +56,10 @@ export default {
       src: '~/plugins/vue2-touch-events.ts',
       ssr: false,
     },
+    {
+      src: '~/plugins/vue-js-modal.ts',
+      ssr: false,
+    },
   ],
   /*
    ** Nuxt.js dev-modules

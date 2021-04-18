@@ -1,7 +1,27 @@
 <template>
   <!-- begin .button-->
+  <router-link
+    v-if="to"
+    class="button"
+    :class="{
+      button_size_small: small,
+      button_size_medium: medium,
+      button_size_large: large,
+      button_display_block: block,
+      button_width_full: widthFull,
+      button_type_active: active,
+      button_no_wrap: noWrap,
+      button_with_margin: margin,
+    }"
+    :to="to"
+    :disabled="disabled"
+    @click="$emit('click', $event)"
+  >
+    <slot />
+  </router-link>
   <component
     :is="tag"
+    v-else
     class="button"
     :class="{
       button_size_small: small,
@@ -14,7 +34,6 @@
       button_with_margin: margin,
     }"
     :disabled="disabled"
-    :to="to"
     @click="$emit('click', $event)"
   >
     <slot />
@@ -24,6 +43,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'nuxt-property-decorator';
+import { Route } from 'vue-router';
 
 @Component({
   name: 'b-button',
@@ -39,7 +59,7 @@ export default class Button extends Vue {
   @Prop({ type: Boolean }) disabled!: boolean;
   @Prop({ type: Boolean }) noWrap!: boolean;
   @Prop({ type: Boolean }) margin!: boolean;
-  @Prop() to!: any;
+  @Prop() to!: Route;
 }
 </script>
 

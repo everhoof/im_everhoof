@@ -1,8 +1,14 @@
 <template>
   <!-- begin .users-list-->
   <ul class="users-list">
-    <li v-for="user in users" :key="user.id" class="users-list__item" @click="interactUser(user.id)">
-      <img v-if="user.avatar" :src="user.avatar.s.link" class="users-list__avatar" />
+    <router-link
+      v-for="user in users"
+      :key="user.id"
+      :to="{ name: 'modal_profile', params: { id: user.id } }"
+      tag="li"
+      class="users-list__item"
+    >
+      <img v-if="user.avatar" :src="user.avatar.s.link" class="users-list__avatar" alt="" />
       <div
         v-else
         class="users-list__avatar users-list__avatar_type_default"
@@ -13,7 +19,7 @@
       <div class="users-list__info">
         <h3 class="users-list__username">{{ user.username }}</h3>
       </div>
-    </li>
+    </router-link>
   </ul>
   <!-- end .users-list-->
 </template>
@@ -31,11 +37,6 @@ export default class UsersList extends Vue {
 
   get avatarColor() {
     return (id: number): string => getUserColor(id);
-  }
-
-  interactUser(id: number): void {
-    this.$accessor.modals.SET_PROFILE_MODAL_TARGET_ID(id || -1);
-    this.$accessor.modals.SET_PROFILE_MODAL_OPENED(true);
   }
 }
 </script>

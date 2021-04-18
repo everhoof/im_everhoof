@@ -23,16 +23,18 @@
           {{ localDateTime }}
         </time>
         <router-link
-          to="/"
+          :to="{ name: 'modal_profile', params: { id: ownerId } }"
           class="message__author-name link_no_styles"
           :style="{ color: avatarColor }"
-          @click.native="interactUser()"
         >
           {{ message.username + ':' }}
         </router-link>
       </div>
       <div v-else class="message__header">
-        <router-link to="/" class="message__author-name link_no_styles" @click.native="interactUser()">
+        <router-link
+          :to="{ name: 'modal_profile', params: { id: ownerId } }"
+          class="message__author-name link_no_styles"
+        >
           {{ message.username }}
         </router-link>
         <time class="message__timestamp" :datetime="timestamp" :title="localDateTimeFull">
@@ -83,6 +85,10 @@ export default class Message extends Vue {
       if (!emoji) return p1;
       return `<img src="/emoji/${emoji.name}.${emoji.ext}" class="message__emoji" title=":${emoji.name}:" width="70px" height="70px" />`;
     });
+  }
+
+  get ownerId(): number {
+    return this.message?.owner?.id || 0;
   }
 
   get pictures() {
@@ -150,11 +156,6 @@ export default class Message extends Vue {
       event.stopPropagation();
       this.contextMenu.open(event, { message: this.message });
     }
-  }
-
-  interactUser(): void {
-    this.$accessor.modals.SET_PROFILE_MODAL_TARGET_ID(this.message.owner?.id || -1);
-    this.$accessor.modals.SET_PROFILE_MODAL_OPENED(true);
   }
 }
 </script>

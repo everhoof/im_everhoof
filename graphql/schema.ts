@@ -154,11 +154,6 @@ export type MutationConfirmEmailArgs = {
   token: Scalars['String'];
 };
 
-export type MutationRequestEmailConfirmationArgs = {
-  email: Scalars['String'];
-  password: Scalars['String'];
-};
-
 export type MutationRequestPasswordResetArgs = {
   email: Scalars['String'];
 };
@@ -252,6 +247,12 @@ export type PunishMutationVariables = Exact<{
 
 export type PunishMutation = { __typename?: 'Mutation' } & {
   punish: { __typename?: 'User' } & Pick<User, 'id'>;
+};
+
+export type RequestEmailConfirmationMutationVariables = Exact<{ [key: string]: never }>;
+
+export type RequestEmailConfirmationMutation = { __typename?: 'Mutation' } & {
+  requestEmailConfirmation: { __typename?: 'User' } & Pick<User, 'id'>;
 };
 
 export type RequestPasswordResetMutationVariables = Exact<{

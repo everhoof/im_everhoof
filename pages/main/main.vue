@@ -19,6 +19,7 @@ import BChat from '~/components/chat/chat.vue';
 import BFooter from '~/components/footer/footer.vue';
 import BReminder from '~/components/reminder/reminder.vue';
 import { ReminderTypes } from '~/types/reminderTypes';
+import RequestEmailConfirmation from '~/graphql/mutations/request-email-confirmation.graphql';
 
 @Component({
   components: { BReminder, BFooter, BChat },
@@ -28,7 +29,13 @@ export default class MainPage extends Vue {
     return ReminderTypes.EMAIL_CONFIRMATION;
   }
 
-  confirmEmail() {}
+  async confirmEmail() {
+    const { errors } = await this.$apolloProvider.defaultClient.mutate({
+      mutation: RequestEmailConfirmation,
+    });
+    if (errors) return;
+    await this.$router.push({ name: 'modal_request_email_confirmation' });
+  }
 }
 </script>
 

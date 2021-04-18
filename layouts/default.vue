@@ -36,12 +36,6 @@
         <b-aside-footer v-if="$accessor.auth.loggedIn" />
       </div>
     </div>
-    <b-modal :value="login" title="Вход" @input="setLogin">
-      <b-login-modal />
-    </b-modal>
-    <b-modal :value="register" title="Регистрация" @input="setRegister">
-      <b-register-modal />
-    </b-modal>
     <b-context-menu ref="message-context-menu">
       <b-context-menu-item @click="openProfileModal">Профиль</b-context-menu-item>
       <b-context-menu-item v-if="showDeleteMessage" icon="delete" @click="deleteMessage">
@@ -52,47 +46,6 @@
       </b-context-menu-item>
     </b-context-menu>
     <b-context-menu ref="context-menu" />
-    <b-modal :value="profileModalOpened" title="Профиль" @input="setProfileModalOpened">
-      <b-profile-modal />
-    </b-modal>
-    <b-modal
-      :value="punishmentModalOpened"
-      :title="$t('modals.punishment.mute')"
-      @input="setPunishmentModalOpened"
-    >
-      <b-punishment-modal />
-    </b-modal>
-    <b-modal :value="settingsModalOpened" title="Настройки" @input="setSettingsModalOpened">
-      <b-settings-modal />
-    </b-modal>
-    <b-modal
-      :value="emailConfirmationModalOpened"
-      title="Подтверждение E-mail"
-      @input="setEmailConfirmationModalOpened"
-    >
-      <b-email-confirmation-modal />
-    </b-modal>
-    <b-modal
-      :value="emailConfirmedModalOpened"
-      title="E-mail подтверждён"
-      @input="setEmailConfirmedModalOpened"
-    >
-      <b-email-confirmed-modal />
-    </b-modal>
-    <b-modal
-      :value="passwordResetModalOpened"
-      title="Восстановление пароля"
-      @input="setPasswordResetModalOpened"
-    >
-      <b-password-reset-modal />
-    </b-modal>
-    <b-modal
-      :value="passwordResetRequestedModalOpened"
-      title="Восстановление пароля"
-      @input="setPasswordResetRequestedModalOpened"
-    >
-      <b-password-reset-requested-modal />
-    </b-modal>
   </div>
 </template>
 
@@ -102,23 +55,16 @@ import '~/assets/stylus/grid.styl';
 import '~/assets/stylus/global.styl';
 import '~/assets/stylus/colors.styl';
 import { Component, Vue, ProvideReactive, Watch } from 'nuxt-property-decorator';
+import { VueConstructor } from 'vue';
+import { Route } from 'vue-router';
 import BFooter from '~/components/footer/footer.vue';
 import BAsidePanel from '~/components/aside-panel/aside-panel.vue';
-import BModal from '~/components/modal/modal.vue';
-import BLoginModal from '~/components/login-modal/login-modal.vue';
-import BRegisterModal from '~/components/register-modal/register-modal.vue';
+import BModal from '~/components/modals/modal/modal.vue';
 import BButton from '~/components/button/button.vue';
 import BAsideFooter from '~/components/aside-footer/aside-footer.vue';
 import BContextMenu from '~/components/context-menu/context-menu.vue';
 import BContextMenuItem from '~/components/context-menu-item/context-menu-item.vue';
-import BProfileModal from '~/components/profile-modal/profile-modal.vue';
-import BPunishmentModal from '~/components/punishment-modal/punishment-modal.vue';
-import BSettingsModal from '~/components/settings-modal/settings-modal.vue';
 import { ReminderTypes } from '~/types/reminderTypes';
-import BEmailConfirmationModal from '~/components/email-confirmation-modal/email-confirmation-modal.vue';
-import BEmailConfirmedModal from '~/components/email-confirmed-modal/email-confirmed-modal.vue';
-import BPasswordResetModal from '~/components/password-reset-modal/password-reset-modal.vue';
-import BPasswordResetRequestedModal from '~/components/password-reset-requested-modal/password-reset-requested-modal.vue';
 
 @Component({
   head() {
@@ -129,20 +75,11 @@ import BPasswordResetRequestedModal from '~/components/password-reset-requested-
     };
   },
   components: {
-    BPasswordResetRequestedModal,
-    BPasswordResetModal,
-    BEmailConfirmedModal,
-    BEmailConfirmationModal,
-    BSettingsModal,
-    BPunishmentModal,
-    BProfileModal,
     BContextMenuItem,
     BContextMenu,
     BAsideFooter,
     BButton,
-    BRegisterModal,
     BModal,
-    BLoginModal,
     BAsidePanel,
     BFooter,
   },
@@ -184,64 +121,36 @@ export default class Default extends Vue {
   }
 
   @Watch('$route')
-  onRouteChanged() {
-    const query = Object.assign({}, this.$route.query);
-    if (query) {
-      if (query.modal === 'email-confirmed') {
-        this.$accessor.modals.SET_EMAIL_CONFIRMED_MODAL_OPENED(true);
-      }
+  onRouteChanged(newRoute?: Route, oldRoute?: Route) {
+    if (!newRoute || !oldRoute || newRoute.name !== oldRoute.name) {
+      if (!this.$route?.name || !/^modal_.*/.test(this.$route?.name)) return;
+      const components = this.$router.getMatchedComponents();
+      const component = components.find((c) => (c as any).options.name.includes('modal'));
+      if (component) this.openModal(component);
+    }
+  }
 
-      delete query.modal;
-      this.$router.replace({ query }).catch(() => {});
+  openModal(component: unknown) {
+    if (process.client) {
+      this.$modal.show(
+        component as VueConstructor,
+        {},
+        {
+          width: '100%',
+          height: 'auto',
+        },
+        {
+          'before-close': (event: any) => {
+            if (event?.params?.route) return;
+            this.$router.push({ name: 'main' });
+          },
+        },
+      );
     }
   }
 
   get asidePcOpened(): boolean {
     return this.$accessor.chat.asidePcOpened;
-  }
-
-  get login(): boolean {
-    return this.$accessor.auth.loginModal;
-  }
-
-  get settingsModalOpened(): boolean {
-    return this.$accessor.modals.settingsModalOpened;
-  }
-
-  get profileModalOpened(): boolean {
-    return this.$accessor.modals.profileModalOpened;
-  }
-
-  get punishmentModalOpened(): boolean {
-    return this.$accessor.modals.punishmentModalOpened;
-  }
-
-  get emailConfirmationModalOpened(): boolean {
-    return this.$accessor.modals.emailConfirmationModalOpened;
-  }
-
-  get emailConfirmedModalOpened(): boolean {
-    return this.$accessor.modals.emailConfirmedModalOpened;
-  }
-
-  get passwordResetModalOpened(): boolean {
-    return this.$accessor.modals.passwordResetModalOpened;
-  }
-
-  get passwordResetRequestedModalOpened(): boolean {
-    return this.$accessor.modals.passwordResetRequestedModalOpened;
-  }
-
-  setLogin(value: boolean): void {
-    this.$accessor.auth.SET_LOGIN_MODAL(value);
-  }
-
-  get register(): boolean {
-    return this.$accessor.auth.registerModal;
-  }
-
-  setRegister(value: boolean): void {
-    this.$accessor.auth.SET_REGISTER_MODAL(value);
   }
 
   swipeLeft() {
@@ -259,34 +168,6 @@ export default class Default extends Vue {
       sameSite: 'lax',
       maxAge: 86400 * 365 * 10,
     });
-  }
-
-  setSettingsModalOpened(value: boolean): void {
-    this.$accessor.modals.SET_SETTINGS_MODAL_OPENED(value);
-  }
-
-  setProfileModalOpened(value: boolean): void {
-    this.$accessor.modals.SET_PROFILE_MODAL_OPENED(value);
-  }
-
-  setPunishmentModalOpened(value: boolean): void {
-    this.$accessor.modals.SET_PUNISHMENT_MODAL_OPENED(value);
-  }
-
-  setEmailConfirmationModalOpened(value: boolean): void {
-    this.$accessor.modals.SET_EMAIL_CONFIRMATION_MODAL_OPENED(value);
-  }
-
-  setEmailConfirmedModalOpened(value: boolean): void {
-    this.$accessor.modals.SET_EMAIL_CONFIRMED_MODAL_OPENED(value);
-  }
-
-  setPasswordResetModalOpened(value: boolean): void {
-    this.$accessor.modals.SET_PASSWORD_RESET_MODAL_OPENED(value);
-  }
-
-  setPasswordResetRequestedModalOpened(value: boolean): void {
-    this.$accessor.modals.SET_PASSWORD_RESET_REQUESTED_MODAL_OPENED(value);
   }
 
   closeContextMenus() {
@@ -326,14 +207,12 @@ export default class Default extends Vue {
 
   punish(): void {
     const ownerId = this.messageContextMenu?.contextData?.message.owner?.id;
-    this.$accessor.modals.SET_PUNISHMENT_MODAL_TARGET_ID(ownerId);
-    this.$accessor.modals.SET_PUNISHMENT_MODAL_OPENED(true);
+    this.$router.push({ name: 'modal_punishment', params: { id: ownerId } });
   }
 
   openProfileModal(): void {
     const ownerId = this.messageContextMenu?.contextData?.message.owner?.id;
-    this.$accessor.modals.SET_PROFILE_MODAL_TARGET_ID(ownerId);
-    this.$accessor.modals.SET_PROFILE_MODAL_OPENED(true);
+    this.$router.push({ name: 'modal_profile', params: { id: ownerId } });
   }
 }
 </script>

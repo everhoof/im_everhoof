@@ -1,49 +1,51 @@
 <template>
-  <!-- begin .register-modal -->
-  <div class="register-modal">
-    <b-form :errors="errors" name="register-form">
-      <div class="form__row">
-        <b-text-field
-          id="register_email"
-          v-model="email"
-          name="email"
-          placeholder="E-mail"
-          width-full
-          @keydown.enter="usernameInput.focus()"
-        />
+  <b-modal @close="$emit('close', $event)">
+    <template #title>Регистрация</template>
+    <template #default>
+      <div class="register-modal">
+        <b-form :errors="errors" name="register-form">
+          <div class="form__row">
+            <b-text-field
+              id="register_email"
+              v-model="email"
+              name="email"
+              placeholder="E-mail"
+              width-full
+              @keydown.enter="usernameInput.focus()"
+            />
+          </div>
+          <div class="form__row">
+            <b-text-field
+              id="register_username"
+              ref="usernameInput"
+              v-model="username"
+              name="username"
+              placeholder="Логин"
+              width-full
+              @keydown.enter="passwordInput.focus()"
+            />
+          </div>
+          <div class="form__row">
+            <b-text-field
+              id="register_password"
+              ref="passwordInput"
+              v-model="password"
+              name="password"
+              placeholder="Пароль"
+              width-full
+              type="password"
+            />
+          </div>
+          <div class="form__row">
+            <b-button large width-full @click.prevent="signUp()">Зарегистрироваться</b-button>
+          </div>
+          <div class="form__row form__row_align_center">
+            <router-link :to="{ name: 'modal_login' }">Уже есть аккаунт? Войти.</router-link>
+          </div>
+        </b-form>
       </div>
-      <div class="form__row">
-        <b-text-field
-          id="register_username"
-          ref="usernameInput"
-          v-model="username"
-          name="username"
-          placeholder="Логин"
-          width-full
-          @keydown.enter="passwordInput.focus()"
-        />
-      </div>
-      <div class="form__row">
-        <b-text-field
-          id="register_password"
-          ref="passwordInput"
-          v-model="password"
-          name="password"
-          placeholder="Пароль"
-          width-full
-          type="password"
-          @keydown.enter="signUp()"
-        />
-      </div>
-      <div class="form__row">
-        <b-button large width-full @click.prevent="signUp()">Зарегистрироваться</b-button>
-      </div>
-      <div class="form__row form__row_align_center">
-        <a href="#" @click.prevent="signIn()">Уже есть аккаунт? Войти</a>
-      </div>
-    </b-form>
-  </div>
-  <!-- end .register-modal -->
+    </template>
+  </b-modal>
 </template>
 
 <script lang="ts">
@@ -53,10 +55,11 @@ import BForm from '~/components/form/form.vue';
 import BTextField from '~/components/text-field/text-field.vue';
 import BCheckbox from '~/components/checkbox/checkbox.vue';
 import BButton from '~/components/button/button.vue';
+import BModal from '~/components/modals/modal/modal.vue';
 
 @Component({
   name: 'b-register-modal',
-  components: { BButton, BCheckbox, BTextField, BForm },
+  components: { BModal, BButton, BCheckbox, BTextField, BForm },
 })
 export default class RegisterModal extends Vue {
   @Ref() usernameInput!: BTextField;
@@ -76,11 +79,6 @@ export default class RegisterModal extends Vue {
     username: /^[a-zA-Z0-9\-_]+$/,
     email: /.{3,}@.+\..{2,}/i,
   };
-
-  signIn() {
-    this.$accessor.auth.SET_LOGIN_MODAL(true);
-    this.$accessor.auth.SET_REGISTER_MODAL(false);
-  }
 
   clearErrors() {
     this.errors = [];
@@ -165,6 +163,7 @@ export default class RegisterModal extends Vue {
     });
 
     if (errors) this.errors.push(errors[0].message);
+    await this.$emit('close');
   }
 }
 </script>

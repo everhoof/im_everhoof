@@ -16,10 +16,10 @@
       <transition>
         <ul v-show="dropdown" ref="dropdown" class="aside-footer__dropdown">
           <li class="aside-footer__dropdown-item">
-            <b-button width-full @click="openProfileModal">Профиль</b-button>
+            <b-button :to="{ name: 'modal_profile', params: { id: user.id } }" width-full>Профиль</b-button>
           </li>
           <li class="aside-footer__dropdown-item">
-            <b-button width-full @click="openSettingsModal">Настройки</b-button>
+            <b-button :to="{ name: 'modal_settings' }" width-full>Настройки</b-button>
           </li>
           <li class="aside-footer__dropdown-item">
             <b-button width-full @click.stop="logout">Выйти</b-button>
@@ -72,17 +72,6 @@ export default class AsideFooter extends Vue {
   logout() {
     this.$apolloHelpers.onLogout();
     this.$accessor.auth.SET_LOGGED_IN(false);
-  }
-
-  openProfileModal() {
-    if (this.$accessor.auth.user?.id) {
-      this.$accessor.modals.SET_PROFILE_MODAL_TARGET_ID(this.$accessor.auth.user?.id);
-      this.$accessor.modals.SET_PROFILE_MODAL_OPENED(true);
-    }
-  }
-
-  openSettingsModal() {
-    this.$accessor.modals.SET_SETTINGS_MODAL_OPENED(true);
   }
 }
 </script>

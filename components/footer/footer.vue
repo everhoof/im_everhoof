@@ -7,7 +7,9 @@
     <div v-show="attachPanelActive" ref="attachPanel" class="footer__attach-panel">
       <b-attach-panel />
     </div>
-    <b-button v-show="!loggedIn" class="button_size_compact" @click="openLoginModal()">Войти в чат</b-button>
+    <b-button v-show="!loggedIn" class="button_size_compact" :to="{ name: 'modal_login' }">
+      Войти в чат
+    </b-button>
     <div v-show="loggedIn" class="footer__input-field">
       <div class="footer__actions-left">
         <div
@@ -74,10 +76,6 @@ export default class Footer extends Vue {
 
   get attachPanelActive(): boolean {
     return this.$accessor.attachPanelActive;
-  }
-
-  openLoginModal() {
-    this.$accessor.auth.SET_LOGIN_MODAL(true);
   }
 
   changeEmoji() {

@@ -1,47 +1,47 @@
 <template>
-  <!-- begin .profile-modal-->
-  <div class="profile-modal">
-    <div class="profile-modal__user">
-      <b-avatar class="profile-modal__avatar" :user="user" large />
-      <div class="profile-modal__user-info">
-        <div class="profile-modal__username">
-          <span>{{ username }}</span>
-          <button v-if="false" class="profile-modal__username-edit">
-            <svg-icon name="edit" />
-          </button>
+  <b-modal @close="$emit('close', $event)">
+    <template #title>Профиль</template>
+    <template #default>
+      <div class="profile-modal">
+        <div class="profile-modal__user">
+          <b-avatar class="profile-modal__avatar" :user="user" large />
+          <div class="profile-modal__user-info">
+            <div class="profile-modal__username">
+              <span>{{ username }}</span>
+              <button v-if="false" class="profile-modal__username-edit">
+                <svg-icon name="edit" />
+              </button>
+            </div>
+            <div class="profile-modal__registered">
+              {{ $t('modals.profile.registered') }}: {{ registered }}
+            </div>
+            <div class="profile-modal__registered">{{ $t('modals.profile.was_online') }}: {{ online }}</div>
+          </div>
         </div>
-        <div class="profile-modal__registered">{{ $t('modals.profile.registered') }}: {{ registered }}</div>
-        <div class="profile-modal__registered">{{ $t('modals.profile.was_online') }}: {{ online }}</div>
       </div>
-    </div>
-  </div>
-  <!-- end .profile-modal-->
+    </template>
+  </b-modal>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from 'nuxt-property-decorator';
+import { Component, Vue } from 'nuxt-property-decorator';
 import { DateTime } from 'luxon';
 import BAvatar from '~/components/avatar/avatar.vue';
 import { GetUserByIdQuery } from '~/graphql/schema';
+import BModal from '~/components/modals/modal/modal.vue';
 
 @Component({
   name: 'b-profile-modal',
-  components: { BAvatar },
+  components: { BModal, BAvatar },
 })
 export default class ProfileModal extends Vue {
-  @Watch('id')
-  async onIdChanged(): Promise<void> {
-    if (!this.id || this.id === -1) return;
-    await this.$accessor.chat.fetchUserById({ id: this.id });
-  }
-
   async created(): Promise<void> {
     if (!this.id || this.id === -1) return;
     await this.$accessor.chat.fetchUserById({ id: this.id });
   }
 
   get id(): number {
-    return this.$accessor.modals.profileModalTargetId;
+    return parseInt(this.$route.params.id);
   }
 
   get user(): GetUserByIdQuery['getUserById'] | undefined {

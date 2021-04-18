@@ -1,0 +1,5 @@
+mutation RequestEmailConfirmation {
+  requestEmailConfirmation {
+    id
+  }
+}
