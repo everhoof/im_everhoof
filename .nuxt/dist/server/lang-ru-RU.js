@@ -1,7 +1,7 @@
 exports.ids = [1];
 exports.modules = {
 
-/***/ 88:
+/***/ 104:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -17,6 +17,7 @@ __webpack_require__.r(__webpack_exports__);
   email_regex_error: 'Wrong email format.',
   password_fill_error: 'Fill in the password field.',
   passport_length_error: 'Password must be at least 5 characters long.',
+  passwords_do_not_match: 'Passwords do not match.',
   modals: {
     profile: {
       registered: 'Зарегистрирован',
