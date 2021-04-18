@@ -106,7 +106,7 @@ export default class Login extends Vue {
     });
 
     if (errors) this.errors.push(errors[0].message);
-    await this.$emit('close');
+    else await this.$emit('close');
   }
 }
 </script>
