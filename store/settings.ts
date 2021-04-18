@@ -4,7 +4,7 @@ import { Context } from '@nuxt/types';
 export const namespaced = true;
 
 export const state = () => ({
-  theme: 'light' as string,
+  theme: 'dark' as string,
   compact: true as boolean,
 });
 
