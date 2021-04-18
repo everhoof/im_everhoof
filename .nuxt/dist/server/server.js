@@ -10262,12 +10262,12 @@ var reset_password_component = normalizeComponent(
 )
 
 /* harmony default export */ var reset_password = (reset_password_component.exports);
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./components/modals/login-modal/login-modal.vue?vue&type=template&id=a55a0898&
-var login_modalvue_type_template_id_a55a0898_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('b-modal',{on:{"close":function($event){return _vm.$emit('close', $event)}},scopedSlots:_vm._u([{key:"title",fn:function(){return [_vm._v("Вход")]},proxy:true},{key:"default",fn:function(){return [_c('div',{staticClass:"login-modal"},[_c('b-form',{attrs:{"errors":_vm.errors,"name":"login-form"}},[_c('div',{staticClass:"form__row"},[_c('b-text-field',{attrs:{"id":"login_username","name":"username","placeholder":"Логин","width-full":""},on:{"keydown":function($event){if(!$event.type.indexOf('key')&&_vm._k($event.keyCode,"enter",13,$event.key,"Enter")){ return null; }return _vm.passwordInput.focus()}},model:{value:(_vm.username),callback:function ($$v) {_vm.username=$$v},expression:"username"}})],1),_vm._v(" "),_c('div',{staticClass:"form__row"},[_c('b-text-field',{ref:"passwordInput",attrs:{"id":"login_password","name":"password","placeholder":"Пароль","width-full":"","type":"password"},model:{value:(_vm.password),callback:function ($$v) {_vm.password=$$v},expression:"password"}})],1),_vm._v(" "),_c('div',{staticClass:"form__row"},[_c('b-button',{attrs:{"large":"","width-full":""},on:{"click":function($event){$event.preventDefault();return _vm.signIn()}}},[_vm._v("Войти")])],1),_vm._v(" "),_c('div',{staticClass:"form__row form__row_align_center"},[_c('router-link',{attrs:{"to":{ name: 'modal_request_password_reset' }}},[_vm._v("Восстановить пароль")])],1),_vm._v(" "),_c('div',{staticClass:"form__row form__row_align_center"},[_c('router-link',{attrs:{"to":{ name: 'modal_register' }}},[_vm._v("Нет аккаунта")])],1)])],1)]},proxy:true}])})}
-var login_modalvue_type_template_id_a55a0898_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./components/modals/login-modal/login-modal.vue?vue&type=template&id=3dfffd3b&
+var login_modalvue_type_template_id_3dfffd3b_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('b-modal',{on:{"close":function($event){return _vm.$emit('close', $event)}},scopedSlots:_vm._u([{key:"title",fn:function(){return [_vm._v("Вход")]},proxy:true},{key:"default",fn:function(){return [_c('div',{staticClass:"login-modal"},[_c('b-form',{attrs:{"errors":_vm.errors,"name":"login-form"}},[_c('div',{staticClass:"form__row"},[_c('b-text-field',{attrs:{"id":"login_username","name":"username","placeholder":"Логин","width-full":""},on:{"keydown":function($event){if(!$event.type.indexOf('key')&&_vm._k($event.keyCode,"enter",13,$event.key,"Enter")){ return null; }return _vm.passwordInput.focus()}},model:{value:(_vm.username),callback:function ($$v) {_vm.username=$$v},expression:"username"}})],1),_vm._v(" "),_c('div',{staticClass:"form__row"},[_c('b-text-field',{ref:"passwordInput",attrs:{"id":"login_password","name":"password","placeholder":"Пароль","width-full":"","type":"password"},model:{value:(_vm.password),callback:function ($$v) {_vm.password=$$v},expression:"password"}})],1),_vm._v(" "),_c('div',{staticClass:"form__row"},[_c('b-button',{attrs:{"large":"","width-full":""},on:{"click":function($event){$event.preventDefault();return _vm.signIn()}}},[_vm._v("Войти")])],1),_vm._v(" "),_c('div',{staticClass:"form__row form__row_align_center"},[_c('router-link',{attrs:{"to":{ name: 'modal_request_password_reset' }}},[_vm._v("Восстановить пароль")])],1),_vm._v(" "),_c('div',{staticClass:"form__row form__row_align_center"},[_c('router-link',{attrs:{"to":{ name: 'modal_register' }}},[_vm._v("Нет аккаунта")])],1)])],1)]},proxy:true}])})}
+var login_modalvue_type_template_id_3dfffd3b_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./components/modals/login-modal/login-modal.vue?vue&type=template&id=a55a0898&
+// CONCATENATED MODULE: ./components/modals/login-modal/login-modal.vue?vue&type=template&id=3dfffd3b&
 
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./components/checkbox/checkbox.vue?vue&type=template&id=b2f076da&
 var checkboxvue_type_template_id_b2f076da_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"checkbox",class:{
@@ -10527,8 +10527,7 @@ let login_modalvue_type_script_lang_ts_Login = class Login extends external_nuxt
       email: this.username,
       password: this.password
     });
-    if (errors) this.errors.push(errors[0].message);
-    await this.$emit('close');
+    if (errors) this.errors.push(errors[0].message);else await this.$emit('close');
   }
 
 };
@@ -10569,8 +10568,8 @@ if (style0.__inject__) style0.__inject__(context)
 
 var login_modal_component = normalizeComponent(
   login_modal_login_modalvue_type_script_lang_ts_,
-  login_modalvue_type_template_id_a55a0898_render,
-  login_modalvue_type_template_id_a55a0898_staticRenderFns,
+  login_modalvue_type_template_id_3dfffd3b_render,
+  login_modalvue_type_template_id_3dfffd3b_staticRenderFns,
   false,
   login_modal_injectStyles,
   null,
@@ -10579,12 +10578,12 @@ var login_modal_component = normalizeComponent(
 )
 
 /* harmony default export */ var login_modal = (login_modal_component.exports);
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./components/modals/register-modal/register-modal.vue?vue&type=template&id=113c973e&
-var register_modalvue_type_template_id_113c973e_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('b-modal',{on:{"close":function($event){return _vm.$emit('close', $event)}},scopedSlots:_vm._u([{key:"title",fn:function(){return [_vm._v("Регистрация")]},proxy:true},{key:"default",fn:function(){return [_c('div',{staticClass:"register-modal"},[_c('b-form',{attrs:{"errors":_vm.errors,"name":"register-form"}},[_c('div',{staticClass:"form__row"},[_c('b-text-field',{attrs:{"id":"register_email","name":"email","placeholder":"E-mail","width-full":""},on:{"keydown":function($event){if(!$event.type.indexOf('key')&&_vm._k($event.keyCode,"enter",13,$event.key,"Enter")){ return null; }return _vm.usernameInput.focus()}},model:{value:(_vm.email),callback:function ($$v) {_vm.email=$$v},expression:"email"}})],1),_vm._v(" "),_c('div',{staticClass:"form__row"},[_c('b-text-field',{ref:"usernameInput",attrs:{"id":"register_username","name":"username","placeholder":"Логин","width-full":""},on:{"keydown":function($event){if(!$event.type.indexOf('key')&&_vm._k($event.keyCode,"enter",13,$event.key,"Enter")){ return null; }return _vm.passwordInput.focus()}},model:{value:(_vm.username),callback:function ($$v) {_vm.username=$$v},expression:"username"}})],1),_vm._v(" "),_c('div',{staticClass:"form__row"},[_c('b-text-field',{ref:"passwordInput",attrs:{"id":"register_password","name":"password","placeholder":"Пароль","width-full":"","type":"password"},model:{value:(_vm.password),callback:function ($$v) {_vm.password=$$v},expression:"password"}})],1),_vm._v(" "),_c('div',{staticClass:"form__row"},[_c('b-button',{attrs:{"large":"","width-full":""},on:{"click":function($event){$event.preventDefault();return _vm.signUp()}}},[_vm._v("Зарегистрироваться")])],1),_vm._v(" "),_c('div',{staticClass:"form__row form__row_align_center"},[_c('router-link',{attrs:{"to":{ name: 'modal_login' }}},[_vm._v("Уже есть аккаунт? Войти.")])],1)])],1)]},proxy:true}])})}
-var register_modalvue_type_template_id_113c973e_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./components/modals/register-modal/register-modal.vue?vue&type=template&id=4dcd9e77&
+var register_modalvue_type_template_id_4dcd9e77_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('b-modal',{on:{"close":function($event){return _vm.$emit('close', $event)}},scopedSlots:_vm._u([{key:"title",fn:function(){return [_vm._v("Регистрация")]},proxy:true},{key:"default",fn:function(){return [_c('div',{staticClass:"register-modal"},[_c('b-form',{attrs:{"errors":_vm.errors,"name":"register-form"}},[_c('div',{staticClass:"form__row"},[_c('b-text-field',{attrs:{"id":"register_email","name":"email","placeholder":"E-mail","width-full":""},on:{"keydown":function($event){if(!$event.type.indexOf('key')&&_vm._k($event.keyCode,"enter",13,$event.key,"Enter")){ return null; }return _vm.usernameInput.focus()}},model:{value:(_vm.email),callback:function ($$v) {_vm.email=$$v},expression:"email"}})],1),_vm._v(" "),_c('div',{staticClass:"form__row"},[_c('b-text-field',{ref:"usernameInput",attrs:{"id":"register_username","name":"username","placeholder":"Логин","width-full":""},on:{"keydown":function($event){if(!$event.type.indexOf('key')&&_vm._k($event.keyCode,"enter",13,$event.key,"Enter")){ return null; }return _vm.passwordInput.focus()}},model:{value:(_vm.username),callback:function ($$v) {_vm.username=$$v},expression:"username"}})],1),_vm._v(" "),_c('div',{staticClass:"form__row"},[_c('b-text-field',{ref:"passwordInput",attrs:{"id":"register_password","name":"password","placeholder":"Пароль","width-full":"","type":"password"},model:{value:(_vm.password),callback:function ($$v) {_vm.password=$$v},expression:"password"}})],1),_vm._v(" "),_c('div',{staticClass:"form__row"},[_c('b-button',{attrs:{"large":"","width-full":""},on:{"click":function($event){$event.preventDefault();return _vm.signUp()}}},[_vm._v("Зарегистрироваться")])],1),_vm._v(" "),_c('div',{staticClass:"form__row form__row_align_center"},[_c('router-link',{attrs:{"to":{ name: 'modal_login' }}},[_vm._v("Уже есть аккаунт? Войти.")])],1)])],1)]},proxy:true}])})}
+var register_modalvue_type_template_id_4dcd9e77_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./components/modals/register-modal/register-modal.vue?vue&type=template&id=113c973e&
+// CONCATENATED MODULE: ./components/modals/register-modal/register-modal.vue?vue&type=template&id=4dcd9e77&
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--12-0!./node_modules/ts-loader??ref--12-1!./node_modules/vue-loader/lib??vue-loader-options!./components/modals/register-modal/register-modal.vue?vue&type=script&lang=ts&
 var register_modalvue_type_script_lang_ts_decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
@@ -10703,8 +10702,7 @@ let register_modalvue_type_script_lang_ts_RegisterModal = class RegisterModal ex
       password: this.password,
       username: this.username
     });
-    if (errors) this.errors.push(errors[0].message);
-    await this.$emit('close');
+    if (errors) this.errors.push(errors[0].message);else await this.$emit('close');
   }
 
 };
@@ -10747,8 +10745,8 @@ if (style0.__inject__) style0.__inject__(context)
 
 var register_modal_component = normalizeComponent(
   register_modal_register_modalvue_type_script_lang_ts_,
-  register_modalvue_type_template_id_113c973e_render,
-  register_modalvue_type_template_id_113c973e_staticRenderFns,
+  register_modalvue_type_template_id_4dcd9e77_render,
+  register_modalvue_type_template_id_4dcd9e77_staticRenderFns,
   false,
   register_modal_injectStyles,
   null,
