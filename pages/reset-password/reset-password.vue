@@ -106,7 +106,7 @@ export default class ResetPasswordPage extends Vue {
   async reset() {
     if (!this.validateForm()) return;
     const { errors } = await this.$accessor.auth.resetPassword({
-      token: this.$route.query.code,
+      token: this.$route.query.code as string,
       password: this.password,
     });
 
