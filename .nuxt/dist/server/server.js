@@ -8683,12 +8683,12 @@ var staticRenderFns = []
 // EXTERNAL MODULE: external "nuxt-property-decorator"
 var external_nuxt_property_decorator_ = __webpack_require__(0);
 
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./components/chat/chat.vue?vue&type=template&id=24570edb&
-var chatvue_type_template_id_24570edb_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{ref:"scroll",staticClass:"chat scrollbar"},[_c('b-upload-file'),_vm._ssrNode(" "),_vm._ssrNode("<div class=\"chat__messages\">","</div>",_vm._l((_vm.messages.length),function(i){return _c(_vm.messages[_vm.messages.length - i].id < 0 ? 'b-messages-separator' : 'b-message',{key:_vm.messages[_vm.messages.length - i].id,tag:"component",attrs:{"message":_vm.messages[_vm.messages.length - i]}})}),1)],2)}
-var chatvue_type_template_id_24570edb_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./components/chat/chat.vue?vue&type=template&id=33d28699&
+var chatvue_type_template_id_33d28699_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{ref:"scroll",staticClass:"chat scrollbar"},[_c('b-upload-file'),_vm._ssrNode(" "),_vm._ssrNode("<div class=\"chat__messages\">","</div>",_vm._l((_vm.messages.length),function(i){return _c(_vm.messages[_vm.messages.length - i].id < 0 ? 'b-messages-separator' : 'b-message',{key:_vm.messages[_vm.messages.length - i].id,tag:"component",attrs:{"message":_vm.messages[_vm.messages.length - i]}})}),1)],2)}
+var chatvue_type_template_id_33d28699_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./components/chat/chat.vue?vue&type=template&id=24570edb&
+// CONCATENATED MODULE: ./components/chat/chat.vue?vue&type=template&id=33d28699&
 
 // EXTERNAL MODULE: external "luxon"
 var external_luxon_ = __webpack_require__(6);
@@ -9140,7 +9140,7 @@ let chatvue_type_script_lang_ts_Chat = class Chat extends external_nuxt_property
   async onMessagesChange() {
     await this.$nextTick();
     this.scroll.scrollTo({
-      top: this.scroll.clientHeight
+      top: this.scroll.scrollHeight
     });
   }
 
@@ -9207,8 +9207,8 @@ if (style0.__inject__) style0.__inject__(context)
 
 var chat_component = normalizeComponent(
   chat_chatvue_type_script_lang_ts_,
-  chatvue_type_template_id_24570edb_render,
-  chatvue_type_template_id_24570edb_staticRenderFns,
+  chatvue_type_template_id_33d28699_render,
+  chatvue_type_template_id_33d28699_staticRenderFns,
   false,
   chat_injectStyles,
   null,
