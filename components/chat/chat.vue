@@ -32,7 +32,7 @@ export default class Chat extends Vue {
   @Watch('messages')
   async onMessagesChange() {
     await this.$nextTick();
-    this.scroll.scrollTo({ top: this.scroll.clientHeight });
+    this.scroll.scrollTo({ top: this.scroll.scrollHeight });
   }
 
   get messages(): GetChatDataQuery['getMessages'] {
