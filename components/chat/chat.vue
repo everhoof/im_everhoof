@@ -2,18 +2,25 @@
   <!-- begin .chat-->
   <div ref="scroll" class="chat scrollbar" @scroll="onScroll">
     <b-upload-file />
-    <div class="chat__messages">
-      <div v-if="loadingMoreMessages" class="chat__loader">
-        <svg-icon name="spinner" />
+    <transition name="fade">
+      <div v-show="loading" class="chat__loader">
+        <img class="icon" src="~/assets/icons/spinner.svg" alt="" />
       </div>
-      <div v-for="i in messages.length" :key="messages[messages.length - i].id" class="chat__message">
-        <b-messages-separator
-          v-if="messages[messages.length - i].dayFirst"
-          :message="messages[messages.length - i]"
-        />
-        <b-message :message="messages[messages.length - i]" />
+    </transition>
+    <transition name="fade">
+      <div v-show="!loading" class="chat__messages">
+        <div v-if="loadingMoreMessages" class="chat__messages-loader">
+          <img class="icon" src="~/assets/icons/spinner.svg" alt="" />
+        </div>
+        <div v-for="i in messages.length" :key="messages[messages.length - i].id" class="chat__message">
+          <b-messages-separator
+            v-if="messages[messages.length - i].dayFirst"
+            :message="messages[messages.length - i]"
+          />
+          <b-message :message="messages[messages.length - i]" />
+        </div>
       </div>
-    </div>
+    </transition>
   </div>
   <!-- end .chat-->
 </template>
@@ -22,28 +29,33 @@
 import { Component, Ref, Vue, Watch } from 'nuxt-property-decorator';
 import BUploadFile from '~/components/upload-file/upload-file.vue';
 import BMessage from '~/components/message/message.vue';
-import BMessagesSeparator from '~/components/messages-separator/messages-separator.vue';
 import { ChatMessage } from '~/types/messages';
+import BMessagesSeparator from '~/components/messages-separator/messages-separator.vue';
 
 @Component({
   name: 'b-chat',
-  components: { BMessage, BMessagesSeparator, BUploadFile },
+  components: { BMessagesSeparator, BMessage, BUploadFile },
 })
 export default class Chat extends Vue {
-  @Ref('scroll') scroll!: HTMLDivElement;
+  @Ref('scroll') scroll?: HTMLDivElement;
 
+  private loading = true;
   private loadingMoreMessages = false;
 
   @Watch('messages')
   async onMessagesChange() {
     await this.$nextTick();
-    if (Math.abs(this.scroll.scrollTop) < 50) {
+    if (this.scroll && Math.abs(this.scroll.scrollTop) < 50) {
       this.scroll.scrollTo({ top: this.scroll.scrollHeight });
     }
   }
 
   get messages(): ChatMessage[] {
-    return this.$accessor.chat.messages;
+    return this.loading ? [] : this.$accessor.chat.messages;
+  }
+
+  mounted() {
+    this.loading = false;
   }
 
   async onScroll(event: any) {
@@ -66,3 +78,13 @@ export default class Chat extends Vue {
 </script>
 
 <style lang="stylus" src="./chat.styl" />
+<style>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>
