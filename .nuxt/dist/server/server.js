@@ -1153,6 +1153,7 @@ const mutations = Object(typed_vuex__WEBPACK_IMPORTED_MODULE_0__["mutationTree"]
     let prevDay = -1;
 
     for (let i = _state.messages.length - 1; i >= 0; i--) {
+      if (_state.messages[i].deletedAt) continue;
       const day = luxon__WEBPACK_IMPORTED_MODULE_2__["DateTime"].fromISO(_state.messages[i].createdAt).day;
       _state.messages[i].dayFirst = prevDay !== -1 && prevDay !== day;
       prevDay = day;
