@@ -124,15 +124,13 @@ export default class Footer extends Vue {
     this.$accessor.chat.ADD_MESSAGE(message);
     const content = this.$accessor.chat.message;
     this.$accessor.chat.SET_MESSAGE('');
-    const { errors, data } = await this.$apollo.mutate<CreateMessageMutation, CreateMessageMutationVariables>(
-      {
-        mutation: CreateMessage,
-        variables: {
-          content,
-          randomId,
-        },
+    const { errors } = await this.$apollo.mutate<CreateMessageMutation, CreateMessageMutationVariables>({
+      mutation: CreateMessage,
+      variables: {
+        content,
+        randomId,
       },
-    );
+    });
 
     if (errors) {
       if (errors[0] && errors[0].message) {
@@ -140,9 +138,6 @@ export default class Footer extends Vue {
         message.system = true;
         this.$accessor.chat.ADD_MESSAGE(message);
       }
-    } else if (data?.createMessage) {
-      message.state = ChatMessageState.delivered;
-      this.$accessor.chat.ADD_MESSAGE(message);
     }
   }
 }

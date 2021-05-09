@@ -17,6 +17,9 @@ export type Query = {
   getUserById: User;
   getOnline: Array<User>;
   getMessages: Array<Message>;
+  isUsernameFree: Scalars['Boolean'];
+  getTokenByDiscordId?: Maybe<Token>;
+  getTokens: Array<Token>;
   getGrants: Scalars['String'];
   getHello: Scalars['String'];
   getPictureById: Picture;
@@ -29,6 +32,16 @@ export type QueryGetUserByIdArgs = {
 export type QueryGetMessagesArgs = {
   count?: Maybe<Scalars['Int']>;
   page?: Maybe<Scalars['Int']>;
+  lastId?: Maybe<Scalars['Int']>;
+  reverse?: Maybe<Scalars['Boolean']>;
+};
+
+export type QueryIsUsernameFreeArgs = {
+  username: Scalars['String'];
+};
+
+export type QueryGetTokenByDiscordIdArgs = {
+  id: Scalars['String'];
 };
 
 export type QueryGetPictureByIdArgs = {
@@ -38,7 +51,6 @@ export type QueryGetPictureByIdArgs = {
 export type User = {
   __typename?: 'User';
   id: Scalars['Int'];
-  email: Scalars['String'];
   username?: Maybe<Scalars['String']>;
   avatarId?: Maybe<Scalars['String']>;
   wasOnlineAt?: Maybe<Scalars['DateTime']>;
@@ -48,6 +60,7 @@ export type User = {
   avatar?: Maybe<Picture>;
   emailConfirmed?: Maybe<Scalars['Boolean']>;
   muted?: Maybe<Scalars['Boolean']>;
+  email?: Maybe<Scalars['String']>;
 };
 
 export type Role = {
@@ -98,6 +111,16 @@ export type Message = {
   deletedBy?: Maybe<User>;
 };
 
+export type Token = {
+  __typename?: 'Token';
+  id: Scalars['Int'];
+  value: Scalars['String'];
+  ownerId: Scalars['Int'];
+  createdAt: Scalars['DateTime'];
+  expiresAt?: Maybe<Scalars['DateTime']>;
+  usedAt?: Maybe<Scalars['DateTime']>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   updateOnlineStatus: Scalars['Boolean'];
@@ -112,6 +135,10 @@ export type Mutation = {
   requestEmailConfirmation: User;
   requestPasswordReset: Scalars['Boolean'];
   resetPassword: Token;
+  updateUsername: User;
+  invalidateCurrentToken: Scalars['Boolean'];
+  invalidateTokenById: Scalars['Boolean'];
+  invalidateAllTokens: Scalars['Boolean'];
 };
 
 export type MutationUpdateAvatarArgs = {
@@ -163,20 +190,18 @@ export type MutationResetPasswordArgs = {
   password: Scalars['String'];
 };
 
+export type MutationUpdateUsernameArgs = {
+  username: Scalars['String'];
+};
+
+export type MutationInvalidateTokenByIdArgs = {
+  id: Scalars['Int'];
+};
+
 export enum PunishmentTypes {
   Ban = 'ban',
   Mute = 'mute',
 }
-
-export type Token = {
-  __typename?: 'Token';
-  id: Scalars['Int'];
-  value: Scalars['String'];
-  ownerId: Scalars['Int'];
-  createdAt: Scalars['DateTime'];
-  expiresAt?: Maybe<Scalars['DateTime']>;
-  usedAt?: Maybe<Scalars['DateTime']>;
-};
 
 export type Subscription = {
   __typename?: 'Subscription';
@@ -184,6 +209,7 @@ export type Subscription = {
   userUpdated: User;
   messageCreated: Message;
   messageDeleted: Message;
+  userRegisteredViaDiscord: Scalars['String'];
 };
 
 export type ConfirmEmailMutationVariables = Exact<{
@@ -394,6 +420,45 @@ export type GetCurrentUserQuery = { __typename?: 'Query' } & Pick<Query, 'getGra
 export type GetGrantsQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetGrantsQuery = { __typename?: 'Query' } & Pick<Query, 'getGrants'>;
+
+export type GetMessagesQueryVariables = Exact<{
+  count?: Maybe<Scalars['Int']>;
+  page?: Maybe<Scalars['Int']>;
+  lastId?: Maybe<Scalars['Int']>;
+  reverse?: Maybe<Scalars['Boolean']>;
+}>;
+
+export type GetMessagesQuery = { __typename?: 'Query' } & {
+  getMessages: Array<
+    { __typename?: 'Message' } & Pick<
+      Message,
+      'id' | 'randomId' | 'content' | 'username' | 'system' | 'createdAt' | 'updatedAt' | 'deletedAt'
+    > & {
+        owner?: Maybe<
+          { __typename?: 'User' } & Pick<User, 'id' | 'username'> & {
+              avatar?: Maybe<
+                { __typename?: 'Picture' } & {
+                  s: { __typename?: 'PictureRepresentation' } & Pick<PictureRepresentation, 'link'>;
+                }
+              >;
+            }
+        >;
+        pictures: Array<
+          { __typename?: 'Picture' } & {
+            m: { __typename?: 'PictureRepresentation' } & Pick<
+              PictureRepresentation,
+              'link' | 'width' | 'height'
+            >;
+            o: { __typename?: 'PictureRepresentation' } & Pick<
+              PictureRepresentation,
+              'link' | 'width' | 'height'
+            >;
+          }
+        >;
+        deletedBy?: Maybe<{ __typename?: 'User' } & Pick<User, 'id' | 'username'>>;
+      }
+  >;
+};
 
 export type GetUserByIdQueryVariables = Exact<{
   id: Scalars['Int'];

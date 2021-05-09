@@ -1,6 +1,7 @@
 import { actionTree, getterTree, mutationTree } from 'typed-vuex';
 import { Context } from '@nuxt/types';
 import Vue from 'vue';
+import { DateTime } from 'luxon';
 import MessageCreated from '~/graphql/subscriptions/message-created.graphql';
 import MessageDeleted from '~/graphql/subscriptions/message-deleted.graphql';
 import OnlineUpdated from '~/graphql/subscriptions/online-updated.graphql';
@@ -10,10 +11,13 @@ import DeleteMessage from '~/graphql/mutations/delete-message.graphql';
 import GetChatData from '~/graphql/queries/get-chat-data.graphql';
 import GetUserById from '~/graphql/queries/get-user-by-id.graphql';
 import Punish from '~/graphql/mutations/punish.graphql';
+import GetMessages from '~/graphql/queries/get-messages.graphql';
 import {
   DeleteMessageMutation,
   DeleteMessageMutationVariables,
   GetChatDataQuery,
+  GetMessagesQuery,
+  GetMessagesQueryVariables,
   GetUserByIdQuery,
   GetUserByIdQueryVariables,
   MessageCreatedSubscription,
@@ -25,12 +29,13 @@ import {
   UserUpdatedSubscription,
 } from '~/graphql/schema';
 import { Emoji } from '~/types/emoji';
+import { ChatMessage } from '~/types/messages';
 
 export const namespaced = true;
 
 export const state = () => ({
   message: '' as string,
-  messages: [] as GetChatDataQuery['getMessages'],
+  messages: [] as ChatMessage[],
   online: [] as GetChatDataQuery['getOnline'],
   emoji: [
     { name: 'ab4', ext: 'png' },
@@ -128,6 +133,31 @@ export const mutations = mutationTree(state, {
     else Vue.set(_state.messages, index, payload);
     if (_state.messages.length > 300) _state.messages.splice(-1);
   },
+  ADD_MESSAGES_TO_START: (_state, payload: GetChatDataQuery['getMessages']) => {
+    _state.messages.unshift(...payload);
+  },
+  ADD_MESSAGES_TO_END: (_state, payload: GetChatDataQuery['getMessages']) => {
+    _state.messages.push(...payload);
+  },
+  DELETE_MESSAGES_AFTER_ID: (_state, payload: number) => {
+    if (_state.messages.length === 0) return;
+
+    for (let i = 0; i < _state.messages.length - 1; i++) {
+      if (_state.messages[i].id > payload) {
+        _state.messages.splice(i, 1);
+      } else {
+        break;
+      }
+    }
+  },
+  UPDATE_MESSAGES_SEPARATORS: (_state) => {
+    let prevDay = -1;
+    for (let i = _state.messages.length - 1; i >= 0; i--) {
+      const day = DateTime.fromISO(_state.messages[i].createdAt).day;
+      _state.messages[i].dayFirst = prevDay !== -1 && prevDay !== day;
+      prevDay = day;
+    }
+  },
   SET_ONLINE: (_state, payload: GetChatDataQuery['getOnline']) => (_state.online = payload),
   SET_ASIDE_PC_OPENED: (_state, payload: boolean) => (_state.asidePcOpened = payload),
   ADD_USER: (_state, payload: GetUserByIdQuery['getUserById']) => {
@@ -151,7 +181,6 @@ export const actions = actionTree(
       await dispatch('getChatData', context);
     },
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async nuxtClientInit({ dispatch }, context?: Context) {
       dispatch('subscribeMessageCreated', context);
       dispatch('subscribeMessageDeleted', context);
@@ -164,16 +193,28 @@ export const actions = actionTree(
       await dispatch('getChatData', context);
     },
 
-    subscribeMessageCreated({ commit }, context: Context) {
+    subscribeMessageCreated({ state, commit, dispatch }, context: Context) {
       const client = context?.app.apolloProvider?.defaultClient ?? this.app.apolloProvider?.defaultClient;
       if (client) {
         const messageCreatedObserver = client.subscribe<MessageCreatedSubscription>({
           query: MessageCreated,
         });
         messageCreatedObserver.subscribe({
-          next({ data }) {
+          async next({ data }) {
             if (!data?.messageCreated) return;
-            commit('ADD_MESSAGE', data.messageCreated);
+            if (state.messages.length > 0) {
+              let lastId;
+              for (let i = 0; i < state.messages.length; i++) {
+                if ((state.messages[i] as ChatMessage).state === undefined && state.messages[i].id > 0) {
+                  lastId = state.messages[i].id;
+                  break;
+                }
+              }
+              commit('ADD_MESSAGE', data.messageCreated);
+              if (lastId) await dispatch('getMessages', { lastId });
+            } else {
+              commit('ADD_MESSAGE', data.messageCreated);
+            }
           },
         });
       }
@@ -235,6 +276,27 @@ export const actions = actionTree(
       } catch (e) {}
     },
 
+    async getMessages({ commit }, payload?: GetMessagesQueryVariables) {
+      const client = this?.app.apolloProvider?.defaultClient ?? this.app.apolloProvider?.defaultClient;
+      if (!client) return;
+      try {
+        const { data, errors } = await client.query<GetMessagesQuery, GetMessagesQueryVariables>({
+          query: GetMessages,
+          variables: payload,
+        });
+        if (errors || !data) return;
+        if (payload?.reverse) {
+          commit('ADD_MESSAGES_TO_END', data.getMessages);
+        } else {
+          if (payload?.lastId) {
+            commit('DELETE_MESSAGES_AFTER_ID', payload.lastId);
+          }
+          commit('ADD_MESSAGES_TO_START', data.getMessages);
+        }
+        commit('UPDATE_MESSAGES_SEPARATORS');
+      } catch (e) {}
+    },
+
     async getChatData({ commit }, context?: Context) {
       const client = context?.app.apolloProvider?.defaultClient ?? this.app.apolloProvider?.defaultClient;
       if (!client) return;
@@ -244,6 +306,7 @@ export const actions = actionTree(
         });
         if (errors || !data) return;
         commit('SET_MESSAGES', data.getMessages);
+        commit('UPDATE_MESSAGES_SEPARATORS');
         commit('SET_ONLINE', data.getOnline);
       } catch (e) {}
     },

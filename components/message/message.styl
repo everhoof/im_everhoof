@@ -62,6 +62,26 @@
 				&__text
 					font-style italic
 
+		&_deleted
+			opacity .5
+
+			& ^[0]
+				&__text
+					font-style italic
+
+				&__hidden
+					display none
+
+			&:hover
+				opacity 1
+
+				& ^[0]
+					&__text
+						display none
+
+					&__hidden
+						display block
+
 	&_state
 		&_not-delivered
 			opacity .5

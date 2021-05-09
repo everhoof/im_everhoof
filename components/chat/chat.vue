@@ -1,14 +1,18 @@
 <template>
   <!-- begin .chat-->
-  <div ref="scroll" class="chat scrollbar">
+  <div ref="scroll" class="chat scrollbar" @scroll="onScroll">
     <b-upload-file />
     <div class="chat__messages">
-      <component
-        :is="messages[messages.length - i].id < 0 ? 'b-messages-separator' : 'b-message'"
-        v-for="i in messages.length"
-        :key="messages[messages.length - i].id"
-        :message="messages[messages.length - i]"
-      />
+      <div v-if="loadingMoreMessages" class="chat__loader">
+        <svg-icon name="spinner" />
+      </div>
+      <div v-for="i in messages.length" :key="messages[messages.length - i].id" class="chat__message">
+        <b-messages-separator
+          v-if="messages[messages.length - i].dayFirst"
+          :message="messages[messages.length - i]"
+        />
+        <b-message :message="messages[messages.length - i]" />
+      </div>
     </div>
   </div>
   <!-- end .chat-->
@@ -16,11 +20,10 @@
 
 <script lang="ts">
 import { Component, Ref, Vue, Watch } from 'nuxt-property-decorator';
-import { DateTime } from 'luxon';
 import BUploadFile from '~/components/upload-file/upload-file.vue';
 import BMessage from '~/components/message/message.vue';
 import BMessagesSeparator from '~/components/messages-separator/messages-separator.vue';
-import { GetChatDataQuery } from '~/graphql/schema';
+import { ChatMessage } from '~/types/messages';
 
 @Component({
   name: 'b-chat',
@@ -29,37 +32,35 @@ import { GetChatDataQuery } from '~/graphql/schema';
 export default class Chat extends Vue {
   @Ref('scroll') scroll!: HTMLDivElement;
 
+  private loadingMoreMessages = false;
+
   @Watch('messages')
   async onMessagesChange() {
     await this.$nextTick();
-    this.scroll.scrollTo({ top: this.scroll.scrollHeight });
+    if (Math.abs(this.scroll.scrollTop) < 50) {
+      this.scroll.scrollTo({ top: this.scroll.scrollHeight });
+    }
   }
 
-  get messages(): GetChatDataQuery['getMessages'] {
-    return this.$accessor.chat.messages
-      .filter((message) => !message.deletedAt)
-      .reduce<GetChatDataQuery['getMessages']>((acc, message, index, array) => {
-        acc.push(message);
-        if (array[index] && array[index + 1]) {
-          const currentDay = DateTime.fromISO(array[index].createdAt).day;
-          const nextDay = DateTime.fromISO(array[index + 1].createdAt).day;
-          if (currentDay !== nextDay) {
-            acc.push({ ...message, id: -message.id });
-          }
-        }
-        return acc;
-      }, []);
+  get messages(): ChatMessage[] {
+    return this.$accessor.chat.messages;
   }
 
-  get isDayLastMessage() {
-    return (index: number) => {
-      if (this.messages[index] && this.messages[index + 1]) {
-        const currentDay = DateTime.fromISO(this.messages[index].createdAt).day;
-        const nextDay = DateTime.fromISO(this.messages[index + 1].createdAt).day;
-        return currentDay !== nextDay;
+  async onScroll(event: any) {
+    const offsetTop =
+      event.target.scrollHeight - (Math.abs(event.target.scrollTop) + event.target.clientHeight);
+
+    if (!this.loadingMoreMessages && offsetTop < 50) {
+      this.loadingMoreMessages = true;
+
+      try {
+        const lastId = this.messages[this.messages.length - 1]?.id;
+        await this.$accessor.chat.getMessages({ count: 50, reverse: true, lastId });
+      } finally {
+        await this.$nextTick();
+        this.loadingMoreMessages = false;
       }
-      return false;
-    };
+    }
   }
 }
 </script>

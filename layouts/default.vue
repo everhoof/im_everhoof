@@ -57,7 +57,6 @@ import '~/assets/stylus/colors.styl';
 import { Component, Vue, ProvideReactive, Watch } from 'nuxt-property-decorator';
 import { VueConstructor } from 'vue';
 import { Route } from 'vue-router';
-import BFooter from '~/components/footer/footer.vue';
 import BAsidePanel from '~/components/aside-panel/aside-panel.vue';
 import BModal from '~/components/modals/modal/modal.vue';
 import BButton from '~/components/button/button.vue';
@@ -81,7 +80,6 @@ import { ReminderTypes } from '~/types/reminderTypes';
     BButton,
     BModal,
     BAsidePanel,
-    BFooter,
   },
 })
 export default class Default extends Vue {

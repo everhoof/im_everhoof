@@ -5,6 +5,7 @@
     :class="{
       message_view_compact: compact,
       message_type_system: system,
+      message_type_deleted: deleted,
       'message_state_not-delivered': !delivered,
     }"
     @contextmenu="openContextMenu"
@@ -42,7 +43,11 @@
         </time>
       </div>
       <div class="message__body">
-        <span class="message__text" v-html="text" />
+        <span v-if="deleted" class="message__text">Сообщение удалено</span>
+        <span v-else class="message__text" v-html="text" />
+
+        <span v-if="deleted" class="message__hidden" v-html="text" />
+
         <img
           v-for="picture in pictures"
           :key="picture.id"
@@ -105,6 +110,10 @@ export default class Message extends Vue {
 
   get system() {
     return this.message.system;
+  }
+
+  get deleted(): boolean {
+    return !!this.message.deletedAt;
   }
 
   get delivered(): boolean {

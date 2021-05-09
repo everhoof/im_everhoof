@@ -7,14 +7,16 @@ type Query {
   getCurrentUser: User!
   getUserById(id: Int!): User!
   getOnline: [User!]!
-  getMessages(count: Int = 100, page: Int = 1): [Message!]!
+  getMessages(count: Int = 100, page: Int = 1, lastId: Int, reverse: Boolean = false): [Message!]!
+  isUsernameFree(username: String!): Boolean!
+  getTokenByDiscordId(id: String!): Token
+  getTokens: [Token!]!
   getGrants: String!
   getHello: String!
   getPictureById(pictureId: Int!): Picture!
 }
 type User {
   id: Int!
-  email: String!
   username: String
   avatarId: String
   wasOnlineAt: DateTime
@@ -24,6 +26,7 @@ type User {
   avatar: Picture
   emailConfirmed: Boolean
   muted: Boolean
+  email: String
 }
 """A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format."""
 scalar DateTime
@@ -67,6 +70,14 @@ type Message {
   pictures: [Picture!]!
   deletedBy: User
 }
+type Token {
+  id: Int!
+  value: String!
+  ownerId: Int!
+  createdAt: DateTime!
+  expiresAt: DateTime
+  usedAt: DateTime
+}
 type Mutation {
   updateOnlineStatus: Boolean!
   updateAvatar(pictureId: Int!): User!
@@ -80,22 +91,19 @@ type Mutation {
   requestEmailConfirmation: User!
   requestPasswordReset(email: String!): Boolean!
   resetPassword(token: String!, password: String!): Token!
+  updateUsername(username: String!): User!
+  invalidateCurrentToken: Boolean!
+  invalidateTokenById(id: Int!): Boolean!
+  invalidateAllTokens: Boolean!
 }
 enum PunishmentTypes {
   ban
   mute
-}
-type Token {
-  id: Int!
-  value: String!
-  ownerId: Int!
-  createdAt: DateTime!
-  expiresAt: DateTime
-  usedAt: DateTime
 }
 type Subscription {
   onlineUpdated: [User!]!
   userUpdated: User!
   messageCreated: Message!
   messageDeleted: Message!
+  userRegisteredViaDiscord: String!
 }
