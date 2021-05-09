@@ -126,12 +126,19 @@ export const mutations = mutationTree(state, {
   SET_MESSAGES: (_state, payload: GetChatDataQuery['getMessages']) => (_state.messages = payload),
   SET_MESSAGE: (_state, payload: string) => (_state.message = payload),
   ADD_MESSAGE: (_state, payload: MessageCreatedSubscription['messageCreated']) => {
-    const index = payload.randomId
-      ? _state.messages.findIndex(({ randomId }) => randomId === payload.randomId)
-      : -1;
-    if (index === -1) _state.messages.unshift(payload);
-    else Vue.set(_state.messages, index, payload);
-    if (_state.messages.length > 300) _state.messages.splice(-1);
+    let index = payload.id && payload.id > 0 ? _state.messages.findIndex(({ id }) => id === payload.id) : -1;
+    if (index === -1) {
+      index = payload.randomId
+        ? _state.messages.findIndex(({ randomId }) => randomId === payload.randomId)
+        : -1;
+    }
+    if (payload.deletedAt && index !== -1) {
+      _state.messages.splice(index, 1);
+    } else if (index === -1) {
+      _state.messages.unshift(payload);
+    } else {
+      Vue.set(_state.messages, index, payload);
+    }
   },
   ADD_MESSAGES_TO_START: (_state, payload: GetChatDataQuery['getMessages']) => {
     _state.messages.unshift(...payload);

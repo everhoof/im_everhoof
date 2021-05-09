@@ -51,7 +51,7 @@ export default class Chat extends Vue {
   }
 
   get messages(): ChatMessage[] {
-    return this.loading ? [] : this.$accessor.chat.messages;
+    return this.loading ? [] : this.$accessor.chat.messages.filter((m) => !m.deletedAt);
   }
 
   mounted() {
