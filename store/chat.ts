@@ -160,6 +160,7 @@ export const mutations = mutationTree(state, {
   UPDATE_MESSAGES_SEPARATORS: (_state) => {
     let prevDay = -1;
     for (let i = _state.messages.length - 1; i >= 0; i--) {
+      if (_state.messages[i].deletedAt) continue;
       const day = DateTime.fromISO(_state.messages[i].createdAt).day;
       _state.messages[i].dayFirst = prevDay !== -1 && prevDay !== day;
       prevDay = day;
