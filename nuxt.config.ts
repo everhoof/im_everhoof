@@ -48,6 +48,7 @@ export default {
    ** Plugins to load before mounting the App
    */
   plugins: [
+    '~/plugins/bus.ts',
     {
       src: '~/plugins/nuxt-client-init.client.ts',
       ssr: false,

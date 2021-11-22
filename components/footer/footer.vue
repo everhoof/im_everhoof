@@ -121,9 +121,12 @@ export default class Footer extends Vue {
       updatedAt: DateTime.local().toISO(),
       pictures: [],
     };
+
     this.$accessor.chat.ADD_MESSAGE(message);
+    this.$bus.$emit('message-added', true);
     const content = this.$accessor.chat.message;
     this.$accessor.chat.SET_MESSAGE('');
+
     const { errors } = await this.$apollo.mutate<CreateMessageMutation, CreateMessageMutationVariables>({
       mutation: CreateMessage,
       variables: {
