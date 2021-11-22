@@ -1212,6 +1212,7 @@ const actions = Object(typed_vuex__WEBPACK_IMPORTED_MODULE_0__["actionTree"])({
     var _a, _b, _c;
 
     const client = (_b = (_a = context === null || context === void 0 ? void 0 : context.app.apolloProvider) === null || _a === void 0 ? void 0 : _a.defaultClient) !== null && _b !== void 0 ? _b : (_c = this.app.apolloProvider) === null || _c === void 0 ? void 0 : _c.defaultClient;
+    const self = context !== null && context !== void 0 ? context : this;
 
     if (client) {
       const messageCreatedObserver = client.subscribe({
@@ -1240,6 +1241,8 @@ const actions = Object(typed_vuex__WEBPACK_IMPORTED_MODULE_0__["actionTree"])({
           } else {
             commit('ADD_MESSAGE', data.messageCreated);
           }
+
+          self.app.$bus.$emit('message-added');
         }
 
       });
@@ -8953,12 +8956,12 @@ var staticRenderFns = []
 // EXTERNAL MODULE: external "nuxt-property-decorator"
 var external_nuxt_property_decorator_ = __webpack_require__(0);
 
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./components/chat/chat.vue?vue&type=template&id=5314dc61&
-var chatvue_type_template_id_5314dc61_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{ref:"scroll",staticClass:"chat scrollbar",on:{"scroll":_vm.onScroll}},[_c('b-upload-file'),_vm._ssrNode(" "),_c('transition',{attrs:{"name":"fade"}},[_c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.loading),expression:"loading"}],staticClass:"chat__loader"},[_c('img',{staticClass:"icon",attrs:{"src":__webpack_require__(24),"alt":""}})])]),_vm._ssrNode(" "),_c('transition',{attrs:{"name":"fade"}},[_c('div',{directives:[{name:"show",rawName:"v-show",value:(!_vm.loading),expression:"!loading"}],staticClass:"chat__messages"},[(_vm.loadingMoreMessages)?_c('div',{staticClass:"chat__messages-loader"},[_c('img',{staticClass:"icon",attrs:{"src":__webpack_require__(24),"alt":""}})]):_vm._e(),_vm._v(" "),_vm._l((_vm.messages.length),function(i){return _c('div',{key:_vm.messages[_vm.messages.length - i].id,staticClass:"chat__message"},[(_vm.messages[_vm.messages.length - i].dayFirst)?_c('b-messages-separator',{attrs:{"message":_vm.messages[_vm.messages.length - i]}}):_vm._e(),_vm._v(" "),_c('b-message',{attrs:{"message":_vm.messages[_vm.messages.length - i]}})],1)})],2)])],2)}
-var chatvue_type_template_id_5314dc61_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./components/chat/chat.vue?vue&type=template&id=babb4e8e&
+var chatvue_type_template_id_babb4e8e_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{ref:"scroll",staticClass:"chat scrollbar",on:{"scroll":_vm.onScroll}},[_c('b-upload-file'),_vm._ssrNode(" "),_c('transition',{attrs:{"name":"fade"}},[_c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.loading),expression:"loading"}],staticClass:"chat__loader"},[_c('img',{staticClass:"icon",attrs:{"src":__webpack_require__(24),"alt":""}})])]),_vm._ssrNode(" "),_c('transition',{attrs:{"name":"fade"}},[_c('div',{directives:[{name:"show",rawName:"v-show",value:(!_vm.loading),expression:"!loading"}],staticClass:"chat__messages"},[(_vm.loadingMoreMessages)?_c('div',{staticClass:"chat__messages-loader"},[_c('img',{staticClass:"icon",attrs:{"src":__webpack_require__(24),"alt":""}})]):_vm._e(),_vm._v(" "),_vm._l((_vm.messages.length),function(i){return _c('div',{key:_vm.messages[_vm.messages.length - i].id,staticClass:"chat__message"},[(_vm.messages[_vm.messages.length - i].dayFirst)?_c('b-messages-separator',{attrs:{"message":_vm.messages[_vm.messages.length - i]}}):_vm._e(),_vm._v(" "),_c('b-message',{attrs:{"message":_vm.messages[_vm.messages.length - i]}})],1)})],2)])],2)}
+var chatvue_type_template_id_babb4e8e_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./components/chat/chat.vue?vue&type=template&id=5314dc61&
+// CONCATENATED MODULE: ./components/chat/chat.vue?vue&type=template&id=babb4e8e&
 
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./components/upload-file/upload-file.vue?vue&type=template&id=41116998&
 var upload_filevue_type_template_id_41116998_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"upload-file"},[_vm._ssrNode("<div class=\"upload-file__wrapper\">","</div>",[_vm._ssrNode("<div class=\"upload-file__section\">","</div>",[_c('svg-icon',{staticClass:"upload-file__icon",attrs:{"name":"description"}}),_vm._ssrNode("\n      Upload as document\n    ")],2),_vm._ssrNode(" "),_vm._ssrNode("<div class=\"upload-file__section\">","</div>",[_c('svg-icon',{staticClass:"upload-file__icon",attrs:{"name":"image"}}),_vm._ssrNode("\n      Upload as image\n    ")],2)],2)])}
@@ -9417,10 +9420,10 @@ let chatvue_type_script_lang_ts_Chat = class Chat extends external_nuxt_property
     this.loadingMoreMessages = false;
   }
 
-  async onMessagesChange() {
+  async onMessagesChange(force = false) {
     await this.$nextTick();
 
-    if (this.scroll && Math.abs(this.scroll.scrollTop) < 50) {
+    if (this.scroll && (Math.abs(this.scroll.scrollTop) < 300 || force)) {
       this.scroll.scrollTo({
         top: this.scroll.scrollHeight
       });
@@ -9433,6 +9436,11 @@ let chatvue_type_script_lang_ts_Chat = class Chat extends external_nuxt_property
 
   mounted() {
     this.loading = false;
+    this.$bus.$on('message-added', this.onMessagesChange);
+  }
+
+  beforeDestroy() {
+    this.$bus.$off('message-added');
   }
 
   async onScroll(event) {
@@ -9460,8 +9468,6 @@ let chatvue_type_script_lang_ts_Chat = class Chat extends external_nuxt_property
 };
 
 chatvue_type_script_lang_ts_decorate([Object(external_nuxt_property_decorator_["Ref"])('scroll')], chatvue_type_script_lang_ts_Chat.prototype, "scroll", void 0);
-
-chatvue_type_script_lang_ts_decorate([Object(external_nuxt_property_decorator_["Watch"])('messages')], chatvue_type_script_lang_ts_Chat.prototype, "onMessagesChange", null);
 
 chatvue_type_script_lang_ts_Chat = chatvue_type_script_lang_ts_decorate([Object(external_nuxt_property_decorator_["Component"])({
   name: 'b-chat',
@@ -9491,8 +9497,8 @@ if (style1.__inject__) style1.__inject__(context)
 
 var chat_component = normalizeComponent(
   chat_chatvue_type_script_lang_ts_,
-  chatvue_type_template_id_5314dc61_render,
-  chatvue_type_template_id_5314dc61_staticRenderFns,
+  chatvue_type_template_id_babb4e8e_render,
+  chatvue_type_template_id_babb4e8e_staticRenderFns,
   false,
   chat_injectStyles,
   null,
@@ -9501,12 +9507,12 @@ var chat_component = normalizeComponent(
 )
 
 /* harmony default export */ var chat = (chat_component.exports);
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./components/footer/footer.vue?vue&type=template&id=f234eccc&
-var footervue_type_template_id_f234eccc_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"footer"},[_vm._ssrNode("<div class=\"footer__emoji-panel scrollbar\""+(_vm._ssrStyle(null,null, { display: (_vm.emojisPanelActive) ? '' : 'none' }))+">","</div>",[_c('b-emoji-panel')],1),_vm._ssrNode(" "),_vm._ssrNode("<div class=\"footer__attach-panel\""+(_vm._ssrStyle(null,null, { display: (_vm.attachPanelActive) ? '' : 'none' }))+">","</div>",[_c('b-attach-panel')],1),_vm._ssrNode(" "),_c('b-button',{directives:[{name:"show",rawName:"v-show",value:(!_vm.loggedIn),expression:"!loggedIn"}],staticClass:"button_size_compact",attrs:{"to":{ name: 'modal_login' }}},[_vm._v("\n    Войти в чат\n  ")]),_vm._ssrNode(" "),_vm._ssrNode("<div class=\"footer__input-field\""+(_vm._ssrStyle(null,null, { display: (_vm.loggedIn) ? '' : 'none' }))+">","</div>",[_vm._ssrNode("<div class=\"footer__actions-left\">","</div>",[_vm._ssrNode("<div"+(_vm._ssrClass("footer__actions-button footer__emoji-button",{ 'footer__actions-button_type_active': _vm.emojisPanelActive }))+"></div> "),(false)?undefined:_vm._e()],2),_vm._ssrNode(" <input name=\"message\" autocomplete=\"off\" type=\"text\" placeholder=\"Введите сообщение\""+(_vm._ssrAttr("value",_vm.$accessor.chat.message))+" class=\"footer__input\">")],2),_vm._ssrNode(" "),_vm._ssrNode("<div class=\"footer__actions-right\""+(_vm._ssrStyle(null,null, { display: (_vm.loggedIn) ? '' : 'none' }))+">","</div>",[_c('svg-icon',{staticClass:"footer__actions-button footer__send-button",attrs:{"name":"paper_plane"}})],1)],2)}
-var footervue_type_template_id_f234eccc_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./components/footer/footer.vue?vue&type=template&id=364a1f69&
+var footervue_type_template_id_364a1f69_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"footer"},[_vm._ssrNode("<div class=\"footer__emoji-panel scrollbar\""+(_vm._ssrStyle(null,null, { display: (_vm.emojisPanelActive) ? '' : 'none' }))+">","</div>",[_c('b-emoji-panel')],1),_vm._ssrNode(" "),_vm._ssrNode("<div class=\"footer__attach-panel\""+(_vm._ssrStyle(null,null, { display: (_vm.attachPanelActive) ? '' : 'none' }))+">","</div>",[_c('b-attach-panel')],1),_vm._ssrNode(" "),_c('b-button',{directives:[{name:"show",rawName:"v-show",value:(!_vm.loggedIn),expression:"!loggedIn"}],staticClass:"button_size_compact",attrs:{"to":{ name: 'modal_login' }}},[_vm._v("\n    Войти в чат\n  ")]),_vm._ssrNode(" "),_vm._ssrNode("<div class=\"footer__input-field\""+(_vm._ssrStyle(null,null, { display: (_vm.loggedIn) ? '' : 'none' }))+">","</div>",[_vm._ssrNode("<div class=\"footer__actions-left\">","</div>",[_vm._ssrNode("<div"+(_vm._ssrClass("footer__actions-button footer__emoji-button",{ 'footer__actions-button_type_active': _vm.emojisPanelActive }))+"></div> "),(false)?undefined:_vm._e()],2),_vm._ssrNode(" <input name=\"message\" autocomplete=\"off\" type=\"text\" placeholder=\"Введите сообщение\""+(_vm._ssrAttr("value",_vm.$accessor.chat.message))+" class=\"footer__input\">")],2),_vm._ssrNode(" "),_vm._ssrNode("<div class=\"footer__actions-right\""+(_vm._ssrStyle(null,null, { display: (_vm.loggedIn) ? '' : 'none' }))+">","</div>",[_c('svg-icon',{staticClass:"footer__actions-button footer__send-button",attrs:{"name":"paper_plane"}})],1)],2)}
+var footervue_type_template_id_364a1f69_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./components/footer/footer.vue?vue&type=template&id=f234eccc&
+// CONCATENATED MODULE: ./components/footer/footer.vue?vue&type=template&id=364a1f69&
 
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./components/emoji-panel/emoji-panel.vue?vue&type=template&id=ae2f94a4&
 var emoji_panelvue_type_template_id_ae2f94a4_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"emoji-panel"},[_vm._ssrNode((_vm._ssrList((_vm.emoji),function(item,i){return ("<div class=\"emoji-panel__item\"><div class=\"emoji-panel__icon\""+(_vm._ssrStyle(null,{ backgroundImage: ("url(/emoji/" + (item.name) + "." + (item.ext) + ")") }, null))+"></div></div>")})))])}
@@ -9824,6 +9830,7 @@ let footervue_type_script_lang_ts_Footer = class Footer extends external_nuxt_pr
       pictures: []
     };
     this.$accessor.chat.ADD_MESSAGE(message);
+    this.$bus.$emit('message-added', true);
     const content = this.$accessor.chat.message;
     this.$accessor.chat.SET_MESSAGE('');
     const {
@@ -9881,8 +9888,8 @@ if (style0.__inject__) style0.__inject__(context)
 
 var footer_component = normalizeComponent(
   footer_footervue_type_script_lang_ts_,
-  footervue_type_template_id_f234eccc_render,
-  footervue_type_template_id_f234eccc_staticRenderFns,
+  footervue_type_template_id_364a1f69_render,
+  footervue_type_template_id_364a1f69_staticRenderFns,
   false,
   footer_injectStyles,
   null,
@@ -15084,6 +15091,14 @@ const storeAccessor = Object(lib["getAccessorFromStore"])(createStore());
 }, inject) => {
   inject('accessor', storeAccessor(store));
 });
+// CONCATENATED MODULE: ./plugins/bus.ts
+
+
+const eventBusPlugin = (_, inject) => {
+  inject('bus', new external_vue_default.a());
+};
+
+/* harmony default export */ var bus = (eventBusPlugin);
 // EXTERNAL MODULE: ./.nuxt/empty.js
 var _nuxt_empty = __webpack_require__(14);
 
@@ -15115,6 +15130,8 @@ var _nuxt_empty = __webpack_require__(14);
  // Source: ./nuxt-typed-vuex.js (mode: 'all')
 
  // Source: ./router.js (mode: 'all')
+
+ // Source: ../plugins/bus.ts (mode: 'all')
 
  // Source: ../plugins/nuxt-client-init.client.ts (mode: 'client')
 
@@ -15367,6 +15384,10 @@ async function createApp(ssrContext, config = {}) {
 
   if (typeof /* Cannot get final name for export "default" in "./.nuxt/router.js" (known exports: createRouter, known reexports: ) */ undefined === 'function') {
     await /* Cannot get final name for export "default" in "./.nuxt/router.js" (known exports: createRouter, known reexports: ) */ undefined(app.context, inject);
+  }
+
+  if (typeof bus === 'function') {
+    await bus(app.context, inject);
   }
 
   if (false) {}

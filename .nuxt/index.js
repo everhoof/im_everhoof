@@ -20,6 +20,7 @@ import nuxt_plugin_nuxtsvgsprite_6edda2ed from 'nuxt_plugin_nuxtsvgsprite_6edda2
 import nuxt_plugin_cookieuniversalnuxt_27da1037 from 'nuxt_plugin_cookieuniversalnuxt_27da1037' // Source: ./cookie-universal-nuxt.js (mode: 'all')
 import nuxt_plugin_nuxttypedvuex_27e7b8a6 from 'nuxt_plugin_nuxttypedvuex_27e7b8a6' // Source: ./nuxt-typed-vuex.js (mode: 'all')
 import nuxt_plugin_router_623e2200 from 'nuxt_plugin_router_623e2200' // Source: ./router.js (mode: 'all')
+import nuxt_plugin_bus_745250ba from 'nuxt_plugin_bus_745250ba' // Source: ../plugins/bus.ts (mode: 'all')
 import nuxt_plugin_nuxtclientinitclient_a74159dc from 'nuxt_plugin_nuxtclientinitclient_a74159dc' // Source: ../plugins/nuxt-client-init.client.ts (mode: 'client')
 import nuxt_plugin_vue2touchevents_147d6a7b from 'nuxt_plugin_vue2touchevents_147d6a7b' // Source: ../plugins/vue2-touch-events.ts (mode: 'client')
 import nuxt_plugin_vuejsmodal_a01fed32 from 'nuxt_plugin_vuejsmodal_a01fed32' // Source: ../plugins/vue-js-modal.ts (mode: 'client')
@@ -237,6 +238,10 @@ async function createApp(ssrContext, config = {}) {
 
   if (typeof nuxt_plugin_router_623e2200 === 'function') {
     await nuxt_plugin_router_623e2200(app.context, inject)
+  }
+
+  if (typeof nuxt_plugin_bus_745250ba === 'function') {
+    await nuxt_plugin_bus_745250ba(app.context, inject)
   }
 
   if (process.client && typeof nuxt_plugin_nuxtclientinitclient_a74159dc === 'function') {
