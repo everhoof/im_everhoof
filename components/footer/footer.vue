@@ -1,6 +1,9 @@
 <template>
   <!-- begin .footer-->
   <div class="footer">
+    <div v-if="showProgress" class="footer__progress-bar">
+      <b-progress-bar :progress="progress" />
+    </div>
     <div v-show="emojisPanelActive" ref="emojiPanel" class="footer__emoji-panel scrollbar">
       <b-emoji-panel />
     </div>
@@ -19,12 +22,12 @@
           @click="$accessor.TOGGLE_EMOJIS_PANEL()"
         />
         <svg-icon
-          v-if="false"
+          v-if="true"
           ref="attach"
           name="attach_file"
           class="footer__actions-button footer__attach-button"
           :class="{ 'footer__actions-button_type_active': attachPanelActive }"
-          @click="$accessor.TOGGLE_ATTACH_PANEL()"
+          @click="attachEmojiClicked"
         />
       </div>
       <input
@@ -55,16 +58,21 @@ import BButton from '~/components/button/button.vue';
 import CreateMessage from '~/graphql/mutations/create-message.graphql';
 import { CreateMessageMutation, CreateMessageMutationVariables, User } from '~/graphql/schema';
 import { ChatMessage, ChatMessageState } from '~/types/messages';
+import { HttpClient } from '~/tools/http-client';
+import BProgressBar from '~/components/progress-bar/progress-bar.vue';
 
 @Component({
   name: 'b-footer',
-  components: { BButton, BAttachPanel, BEmojiPanel },
+  components: { BButton, BAttachPanel, BEmojiPanel, BProgressBar },
 })
 export default class Footer extends Vue {
   @Ref() emoji!: HTMLDivElement;
   @Ref() emojiPanel!: HTMLDivElement;
   @Ref() attach!: HTMLDivElement;
   @Ref() attachPanel!: HTMLDivElement;
+  private attachIds: number[] = [];
+  private progress: number = 0;
+  private showProgress: boolean = false;
 
   get loggedIn(): boolean {
     return this.$accessor.auth.loggedIn;
@@ -96,8 +104,8 @@ export default class Footer extends Vue {
     document.body.addEventListener('click', (event: MouseEvent) => {
       if (!this.emoji.contains(event.target as Node) && !this.emojiPanel.contains(event.target as Node))
         this.$accessor.SET_EMOJIS_PANEL_ACTIVE(false);
-      // if (!this.attach.contains(event.target as Node) && !this.attachPanel.contains(event.target as Node))
-      //   this.$accessor.SET_ATTACH_PANEL_ACTIVE(false);
+      if (!this.attach.contains(event.target as Node) && !this.attachPanel.contains(event.target as Node))
+        this.$accessor.SET_ATTACH_PANEL_ACTIVE(false);
     });
   }
 
@@ -106,8 +114,40 @@ export default class Footer extends Vue {
     this.$accessor.chat.SET_MESSAGE(input.value);
   }
 
+  attachEmojiClicked() {
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.accept = 'image/*';
+    fileInput.click();
+    fileInput.addEventListener('change', async () => {
+      const file = fileInput.files?.[0];
+
+      if (!file) return;
+
+      try {
+        this.showProgress = true;
+        const attachId = await HttpClient.uploadPicture(file, {
+          onUploadProgress: (event) => {
+            this.progress = Math.floor((100 / event.total) * event.loaded);
+          },
+        });
+
+        if (!attachId) return;
+
+        this.attachIds.push(attachId);
+        await this.createMessage();
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.log(error);
+      }
+
+      this.showProgress = false;
+      this.progress = 0;
+    });
+  }
+
   async createMessage() {
-    if (!this.$accessor.chat.message.trim()) return;
+    if (!this.$accessor.chat.message.trim() && this.attachIds.length === 0) return;
     const randomId = getRandomString(32);
     const message: ChatMessage = {
       id: getRandomIntInRange(0, 10000),
@@ -132,8 +172,11 @@ export default class Footer extends Vue {
       variables: {
         content,
         randomId,
+        pictures: this.attachIds,
       },
     });
+
+    this.attachIds = [];
 
     if (errors) {
       if (errors[0] && errors[0].message) {

@@ -1,7 +1,7 @@
 <template>
   <!-- begin .chat-->
   <div ref="scroll" class="chat scrollbar" @scroll="onScroll">
-    <b-upload-file />
+    <!-- <b-upload-file /> -->
     <transition name="fade">
       <div v-show="loading" class="chat__loader">
         <img class="icon" src="~/assets/icons/spinner.svg" alt="" />
