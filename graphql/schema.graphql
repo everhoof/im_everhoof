@@ -83,10 +83,12 @@ type Mutation {
   updateAvatar(pictureId: Int!): User!
   punish(userId: Int!, type: PunishmentTypes!, reason: String!, duration: Int): User!
   unpunish(userId: Int!): User!
+  updateMessage(messageId: Int!, content: String): Message!
   createMessage(content: String, randomId: String, pictures: [Int!] = []): Message!
   deleteMessage(messageId: Int!): Message!
   signIn(email: String!, password: String!): Token!
   signUp(email: String!, username: String, password: String!): User!
+  OAuthDiscord(code: String!): Token!
   confirmEmail(token: String!): Token!
   requestEmailConfirmation: User!
   requestPasswordReset(email: String!): Boolean!
@@ -105,5 +107,6 @@ type Subscription {
   userUpdated: User!
   messageCreated: Message!
   messageDeleted: Message!
+  messageUpdated: Message!
   userRegisteredViaDiscord: String!
 }

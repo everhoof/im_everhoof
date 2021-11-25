@@ -43,10 +43,15 @@
         </time>
       </div>
       <div class="message__body">
-        <span v-if="deleted" class="message__text">Сообщение удалено</span>
-        <span v-else class="message__text" v-html="text" />
-
-        <span v-if="deleted" class="message__hidden" v-html="text" />
+        <div class="message_text">
+          <b-message-update-input
+            v-if="showUpdatingMessage"
+            v-model="updatingMessageText"
+            @save="saveMessage"
+            @cancel="cancelUpdateMessage"
+          />
+          <span v-else class="message_text" v-html="text" />
+        </div>
 
         <img
           v-for="picture in pictures"
@@ -66,18 +71,24 @@
 <script lang="ts">
 import { Component, InjectReactive, Prop, Vue } from 'nuxt-property-decorator';
 import { DateTime } from 'luxon';
-import { Picture } from '~/graphql/schema';
+import { Picture, UpdateMessageMutation, UpdateMessageMutationVariables } from '~/graphql/schema';
 import { toLocalDateTime } from '~/tools/filters';
 import { getUserColor } from '~/tools/util';
 import BContextMenu from '~/components/context-menu/context-menu.vue';
 import { ChatMessage, ChatMessageState } from '~/types/messages';
+import BMessageUpdateInput from '~/components/message-update-input/message-update-input.vue';
+import UpdateMessage from '~/graphql/mutations/update-message.graphql';
 
 @Component({
   name: 'b-message',
+  components: { BMessageUpdateInput },
 })
 export default class Message extends Vue {
   @InjectReactive('message-context-menu') readonly contextMenu!: BContextMenu;
   @Prop({ required: true, type: Object, default: () => {} }) message!: ChatMessage;
+
+  private updatingMessageText: string = '';
+  private showUpdatingMessage: boolean = false;
 
   get text() {
     const message = this.message.content.replace(
@@ -112,10 +123,6 @@ export default class Message extends Vue {
     return this.message.system;
   }
 
-  get deleted(): boolean {
-    return !!this.message.deletedAt;
-  }
-
   get delivered(): boolean {
     return this.message.state === undefined || this.message.state === ChatMessageState.delivered;
   }
@@ -134,6 +141,55 @@ export default class Message extends Vue {
 
   get localDateTimeFull(): string {
     return DateTime.fromISO(this.timestamp).toFormat('cccc, dd LLLL yyyy г., HH:mm');
+  }
+
+  get deleted(): boolean {
+    return !!this.message.deletedAt;
+  }
+
+  get updatingMessage(): boolean {
+    return this.showUpdatingMessage;
+  }
+
+  cancelUpdateMessage() {
+    this.showUpdatingMessage = false;
+  }
+
+  onMessageUpdating(message: ChatMessage) {
+    if (message.id !== this.message.id) return;
+
+    this.showUpdatingMessage = true;
+    this.updatingMessageText = message.content;
+  }
+
+  async saveMessage() {
+    this.showUpdatingMessage = false;
+
+    if (this.message.content === this.updatingMessageText || !this.updatingMessageText) return;
+
+    const { errors } = await this.$apollo.mutate<UpdateMessageMutation, UpdateMessageMutationVariables>({
+      mutation: UpdateMessage,
+      variables: {
+        messageId: this.message.id,
+        content: this.updatingMessageText,
+      },
+    });
+
+    if (errors) {
+      if (errors[0] && errors[0].message) {
+        this.message.content = errors && errors[0].message;
+        this.message.system = true;
+        this.$accessor.chat.ADD_MESSAGE(this.message);
+      }
+    }
+  }
+
+  mounted() {
+    this.$bus.$on('message-updating', this.onMessageUpdating);
+  }
+
+  beforeDestroy() {
+    this.$bus.$off('message-updating');
   }
 
   openPicture(picture: Picture) {

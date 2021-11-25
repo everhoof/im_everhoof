@@ -38,6 +38,9 @@
     </div>
     <b-context-menu ref="message-context-menu">
       <b-context-menu-item @click="openProfileModal">Профиль</b-context-menu-item>
+      <b-context-menu-item v-if="showEditMessage" icon="edit" @click="updateMessage">
+        Изменить сообщение
+      </b-context-menu-item>
       <b-context-menu-item v-if="showDeleteMessage" icon="delete" @click="deleteMessage">
         Удалить сообщение
       </b-context-menu-item>
@@ -64,6 +67,7 @@ import BAsideFooter from '~/components/aside-footer/aside-footer.vue';
 import BContextMenu from '~/components/context-menu/context-menu.vue';
 import BContextMenuItem from '~/components/context-menu-item/context-menu-item.vue';
 import { ReminderTypes } from '~/types/reminderTypes';
+import { ChatMessage } from '~/types/messages';
 
 @Component({
   head() {
@@ -180,12 +184,21 @@ export default class Default extends Vue {
 
   get showDeleteMessage(): boolean {
     const ownerId = this.messageContextMenu?.contextData?.message.owner?.id;
+
+    if (!ownerId || ownerId !== this.$accessor.auth.user?.id) return false;
+
     return (
       this.$accessor.auth.can.deleteAny('message').granted ||
-      (this.$accessor.auth.can.deleteOwn('message').granted &&
-        ownerId &&
-        ownerId === this.$accessor.auth.user?.id)
+      this.$accessor.auth.can.deleteOwn('message').granted
     );
+  }
+
+  get showEditMessage(): boolean {
+    const ownerId = this.messageContextMenu?.contextData?.message.owner?.id;
+
+    if (!ownerId || ownerId !== this.$accessor.auth.user?.id) return false;
+
+    return this.$accessor.auth.can.updateOwn('message').granted;
   }
 
   get showPunish(): boolean {
@@ -194,6 +207,14 @@ export default class Default extends Vue {
       (this.$accessor.auth.can.update('ban').granted || this.$accessor.auth.can.update('mute').granted) &&
       ownerId !== this.$accessor.auth.user?.id
     );
+  }
+
+  updateMessage() {
+    const message: ChatMessage = this.messageContextMenu?.contextData?.message;
+
+    if (!message) return;
+
+    this.$bus.$emit('message-updating', message);
   }
 
   async deleteMessage() {

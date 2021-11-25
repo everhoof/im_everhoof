@@ -1,0 +1,37 @@
+mutation UpdateMessage($messageId: Int!, $content: String!) {
+  updateMessage(messageId: $messageId, content: $content) {
+    id
+    randomId
+    owner {
+      id
+      username
+      avatar {
+        s {
+          link
+        }
+      }
+    }
+    content
+    username
+    system
+    pictures {
+      m {
+        link
+        width
+        height
+      }
+      o {
+        link
+        width
+        height
+      }
+    }
+    deletedBy {
+      id
+      username
+    }
+    createdAt
+    updatedAt
+    deletedAt
+  }
+}

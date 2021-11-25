@@ -12,7 +12,7 @@
         <div v-if="loadingMoreMessages" class="chat__messages-loader">
           <img class="icon" src="~/assets/icons/spinner.svg" alt="" />
         </div>
-        <div v-for="i in messages.length" :key="messages[messages.length - i].id" class="chat__message">
+        <div v-for="i in messages.length" :key="i" class="chat__message">
           <b-messages-separator
             v-if="messages[messages.length - i].dayFirst"
             :message="messages[messages.length - i]"

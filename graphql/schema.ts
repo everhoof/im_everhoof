@@ -127,10 +127,12 @@ export type Mutation = {
   updateAvatar: User;
   punish: User;
   unpunish: User;
+  updateMessage: Message;
   createMessage: Message;
   deleteMessage: Message;
   signIn: Token;
   signUp: User;
+  OAuthDiscord: Token;
   confirmEmail: Token;
   requestEmailConfirmation: User;
   requestPasswordReset: Scalars['Boolean'];
@@ -156,6 +158,11 @@ export type MutationUnpunishArgs = {
   userId: Scalars['Int'];
 };
 
+export type MutationUpdateMessageArgs = {
+  messageId: Scalars['Int'];
+  content?: Maybe<Scalars['String']>;
+};
+
 export type MutationCreateMessageArgs = {
   content?: Maybe<Scalars['String']>;
   randomId?: Maybe<Scalars['String']>;
@@ -175,6 +182,10 @@ export type MutationSignUpArgs = {
   email: Scalars['String'];
   username?: Maybe<Scalars['String']>;
   password: Scalars['String'];
+};
+
+export type MutationOAuthDiscordArgs = {
+  code: Scalars['String'];
 };
 
 export type MutationConfirmEmailArgs = {
@@ -209,6 +220,7 @@ export type Subscription = {
   userUpdated: User;
   messageCreated: Message;
   messageDeleted: Message;
+  messageUpdated: Message;
   userRegisteredViaDiscord: Scalars['String'];
 };
 
@@ -341,6 +353,41 @@ export type UpdateAvatarMutation = { __typename?: 'Mutation' } & {
         }
     >;
   };
+};
+
+export type UpdateMessageMutationVariables = Exact<{
+  messageId: Scalars['Int'];
+  content: Scalars['String'];
+}>;
+
+export type UpdateMessageMutation = { __typename?: 'Mutation' } & {
+  updateMessage: { __typename?: 'Message' } & Pick<
+    Message,
+    'id' | 'randomId' | 'content' | 'username' | 'system' | 'createdAt' | 'updatedAt' | 'deletedAt'
+  > & {
+      owner?: Maybe<
+        { __typename?: 'User' } & Pick<User, 'id' | 'username'> & {
+            avatar?: Maybe<
+              { __typename?: 'Picture' } & {
+                s: { __typename?: 'PictureRepresentation' } & Pick<PictureRepresentation, 'link'>;
+              }
+            >;
+          }
+      >;
+      pictures: Array<
+        { __typename?: 'Picture' } & {
+          m: { __typename?: 'PictureRepresentation' } & Pick<
+            PictureRepresentation,
+            'link' | 'width' | 'height'
+          >;
+          o: { __typename?: 'PictureRepresentation' } & Pick<
+            PictureRepresentation,
+            'link' | 'width' | 'height'
+          >;
+        }
+      >;
+      deletedBy?: Maybe<{ __typename?: 'User' } & Pick<User, 'id' | 'username'>>;
+    };
 };
 
 export type UpdateOnlineStatusMutationVariables = Exact<{ [key: string]: never }>;
@@ -524,6 +571,38 @@ export type MessageDeletedSubscriptionVariables = Exact<{ [key: string]: never }
 
 export type MessageDeletedSubscription = { __typename?: 'Subscription' } & {
   messageDeleted: { __typename?: 'Message' } & Pick<
+    Message,
+    'id' | 'randomId' | 'content' | 'username' | 'system' | 'createdAt' | 'updatedAt' | 'deletedAt'
+  > & {
+      owner?: Maybe<
+        { __typename?: 'User' } & Pick<User, 'id' | 'username'> & {
+            avatar?: Maybe<
+              { __typename?: 'Picture' } & {
+                s: { __typename?: 'PictureRepresentation' } & Pick<PictureRepresentation, 'link'>;
+              }
+            >;
+          }
+      >;
+      pictures: Array<
+        { __typename?: 'Picture' } & {
+          m: { __typename?: 'PictureRepresentation' } & Pick<
+            PictureRepresentation,
+            'link' | 'width' | 'height'
+          >;
+          o: { __typename?: 'PictureRepresentation' } & Pick<
+            PictureRepresentation,
+            'link' | 'width' | 'height'
+          >;
+        }
+      >;
+      deletedBy?: Maybe<{ __typename?: 'User' } & Pick<User, 'id' | 'username'>>;
+    };
+};
+
+export type MessageUpdatedSubscriptionVariables = Exact<{ [key: string]: never }>;
+
+export type MessageUpdatedSubscription = { __typename?: 'Subscription' } & {
+  messageUpdated: { __typename?: 'Message' } & Pick<
     Message,
     'id' | 'randomId' | 'content' | 'username' | 'system' | 'createdAt' | 'updatedAt' | 'deletedAt'
   > & {

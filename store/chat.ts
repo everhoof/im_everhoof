@@ -4,6 +4,7 @@ import Vue from 'vue';
 import { DateTime } from 'luxon';
 import MessageCreated from '~/graphql/subscriptions/message-created.graphql';
 import MessageDeleted from '~/graphql/subscriptions/message-deleted.graphql';
+import MessageUpdated from '~/graphql/subscriptions/message-updated.graphql';
 import OnlineUpdated from '~/graphql/subscriptions/online-updated.graphql';
 import UserUpdated from '~/graphql/subscriptions/user-updated.graphql';
 import UpdateOnlineStatus from '~/graphql/mutations/update-online-status.graphql';
@@ -22,6 +23,7 @@ import {
   GetUserByIdQueryVariables,
   MessageCreatedSubscription,
   MessageDeletedSubscription,
+  MessageUpdatedSubscription,
   OnlineUpdatedSubscription,
   PunishMutation,
   PunishMutationVariables,
@@ -192,6 +194,7 @@ export const actions = actionTree(
     async nuxtClientInit({ dispatch }, context?: Context) {
       dispatch('subscribeMessageCreated', context);
       dispatch('subscribeMessageDeleted', context);
+      dispatch('subscribeMessageUpdated', context);
       dispatch('subscribeOnlineUpdated', context);
       dispatch('subscribeUserUpdated', context);
       if (this.app.$accessor.auth.loggedIn) {
@@ -255,6 +258,21 @@ export const actions = actionTree(
           next({ data }) {
             if (!data?.messageDeleted) return;
             commit('ADD_MESSAGE', data.messageDeleted);
+          },
+        });
+      }
+    },
+
+    subscribeMessageUpdated({ commit }, context?: Context) {
+      const client = context?.app.apolloProvider?.defaultClient ?? this.app.apolloProvider?.defaultClient;
+      if (client) {
+        const onlineUpdatedObserver = client.subscribe<MessageUpdatedSubscription>({
+          query: MessageUpdated,
+        });
+        onlineUpdatedObserver.subscribe({
+          next({ data }) {
+            if (!data?.messageUpdated) return;
+            commit('ADD_MESSAGE', data.messageUpdated);
           },
         });
       }

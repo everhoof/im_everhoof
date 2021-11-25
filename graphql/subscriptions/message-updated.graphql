@@ -1,0 +1,37 @@
+subscription MessageUpdated {
+  messageUpdated {
+    id
+    randomId
+    owner {
+      id
+      username
+      avatar {
+        s {
+          link
+        }
+      }
+    }
+    content
+    username
+    system
+    pictures {
+      m {
+        link
+        width
+        height
+      }
+      o {
+        link
+        width
+        height
+      }
+    }
+    deletedBy {
+      id
+      username
+    }
+    createdAt
+    updatedAt
+    deletedAt
+  }
+}
