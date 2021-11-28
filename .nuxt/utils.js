@@ -150,7 +150,7 @@ export async function setContext (app, context) {
       payload: context.payload,
       error: context.error,
       base: '/',
-      env: {"API_HTTP":"https://im.everhoof.ru/api/","GRAPHQL_HTTP":"https://im.everhoof.ru/api/graphql","GRAPHQL_WS":"wss://im.everhoof.ru/api/graphql"}
+      env: {"API_HTTP":"https://im.everhoof.ru/api/","GRAPHQL_HTTP":"https://im.everhoof.ru/api/graphql","GRAPHQL_WS":"wss://im.everhoof.ru/api/graphql","DISCORD_OAUTH_LINK":"https://discord.com/api/oauth2/authorize?client_id=839605126905462794&redirect_uri=https%3A%2F%2Fim.everhoof.ru%2Foauth%2Fdiscord&response_type=code&scope=identify%20email"}
     }
     // Only set once
     if (!process.static && context.req) {

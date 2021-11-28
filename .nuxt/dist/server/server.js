@@ -8925,7 +8925,8 @@ async function setContext(app, context) {
       env: {
         "API_HTTP": "https://im.everhoof.ru/api/",
         "GRAPHQL_HTTP": "https://im.everhoof.ru/api/graphql",
-        "GRAPHQL_WS": "wss://im.everhoof.ru/api/graphql"
+        "GRAPHQL_WS": "wss://im.everhoof.ru/api/graphql",
+        "DISCORD_OAUTH_LINK": "https://discord.com/api/oauth2/authorize?client_id=839605126905462794&redirect_uri=https%3A%2F%2Fim.everhoof.ru%2Foauth%2Fdiscord&response_type=code&scope=identify%20email"
       }
     }; // Only set once
 
@@ -11471,12 +11472,12 @@ var discord_component = normalizeComponent(
 )
 
 /* harmony default export */ var discord = (discord_component.exports);
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./components/modals/login-modal/login-modal.vue?vue&type=template&id=2e6ef9e4&
-var login_modalvue_type_template_id_2e6ef9e4_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('b-modal',{on:{"close":function($event){return _vm.$emit('close', $event)}},scopedSlots:_vm._u([{key:"title",fn:function(){return [_vm._v("Вход")]},proxy:true},{key:"default",fn:function(){return [_c('div',{staticClass:"login-modal"},[_c('b-form',{attrs:{"errors":_vm.errors,"name":"login-form"}},[_c('div',{staticClass:"form__row"},[_c('b-text-field',{attrs:{"id":"login_username","name":"username","placeholder":"Логин","width-full":""},on:{"keydown":function($event){if(!$event.type.indexOf('key')&&_vm._k($event.keyCode,"enter",13,$event.key,"Enter")){ return null; }return _vm.passwordInput.focus()}},model:{value:(_vm.username),callback:function ($$v) {_vm.username=$$v},expression:"username"}})],1),_vm._v(" "),_c('div',{staticClass:"form__row"},[_c('b-text-field',{ref:"passwordInput",attrs:{"id":"login_password","name":"password","placeholder":"Пароль","width-full":"","type":"password"},model:{value:(_vm.password),callback:function ($$v) {_vm.password=$$v},expression:"password"}})],1),_vm._v(" "),_c('div',{staticClass:"form__row"},[_c('div',{staticClass:"login-modal__buttons"},[_c('b-button',{staticClass:"login-modal__button",attrs:{"large":"","width-full":""},on:{"click":function($event){$event.preventDefault();return _vm.signIn()}}},[_vm._v("\n              Войти\n            ")]),_vm._v(" "),_c('a',{staticClass:"login-modal__button login-modal__button_type_discord",attrs:{"href":_vm.discordOAuthLink}},[_c('svg-icon',{attrs:{"name":"discord"}})],1)],1)]),_vm._v(" "),_c('div',{staticClass:"form__row form__row_align_center"},[_c('router-link',{attrs:{"to":{ name: 'modal_request_password_reset' }}},[_vm._v("Восстановить пароль")])],1),_vm._v(" "),_c('div',{staticClass:"form__row form__row_align_center"},[_c('router-link',{attrs:{"to":{ name: 'modal_register' }}},[_vm._v("Нет аккаунта")])],1)])],1)]},proxy:true}])})}
-var login_modalvue_type_template_id_2e6ef9e4_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./components/modals/login-modal/login-modal.vue?vue&type=template&id=6b9ae810&
+var login_modalvue_type_template_id_6b9ae810_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('b-modal',{on:{"close":function($event){return _vm.$emit('close', $event)}},scopedSlots:_vm._u([{key:"title",fn:function(){return [_vm._v("Вход")]},proxy:true},{key:"default",fn:function(){return [_c('div',{staticClass:"login-modal"},[_c('b-form',{attrs:{"errors":_vm.errors,"name":"login-form"}},[_c('div',{staticClass:"form__row"},[_c('b-text-field',{attrs:{"id":"login_username","name":"username","placeholder":"Логин","width-full":""},on:{"keydown":function($event){if(!$event.type.indexOf('key')&&_vm._k($event.keyCode,"enter",13,$event.key,"Enter")){ return null; }return _vm.passwordInput.focus()}},model:{value:(_vm.username),callback:function ($$v) {_vm.username=$$v},expression:"username"}})],1),_vm._v(" "),_c('div',{staticClass:"form__row"},[_c('b-text-field',{ref:"passwordInput",attrs:{"id":"login_password","name":"password","placeholder":"Пароль","width-full":"","type":"password"},model:{value:(_vm.password),callback:function ($$v) {_vm.password=$$v},expression:"password"}})],1),_vm._v(" "),_c('div',{staticClass:"form__row"},[_c('div',{staticClass:"login-modal__buttons"},[_c('b-button',{staticClass:"login-modal__button",attrs:{"large":"","width-full":""},on:{"click":function($event){$event.preventDefault();return _vm.signIn()}}},[_vm._v("\n              Войти\n            ")]),_vm._v(" "),(_vm.discordOAuthLink)?_c('a',{staticClass:"login-modal__button login-modal__button_type_discord",attrs:{"href":_vm.discordOAuthLink}},[_c('svg-icon',{attrs:{"name":"discord"}})],1):_vm._e()],1)]),_vm._v(" "),_c('div',{staticClass:"form__row form__row_align_center"},[_c('router-link',{attrs:{"to":{ name: 'modal_request_password_reset' }}},[_vm._v("Восстановить пароль")])],1),_vm._v(" "),_c('div',{staticClass:"form__row form__row_align_center"},[_c('router-link',{attrs:{"to":{ name: 'modal_register' }}},[_vm._v("Нет аккаунта")])],1)])],1)]},proxy:true}])})}
+var login_modalvue_type_template_id_6b9ae810_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./components/modals/login-modal/login-modal.vue?vue&type=template&id=2e6ef9e4&
+// CONCATENATED MODULE: ./components/modals/login-modal/login-modal.vue?vue&type=template&id=6b9ae810&
 
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./components/checkbox/checkbox.vue?vue&type=template&id=b2f076da&
 var checkboxvue_type_template_id_b2f076da_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"checkbox",class:{
@@ -11696,7 +11697,7 @@ let login_modalvue_type_script_lang_ts_Login = class Login extends external_nuxt
   }
 
   get discordOAuthLink() {
-    return 'https://discord.com/api/oauth2/authorize?client_id=839605126905462794&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Foauth%2Fdiscord&response_type=code&scope=email%20identify';
+    return "https://discord.com/api/oauth2/authorize?client_id=839605126905462794&redirect_uri=https%3A%2F%2Fim.everhoof.ru%2Foauth%2Fdiscord&response_type=code&scope=identify%20email" || false;
   }
 
   clearErrors() {
@@ -11781,8 +11782,8 @@ if (style0.__inject__) style0.__inject__(context)
 
 var login_modal_component = normalizeComponent(
   login_modal_login_modalvue_type_script_lang_ts_,
-  login_modalvue_type_template_id_2e6ef9e4_render,
-  login_modalvue_type_template_id_2e6ef9e4_staticRenderFns,
+  login_modalvue_type_template_id_6b9ae810_render,
+  login_modalvue_type_template_id_6b9ae810_staticRenderFns,
   false,
   login_modal_injectStyles,
   null,
