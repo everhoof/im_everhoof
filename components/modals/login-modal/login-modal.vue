@@ -26,10 +26,14 @@
             />
           </div>
           <div class="form__row">
-            <b-button large width-full @click.prevent="signIn()">Войти</b-button>
-          </div>
-          <div class="form__row form__row_align_center">
-            <a :href="discordOAuthLink">Использовать Discord</a>
+            <div class="login-modal__buttons">
+              <b-button class="login-modal__button" large width-full @click.prevent="signIn()">
+                Войти
+              </b-button>
+              <a :href="discordOAuthLink" class="login-modal__button login-modal__button_type_discord">
+                <svg-icon name="discord" />
+              </a>
+            </div>
           </div>
           <div class="form__row form__row_align_center">
             <router-link :to="{ name: 'modal_request_password_reset' }">Восстановить пароль</router-link>
