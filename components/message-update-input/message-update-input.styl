@@ -5,26 +5,30 @@
 		flex-grow 1
 		flex-basis 100%
 		width 100%
-		height 100%
+		height 32px;
 		margin 0 8px 0 0
 		padding 0 0 0 12px
 		color var(--primary-text)
 		background var(--secondary-background)
 		border none
-		border-radius 8px
+		border-radius 5px
 		outline none
 
-	&__button
-		margin 0 16px 0 0
-		padding 0
-		color var(--gray_100)
+	&__actions
+		color var(--gray_200)
 		font-size 12px
-		background transparent
-		border none
+		font-weight 600
 
-		&:last-child
-			margin-right 0
+	&__action
+		color #4771f1
+		margin 0
+		padding 0
+		background transparent
+		border 0
+		cursor pointer
+		font-weight 600
+		border-bottom 1px dotted currentColor
 
 		&:hover,
 		&:focus
-			color #4771f1
+			color var(--gray_100)

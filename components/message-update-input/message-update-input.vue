@@ -8,8 +8,12 @@
         @keyup.enter="onEnter"
         @input="$emit('input', $event.target.value)"
       />
-      <button class="message-update-input__button" @click="$emit('cancel')">Отменить</button>
-      <button class="message-update-input__button" @click="onEnter">Сохранить</button>
+      <div class="message-update-input__actions">
+        esc для
+        <button class="message-update-input__action" @click="$emit('cancel')">Отмены</button>
+        • enter, чтобы
+        <button class="message-update-input__action" @click="onEnter">Сохранить</button>
+      </div>
     </div>
   </div>
   <!-- end .message-update-input-->
