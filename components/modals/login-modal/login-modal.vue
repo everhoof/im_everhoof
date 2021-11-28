@@ -30,7 +30,11 @@
               <b-button class="login-modal__button" large width-full @click.prevent="signIn()">
                 Войти
               </b-button>
-              <a :href="discordOAuthLink" class="login-modal__button login-modal__button_type_discord">
+              <a
+                v-if="discordOAuthLink"
+                :href="discordOAuthLink"
+                class="login-modal__button login-modal__button_type_discord"
+              >
                 <svg-icon name="discord" />
               </a>
             </div>
@@ -73,7 +77,7 @@ export default class Login extends Vue {
   password: string = '';
 
   get discordOAuthLink(): string {
-    return 'https://discord.com/api/oauth2/authorize?client_id=839605126905462794&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Foauth%2Fdiscord&response_type=code&scope=email%20identify';
+    return process.env.DISCORD_OAUTH_LINK || '';
   }
 
   clearErrors() {
