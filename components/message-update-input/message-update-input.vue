@@ -3,6 +3,7 @@
   <div class="message-update-input">
     <div class="message-update-input__content">
       <input
+        ref="input"
         class="message-update-input__input"
         :value="value"
         @keyup.enter="onEnter"
@@ -20,12 +21,15 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'nuxt-property-decorator';
+import { Component, Prop, Ref, Vue } from 'nuxt-property-decorator';
 
 @Component({
   name: 'b-message-update-input',
 })
 export default class MessageUpdateInput extends Vue {
+  @Ref()
+  readonly input!: HTMLInputElement;
+
   @Prop({
     required: true,
     type: String,
@@ -48,6 +52,10 @@ export default class MessageUpdateInput extends Vue {
 
   onEnter() {
     this.$emit('save');
+  }
+
+  focus(): void {
+    this.input.focus();
   }
 }
 </script>

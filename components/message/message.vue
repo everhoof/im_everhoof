@@ -46,6 +46,7 @@
         <div class="message_text">
           <b-message-update-input
             v-if="showUpdatingMessage"
+            ref="messageUpdateInput"
             v-model="updatingMessageText"
             @save="saveMessage"
             @cancel="cancelUpdateMessage"
@@ -69,7 +70,7 @@
 </template>
 
 <script lang="ts">
-import { Component, InjectReactive, Prop, Vue } from 'nuxt-property-decorator';
+import { Component, InjectReactive, Prop, Ref, Vue } from 'nuxt-property-decorator';
 import { DateTime } from 'luxon';
 import { Picture, UpdateMessageMutation, UpdateMessageMutationVariables } from '~/graphql/schema';
 import { toLocalDateTime } from '~/tools/filters';
@@ -84,8 +85,18 @@ import UpdateMessage from '~/graphql/mutations/update-message.graphql';
   components: { BMessageUpdateInput },
 })
 export default class Message extends Vue {
-  @InjectReactive('message-context-menu') readonly contextMenu!: BContextMenu;
-  @Prop({ required: true, type: Object, default: () => {} }) message!: ChatMessage;
+  @Ref()
+  readonly messageUpdateInput!: BMessageUpdateInput;
+
+  @InjectReactive('message-context-menu')
+  readonly contextMenu!: BContextMenu;
+
+  @Prop({
+    required: true,
+    type: Object,
+    default: () => {},
+  })
+  readonly message!: ChatMessage;
 
   private updatingMessageText: string = '';
   private showUpdatingMessage: boolean = false;
@@ -147,19 +158,18 @@ export default class Message extends Vue {
     return !!this.message.deletedAt;
   }
 
-  get updatingMessage(): boolean {
-    return this.showUpdatingMessage;
-  }
-
   cancelUpdateMessage() {
     this.showUpdatingMessage = false;
   }
 
-  onMessageUpdating(message: ChatMessage) {
+  async onMessageUpdating(message: ChatMessage) {
     if (message.id !== this.message.id) return;
 
     this.showUpdatingMessage = true;
     this.updatingMessageText = message.content;
+
+    await this.$nextTick();
+    this.messageUpdateInput.focus();
   }
 
   async saveMessage() {
