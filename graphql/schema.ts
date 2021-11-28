@@ -276,6 +276,14 @@ export type DeleteMessageMutation = { __typename?: 'Mutation' } & {
     };
 };
 
+export type OAuthDiscordMutationVariables = Exact<{
+  code: Scalars['String'];
+}>;
+
+export type OAuthDiscordMutation = { __typename?: 'Mutation' } & {
+  OAuthDiscord: { __typename?: 'Token' } & Pick<Token, 'value' | 'ownerId'>;
+};
+
 export type PunishMutationVariables = Exact<{
   userId: Scalars['Int'];
   reason: Scalars['String'];

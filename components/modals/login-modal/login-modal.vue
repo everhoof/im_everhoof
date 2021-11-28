@@ -29,6 +29,9 @@
             <b-button large width-full @click.prevent="signIn()">Войти</b-button>
           </div>
           <div class="form__row form__row_align_center">
+            <a :href="discordOAuthLink">Использовать Discord</a>
+          </div>
+          <div class="form__row form__row_align_center">
             <router-link :to="{ name: 'modal_request_password_reset' }">Восстановить пароль</router-link>
           </div>
           <div class="form__row form__row_align_center">
@@ -64,6 +67,10 @@ export default class Login extends Vue {
 
   username: string = '';
   password: string = '';
+
+  get discordOAuthLink(): string {
+    return 'https://discord.com/api/oauth2/authorize?client_id=839605126905462794&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Foauth%2Fdiscord&response_type=code&scope=email%20identify';
+  }
 
   clearErrors() {
     this.errors = [];

@@ -303,7 +303,7 @@ export const actions = actionTree(
       const client = context?.app.apolloProvider?.defaultClient ?? this.app.apolloProvider?.defaultClient;
       if (!client) return;
       try {
-        await client.query<UpdateOnlineStatusMutation>({ query: UpdateOnlineStatus });
+        await client.mutate<UpdateOnlineStatusMutation>({ mutation: UpdateOnlineStatus });
       } catch (e) {}
     },
 

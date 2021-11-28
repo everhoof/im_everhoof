@@ -26,8 +26,8 @@ export default function (ctx: Context) {
   });
   return {
     link: errorLink,
-    httpEndpoint: process.env.GRAPHQL_HTTP || 'http://localhost:4000/graphql',
-    wsEndpoint: process.env.GRAPHQL_WS || 'ws://localhost:4000/graphql',
+    httpEndpoint: process.env.GRAPHQL_HTTP || 'http://localhost:5510/graphql',
+    wsEndpoint: process.env.GRAPHQL_WS || 'ws://localhost:5510/graphql',
     httpLinkOptions: {
       fetch: (uri: any, options: any) => {
         // const lang: string = new Cookies().get('i18n_redirected');

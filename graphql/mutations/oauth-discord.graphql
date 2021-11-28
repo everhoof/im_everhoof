@@ -1,0 +1,6 @@
+mutation OAuthDiscord($code: String!) {
+  OAuthDiscord(code: $code) {
+    value,
+    ownerId
+  }
+}

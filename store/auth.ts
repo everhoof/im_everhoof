@@ -7,6 +7,7 @@ import GetGrants from '~/graphql/queries/get-grants.graphql';
 import {
   GetCurrentUserQuery,
   GetGrantsQuery,
+  OAuthDiscordMutation,
   RequestPasswordResetMutation,
   RequestPasswordResetMutationVariables,
   ResetPasswordMutation,
@@ -66,10 +67,15 @@ export const actions = actionTree(
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     nuxtClientInit({ commit }, { app }: Context) {},
 
-    async signIn(
-      { commit, dispatch },
-      variables: SignInMutationVariables,
-    ): Promise<FetchResult<SignInMutation>> {
+    async loginHandler({ commit, dispatch }, token: OAuthDiscordMutation['OAuthDiscord']) {
+      await this.app.$apolloHelpers.onLogin(token.value);
+      commit('SET_USER_ID', token.ownerId);
+      commit('SET_LOGGED_IN', true);
+      await dispatch('getCurrentUser');
+      await this.app.$accessor.chat.nuxtClientInit();
+    },
+
+    async signIn({ dispatch }, variables: SignInMutationVariables): Promise<FetchResult<SignInMutation>> {
       const client = this.app.apolloProvider?.defaultClient;
       if (!client) return { data: null };
 
@@ -79,11 +85,7 @@ export const actions = actionTree(
       });
 
       if (!result.errors && result.data) {
-        await this.app.$apolloHelpers.onLogin(result.data.signIn.value);
-        commit('SET_USER_ID', result.data.signIn.ownerId);
-        commit('SET_LOGGED_IN', true);
-        await dispatch('getCurrentUser');
-        await this.app.$accessor.chat.nuxtClientInit();
+        dispatch('loginHandler', result.data.signIn);
       }
 
       return result;

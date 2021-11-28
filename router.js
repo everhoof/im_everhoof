@@ -4,6 +4,7 @@ import Router from 'vue-router';
 import MainPage from '~/pages/main/main.vue';
 import ConfirmationPage from '~/pages/confirmation/confirmation.vue';
 import ResetPasswordPage from '~/pages/reset-password/reset-password.vue';
+import OAuthDiscordPage from '~/pages/oauth/discord/discord.vue';
 
 // Modals
 import LoginModal from '~/components/modals/login-modal/login-modal.vue';
@@ -65,6 +66,11 @@ export function createRouter() {
         path: '/reset_password',
         name: 'reset_password',
         component: ResetPasswordPage,
+      },
+      {
+        path: '/oauth/discord',
+        name: 'oauth_discord',
+        component: OAuthDiscordPage,
       },
       {
         path: '*',
