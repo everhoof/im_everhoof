@@ -51,6 +51,7 @@
 <script lang="ts">
 import { Component, Ref, Vue } from 'nuxt-property-decorator';
 import { DateTime } from 'luxon';
+import axios from 'axios';
 import { getRandomIntInRange, getRandomString } from '~/tools/util';
 import BEmojiPanel from '~/components/emoji-panel/emoji-panel.vue';
 import BAttachPanel from '~/components/attach-panel/attach-panel.vue';
@@ -137,8 +138,11 @@ export default class Footer extends Vue {
         this.attachIds.push(attachId);
         await this.createMessage();
       } catch (error) {
-        // eslint-disable-next-line no-console
-        console.log(error);
+        if (axios.isAxiosError(error)) {
+          if (error?.response?.data.message) {
+            this.$snotify.error(error.response.data.message);
+          }
+        }
       }
 
       this.showProgress = false;
@@ -167,7 +171,7 @@ export default class Footer extends Vue {
     const content = this.$accessor.chat.message;
     this.$accessor.chat.SET_MESSAGE('');
 
-    const { errors } = await this.$apollo.mutate<CreateMessageMutation, CreateMessageMutationVariables>({
+    const createdMessage = await this.$apollo.mutate<CreateMessageMutation, CreateMessageMutationVariables>({
       mutation: CreateMessage,
       variables: {
         content,
@@ -176,15 +180,12 @@ export default class Footer extends Vue {
       },
     });
 
-    this.attachIds = [];
-
-    if (errors) {
-      if (errors[0] && errors[0].message) {
-        message.content = errors && errors[0].message;
-        message.system = true;
-        this.$accessor.chat.ADD_MESSAGE(message);
-      }
+    if (createdMessage.errors) {
+      if (!message.randomId) return;
+      this.$accessor.chat.DELETE_MESSAGE_BY_RANDOM_ID(message.randomId);
     }
+
+    this.attachIds = [];
   }
 }
 </script>

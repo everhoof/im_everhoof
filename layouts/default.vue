@@ -5,6 +5,7 @@
     class="page__wrapper"
     @contextmenu="openContextMenu"
   >
+    <vue-snotify></vue-snotify>
     <div class="page__header" />
     <div
       class="page__main"
@@ -57,6 +58,7 @@ import '~/assets/stylus/normalize.styl';
 import '~/assets/stylus/grid.styl';
 import '~/assets/stylus/global.styl';
 import '~/assets/stylus/colors.styl';
+import 'vue-snotify/styles/material.css';
 import { Component, Vue, ProvideReactive, Watch } from 'nuxt-property-decorator';
 import { VueConstructor } from 'vue';
 import { Route } from 'vue-router';
@@ -95,10 +97,19 @@ export default class Default extends Vue {
     this.onRouteChanged();
   }
 
+  handleSnotifyError(message: string) {
+    this.$snotify.error(message);
+  }
+
   mounted() {
     this.onUserChanged();
     this.contextMenu = this.$refs['context-menu'] as BContextMenu;
     this.messageContextMenu = this.$refs['message-context-menu'] as BContextMenu;
+    this.$bus.$on('snotify-error', this.handleSnotifyError);
+  }
+
+  beforeDestroy() {
+    this.$bus.$off('snotify-error');
   }
 
   @Watch('$accessor.auth.user')

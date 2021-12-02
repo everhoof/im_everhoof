@@ -14,13 +14,21 @@ export default function (ctx: Context) {
 
     if (graphQLErrors) {
       graphQLErrors.forEach((error: any) => {
-        const response = graphQLErrors && graphQLErrors[0] && graphQLErrors[0].extensions?.exception.response;
+        const response = graphQLErrors?.[0]?.extensions?.exception.response;
         if (!response) return;
-        const statusCode = response.statusCode;
-        if (!statusCode || statusCode !== 401) return;
-        const isLoginPath = Array.isArray(error.path) && error.path.find((p: string) => p === 'signIn');
-        if (isLoginPath) return;
-        ctx.app.$accessor.auth.logout();
+        const statusCode = response.statusCode || response.status;
+        if (!statusCode) return;
+        if (statusCode === 401) {
+          const isLoginPath = Array.isArray(error.path) && error.path.find((p: string) => p === 'signIn');
+          if (isLoginPath) return;
+          ctx.app.$accessor.auth.logout();
+        }
+
+        if (Array.isArray(response.message)) {
+          response.message.forEach((msg: string) => ctx.$bus.$emit('snotify-error', msg));
+        } else {
+          ctx.$bus.$emit('snotify-error', response.message);
+        }
       });
     }
   });

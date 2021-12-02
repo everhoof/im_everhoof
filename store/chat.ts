@@ -159,6 +159,15 @@ export const mutations = mutationTree(state, {
       }
     }
   },
+  DELETE_MESSAGE_BY_RANDOM_ID: (_state, payload: string) => {
+    if (_state.messages.length === 0) return;
+
+    const index = _state.messages.findIndex(({ randomId }) => randomId === payload);
+
+    if (index === -1) return;
+
+    _state.messages.splice(index, 1);
+  },
   UPDATE_MESSAGES_SEPARATORS: (_state) => {
     let prevDay = -1;
     for (let i = _state.messages.length - 1; i >= 0; i--) {

@@ -50,6 +50,10 @@ export default {
   plugins: [
     '~/plugins/bus.ts',
     {
+      src: '~/plugins/snotify.ts',
+      ssr: false,
+    },
+    {
       src: '~/plugins/nuxt-client-init.client.ts',
       ssr: false,
     },
