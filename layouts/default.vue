@@ -5,7 +5,9 @@
     class="page__wrapper"
     @contextmenu="openContextMenu"
   >
-    <vue-snotify></vue-snotify>
+    <client-only>
+      <vue-snotify />
+    </client-only>
     <div class="page__header" />
     <div
       class="page__main"
