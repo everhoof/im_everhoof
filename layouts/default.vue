@@ -198,12 +198,13 @@ export default class Default extends Vue {
   get showDeleteMessage(): boolean {
     const ownerId = this.messageContextMenu?.contextData?.message.owner?.id;
 
-    if (!ownerId || ownerId !== this.$accessor.auth.user?.id) return false;
+    if (!ownerId || this.messageContextMenu?.contextData?.message.deletedAt) return false;
 
-    return (
-      this.$accessor.auth.can.deleteAny('message').granted ||
-      this.$accessor.auth.can.deleteOwn('message').granted
-    );
+    if (this.$accessor.auth.can.deleteAny('message').granted) {
+      return true;
+    }
+
+    return ownerId === this.$accessor.auth.user?.id && this.$accessor.auth.can.deleteOwn('message').granted;
   }
 
   get showEditMessage(): boolean {
