@@ -117,7 +117,19 @@ export default {
    ** Build configuration
    */
   build: {
-    transpile: [/typed-vuex/],
+    babel: {
+      presets() {
+        return [
+          [
+            '@nuxt/babel-preset-app',
+            {
+              corejs: { version: 3 },
+            },
+          ],
+        ];
+      },
+    },
+    transpile: [/typed-vuex/, /apollo/],
     /*
      ** You can extend webpack config here
      */
