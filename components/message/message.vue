@@ -43,17 +43,15 @@
         </time>
       </div>
       <div class="message__body">
-        <div class="message_text">
+        <span v-if="showUpdatingMessage" class="message__text">
           <b-message-update-input
-            v-if="showUpdatingMessage"
             ref="messageUpdateInput"
             v-model="updatingMessageText"
             @save="saveMessage"
             @cancel="cancelUpdateMessage"
           />
-          <span v-else class="message_text" v-html="text" />
-        </div>
-
+        </span>
+        <span v-else class="message__text" v-html="text" />
         <img
           v-for="picture in pictures"
           :key="picture.id"

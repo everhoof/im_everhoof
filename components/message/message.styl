@@ -63,24 +63,13 @@
 					font-style italic
 
 		&_deleted
-			opacity .5
+			opacity .4
 
-			& ^[0]
-				&__text
-					font-style italic
-
-				&__hidden
-					display none
+			& ^[0]__text
+				font-style italic
 
 			&:hover
 				opacity 1
-
-				& ^[0]
-					&__text
-						display none
-
-					&__hidden
-						display block
 
 	&_state
 		&_not-delivered
@@ -138,6 +127,7 @@
 		cursor default
 
 	&__text
+		display block
 		margin 0 0 6px
 		color var(--secondary-text)
 		line-height 20px
@@ -163,6 +153,3 @@
 		height auto
 		cursor pointer
 		object-fit cover
-
-	&__text
-		display block
