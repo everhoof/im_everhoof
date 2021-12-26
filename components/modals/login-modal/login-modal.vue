@@ -77,7 +77,7 @@ export default class Login extends Vue {
   password: string = '';
 
   get discordOAuthLink(): string {
-    return process.env.DISCORD_OAUTH_LINK || '';
+    return this.$config.discordOAuthLink || '';
   }
 
   clearErrors() {

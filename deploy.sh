@@ -6,7 +6,7 @@ mv artifacts/* .
 mv artifacts/.[^.]* .
 rm -r artifacts
 
-pm2 stop ecosystem.config.js
+NODE_ENV=$NODE_ENV pm2 stop ecosystem.config.js
 nvm exec 14.18.1 npm i -g yarn
 nvm exec 14.18.1 yarn --frozen-lockfile --production
-pm2 start ecosystem.config.js
+NODE_ENV=$NODE_ENV pm2 start ecosystem.config.js

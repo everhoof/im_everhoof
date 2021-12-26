@@ -1,6 +1,8 @@
+import './environment';
+
 export default {
   server: {
-    port: 3010,
+    port: process.env.APP_PORT,
     host: '0.0.0.0',
   },
   /*
@@ -69,13 +71,7 @@ export default {
   /*
    ** Nuxt.js dev-modules
    */
-  buildModules: [
-    '@nuxt/typescript-build',
-    '@nuxtjs/dotenv',
-    '@nuxtjs/router',
-    '@nuxtjs/style-resources',
-    'nuxt-typed-vuex',
-  ],
+  buildModules: ['@nuxt/typescript-build', '@nuxtjs/router', '@nuxtjs/style-resources', 'nuxt-typed-vuex'],
   /*
    ** Nuxt.js modules
    */
@@ -160,5 +156,11 @@ export default {
   },
   router: {
     middleware: ['authenticated'],
+  },
+  publicRuntimeConfig: {
+    apiHttpEndpoint: process.env.API_HTTP,
+    graphqlHttpEndpoint: process.env.GRAPHQL_HTTP,
+    graphqlWsEndpoint: process.env.GRAPHQL_WS,
+    discordOAuthLink: process.env.DISCORD_OAUTH_LINK,
   },
 };

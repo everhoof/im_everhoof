@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  cd:
+  production-deploy:
     runs-on: ${{ matrix.os }}
 
     strategy:
@@ -15,6 +15,11 @@ jobs:
         node: [14]
 
     steps:
+      - name: Set NODE_ENV
+        run: NODE_ENV=$APP_NODE_ENV
+        env:
+          APP_NODE_ENV: ${{ secrets.PRODUCTION_NODE_ENV }}
+
       - name: Checkout 🛎
         uses: actions/checkout@v2
         with:
@@ -61,13 +66,13 @@ jobs:
             IdentityFile ~/.ssh/production.key
             StrictHostKeyChecking no
             SendEnv APP_DIR
+            SendEnv APP_NODE_ENV
           END
         env:
           SSH_USER: ${{ secrets.PRODUCTION_SSH_USER }}
           SSH_KEY: ${{ secrets.PRODUCTION_SSH_KEY }}
           SSH_HOST: ${{ secrets.PRODUCTION_SSH_HOST }}
           SSH_PORT: ${{ secrets.PRODUCTION_SSH_PORT }}
-          APP_DIR: ${{ secrets.PRODUCTION_APP_DIR }}
 
       - name: Copy dist files
         run: |
@@ -75,11 +80,12 @@ jobs:
           scp deploy.sh production:$APP_DIR/
           scp -r .nuxt production:$APP_DIR/artifacts/.nuxt
           scp -r static production:$APP_DIR/artifacts/static
-          scp -r ecosystem.config.js nuxt.config.ts package.json tsconfig.json yarn.lock production:$APP_DIR/artifacts/
+          scp -r .env.production ecosystem.config.js environment.js nuxt.config.ts package.json tsconfig.json yarn.lock production:$APP_DIR/artifacts/
         env:
           APP_DIR: ${{ secrets.PRODUCTION_APP_DIR }}
 
       - name: Run deploy script
-        run: ssh production 'cd $APP_DIR && bash deploy.sh'
+        run: ssh staging 'cd $APP_DIR && export NODE_ENV=$APP_NODE_ENV && bash deploy.sh'
         env:
           APP_DIR: ${{ secrets.PRODUCTION_APP_DIR }}
+          APP_NODE_ENV: ${{ secrets.PRODUCTION_NODE_ENV }}

@@ -7,7 +7,7 @@ export class HttpClient {
     const cookies = new Cookies();
     const body = new FormData();
     body.append('file', payload);
-    const response = await axios.post(process.env.API_HTTP + '/upload/image', body, {
+    const response = await axios.post(window.$nuxt.$config.apiHttpEndpoint + '/upload/image', body, {
       ...config,
       headers: {
         Authorization: `Bearer ${decodeURIComponent(cookies.get('token'))}`,

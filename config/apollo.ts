@@ -1,7 +1,7 @@
 import { onError } from 'apollo-link-error';
 import { Context } from '@nuxt/types';
 
-export default function (ctx: Context) {
+export default function (context: Context) {
   const errorLink = onError(({ response, graphQLErrors }) => {
     if (response) {
       response.errors = [
@@ -21,21 +21,21 @@ export default function (ctx: Context) {
         if (statusCode === 401) {
           const isLoginPath = Array.isArray(error.path) && error.path.find((p: string) => p === 'signIn');
           if (isLoginPath) return;
-          ctx.app.$accessor.auth.logout();
+          context.app.$accessor.auth.logout();
         }
 
         if (Array.isArray(response.message)) {
-          response.message.forEach((msg: string) => ctx.$bus.$emit('snotify-error', msg));
+          response.message.forEach((msg: string) => context.$bus.$emit('snotify-error', msg));
         } else {
-          ctx.$bus.$emit('snotify-error', response.message);
+          context.$bus.$emit('snotify-error', response.message);
         }
       });
     }
   });
   return {
     link: errorLink,
-    httpEndpoint: process.env.GRAPHQL_HTTP || 'http://localhost:5510/graphql',
-    wsEndpoint: process.env.GRAPHQL_WS || 'ws://localhost:5510/graphql',
+    httpEndpoint: context.$config.graphqlHttpEndpoint,
+    wsEndpoint: context.$config.graphqlWsEndpoint,
     httpLinkOptions: {
       fetch: (uri: any, options: any) => {
         // const lang: string = new Cookies().get('i18n_redirected');
