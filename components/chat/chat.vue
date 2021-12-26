@@ -42,10 +42,12 @@ export default class Chat extends Vue {
   private loading = true;
   private loadingMoreMessages = false;
 
-  async onMessagesChange(force: boolean = false) {
-    await this.$nextTick();
-    if (this.scroll && (Math.abs(this.scroll.scrollTop) < 300 || force)) {
-      this.scroll.scrollTo({ top: this.scroll.scrollHeight });
+  onMessagesChange(force: boolean = false): void {
+    if (!this.scroll) return;
+    const offsetBottom = this.scroll.scrollHeight - this.scroll.clientHeight - this.scroll.scrollTop;
+
+    if (offsetBottom < 300 || force) {
+      this.scrollDownChat();
     }
   }
 
@@ -57,27 +59,54 @@ export default class Chat extends Vue {
         );
   }
 
-  mounted() {
+  async mounted(): Promise<void> {
     this.loading = false;
+
+    await this.$nextTick();
+    window.setTimeout(this.scrollDownChat, 50);
+
     this.$bus.$on('message-added', this.onMessagesChange);
   }
 
-  beforeDestroy() {
+  beforeDestroy(): void {
     this.$bus.$off('message-added');
   }
 
-  async onScroll(event: any) {
-    const offsetTop =
-      event.target.scrollHeight - (Math.abs(event.target.scrollTop) + event.target.clientHeight);
+  scrollDownChat(): void {
+    if (this.scroll) {
+      this.scroll.scrollTop = this.scroll.scrollHeight;
+    }
+  }
 
-    if (!this.loadingMoreMessages && offsetTop < 50) {
+  async onScroll(event: any) {
+    if (!this.loadingMoreMessages && event.target.scrollTop < 100) {
       this.loadingMoreMessages = true;
+      await this.$nextTick();
 
       try {
         const lastId = this.messages[this.messages.length - 1]?.id;
-        await this.$accessor.chat.getMessages({ count: 50, reverse: true, lastId });
+        const variables = {
+          count: 50,
+          reverse: true,
+          lastId,
+        };
+
+        const messages = await this.$accessor.chat.getMessages(variables);
+
+        const oldScrollTop = event.target.scrollTop;
+        const oldScroll = event.target.scrollHeight - event.target.clientHeight;
+
+        if (messages) {
+          await this.$accessor.chat.pushMessages({
+            variables,
+            messages,
+          });
+
+          await this.$nextTick();
+          const newScroll = event.target.scrollHeight - event.target.clientHeight;
+          event.target.scrollTop = oldScrollTop + (newScroll - oldScroll);
+        }
       } finally {
-        await this.$nextTick();
         this.loadingMoreMessages = false;
       }
     }

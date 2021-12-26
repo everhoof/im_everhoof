@@ -316,7 +316,10 @@ export const actions = actionTree(
       } catch (e) {}
     },
 
-    async getMessages({ commit }, payload?: GetMessagesQueryVariables) {
+    async getMessages(
+      _context,
+      payload?: GetMessagesQueryVariables,
+    ): Promise<GetMessagesQuery['getMessages'] | void> {
       const client = this?.app.apolloProvider?.defaultClient ?? this.app.apolloProvider?.defaultClient;
       if (!client) return;
       try {
@@ -325,16 +328,27 @@ export const actions = actionTree(
           variables: payload,
         });
         if (errors || !data) return;
-        if (payload?.reverse) {
-          commit('ADD_MESSAGES_TO_END', data.getMessages);
-        } else {
-          if (payload?.lastId) {
-            commit('DELETE_MESSAGES_AFTER_ID', payload.lastId);
-          }
-          commit('ADD_MESSAGES_TO_START', data.getMessages);
-        }
-        commit('UPDATE_MESSAGES_SEPARATORS');
+
+        return data.getMessages;
       } catch (e) {}
+    },
+
+    pushMessages(
+      { commit },
+      payload: {
+        variables: GetMessagesQueryVariables;
+        messages: GetMessagesQuery['getMessages'];
+      },
+    ): void {
+      if (payload.variables?.reverse) {
+        commit('ADD_MESSAGES_TO_END', payload.messages);
+      } else {
+        if (payload.variables?.lastId) {
+          commit('DELETE_MESSAGES_AFTER_ID', payload.variables.lastId);
+        }
+        commit('ADD_MESSAGES_TO_START', payload.messages);
+      }
+      commit('UPDATE_MESSAGES_SEPARATORS');
     },
 
     async getChatData({ commit }, context?: Context) {

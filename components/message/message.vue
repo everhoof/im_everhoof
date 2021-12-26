@@ -52,15 +52,7 @@
           />
         </span>
         <span v-else class="message__text" v-html="text" />
-        <img
-          v-for="picture in pictures"
-          :key="picture.id"
-          :src="picture.m.link"
-          class="message__image"
-          :width="picture.m.width"
-          :height="picture.m.height"
-          @click="openPicture(picture)"
-        />
+        <b-message-img v-for="picture in pictures" :key="picture.id" :picture="picture" />
       </div>
     </div>
   </div>
@@ -70,17 +62,18 @@
 <script lang="ts">
 import { Component, InjectReactive, Prop, Ref, Vue } from 'nuxt-property-decorator';
 import { DateTime } from 'luxon';
-import { Picture, UpdateMessageMutation, UpdateMessageMutationVariables } from '~/graphql/schema';
+import { UpdateMessageMutation, UpdateMessageMutationVariables } from '~/graphql/schema';
 import { toLocalDateTime } from '~/tools/filters';
 import { getUserColor } from '~/tools/util';
 import BContextMenu from '~/components/context-menu/context-menu.vue';
 import { ChatMessage, ChatMessageState } from '~/types/messages';
 import BMessageUpdateInput from '~/components/message-update-input/message-update-input.vue';
 import UpdateMessage from '~/graphql/mutations/update-message.graphql';
+import BMessageImg from '~/components/message-img/message-img.vue';
 
 @Component({
   name: 'b-message',
-  components: { BMessageUpdateInput },
+  components: { BMessageImg, BMessageUpdateInput },
 })
 export default class Message extends Vue {
   @Ref()
@@ -198,25 +191,6 @@ export default class Message extends Vue {
 
   beforeDestroy() {
     this.$bus.$off('message-updating');
-  }
-
-  openPicture(picture: Picture) {
-    const limits = { width: 1000, height: 1000 };
-    const dimensions = { width: picture.o.width, height: picture.o.height };
-    if (picture.o.width > limits.width || picture.o.height > limits.height) {
-      if (picture.o.width > picture.o.height) {
-        dimensions.width = limits.width;
-        dimensions.height = picture.o.height * (limits.width / picture.o.width);
-      } else {
-        dimensions.height = limits.height;
-        dimensions.width = picture.o.width * (limits.height / picture.o.height);
-      }
-    }
-    window.open(
-      picture.o.link,
-      picture.o.link,
-      `height=${dimensions.height}px,width=${dimensions.width}px,resizable=1`,
-    );
   }
 
   openContextMenu(event: MouseEvent) {
