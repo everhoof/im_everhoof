@@ -115,7 +115,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 116);
+/******/ 	return __webpack_require__(__webpack_require__.s = 153);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -545,66 +545,2810 @@ module.exports = require("luxon");
 
 /***/ }),
 /* 7 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-module.exports = require("vuex");
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var tslib_1 = __webpack_require__(8);
+
+tslib_1.__exportStar(__webpack_require__(260), exports);
+
+var linkUtils_1 = __webpack_require__(109);
+
+exports.createOperation = linkUtils_1.createOperation;
+exports.makePromise = linkUtils_1.makePromise;
+exports.toPromise = linkUtils_1.toPromise;
+exports.fromPromise = linkUtils_1.fromPromise;
+exports.fromError = linkUtils_1.fromError;
+exports.getOperationName = linkUtils_1.getOperationName;
+
+var zen_observable_ts_1 = tslib_1.__importDefault(__webpack_require__(33));
+
+exports.Observable = zen_observable_ts_1.default;
 
 /***/ }),
 /* 8 */
 /***/ (function(module, exports) {
 
-module.exports = require("vue-meta");
+module.exports = require("tslib");
 
 /***/ }),
 /* 9 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-module.exports = require("apollo-link");
+__webpack_require__(34);
+
+__webpack_require__(35);
+
+__webpack_require__(36);
+
+__webpack_require__(37);
+
+__webpack_require__(38);
+
+__webpack_require__(39);
+
+__webpack_require__(40);
+
+__webpack_require__(41);
+
+__webpack_require__(42);
+
+__webpack_require__(43);
+
+__webpack_require__(44);
+
+__webpack_require__(45);
+
+__webpack_require__(46);
+
+__webpack_require__(47);
+
+__webpack_require__(48);
+
+__webpack_require__(49);
+
+__webpack_require__(110);
+
+__webpack_require__(11);
+
+__webpack_require__(12);
+
+__webpack_require__(13);
+
+__webpack_require__(14);
+
+__webpack_require__(15);
+
+__webpack_require__(16);
+
+__webpack_require__(17);
+
+__webpack_require__(18);
+
+__webpack_require__(19);
+
+__webpack_require__(20);
+
+__webpack_require__(21);
+
+__webpack_require__(22);
+
+__webpack_require__(23);
+
+exports.__esModule = true;
+exports.addTypenameToDocument = addTypenameToDocument;
+exports.argumentsObjectFromField = argumentsObjectFromField;
+exports.assign = assign;
+exports.buildQueryFromSelectionSet = buildQueryFromSelectionSet;
+exports.checkDocument = checkDocument;
+exports.cloneDeep = cloneDeep;
+exports.createFragmentMap = createFragmentMap;
+exports.getDefaultValues = getDefaultValues;
+exports.getDirectiveInfoFromField = getDirectiveInfoFromField;
+exports.getDirectiveNames = getDirectiveNames;
+exports.getDirectivesFromDocument = getDirectivesFromDocument;
+exports.getEnv = getEnv;
+exports.getFragmentDefinition = getFragmentDefinition;
+exports.getFragmentDefinitions = getFragmentDefinitions;
+exports.getFragmentQueryDocument = getFragmentQueryDocument;
+exports.getInclusionDirectives = getInclusionDirectives;
+exports.getMainDefinition = getMainDefinition;
+exports.getMutationDefinition = getMutationDefinition;
+exports.getOperationDefinition = getOperationDefinition;
+exports.getOperationDefinitionOrDie = getOperationDefinitionOrDie;
+exports.getOperationName = getOperationName;
+exports.getQueryDefinition = getQueryDefinition;
+exports.getStoreKeyName = getStoreKeyName;
+exports.graphQLResultHasError = graphQLResultHasError;
+exports.hasClientExports = hasClientExports;
+exports.hasDirectives = hasDirectives;
+exports.isDevelopment = isDevelopment;
+exports.isEnv = isEnv;
+exports.isField = isField;
+exports.isIdValue = isIdValue;
+exports.isInlineFragment = isInlineFragment;
+exports.isJsonValue = isJsonValue;
+exports.isNumberValue = isNumberValue;
+exports.isProduction = isProduction;
+exports.isScalarValue = isScalarValue;
+exports.isTest = isTest;
+exports.maybeDeepFreeze = maybeDeepFreeze;
+exports.mergeDeep = mergeDeep;
+exports.mergeDeepArray = mergeDeepArray;
+exports.removeArgumentsFromDocument = removeArgumentsFromDocument;
+exports.removeClientSetsFromDocument = removeClientSetsFromDocument;
+exports.removeConnectionDirectiveFromDocument = removeConnectionDirectiveFromDocument;
+exports.removeDirectivesFromDocument = removeDirectivesFromDocument;
+exports.removeFragmentSpreadFromDocument = removeFragmentSpreadFromDocument;
+exports.resultKeyNameFromField = resultKeyNameFromField;
+exports.shouldInclude = shouldInclude;
+exports.storeKeyNameFromField = storeKeyNameFromField;
+exports.stripSymbols = stripSymbols;
+exports.toIdValue = toIdValue;
+exports.tryFunctionOrLogError = tryFunctionOrLogError;
+exports.valueFromNode = valueFromNode;
+exports.valueToObjectRepresentation = valueToObjectRepresentation;
+exports.variablesInOperation = variablesInOperation;
+exports.warnOnceInDevelopment = warnOnceInDevelopment;
+exports.canUseWeakMap = exports.isEqual = void 0;
+
+var _visitor = __webpack_require__(111);
+
+var _tsInvariant = __webpack_require__(10);
+
+var _tslib = __webpack_require__(8);
+
+var _fastJsonStableStringify = _interopRequireDefault(__webpack_require__(261));
+
+var _equality = __webpack_require__(262);
+
+exports.isEqual = _equality.equal;
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : {
+    default: obj
+  };
+}
+
+function isScalarValue(value) {
+  return ['StringValue', 'BooleanValue', 'EnumValue'].indexOf(value.kind) > -1;
+}
+
+function isNumberValue(value) {
+  return ['IntValue', 'FloatValue'].indexOf(value.kind) > -1;
+}
+
+function isStringValue(value) {
+  return value.kind === 'StringValue';
+}
+
+function isBooleanValue(value) {
+  return value.kind === 'BooleanValue';
+}
+
+function isIntValue(value) {
+  return value.kind === 'IntValue';
+}
+
+function isFloatValue(value) {
+  return value.kind === 'FloatValue';
+}
+
+function isVariable(value) {
+  return value.kind === 'Variable';
+}
+
+function isObjectValue(value) {
+  return value.kind === 'ObjectValue';
+}
+
+function isListValue(value) {
+  return value.kind === 'ListValue';
+}
+
+function isEnumValue(value) {
+  return value.kind === 'EnumValue';
+}
+
+function isNullValue(value) {
+  return value.kind === 'NullValue';
+}
+
+function valueToObjectRepresentation(argObj, name, value, variables) {
+  if (isIntValue(value) || isFloatValue(value)) {
+    argObj[name.value] = Number(value.value);
+  } else if (isBooleanValue(value) || isStringValue(value)) {
+    argObj[name.value] = value.value;
+  } else if (isObjectValue(value)) {
+    var nestedArgObj_1 = {};
+    value.fields.map(function (obj) {
+      return valueToObjectRepresentation(nestedArgObj_1, obj.name, obj.value, variables);
+    });
+    argObj[name.value] = nestedArgObj_1;
+  } else if (isVariable(value)) {
+    var variableValue = (variables || {})[value.name.value];
+    argObj[name.value] = variableValue;
+  } else if (isListValue(value)) {
+    argObj[name.value] = value.values.map(function (listValue) {
+      var nestedArgArrayObj = {};
+      valueToObjectRepresentation(nestedArgArrayObj, name, listValue, variables);
+      return nestedArgArrayObj[name.value];
+    });
+  } else if (isEnumValue(value)) {
+    argObj[name.value] = value.value;
+  } else if (isNullValue(value)) {
+    argObj[name.value] = null;
+  } else {
+    throw  true ? new _tsInvariant.InvariantError(17) : undefined;
+  }
+}
+
+function storeKeyNameFromField(field, variables) {
+  var directivesObj = null;
+
+  if (field.directives) {
+    directivesObj = {};
+    field.directives.forEach(function (directive) {
+      directivesObj[directive.name.value] = {};
+
+      if (directive.arguments) {
+        directive.arguments.forEach(function (_a) {
+          var name = _a.name,
+              value = _a.value;
+          return valueToObjectRepresentation(directivesObj[directive.name.value], name, value, variables);
+        });
+      }
+    });
+  }
+
+  var argObj = null;
+
+  if (field.arguments && field.arguments.length) {
+    argObj = {};
+    field.arguments.forEach(function (_a) {
+      var name = _a.name,
+          value = _a.value;
+      return valueToObjectRepresentation(argObj, name, value, variables);
+    });
+  }
+
+  return getStoreKeyName(field.name.value, argObj, directivesObj);
+}
+
+var KNOWN_DIRECTIVES = ['connection', 'include', 'skip', 'client', 'rest', 'export'];
+
+function getStoreKeyName(fieldName, args, directives) {
+  if (directives && directives['connection'] && directives['connection']['key']) {
+    if (directives['connection']['filter'] && directives['connection']['filter'].length > 0) {
+      var filterKeys = directives['connection']['filter'] ? directives['connection']['filter'] : [];
+      filterKeys.sort();
+      var queryArgs_1 = args;
+      var filteredArgs_1 = {};
+      filterKeys.forEach(function (key) {
+        filteredArgs_1[key] = queryArgs_1[key];
+      });
+      return directives['connection']['key'] + "(" + JSON.stringify(filteredArgs_1) + ")";
+    } else {
+      return directives['connection']['key'];
+    }
+  }
+
+  var completeFieldName = fieldName;
+
+  if (args) {
+    var stringifiedArgs = (0, _fastJsonStableStringify.default)(args);
+    completeFieldName += "(" + stringifiedArgs + ")";
+  }
+
+  if (directives) {
+    Object.keys(directives).forEach(function (key) {
+      if (KNOWN_DIRECTIVES.indexOf(key) !== -1) return;
+
+      if (directives[key] && Object.keys(directives[key]).length) {
+        completeFieldName += "@" + key + "(" + JSON.stringify(directives[key]) + ")";
+      } else {
+        completeFieldName += "@" + key;
+      }
+    });
+  }
+
+  return completeFieldName;
+}
+
+function argumentsObjectFromField(field, variables) {
+  if (field.arguments && field.arguments.length) {
+    var argObj_1 = {};
+    field.arguments.forEach(function (_a) {
+      var name = _a.name,
+          value = _a.value;
+      return valueToObjectRepresentation(argObj_1, name, value, variables);
+    });
+    return argObj_1;
+  }
+
+  return null;
+}
+
+function resultKeyNameFromField(field) {
+  return field.alias ? field.alias.value : field.name.value;
+}
+
+function isField(selection) {
+  return selection.kind === 'Field';
+}
+
+function isInlineFragment(selection) {
+  return selection.kind === 'InlineFragment';
+}
+
+function isIdValue(idObject) {
+  return idObject && idObject.type === 'id' && typeof idObject.generated === 'boolean';
+}
+
+function toIdValue(idConfig, generated) {
+  if (generated === void 0) {
+    generated = false;
+  }
+
+  return (0, _tslib.__assign)({
+    type: 'id',
+    generated: generated
+  }, typeof idConfig === 'string' ? {
+    id: idConfig,
+    typename: undefined
+  } : idConfig);
+}
+
+function isJsonValue(jsonObject) {
+  return jsonObject != null && typeof jsonObject === 'object' && jsonObject.type === 'json';
+}
+
+function defaultValueFromVariable(node) {
+  throw  true ? new _tsInvariant.InvariantError(18) : undefined;
+}
+
+function valueFromNode(node, onVariable) {
+  if (onVariable === void 0) {
+    onVariable = defaultValueFromVariable;
+  }
+
+  switch (node.kind) {
+    case 'Variable':
+      return onVariable(node);
+
+    case 'NullValue':
+      return null;
+
+    case 'IntValue':
+      return parseInt(node.value, 10);
+
+    case 'FloatValue':
+      return parseFloat(node.value);
+
+    case 'ListValue':
+      return node.values.map(function (v) {
+        return valueFromNode(v, onVariable);
+      });
+
+    case 'ObjectValue':
+      {
+        var value = {};
+
+        for (var _i = 0, _a = node.fields; _i < _a.length; _i++) {
+          var field = _a[_i];
+          value[field.name.value] = valueFromNode(field.value, onVariable);
+        }
+
+        return value;
+      }
+
+    default:
+      return node.value;
+  }
+}
+
+function getDirectiveInfoFromField(field, variables) {
+  if (field.directives && field.directives.length) {
+    var directiveObj_1 = {};
+    field.directives.forEach(function (directive) {
+      directiveObj_1[directive.name.value] = argumentsObjectFromField(directive, variables);
+    });
+    return directiveObj_1;
+  }
+
+  return null;
+}
+
+function shouldInclude(selection, variables) {
+  if (variables === void 0) {
+    variables = {};
+  }
+
+  return getInclusionDirectives(selection.directives).every(function (_a) {
+    var directive = _a.directive,
+        ifArgument = _a.ifArgument;
+    var evaledValue = false;
+
+    if (ifArgument.value.kind === 'Variable') {
+      evaledValue = variables[ifArgument.value.name.value];
+       true ? (0, _tsInvariant.invariant)(evaledValue !== void 0, 13) : undefined;
+    } else {
+      evaledValue = ifArgument.value.value;
+    }
+
+    return directive.name.value === 'skip' ? !evaledValue : evaledValue;
+  });
+}
+
+function getDirectiveNames(doc) {
+  var names = [];
+  (0, _visitor.visit)(doc, {
+    Directive: function (node) {
+      names.push(node.name.value);
+    }
+  });
+  return names;
+}
+
+function hasDirectives(names, doc) {
+  return getDirectiveNames(doc).some(function (name) {
+    return names.indexOf(name) > -1;
+  });
+}
+
+function hasClientExports(document) {
+  return document && hasDirectives(['client'], document) && hasDirectives(['export'], document);
+}
+
+function isInclusionDirective(_a) {
+  var value = _a.name.value;
+  return value === 'skip' || value === 'include';
+}
+
+function getInclusionDirectives(directives) {
+  return directives ? directives.filter(isInclusionDirective).map(function (directive) {
+    var directiveArguments = directive.arguments;
+    var directiveName = directive.name.value;
+     true ? (0, _tsInvariant.invariant)(directiveArguments && directiveArguments.length === 1, 14) : undefined;
+    var ifArgument = directiveArguments[0];
+     true ? (0, _tsInvariant.invariant)(ifArgument.name && ifArgument.name.value === 'if', 15) : undefined;
+    var ifValue = ifArgument.value;
+     true ? (0, _tsInvariant.invariant)(ifValue && (ifValue.kind === 'Variable' || ifValue.kind === 'BooleanValue'), 16) : undefined;
+    return {
+      directive: directive,
+      ifArgument: ifArgument
+    };
+  }) : [];
+}
+
+function getFragmentQueryDocument(document, fragmentName) {
+  var actualFragmentName = fragmentName;
+  var fragments = [];
+  document.definitions.forEach(function (definition) {
+    if (definition.kind === 'OperationDefinition') {
+      throw  true ? new _tsInvariant.InvariantError(11) : undefined;
+    }
+
+    if (definition.kind === 'FragmentDefinition') {
+      fragments.push(definition);
+    }
+  });
+
+  if (typeof actualFragmentName === 'undefined') {
+     true ? (0, _tsInvariant.invariant)(fragments.length === 1, 12) : undefined;
+    actualFragmentName = fragments[0].name.value;
+  }
+
+  var query = (0, _tslib.__assign)((0, _tslib.__assign)({}, document), {
+    definitions: (0, _tslib.__spreadArrays)([{
+      kind: 'OperationDefinition',
+      operation: 'query',
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [{
+          kind: 'FragmentSpread',
+          name: {
+            kind: 'Name',
+            value: actualFragmentName
+          }
+        }]
+      }
+    }], document.definitions)
+  });
+  return query;
+}
+
+function assign(target) {
+  var sources = [];
+
+  for (var _i = 1; _i < arguments.length; _i++) {
+    sources[_i - 1] = arguments[_i];
+  }
+
+  sources.forEach(function (source) {
+    if (typeof source === 'undefined' || source === null) {
+      return;
+    }
+
+    Object.keys(source).forEach(function (key) {
+      target[key] = source[key];
+    });
+  });
+  return target;
+}
+
+function getMutationDefinition(doc) {
+  checkDocument(doc);
+  var mutationDef = doc.definitions.filter(function (definition) {
+    return definition.kind === 'OperationDefinition' && definition.operation === 'mutation';
+  })[0];
+   true ? (0, _tsInvariant.invariant)(mutationDef, 1) : undefined;
+  return mutationDef;
+}
+
+function checkDocument(doc) {
+   true ? (0, _tsInvariant.invariant)(doc && doc.kind === 'Document', 2) : undefined;
+  var operations = doc.definitions.filter(function (d) {
+    return d.kind !== 'FragmentDefinition';
+  }).map(function (definition) {
+    if (definition.kind !== 'OperationDefinition') {
+      throw  true ? new _tsInvariant.InvariantError(3) : undefined;
+    }
+
+    return definition;
+  });
+   true ? (0, _tsInvariant.invariant)(operations.length <= 1, 4) : undefined;
+  return doc;
+}
+
+function getOperationDefinition(doc) {
+  checkDocument(doc);
+  return doc.definitions.filter(function (definition) {
+    return definition.kind === 'OperationDefinition';
+  })[0];
+}
+
+function getOperationDefinitionOrDie(document) {
+  var def = getOperationDefinition(document);
+   true ? (0, _tsInvariant.invariant)(def, 5) : undefined;
+  return def;
+}
+
+function getOperationName(doc) {
+  return doc.definitions.filter(function (definition) {
+    return definition.kind === 'OperationDefinition' && definition.name;
+  }).map(function (x) {
+    return x.name.value;
+  })[0] || null;
+}
+
+function getFragmentDefinitions(doc) {
+  return doc.definitions.filter(function (definition) {
+    return definition.kind === 'FragmentDefinition';
+  });
+}
+
+function getQueryDefinition(doc) {
+  var queryDef = getOperationDefinition(doc);
+   true ? (0, _tsInvariant.invariant)(queryDef && queryDef.operation === 'query', 6) : undefined;
+  return queryDef;
+}
+
+function getFragmentDefinition(doc) {
+   true ? (0, _tsInvariant.invariant)(doc.kind === 'Document', 7) : undefined;
+   true ? (0, _tsInvariant.invariant)(doc.definitions.length <= 1, 8) : undefined;
+  var fragmentDef = doc.definitions[0];
+   true ? (0, _tsInvariant.invariant)(fragmentDef.kind === 'FragmentDefinition', 9) : undefined;
+  return fragmentDef;
+}
+
+function getMainDefinition(queryDoc) {
+  checkDocument(queryDoc);
+  var fragmentDefinition;
+
+  for (var _i = 0, _a = queryDoc.definitions; _i < _a.length; _i++) {
+    var definition = _a[_i];
+
+    if (definition.kind === 'OperationDefinition') {
+      var operation = definition.operation;
+
+      if (operation === 'query' || operation === 'mutation' || operation === 'subscription') {
+        return definition;
+      }
+    }
+
+    if (definition.kind === 'FragmentDefinition' && !fragmentDefinition) {
+      fragmentDefinition = definition;
+    }
+  }
+
+  if (fragmentDefinition) {
+    return fragmentDefinition;
+  }
+
+  throw  true ? new _tsInvariant.InvariantError(10) : undefined;
+}
+
+function createFragmentMap(fragments) {
+  if (fragments === void 0) {
+    fragments = [];
+  }
+
+  var symTable = {};
+  fragments.forEach(function (fragment) {
+    symTable[fragment.name.value] = fragment;
+  });
+  return symTable;
+}
+
+function getDefaultValues(definition) {
+  if (definition && definition.variableDefinitions && definition.variableDefinitions.length) {
+    var defaultValues = definition.variableDefinitions.filter(function (_a) {
+      var defaultValue = _a.defaultValue;
+      return defaultValue;
+    }).map(function (_a) {
+      var variable = _a.variable,
+          defaultValue = _a.defaultValue;
+      var defaultValueObj = {};
+      valueToObjectRepresentation(defaultValueObj, variable.name, defaultValue);
+      return defaultValueObj;
+    });
+    return assign.apply(void 0, (0, _tslib.__spreadArrays)([{}], defaultValues));
+  }
+
+  return {};
+}
+
+function variablesInOperation(operation) {
+  var names = new Set();
+
+  if (operation.variableDefinitions) {
+    for (var _i = 0, _a = operation.variableDefinitions; _i < _a.length; _i++) {
+      var definition = _a[_i];
+      names.add(definition.variable.name.value);
+    }
+  }
+
+  return names;
+}
+
+function filterInPlace(array, test, context) {
+  var target = 0;
+  array.forEach(function (elem, i) {
+    if (test.call(this, elem, i, array)) {
+      array[target++] = elem;
+    }
+  }, context);
+  array.length = target;
+  return array;
+}
+
+var TYPENAME_FIELD = {
+  kind: 'Field',
+  name: {
+    kind: 'Name',
+    value: '__typename'
+  }
+};
+
+function isEmpty(op, fragments) {
+  return op.selectionSet.selections.every(function (selection) {
+    return selection.kind === 'FragmentSpread' && isEmpty(fragments[selection.name.value], fragments);
+  });
+}
+
+function nullIfDocIsEmpty(doc) {
+  return isEmpty(getOperationDefinition(doc) || getFragmentDefinition(doc), createFragmentMap(getFragmentDefinitions(doc))) ? null : doc;
+}
+
+function getDirectiveMatcher(directives) {
+  return function directiveMatcher(directive) {
+    return directives.some(function (dir) {
+      return dir.name && dir.name === directive.name.value || dir.test && dir.test(directive);
+    });
+  };
+}
+
+function removeDirectivesFromDocument(directives, doc) {
+  var variablesInUse = Object.create(null);
+  var variablesToRemove = [];
+  var fragmentSpreadsInUse = Object.create(null);
+  var fragmentSpreadsToRemove = [];
+  var modifiedDoc = nullIfDocIsEmpty((0, _visitor.visit)(doc, {
+    Variable: {
+      enter: function (node, _key, parent) {
+        if (parent.kind !== 'VariableDefinition') {
+          variablesInUse[node.name.value] = true;
+        }
+      }
+    },
+    Field: {
+      enter: function (node) {
+        if (directives && node.directives) {
+          var shouldRemoveField = directives.some(function (directive) {
+            return directive.remove;
+          });
+
+          if (shouldRemoveField && node.directives && node.directives.some(getDirectiveMatcher(directives))) {
+            if (node.arguments) {
+              node.arguments.forEach(function (arg) {
+                if (arg.value.kind === 'Variable') {
+                  variablesToRemove.push({
+                    name: arg.value.name.value
+                  });
+                }
+              });
+            }
+
+            if (node.selectionSet) {
+              getAllFragmentSpreadsFromSelectionSet(node.selectionSet).forEach(function (frag) {
+                fragmentSpreadsToRemove.push({
+                  name: frag.name.value
+                });
+              });
+            }
+
+            return null;
+          }
+        }
+      }
+    },
+    FragmentSpread: {
+      enter: function (node) {
+        fragmentSpreadsInUse[node.name.value] = true;
+      }
+    },
+    Directive: {
+      enter: function (node) {
+        if (getDirectiveMatcher(directives)(node)) {
+          return null;
+        }
+      }
+    }
+  }));
+
+  if (modifiedDoc && filterInPlace(variablesToRemove, function (v) {
+    return !variablesInUse[v.name];
+  }).length) {
+    modifiedDoc = removeArgumentsFromDocument(variablesToRemove, modifiedDoc);
+  }
+
+  if (modifiedDoc && filterInPlace(fragmentSpreadsToRemove, function (fs) {
+    return !fragmentSpreadsInUse[fs.name];
+  }).length) {
+    modifiedDoc = removeFragmentSpreadFromDocument(fragmentSpreadsToRemove, modifiedDoc);
+  }
+
+  return modifiedDoc;
+}
+
+function addTypenameToDocument(doc) {
+  return (0, _visitor.visit)(checkDocument(doc), {
+    SelectionSet: {
+      enter: function (node, _key, parent) {
+        if (parent && parent.kind === 'OperationDefinition') {
+          return;
+        }
+
+        var selections = node.selections;
+
+        if (!selections) {
+          return;
+        }
+
+        var skip = selections.some(function (selection) {
+          return isField(selection) && (selection.name.value === '__typename' || selection.name.value.lastIndexOf('__', 0) === 0);
+        });
+
+        if (skip) {
+          return;
+        }
+
+        var field = parent;
+
+        if (isField(field) && field.directives && field.directives.some(function (d) {
+          return d.name.value === 'export';
+        })) {
+          return;
+        }
+
+        return (0, _tslib.__assign)((0, _tslib.__assign)({}, node), {
+          selections: (0, _tslib.__spreadArrays)(selections, [TYPENAME_FIELD])
+        });
+      }
+    }
+  });
+}
+
+var connectionRemoveConfig = {
+  test: function (directive) {
+    var willRemove = directive.name.value === 'connection';
+
+    if (willRemove) {
+      if (!directive.arguments || !directive.arguments.some(function (arg) {
+        return arg.name.value === 'key';
+      })) {
+         true || false;
+      }
+    }
+
+    return willRemove;
+  }
+};
+
+function removeConnectionDirectiveFromDocument(doc) {
+  return removeDirectivesFromDocument([connectionRemoveConfig], checkDocument(doc));
+}
+
+function hasDirectivesInSelectionSet(directives, selectionSet, nestedCheck) {
+  if (nestedCheck === void 0) {
+    nestedCheck = true;
+  }
+
+  return selectionSet && selectionSet.selections && selectionSet.selections.some(function (selection) {
+    return hasDirectivesInSelection(directives, selection, nestedCheck);
+  });
+}
+
+function hasDirectivesInSelection(directives, selection, nestedCheck) {
+  if (nestedCheck === void 0) {
+    nestedCheck = true;
+  }
+
+  if (!isField(selection)) {
+    return true;
+  }
+
+  if (!selection.directives) {
+    return false;
+  }
+
+  return selection.directives.some(getDirectiveMatcher(directives)) || nestedCheck && hasDirectivesInSelectionSet(directives, selection.selectionSet, nestedCheck);
+}
+
+function getDirectivesFromDocument(directives, doc) {
+  checkDocument(doc);
+  var parentPath;
+  return nullIfDocIsEmpty((0, _visitor.visit)(doc, {
+    SelectionSet: {
+      enter: function (node, _key, _parent, path) {
+        var currentPath = path.join('-');
+
+        if (!parentPath || currentPath === parentPath || !currentPath.startsWith(parentPath)) {
+          if (node.selections) {
+            var selectionsWithDirectives = node.selections.filter(function (selection) {
+              return hasDirectivesInSelection(directives, selection);
+            });
+
+            if (hasDirectivesInSelectionSet(directives, node, false)) {
+              parentPath = currentPath;
+            }
+
+            return (0, _tslib.__assign)((0, _tslib.__assign)({}, node), {
+              selections: selectionsWithDirectives
+            });
+          } else {
+            return null;
+          }
+        }
+      }
+    }
+  }));
+}
+
+function getArgumentMatcher(config) {
+  return function argumentMatcher(argument) {
+    return config.some(function (aConfig) {
+      return argument.value && argument.value.kind === 'Variable' && argument.value.name && (aConfig.name === argument.value.name.value || aConfig.test && aConfig.test(argument));
+    });
+  };
+}
+
+function removeArgumentsFromDocument(config, doc) {
+  var argMatcher = getArgumentMatcher(config);
+  return nullIfDocIsEmpty((0, _visitor.visit)(doc, {
+    OperationDefinition: {
+      enter: function (node) {
+        return (0, _tslib.__assign)((0, _tslib.__assign)({}, node), {
+          variableDefinitions: node.variableDefinitions.filter(function (varDef) {
+            return !config.some(function (arg) {
+              return arg.name === varDef.variable.name.value;
+            });
+          })
+        });
+      }
+    },
+    Field: {
+      enter: function (node) {
+        var shouldRemoveField = config.some(function (argConfig) {
+          return argConfig.remove;
+        });
+
+        if (shouldRemoveField) {
+          var argMatchCount_1 = 0;
+          node.arguments.forEach(function (arg) {
+            if (argMatcher(arg)) {
+              argMatchCount_1 += 1;
+            }
+          });
+
+          if (argMatchCount_1 === 1) {
+            return null;
+          }
+        }
+      }
+    },
+    Argument: {
+      enter: function (node) {
+        if (argMatcher(node)) {
+          return null;
+        }
+      }
+    }
+  }));
+}
+
+function removeFragmentSpreadFromDocument(config, doc) {
+  function enter(node) {
+    if (config.some(function (def) {
+      return def.name === node.name.value;
+    })) {
+      return null;
+    }
+  }
+
+  return nullIfDocIsEmpty((0, _visitor.visit)(doc, {
+    FragmentSpread: {
+      enter: enter
+    },
+    FragmentDefinition: {
+      enter: enter
+    }
+  }));
+}
+
+function getAllFragmentSpreadsFromSelectionSet(selectionSet) {
+  var allFragments = [];
+  selectionSet.selections.forEach(function (selection) {
+    if ((isField(selection) || isInlineFragment(selection)) && selection.selectionSet) {
+      getAllFragmentSpreadsFromSelectionSet(selection.selectionSet).forEach(function (frag) {
+        return allFragments.push(frag);
+      });
+    } else if (selection.kind === 'FragmentSpread') {
+      allFragments.push(selection);
+    }
+  });
+  return allFragments;
+}
+
+function buildQueryFromSelectionSet(document) {
+  var definition = getMainDefinition(document);
+  var definitionOperation = definition.operation;
+
+  if (definitionOperation === 'query') {
+    return document;
+  }
+
+  var modifiedDoc = (0, _visitor.visit)(document, {
+    OperationDefinition: {
+      enter: function (node) {
+        return (0, _tslib.__assign)((0, _tslib.__assign)({}, node), {
+          operation: 'query'
+        });
+      }
+    }
+  });
+  return modifiedDoc;
+}
+
+function removeClientSetsFromDocument(document) {
+  checkDocument(document);
+  var modifiedDoc = removeDirectivesFromDocument([{
+    test: function (directive) {
+      return directive.name.value === 'client';
+    },
+    remove: true
+  }], document);
+
+  if (modifiedDoc) {
+    modifiedDoc = (0, _visitor.visit)(modifiedDoc, {
+      FragmentDefinition: {
+        enter: function (node) {
+          if (node.selectionSet) {
+            var isTypenameOnly = node.selectionSet.selections.every(function (selection) {
+              return isField(selection) && selection.name.value === '__typename';
+            });
+
+            if (isTypenameOnly) {
+              return null;
+            }
+          }
+        }
+      }
+    });
+  }
+
+  return modifiedDoc;
+}
+
+var canUseWeakMap = typeof WeakMap === 'function' && !(typeof navigator === 'object' && navigator.product === 'ReactNative');
+exports.canUseWeakMap = canUseWeakMap;
+var toString = Object.prototype.toString;
+
+function cloneDeep(value) {
+  return cloneDeepHelper(value, new Map());
+}
+
+function cloneDeepHelper(val, seen) {
+  switch (toString.call(val)) {
+    case "[object Array]":
+      {
+        if (seen.has(val)) return seen.get(val);
+        var copy_1 = val.slice(0);
+        seen.set(val, copy_1);
+        copy_1.forEach(function (child, i) {
+          copy_1[i] = cloneDeepHelper(child, seen);
+        });
+        return copy_1;
+      }
+
+    case "[object Object]":
+      {
+        if (seen.has(val)) return seen.get(val);
+        var copy_2 = Object.create(Object.getPrototypeOf(val));
+        seen.set(val, copy_2);
+        Object.keys(val).forEach(function (key) {
+          copy_2[key] = cloneDeepHelper(val[key], seen);
+        });
+        return copy_2;
+      }
+
+    default:
+      return val;
+  }
+}
+
+function getEnv() {
+  if (typeof process !== 'undefined' && "production") {
+    return "production";
+  }
+
+  return 'development';
+}
+
+function isEnv(env) {
+  return getEnv() === env;
+}
+
+function isProduction() {
+  return isEnv('production') === true;
+}
+
+function isDevelopment() {
+  return isEnv('development') === true;
+}
+
+function isTest() {
+  return isEnv('test') === true;
+}
+
+function tryFunctionOrLogError(f) {
+  try {
+    return f();
+  } catch (e) {
+    if (console.error) {
+      console.error(e);
+    }
+  }
+}
+
+function graphQLResultHasError(result) {
+  return result.errors && result.errors.length;
+}
+
+function deepFreeze(o) {
+  Object.freeze(o);
+  Object.getOwnPropertyNames(o).forEach(function (prop) {
+    if (o[prop] !== null && (typeof o[prop] === 'object' || typeof o[prop] === 'function') && !Object.isFrozen(o[prop])) {
+      deepFreeze(o[prop]);
+    }
+  });
+  return o;
+}
+
+function maybeDeepFreeze(obj) {
+  if (isDevelopment() || isTest()) {
+    var symbolIsPolyfilled = typeof Symbol === 'function' && typeof Symbol('') === 'string';
+
+    if (!symbolIsPolyfilled) {
+      return deepFreeze(obj);
+    }
+  }
+
+  return obj;
+}
+
+var hasOwnProperty = Object.prototype.hasOwnProperty;
+
+function mergeDeep() {
+  var sources = [];
+
+  for (var _i = 0; _i < arguments.length; _i++) {
+    sources[_i] = arguments[_i];
+  }
+
+  return mergeDeepArray(sources);
+}
+
+function mergeDeepArray(sources) {
+  var target = sources[0] || {};
+  var count = sources.length;
+
+  if (count > 1) {
+    var pastCopies = [];
+    target = shallowCopyForMerge(target, pastCopies);
+
+    for (var i = 1; i < count; ++i) {
+      target = mergeHelper(target, sources[i], pastCopies);
+    }
+  }
+
+  return target;
+}
+
+function isObject(obj) {
+  return obj !== null && typeof obj === 'object';
+}
+
+function mergeHelper(target, source, pastCopies) {
+  if (isObject(source) && isObject(target)) {
+    if (Object.isExtensible && !Object.isExtensible(target)) {
+      target = shallowCopyForMerge(target, pastCopies);
+    }
+
+    Object.keys(source).forEach(function (sourceKey) {
+      var sourceValue = source[sourceKey];
+
+      if (hasOwnProperty.call(target, sourceKey)) {
+        var targetValue = target[sourceKey];
+
+        if (sourceValue !== targetValue) {
+          target[sourceKey] = mergeHelper(shallowCopyForMerge(targetValue, pastCopies), sourceValue, pastCopies);
+        }
+      } else {
+        target[sourceKey] = sourceValue;
+      }
+    });
+    return target;
+  }
+
+  return source;
+}
+
+function shallowCopyForMerge(value, pastCopies) {
+  if (value !== null && typeof value === 'object' && pastCopies.indexOf(value) < 0) {
+    if (Array.isArray(value)) {
+      value = value.slice(0);
+    } else {
+      value = (0, _tslib.__assign)({
+        __proto__: Object.getPrototypeOf(value)
+      }, value);
+    }
+
+    pastCopies.push(value);
+  }
+
+  return value;
+}
+
+var haveWarned = Object.create({});
+
+function warnOnceInDevelopment(msg, type) {
+  if (type === void 0) {
+    type = 'warn';
+  }
+
+  if (!isProduction() && !haveWarned[msg]) {
+    if (!isTest()) {
+      haveWarned[msg] = true;
+    }
+
+    if (type === 'error') {
+      console.error(msg);
+    } else {
+      console.warn(msg);
+    }
+  }
+}
+
+function stripSymbols(data) {
+  return JSON.parse(JSON.stringify(data));
+}
 
 /***/ }),
 /* 10 */
 /***/ (function(module, exports) {
 
-// This file is intentionally left empty for noop aliases
+module.exports = require("ts-invariant");
 
 /***/ }),
 /* 11 */
 /***/ (function(module, exports) {
 
-module.exports = require("axios");
+module.exports = require("core-js/modules/esnext.map.delete-all.js");
 
 /***/ }),
 /* 12 */
 /***/ (function(module, exports) {
 
-module.exports = require("universal-cookie");
+module.exports = require("core-js/modules/esnext.map.every.js");
 
 /***/ }),
 /* 13 */
 /***/ (function(module, exports) {
 
-module.exports = require("apollo-cache-inmemory");
+module.exports = require("core-js/modules/esnext.map.filter.js");
 
 /***/ }),
 /* 14 */
 /***/ (function(module, exports) {
 
-module.exports = require("vue-no-ssr");
+module.exports = require("core-js/modules/esnext.map.find.js");
 
 /***/ }),
 /* 15 */
+/***/ (function(module, exports) {
+
+module.exports = require("core-js/modules/esnext.map.find-key.js");
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports) {
+
+module.exports = require("core-js/modules/esnext.map.includes.js");
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports) {
+
+module.exports = require("core-js/modules/esnext.map.key-of.js");
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports) {
+
+module.exports = require("core-js/modules/esnext.map.map-keys.js");
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports) {
+
+module.exports = require("core-js/modules/esnext.map.map-values.js");
+
+/***/ }),
+/* 20 */
+/***/ (function(module, exports) {
+
+module.exports = require("core-js/modules/esnext.map.merge.js");
+
+/***/ }),
+/* 21 */
+/***/ (function(module, exports) {
+
+module.exports = require("core-js/modules/esnext.map.reduce.js");
+
+/***/ }),
+/* 22 */
+/***/ (function(module, exports) {
+
+module.exports = require("core-js/modules/esnext.map.some.js");
+
+/***/ }),
+/* 23 */
+/***/ (function(module, exports) {
+
+module.exports = require("core-js/modules/esnext.map.update.js");
+
+/***/ }),
+/* 24 */
+/***/ (function(module, exports) {
+
+module.exports = require("vuex");
+
+/***/ }),
+/* 25 */
+/***/ (function(module, exports) {
+
+module.exports = require("vue-meta");
+
+/***/ }),
+/* 26 */
+/***/ (function(module, exports) {
+
+// This file is intentionally left empty for noop aliases
+
+/***/ }),
+/* 27 */
+/***/ (function(module, exports) {
+
+module.exports = require("axios");
+
+/***/ }),
+/* 28 */
+/***/ (function(module, exports) {
+
+module.exports = require("universal-cookie");
+
+/***/ }),
+/* 29 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(34);
+
+__webpack_require__(35);
+
+__webpack_require__(36);
+
+__webpack_require__(37);
+
+__webpack_require__(38);
+
+__webpack_require__(39);
+
+__webpack_require__(40);
+
+__webpack_require__(41);
+
+__webpack_require__(42);
+
+__webpack_require__(43);
+
+__webpack_require__(44);
+
+__webpack_require__(45);
+
+__webpack_require__(46);
+
+__webpack_require__(47);
+
+__webpack_require__(48);
+
+__webpack_require__(49);
+
+__webpack_require__(11);
+
+__webpack_require__(12);
+
+__webpack_require__(13);
+
+__webpack_require__(14);
+
+__webpack_require__(15);
+
+__webpack_require__(16);
+
+__webpack_require__(17);
+
+__webpack_require__(18);
+
+__webpack_require__(19);
+
+__webpack_require__(20);
+
+__webpack_require__(21);
+
+__webpack_require__(22);
+
+__webpack_require__(23);
+
+exports.__esModule = true;
+exports.assertIdValue = assertIdValue;
+exports.defaultDataIdFromObject = defaultDataIdFromObject;
+exports.defaultNormalizedCacheFactory = defaultNormalizedCacheFactory$1;
+exports.enhanceErrorWithDocument = enhanceErrorWithDocument;
+exports.WriteError = exports.StoreWriter = exports.StoreReader = exports.ObjectCache = exports.IntrospectionFragmentMatcher = exports.InMemoryCache = exports.HeuristicFragmentMatcher = void 0;
+
+var _tslib = __webpack_require__(8);
+
+var _apolloCache = __webpack_require__(266);
+
+var _apolloUtilities = __webpack_require__(9);
+
+var _optimism = __webpack_require__(267);
+
+var _tsInvariant = __webpack_require__(10);
+
+var haveWarned = false;
+
+function shouldWarn() {
+  var answer = !haveWarned;
+
+  if (!(0, _apolloUtilities.isTest)()) {
+    haveWarned = true;
+  }
+
+  return answer;
+}
+
+var HeuristicFragmentMatcher = function () {
+  function HeuristicFragmentMatcher() {}
+
+  HeuristicFragmentMatcher.prototype.ensureReady = function () {
+    return Promise.resolve();
+  };
+
+  HeuristicFragmentMatcher.prototype.canBypassInit = function () {
+    return true;
+  };
+
+  HeuristicFragmentMatcher.prototype.match = function (idValue, typeCondition, context) {
+    var obj = context.store.get(idValue.id);
+    var isRootQuery = idValue.id === 'ROOT_QUERY';
+
+    if (!obj) {
+      return isRootQuery;
+    }
+
+    var _a = obj.__typename,
+        __typename = _a === void 0 ? isRootQuery && 'Query' : _a;
+
+    if (!__typename) {
+      if (shouldWarn()) {
+         true || false;
+         true || false;
+         true || false;
+      }
+
+      return 'heuristic';
+    }
+
+    if (__typename === typeCondition) {
+      return true;
+    }
+
+    if (shouldWarn()) {
+       true || false;
+    }
+
+    return 'heuristic';
+  };
+
+  return HeuristicFragmentMatcher;
+}();
+
+exports.HeuristicFragmentMatcher = HeuristicFragmentMatcher;
+
+var IntrospectionFragmentMatcher = function () {
+  function IntrospectionFragmentMatcher(options) {
+    if (options && options.introspectionQueryResultData) {
+      this.possibleTypesMap = this.parseIntrospectionResult(options.introspectionQueryResultData);
+      this.isReady = true;
+    } else {
+      this.isReady = false;
+    }
+
+    this.match = this.match.bind(this);
+  }
+
+  IntrospectionFragmentMatcher.prototype.match = function (idValue, typeCondition, context) {
+     true ? (0, _tsInvariant.invariant)(this.isReady, 1) : undefined;
+    var obj = context.store.get(idValue.id);
+    var isRootQuery = idValue.id === 'ROOT_QUERY';
+
+    if (!obj) {
+      return isRootQuery;
+    }
+
+    var _a = obj.__typename,
+        __typename = _a === void 0 ? isRootQuery && 'Query' : _a;
+
+     true ? (0, _tsInvariant.invariant)(__typename, 2) : undefined;
+
+    if (__typename === typeCondition) {
+      return true;
+    }
+
+    var implementingTypes = this.possibleTypesMap[typeCondition];
+
+    if (__typename && implementingTypes && implementingTypes.indexOf(__typename) > -1) {
+      return true;
+    }
+
+    return false;
+  };
+
+  IntrospectionFragmentMatcher.prototype.parseIntrospectionResult = function (introspectionResultData) {
+    var typeMap = {};
+
+    introspectionResultData.__schema.types.forEach(function (type) {
+      if (type.kind === 'UNION' || type.kind === 'INTERFACE') {
+        typeMap[type.name] = type.possibleTypes.map(function (implementingType) {
+          return implementingType.name;
+        });
+      }
+    });
+
+    return typeMap;
+  };
+
+  return IntrospectionFragmentMatcher;
+}();
+
+exports.IntrospectionFragmentMatcher = IntrospectionFragmentMatcher;
+var hasOwn = Object.prototype.hasOwnProperty;
+
+var DepTrackingCache = function () {
+  function DepTrackingCache(data) {
+    var _this = this;
+
+    if (data === void 0) {
+      data = Object.create(null);
+    }
+
+    this.data = data;
+    this.depend = (0, _optimism.wrap)(function (dataId) {
+      return _this.data[dataId];
+    }, {
+      disposable: true,
+      makeCacheKey: function (dataId) {
+        return dataId;
+      }
+    });
+  }
+
+  DepTrackingCache.prototype.toObject = function () {
+    return this.data;
+  };
+
+  DepTrackingCache.prototype.get = function (dataId) {
+    this.depend(dataId);
+    return this.data[dataId];
+  };
+
+  DepTrackingCache.prototype.set = function (dataId, value) {
+    var oldValue = this.data[dataId];
+
+    if (value !== oldValue) {
+      this.data[dataId] = value;
+      this.depend.dirty(dataId);
+    }
+  };
+
+  DepTrackingCache.prototype.delete = function (dataId) {
+    if (hasOwn.call(this.data, dataId)) {
+      delete this.data[dataId];
+      this.depend.dirty(dataId);
+    }
+  };
+
+  DepTrackingCache.prototype.clear = function () {
+    this.replace(null);
+  };
+
+  DepTrackingCache.prototype.replace = function (newData) {
+    var _this = this;
+
+    if (newData) {
+      Object.keys(newData).forEach(function (dataId) {
+        _this.set(dataId, newData[dataId]);
+      });
+      Object.keys(this.data).forEach(function (dataId) {
+        if (!hasOwn.call(newData, dataId)) {
+          _this.delete(dataId);
+        }
+      });
+    } else {
+      Object.keys(this.data).forEach(function (dataId) {
+        _this.delete(dataId);
+      });
+    }
+  };
+
+  return DepTrackingCache;
+}();
+
+function defaultNormalizedCacheFactory(seed) {
+  return new DepTrackingCache(seed);
+}
+
+var StoreReader = function () {
+  function StoreReader(_a) {
+    var _this = this;
+
+    var _b = _a === void 0 ? {} : _a,
+        _c = _b.cacheKeyRoot,
+        cacheKeyRoot = _c === void 0 ? new _optimism.KeyTrie(_apolloUtilities.canUseWeakMap) : _c,
+        _d = _b.freezeResults,
+        freezeResults = _d === void 0 ? false : _d;
+
+    var _e = this,
+        executeStoreQuery = _e.executeStoreQuery,
+        executeSelectionSet = _e.executeSelectionSet,
+        executeSubSelectedArray = _e.executeSubSelectedArray;
+
+    this.freezeResults = freezeResults;
+    this.executeStoreQuery = (0, _optimism.wrap)(function (options) {
+      return executeStoreQuery.call(_this, options);
+    }, {
+      makeCacheKey: function (_a) {
+        var query = _a.query,
+            rootValue = _a.rootValue,
+            contextValue = _a.contextValue,
+            variableValues = _a.variableValues,
+            fragmentMatcher = _a.fragmentMatcher;
+
+        if (contextValue.store instanceof DepTrackingCache) {
+          return cacheKeyRoot.lookup(contextValue.store, query, fragmentMatcher, JSON.stringify(variableValues), rootValue.id);
+        }
+      }
+    });
+    this.executeSelectionSet = (0, _optimism.wrap)(function (options) {
+      return executeSelectionSet.call(_this, options);
+    }, {
+      makeCacheKey: function (_a) {
+        var selectionSet = _a.selectionSet,
+            rootValue = _a.rootValue,
+            execContext = _a.execContext;
+
+        if (execContext.contextValue.store instanceof DepTrackingCache) {
+          return cacheKeyRoot.lookup(execContext.contextValue.store, selectionSet, execContext.fragmentMatcher, JSON.stringify(execContext.variableValues), rootValue.id);
+        }
+      }
+    });
+    this.executeSubSelectedArray = (0, _optimism.wrap)(function (options) {
+      return executeSubSelectedArray.call(_this, options);
+    }, {
+      makeCacheKey: function (_a) {
+        var field = _a.field,
+            array = _a.array,
+            execContext = _a.execContext;
+
+        if (execContext.contextValue.store instanceof DepTrackingCache) {
+          return cacheKeyRoot.lookup(execContext.contextValue.store, field, array, JSON.stringify(execContext.variableValues));
+        }
+      }
+    });
+  }
+
+  StoreReader.prototype.readQueryFromStore = function (options) {
+    return this.diffQueryAgainstStore((0, _tslib.__assign)((0, _tslib.__assign)({}, options), {
+      returnPartialData: false
+    })).result;
+  };
+
+  StoreReader.prototype.diffQueryAgainstStore = function (_a) {
+    var store = _a.store,
+        query = _a.query,
+        variables = _a.variables,
+        previousResult = _a.previousResult,
+        _b = _a.returnPartialData,
+        returnPartialData = _b === void 0 ? true : _b,
+        _c = _a.rootId,
+        rootId = _c === void 0 ? 'ROOT_QUERY' : _c,
+        fragmentMatcherFunction = _a.fragmentMatcherFunction,
+        config = _a.config;
+    var queryDefinition = (0, _apolloUtilities.getQueryDefinition)(query);
+    variables = (0, _apolloUtilities.assign)({}, (0, _apolloUtilities.getDefaultValues)(queryDefinition), variables);
+    var context = {
+      store: store,
+      dataIdFromObject: config && config.dataIdFromObject,
+      cacheRedirects: config && config.cacheRedirects || {}
+    };
+    var execResult = this.executeStoreQuery({
+      query: query,
+      rootValue: {
+        type: 'id',
+        id: rootId,
+        generated: true,
+        typename: 'Query'
+      },
+      contextValue: context,
+      variableValues: variables,
+      fragmentMatcher: fragmentMatcherFunction
+    });
+    var hasMissingFields = execResult.missing && execResult.missing.length > 0;
+
+    if (hasMissingFields && !returnPartialData) {
+      execResult.missing.forEach(function (info) {
+        if (info.tolerable) return;
+        throw  true ? new _tsInvariant.InvariantError(8) : undefined;
+      });
+    }
+
+    if (previousResult) {
+      if ((0, _apolloUtilities.isEqual)(previousResult, execResult.result)) {
+        execResult.result = previousResult;
+      }
+    }
+
+    return {
+      result: execResult.result,
+      complete: !hasMissingFields
+    };
+  };
+
+  StoreReader.prototype.executeStoreQuery = function (_a) {
+    var query = _a.query,
+        rootValue = _a.rootValue,
+        contextValue = _a.contextValue,
+        variableValues = _a.variableValues,
+        _b = _a.fragmentMatcher,
+        fragmentMatcher = _b === void 0 ? defaultFragmentMatcher : _b;
+    var mainDefinition = (0, _apolloUtilities.getMainDefinition)(query);
+    var fragments = (0, _apolloUtilities.getFragmentDefinitions)(query);
+    var fragmentMap = (0, _apolloUtilities.createFragmentMap)(fragments);
+    var execContext = {
+      query: query,
+      fragmentMap: fragmentMap,
+      contextValue: contextValue,
+      variableValues: variableValues,
+      fragmentMatcher: fragmentMatcher
+    };
+    return this.executeSelectionSet({
+      selectionSet: mainDefinition.selectionSet,
+      rootValue: rootValue,
+      execContext: execContext
+    });
+  };
+
+  StoreReader.prototype.executeSelectionSet = function (_a) {
+    var _this = this;
+
+    var selectionSet = _a.selectionSet,
+        rootValue = _a.rootValue,
+        execContext = _a.execContext;
+    var fragmentMap = execContext.fragmentMap,
+        contextValue = execContext.contextValue,
+        variables = execContext.variableValues;
+    var finalResult = {
+      result: null
+    };
+    var objectsToMerge = [];
+    var object = contextValue.store.get(rootValue.id);
+    var typename = object && object.__typename || rootValue.id === 'ROOT_QUERY' && 'Query' || void 0;
+
+    function handleMissing(result) {
+      var _a;
+
+      if (result.missing) {
+        finalResult.missing = finalResult.missing || [];
+
+        (_a = finalResult.missing).push.apply(_a, result.missing);
+      }
+
+      return result.result;
+    }
+
+    selectionSet.selections.forEach(function (selection) {
+      var _a;
+
+      if (!(0, _apolloUtilities.shouldInclude)(selection, variables)) {
+        return;
+      }
+
+      if ((0, _apolloUtilities.isField)(selection)) {
+        var fieldResult = handleMissing(_this.executeField(object, typename, selection, execContext));
+
+        if (typeof fieldResult !== 'undefined') {
+          objectsToMerge.push((_a = {}, _a[(0, _apolloUtilities.resultKeyNameFromField)(selection)] = fieldResult, _a));
+        }
+      } else {
+        var fragment = void 0;
+
+        if ((0, _apolloUtilities.isInlineFragment)(selection)) {
+          fragment = selection;
+        } else {
+          fragment = fragmentMap[selection.name.value];
+
+          if (!fragment) {
+            throw  true ? new _tsInvariant.InvariantError(9) : undefined;
+          }
+        }
+
+        var typeCondition = fragment.typeCondition && fragment.typeCondition.name.value;
+        var match = !typeCondition || execContext.fragmentMatcher(rootValue, typeCondition, contextValue);
+
+        if (match) {
+          var fragmentExecResult = _this.executeSelectionSet({
+            selectionSet: fragment.selectionSet,
+            rootValue: rootValue,
+            execContext: execContext
+          });
+
+          if (match === 'heuristic' && fragmentExecResult.missing) {
+            fragmentExecResult = (0, _tslib.__assign)((0, _tslib.__assign)({}, fragmentExecResult), {
+              missing: fragmentExecResult.missing.map(function (info) {
+                return (0, _tslib.__assign)((0, _tslib.__assign)({}, info), {
+                  tolerable: true
+                });
+              })
+            });
+          }
+
+          objectsToMerge.push(handleMissing(fragmentExecResult));
+        }
+      }
+    });
+    finalResult.result = (0, _apolloUtilities.mergeDeepArray)(objectsToMerge);
+
+    if (this.freezeResults && "production" !== 'production') {
+      Object.freeze(finalResult.result);
+    }
+
+    return finalResult;
+  };
+
+  StoreReader.prototype.executeField = function (object, typename, field, execContext) {
+    var variables = execContext.variableValues,
+        contextValue = execContext.contextValue;
+    var fieldName = field.name.value;
+    var args = (0, _apolloUtilities.argumentsObjectFromField)(field, variables);
+    var info = {
+      resultKey: (0, _apolloUtilities.resultKeyNameFromField)(field),
+      directives: (0, _apolloUtilities.getDirectiveInfoFromField)(field, variables)
+    };
+    var readStoreResult = readStoreResolver(object, typename, fieldName, args, contextValue, info);
+
+    if (Array.isArray(readStoreResult.result)) {
+      return this.combineExecResults(readStoreResult, this.executeSubSelectedArray({
+        field: field,
+        array: readStoreResult.result,
+        execContext: execContext
+      }));
+    }
+
+    if (!field.selectionSet) {
+      assertSelectionSetForIdValue(field, readStoreResult.result);
+
+      if (this.freezeResults && "production" !== 'production') {
+        (0, _apolloUtilities.maybeDeepFreeze)(readStoreResult);
+      }
+
+      return readStoreResult;
+    }
+
+    if (readStoreResult.result == null) {
+      return readStoreResult;
+    }
+
+    return this.combineExecResults(readStoreResult, this.executeSelectionSet({
+      selectionSet: field.selectionSet,
+      rootValue: readStoreResult.result,
+      execContext: execContext
+    }));
+  };
+
+  StoreReader.prototype.combineExecResults = function () {
+    var execResults = [];
+
+    for (var _i = 0; _i < arguments.length; _i++) {
+      execResults[_i] = arguments[_i];
+    }
+
+    var missing;
+    execResults.forEach(function (execResult) {
+      if (execResult.missing) {
+        missing = missing || [];
+        missing.push.apply(missing, execResult.missing);
+      }
+    });
+    return {
+      result: execResults.pop().result,
+      missing: missing
+    };
+  };
+
+  StoreReader.prototype.executeSubSelectedArray = function (_a) {
+    var _this = this;
+
+    var field = _a.field,
+        array = _a.array,
+        execContext = _a.execContext;
+    var missing;
+
+    function handleMissing(childResult) {
+      if (childResult.missing) {
+        missing = missing || [];
+        missing.push.apply(missing, childResult.missing);
+      }
+
+      return childResult.result;
+    }
+
+    array = array.map(function (item) {
+      if (item === null) {
+        return null;
+      }
+
+      if (Array.isArray(item)) {
+        return handleMissing(_this.executeSubSelectedArray({
+          field: field,
+          array: item,
+          execContext: execContext
+        }));
+      }
+
+      if (field.selectionSet) {
+        return handleMissing(_this.executeSelectionSet({
+          selectionSet: field.selectionSet,
+          rootValue: item,
+          execContext: execContext
+        }));
+      }
+
+      assertSelectionSetForIdValue(field, item);
+      return item;
+    });
+
+    if (this.freezeResults && "production" !== 'production') {
+      Object.freeze(array);
+    }
+
+    return {
+      result: array,
+      missing: missing
+    };
+  };
+
+  return StoreReader;
+}();
+
+exports.StoreReader = StoreReader;
+
+function assertSelectionSetForIdValue(field, value) {
+  if (!field.selectionSet && (0, _apolloUtilities.isIdValue)(value)) {
+    throw  true ? new _tsInvariant.InvariantError(10) : undefined;
+  }
+}
+
+function defaultFragmentMatcher() {
+  return true;
+}
+
+function assertIdValue(idValue) {
+   true ? (0, _tsInvariant.invariant)((0, _apolloUtilities.isIdValue)(idValue), 11) : undefined;
+}
+
+function readStoreResolver(object, typename, fieldName, args, context, _a) {
+  var resultKey = _a.resultKey,
+      directives = _a.directives;
+  var storeKeyName = fieldName;
+
+  if (args || directives) {
+    storeKeyName = (0, _apolloUtilities.getStoreKeyName)(storeKeyName, args, directives);
+  }
+
+  var fieldValue = void 0;
+
+  if (object) {
+    fieldValue = object[storeKeyName];
+
+    if (typeof fieldValue === 'undefined' && context.cacheRedirects && typeof typename === 'string') {
+      var type = context.cacheRedirects[typename];
+
+      if (type) {
+        var resolver = type[fieldName];
+
+        if (resolver) {
+          fieldValue = resolver(object, args, {
+            getCacheKey: function (storeObj) {
+              var id = context.dataIdFromObject(storeObj);
+              return id && (0, _apolloUtilities.toIdValue)({
+                id: id,
+                typename: storeObj.__typename
+              });
+            }
+          });
+        }
+      }
+    }
+  }
+
+  if (typeof fieldValue === 'undefined') {
+    return {
+      result: fieldValue,
+      missing: [{
+        object: object,
+        fieldName: storeKeyName,
+        tolerable: false
+      }]
+    };
+  }
+
+  if ((0, _apolloUtilities.isJsonValue)(fieldValue)) {
+    fieldValue = fieldValue.json;
+  }
+
+  return {
+    result: fieldValue
+  };
+}
+
+var ObjectCache = function () {
+  function ObjectCache(data) {
+    if (data === void 0) {
+      data = Object.create(null);
+    }
+
+    this.data = data;
+  }
+
+  ObjectCache.prototype.toObject = function () {
+    return this.data;
+  };
+
+  ObjectCache.prototype.get = function (dataId) {
+    return this.data[dataId];
+  };
+
+  ObjectCache.prototype.set = function (dataId, value) {
+    this.data[dataId] = value;
+  };
+
+  ObjectCache.prototype.delete = function (dataId) {
+    this.data[dataId] = void 0;
+  };
+
+  ObjectCache.prototype.clear = function () {
+    this.data = Object.create(null);
+  };
+
+  ObjectCache.prototype.replace = function (newData) {
+    this.data = newData || Object.create(null);
+  };
+
+  return ObjectCache;
+}();
+
+exports.ObjectCache = ObjectCache;
+
+function defaultNormalizedCacheFactory$1(seed) {
+  return new ObjectCache(seed);
+}
+
+var WriteError = function (_super) {
+  (0, _tslib.__extends)(WriteError, _super);
+
+  function WriteError() {
+    var _this = _super !== null && _super.apply(this, arguments) || this;
+
+    _this.type = 'WriteError';
+    return _this;
+  }
+
+  return WriteError;
+}(Error);
+
+exports.WriteError = WriteError;
+
+function enhanceErrorWithDocument(error, document) {
+  var enhancedError = new WriteError("Error writing result to store for query:\n " + JSON.stringify(document));
+  enhancedError.message += '\n' + error.message;
+  enhancedError.stack = error.stack;
+  return enhancedError;
+}
+
+var StoreWriter = function () {
+  function StoreWriter() {}
+
+  StoreWriter.prototype.writeQueryToStore = function (_a) {
+    var query = _a.query,
+        result = _a.result,
+        _b = _a.store,
+        store = _b === void 0 ? defaultNormalizedCacheFactory() : _b,
+        variables = _a.variables,
+        dataIdFromObject = _a.dataIdFromObject,
+        fragmentMatcherFunction = _a.fragmentMatcherFunction;
+    return this.writeResultToStore({
+      dataId: 'ROOT_QUERY',
+      result: result,
+      document: query,
+      store: store,
+      variables: variables,
+      dataIdFromObject: dataIdFromObject,
+      fragmentMatcherFunction: fragmentMatcherFunction
+    });
+  };
+
+  StoreWriter.prototype.writeResultToStore = function (_a) {
+    var dataId = _a.dataId,
+        result = _a.result,
+        document = _a.document,
+        _b = _a.store,
+        store = _b === void 0 ? defaultNormalizedCacheFactory() : _b,
+        variables = _a.variables,
+        dataIdFromObject = _a.dataIdFromObject,
+        fragmentMatcherFunction = _a.fragmentMatcherFunction;
+    var operationDefinition = (0, _apolloUtilities.getOperationDefinition)(document);
+
+    try {
+      return this.writeSelectionSetToStore({
+        result: result,
+        dataId: dataId,
+        selectionSet: operationDefinition.selectionSet,
+        context: {
+          store: store,
+          processedData: {},
+          variables: (0, _apolloUtilities.assign)({}, (0, _apolloUtilities.getDefaultValues)(operationDefinition), variables),
+          dataIdFromObject: dataIdFromObject,
+          fragmentMap: (0, _apolloUtilities.createFragmentMap)((0, _apolloUtilities.getFragmentDefinitions)(document)),
+          fragmentMatcherFunction: fragmentMatcherFunction
+        }
+      });
+    } catch (e) {
+      throw enhanceErrorWithDocument(e, document);
+    }
+  };
+
+  StoreWriter.prototype.writeSelectionSetToStore = function (_a) {
+    var _this = this;
+
+    var result = _a.result,
+        dataId = _a.dataId,
+        selectionSet = _a.selectionSet,
+        context = _a.context;
+    var variables = context.variables,
+        store = context.store,
+        fragmentMap = context.fragmentMap;
+    selectionSet.selections.forEach(function (selection) {
+      var _a;
+
+      if (!(0, _apolloUtilities.shouldInclude)(selection, variables)) {
+        return;
+      }
+
+      if ((0, _apolloUtilities.isField)(selection)) {
+        var resultFieldKey = (0, _apolloUtilities.resultKeyNameFromField)(selection);
+        var value = result[resultFieldKey];
+
+        if (typeof value !== 'undefined') {
+          _this.writeFieldToStore({
+            dataId: dataId,
+            value: value,
+            field: selection,
+            context: context
+          });
+        } else {
+          var isDefered = false;
+          var isClient = false;
+
+          if (selection.directives && selection.directives.length) {
+            isDefered = selection.directives.some(function (directive) {
+              return directive.name && directive.name.value === 'defer';
+            });
+            isClient = selection.directives.some(function (directive) {
+              return directive.name && directive.name.value === 'client';
+            });
+          }
+
+          if (!isDefered && !isClient && context.fragmentMatcherFunction) {
+             true || false;
+          }
+        }
+      } else {
+        var fragment = void 0;
+
+        if ((0, _apolloUtilities.isInlineFragment)(selection)) {
+          fragment = selection;
+        } else {
+          fragment = (fragmentMap || {})[selection.name.value];
+           true ? (0, _tsInvariant.invariant)(fragment, 3) : undefined;
+        }
+
+        var matches = true;
+
+        if (context.fragmentMatcherFunction && fragment.typeCondition) {
+          var id = dataId || 'self';
+          var idValue = (0, _apolloUtilities.toIdValue)({
+            id: id,
+            typename: undefined
+          });
+          var fakeContext = {
+            store: new ObjectCache((_a = {}, _a[id] = result, _a)),
+            cacheRedirects: {}
+          };
+          var match = context.fragmentMatcherFunction(idValue, fragment.typeCondition.name.value, fakeContext);
+
+          if (!(0, _apolloUtilities.isProduction)() && match === 'heuristic') {
+             true || false;
+          }
+
+          matches = !!match;
+        }
+
+        if (matches) {
+          _this.writeSelectionSetToStore({
+            result: result,
+            selectionSet: fragment.selectionSet,
+            dataId: dataId,
+            context: context
+          });
+        }
+      }
+    });
+    return store;
+  };
+
+  StoreWriter.prototype.writeFieldToStore = function (_a) {
+    var _b;
+
+    var field = _a.field,
+        value = _a.value,
+        dataId = _a.dataId,
+        context = _a.context;
+    var variables = context.variables,
+        dataIdFromObject = context.dataIdFromObject,
+        store = context.store;
+    var storeValue;
+    var storeObject;
+    var storeFieldName = (0, _apolloUtilities.storeKeyNameFromField)(field, variables);
+
+    if (!field.selectionSet || value === null) {
+      storeValue = value != null && typeof value === 'object' ? {
+        type: 'json',
+        json: value
+      } : value;
+    } else if (Array.isArray(value)) {
+      var generatedId = dataId + "." + storeFieldName;
+      storeValue = this.processArrayValue(value, generatedId, field.selectionSet, context);
+    } else {
+      var valueDataId = dataId + "." + storeFieldName;
+      var generated = true;
+
+      if (!isGeneratedId(valueDataId)) {
+        valueDataId = '$' + valueDataId;
+      }
+
+      if (dataIdFromObject) {
+        var semanticId = dataIdFromObject(value);
+         true ? (0, _tsInvariant.invariant)(!semanticId || !isGeneratedId(semanticId), 4) : undefined;
+
+        if (semanticId || typeof semanticId === 'number' && semanticId === 0) {
+          valueDataId = semanticId;
+          generated = false;
+        }
+      }
+
+      if (!isDataProcessed(valueDataId, field, context.processedData)) {
+        this.writeSelectionSetToStore({
+          dataId: valueDataId,
+          result: value,
+          selectionSet: field.selectionSet,
+          context: context
+        });
+      }
+
+      var typename = value.__typename;
+      storeValue = (0, _apolloUtilities.toIdValue)({
+        id: valueDataId,
+        typename: typename
+      }, generated);
+      storeObject = store.get(dataId);
+      var escapedId = storeObject && storeObject[storeFieldName];
+
+      if (escapedId !== storeValue && (0, _apolloUtilities.isIdValue)(escapedId)) {
+        var hadTypename = escapedId.typename !== undefined;
+        var hasTypename = typename !== undefined;
+        var typenameChanged = hadTypename && hasTypename && escapedId.typename !== typename;
+         true ? (0, _tsInvariant.invariant)(!generated || escapedId.generated || typenameChanged, 5) : undefined;
+         true ? (0, _tsInvariant.invariant)(!hadTypename || hasTypename, 6) : undefined;
+
+        if (escapedId.generated) {
+          if (typenameChanged) {
+            if (!generated) {
+              store.delete(escapedId.id);
+            }
+          } else {
+            mergeWithGenerated(escapedId.id, storeValue.id, store);
+          }
+        }
+      }
+    }
+
+    storeObject = store.get(dataId);
+
+    if (!storeObject || !(0, _apolloUtilities.isEqual)(storeValue, storeObject[storeFieldName])) {
+      store.set(dataId, (0, _tslib.__assign)((0, _tslib.__assign)({}, storeObject), (_b = {}, _b[storeFieldName] = storeValue, _b)));
+    }
+  };
+
+  StoreWriter.prototype.processArrayValue = function (value, generatedId, selectionSet, context) {
+    var _this = this;
+
+    return value.map(function (item, index) {
+      if (item === null) {
+        return null;
+      }
+
+      var itemDataId = generatedId + "." + index;
+
+      if (Array.isArray(item)) {
+        return _this.processArrayValue(item, itemDataId, selectionSet, context);
+      }
+
+      var generated = true;
+
+      if (context.dataIdFromObject) {
+        var semanticId = context.dataIdFromObject(item);
+
+        if (semanticId) {
+          itemDataId = semanticId;
+          generated = false;
+        }
+      }
+
+      if (!isDataProcessed(itemDataId, selectionSet, context.processedData)) {
+        _this.writeSelectionSetToStore({
+          dataId: itemDataId,
+          result: item,
+          selectionSet: selectionSet,
+          context: context
+        });
+      }
+
+      return (0, _apolloUtilities.toIdValue)({
+        id: itemDataId,
+        typename: item.__typename
+      }, generated);
+    });
+  };
+
+  return StoreWriter;
+}();
+
+exports.StoreWriter = StoreWriter;
+
+function isGeneratedId(id) {
+  return id[0] === '$';
+}
+
+function mergeWithGenerated(generatedKey, realKey, cache) {
+  if (generatedKey === realKey) {
+    return false;
+  }
+
+  var generated = cache.get(generatedKey);
+  var real = cache.get(realKey);
+  var madeChanges = false;
+  Object.keys(generated).forEach(function (key) {
+    var value = generated[key];
+    var realValue = real[key];
+
+    if ((0, _apolloUtilities.isIdValue)(value) && isGeneratedId(value.id) && (0, _apolloUtilities.isIdValue)(realValue) && !(0, _apolloUtilities.isEqual)(value, realValue) && mergeWithGenerated(value.id, realValue.id, cache)) {
+      madeChanges = true;
+    }
+  });
+  cache.delete(generatedKey);
+  var newRealValue = (0, _tslib.__assign)((0, _tslib.__assign)({}, generated), real);
+
+  if ((0, _apolloUtilities.isEqual)(newRealValue, real)) {
+    return madeChanges;
+  }
+
+  cache.set(realKey, newRealValue);
+  return true;
+}
+
+function isDataProcessed(dataId, field, processedData) {
+  if (!processedData) {
+    return false;
+  }
+
+  if (processedData[dataId]) {
+    if (processedData[dataId].indexOf(field) >= 0) {
+      return true;
+    } else {
+      processedData[dataId].push(field);
+    }
+  } else {
+    processedData[dataId] = [field];
+  }
+
+  return false;
+}
+
+var defaultConfig = {
+  fragmentMatcher: new HeuristicFragmentMatcher(),
+  dataIdFromObject: defaultDataIdFromObject,
+  addTypename: true,
+  resultCaching: true,
+  freezeResults: false
+};
+
+function defaultDataIdFromObject(result) {
+  if (result.__typename) {
+    if (result.id !== undefined) {
+      return result.__typename + ":" + result.id;
+    }
+
+    if (result._id !== undefined) {
+      return result.__typename + ":" + result._id;
+    }
+  }
+
+  return null;
+}
+
+var hasOwn$1 = Object.prototype.hasOwnProperty;
+
+var OptimisticCacheLayer = function (_super) {
+  (0, _tslib.__extends)(OptimisticCacheLayer, _super);
+
+  function OptimisticCacheLayer(optimisticId, parent, transaction) {
+    var _this = _super.call(this, Object.create(null)) || this;
+
+    _this.optimisticId = optimisticId;
+    _this.parent = parent;
+    _this.transaction = transaction;
+    return _this;
+  }
+
+  OptimisticCacheLayer.prototype.toObject = function () {
+    return (0, _tslib.__assign)((0, _tslib.__assign)({}, this.parent.toObject()), this.data);
+  };
+
+  OptimisticCacheLayer.prototype.get = function (dataId) {
+    return hasOwn$1.call(this.data, dataId) ? this.data[dataId] : this.parent.get(dataId);
+  };
+
+  return OptimisticCacheLayer;
+}(ObjectCache);
+
+var InMemoryCache = function (_super) {
+  (0, _tslib.__extends)(InMemoryCache, _super);
+
+  function InMemoryCache(config) {
+    if (config === void 0) {
+      config = {};
+    }
+
+    var _this = _super.call(this) || this;
+
+    _this.watches = new Set();
+    _this.typenameDocumentCache = new Map();
+    _this.cacheKeyRoot = new _optimism.KeyTrie(_apolloUtilities.canUseWeakMap);
+    _this.silenceBroadcast = false;
+    _this.config = (0, _tslib.__assign)((0, _tslib.__assign)({}, defaultConfig), config);
+
+    if (_this.config.customResolvers) {
+       true || false;
+      _this.config.cacheRedirects = _this.config.customResolvers;
+    }
+
+    if (_this.config.cacheResolvers) {
+       true || false;
+      _this.config.cacheRedirects = _this.config.cacheResolvers;
+    }
+
+    _this.addTypename = !!_this.config.addTypename;
+    _this.data = _this.config.resultCaching ? new DepTrackingCache() : new ObjectCache();
+    _this.optimisticData = _this.data;
+    _this.storeWriter = new StoreWriter();
+    _this.storeReader = new StoreReader({
+      cacheKeyRoot: _this.cacheKeyRoot,
+      freezeResults: config.freezeResults
+    });
+    var cache = _this;
+    var maybeBroadcastWatch = cache.maybeBroadcastWatch;
+    _this.maybeBroadcastWatch = (0, _optimism.wrap)(function (c) {
+      return maybeBroadcastWatch.call(_this, c);
+    }, {
+      makeCacheKey: function (c) {
+        if (c.optimistic) {
+          return;
+        }
+
+        if (c.previousResult) {
+          return;
+        }
+
+        if (cache.data instanceof DepTrackingCache) {
+          return cache.cacheKeyRoot.lookup(c.query, JSON.stringify(c.variables));
+        }
+      }
+    });
+    return _this;
+  }
+
+  InMemoryCache.prototype.restore = function (data) {
+    if (data) this.data.replace(data);
+    return this;
+  };
+
+  InMemoryCache.prototype.extract = function (optimistic) {
+    if (optimistic === void 0) {
+      optimistic = false;
+    }
+
+    return (optimistic ? this.optimisticData : this.data).toObject();
+  };
+
+  InMemoryCache.prototype.read = function (options) {
+    if (typeof options.rootId === 'string' && typeof this.data.get(options.rootId) === 'undefined') {
+      return null;
+    }
+
+    var fragmentMatcher = this.config.fragmentMatcher;
+    var fragmentMatcherFunction = fragmentMatcher && fragmentMatcher.match;
+    return this.storeReader.readQueryFromStore({
+      store: options.optimistic ? this.optimisticData : this.data,
+      query: this.transformDocument(options.query),
+      variables: options.variables,
+      rootId: options.rootId,
+      fragmentMatcherFunction: fragmentMatcherFunction,
+      previousResult: options.previousResult,
+      config: this.config
+    }) || null;
+  };
+
+  InMemoryCache.prototype.write = function (write) {
+    var fragmentMatcher = this.config.fragmentMatcher;
+    var fragmentMatcherFunction = fragmentMatcher && fragmentMatcher.match;
+    this.storeWriter.writeResultToStore({
+      dataId: write.dataId,
+      result: write.result,
+      variables: write.variables,
+      document: this.transformDocument(write.query),
+      store: this.data,
+      dataIdFromObject: this.config.dataIdFromObject,
+      fragmentMatcherFunction: fragmentMatcherFunction
+    });
+    this.broadcastWatches();
+  };
+
+  InMemoryCache.prototype.diff = function (query) {
+    var fragmentMatcher = this.config.fragmentMatcher;
+    var fragmentMatcherFunction = fragmentMatcher && fragmentMatcher.match;
+    return this.storeReader.diffQueryAgainstStore({
+      store: query.optimistic ? this.optimisticData : this.data,
+      query: this.transformDocument(query.query),
+      variables: query.variables,
+      returnPartialData: query.returnPartialData,
+      previousResult: query.previousResult,
+      fragmentMatcherFunction: fragmentMatcherFunction,
+      config: this.config
+    });
+  };
+
+  InMemoryCache.prototype.watch = function (watch) {
+    var _this = this;
+
+    this.watches.add(watch);
+    return function () {
+      _this.watches.delete(watch);
+    };
+  };
+
+  InMemoryCache.prototype.evict = function (query) {
+    throw  true ? new _tsInvariant.InvariantError(7) : undefined;
+  };
+
+  InMemoryCache.prototype.reset = function () {
+    this.data.clear();
+    this.broadcastWatches();
+    return Promise.resolve();
+  };
+
+  InMemoryCache.prototype.removeOptimistic = function (idToRemove) {
+    var toReapply = [];
+    var removedCount = 0;
+    var layer = this.optimisticData;
+
+    while (layer instanceof OptimisticCacheLayer) {
+      if (layer.optimisticId === idToRemove) {
+        ++removedCount;
+      } else {
+        toReapply.push(layer);
+      }
+
+      layer = layer.parent;
+    }
+
+    if (removedCount > 0) {
+      this.optimisticData = layer;
+
+      while (toReapply.length > 0) {
+        var layer_1 = toReapply.pop();
+        this.performTransaction(layer_1.transaction, layer_1.optimisticId);
+      }
+
+      this.broadcastWatches();
+    }
+  };
+
+  InMemoryCache.prototype.performTransaction = function (transaction, optimisticId) {
+    var _a = this,
+        data = _a.data,
+        silenceBroadcast = _a.silenceBroadcast;
+
+    this.silenceBroadcast = true;
+
+    if (typeof optimisticId === 'string') {
+      this.data = this.optimisticData = new OptimisticCacheLayer(optimisticId, this.optimisticData, transaction);
+    }
+
+    try {
+      transaction(this);
+    } finally {
+      this.silenceBroadcast = silenceBroadcast;
+      this.data = data;
+    }
+
+    this.broadcastWatches();
+  };
+
+  InMemoryCache.prototype.recordOptimisticTransaction = function (transaction, id) {
+    return this.performTransaction(transaction, id);
+  };
+
+  InMemoryCache.prototype.transformDocument = function (document) {
+    if (this.addTypename) {
+      var result = this.typenameDocumentCache.get(document);
+
+      if (!result) {
+        result = (0, _apolloUtilities.addTypenameToDocument)(document);
+        this.typenameDocumentCache.set(document, result);
+        this.typenameDocumentCache.set(result, result);
+      }
+
+      return result;
+    }
+
+    return document;
+  };
+
+  InMemoryCache.prototype.broadcastWatches = function () {
+    var _this = this;
+
+    if (!this.silenceBroadcast) {
+      this.watches.forEach(function (c) {
+        return _this.maybeBroadcastWatch(c);
+      });
+    }
+  };
+
+  InMemoryCache.prototype.maybeBroadcastWatch = function (c) {
+    c.callback(this.diff({
+      query: c.query,
+      variables: c.variables,
+      previousResult: c.previousResult && c.previousResult(),
+      optimistic: c.optimistic
+    }));
+  };
+
+  return InMemoryCache;
+}(_apolloCache.ApolloCache);
+
+exports.InMemoryCache = InMemoryCache;
+
+/***/ }),
+/* 30 */
+/***/ (function(module, exports) {
+
+module.exports = require("vue-no-ssr");
+
+/***/ }),
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "img/warning.a404a82.svg";
 
 /***/ }),
-/* 16 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "img/sent.f79e2e4.svg";
 
 /***/ }),
-/* 17 */
+/* 33 */
+/***/ (function(module, exports) {
+
+module.exports = require("zen-observable-ts");
+
+/***/ }),
+/* 34 */
+/***/ (function(module, exports) {
+
+module.exports = require("core-js/modules/esnext.set.add-all.js");
+
+/***/ }),
+/* 35 */
+/***/ (function(module, exports) {
+
+module.exports = require("core-js/modules/esnext.set.delete-all.js");
+
+/***/ }),
+/* 36 */
+/***/ (function(module, exports) {
+
+module.exports = require("core-js/modules/esnext.set.difference.js");
+
+/***/ }),
+/* 37 */
+/***/ (function(module, exports) {
+
+module.exports = require("core-js/modules/esnext.set.every.js");
+
+/***/ }),
+/* 38 */
+/***/ (function(module, exports) {
+
+module.exports = require("core-js/modules/esnext.set.filter.js");
+
+/***/ }),
+/* 39 */
+/***/ (function(module, exports) {
+
+module.exports = require("core-js/modules/esnext.set.find.js");
+
+/***/ }),
+/* 40 */
+/***/ (function(module, exports) {
+
+module.exports = require("core-js/modules/esnext.set.intersection.js");
+
+/***/ }),
+/* 41 */
+/***/ (function(module, exports) {
+
+module.exports = require("core-js/modules/esnext.set.is-disjoint-from.js");
+
+/***/ }),
+/* 42 */
+/***/ (function(module, exports) {
+
+module.exports = require("core-js/modules/esnext.set.is-subset-of.js");
+
+/***/ }),
+/* 43 */
+/***/ (function(module, exports) {
+
+module.exports = require("core-js/modules/esnext.set.is-superset-of.js");
+
+/***/ }),
+/* 44 */
+/***/ (function(module, exports) {
+
+module.exports = require("core-js/modules/esnext.set.join.js");
+
+/***/ }),
+/* 45 */
+/***/ (function(module, exports) {
+
+module.exports = require("core-js/modules/esnext.set.map.js");
+
+/***/ }),
+/* 46 */
+/***/ (function(module, exports) {
+
+module.exports = require("core-js/modules/esnext.set.reduce.js");
+
+/***/ }),
+/* 47 */
+/***/ (function(module, exports) {
+
+module.exports = require("core-js/modules/esnext.set.some.js");
+
+/***/ }),
+/* 48 */
+/***/ (function(module, exports) {
+
+module.exports = require("core-js/modules/esnext.set.symmetric-difference.js");
+
+/***/ }),
+/* 49 */
+/***/ (function(module, exports) {
+
+module.exports = require("core-js/modules/esnext.set.union.js");
+
+/***/ }),
+/* 50 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -616,19 +3360,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "actions", function() { return actions; });
 /* harmony import */ var typed_vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
 /* harmony import */ var typed_vuex__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(typed_vuex__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var accesscontrol__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(83);
+/* harmony import */ var accesscontrol__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(122);
 /* harmony import */ var accesscontrol__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(accesscontrol__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _graphql_queries_get_current_user_graphql__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(84);
+/* harmony import */ var _graphql_queries_get_current_user_graphql__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(123);
 /* harmony import */ var _graphql_queries_get_current_user_graphql__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_graphql_queries_get_current_user_graphql__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _graphql_queries_get_grants_graphql__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(85);
+/* harmony import */ var _graphql_queries_get_grants_graphql__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(124);
 /* harmony import */ var _graphql_queries_get_grants_graphql__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_graphql_queries_get_grants_graphql__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _graphql_mutations_sign_in_graphql__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(86);
+/* harmony import */ var _graphql_mutations_sign_in_graphql__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(125);
 /* harmony import */ var _graphql_mutations_sign_in_graphql__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_graphql_mutations_sign_in_graphql__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _graphql_mutations_sign_up_graphql__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(87);
+/* harmony import */ var _graphql_mutations_sign_up_graphql__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(126);
 /* harmony import */ var _graphql_mutations_sign_up_graphql__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_graphql_mutations_sign_up_graphql__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _graphql_mutations_request_password_reset_graphql__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(88);
+/* harmony import */ var _graphql_mutations_request_password_reset_graphql__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(127);
 /* harmony import */ var _graphql_mutations_request_password_reset_graphql__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_graphql_mutations_request_password_reset_graphql__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _graphql_mutations_reset_password_graphql__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(89);
+/* harmony import */ var _graphql_mutations_reset_password_graphql__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(128);
 /* harmony import */ var _graphql_mutations_reset_password_graphql__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_graphql_mutations_reset_password_graphql__WEBPACK_IMPORTED_MODULE_7__);
 
 
@@ -839,7 +3583,7 @@ const actions = Object(typed_vuex__WEBPACK_IMPORTED_MODULE_0__["actionTree"])({
 });
 
 /***/ }),
-/* 18 */
+/* 51 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -855,27 +3599,27 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var luxon__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(6);
 /* harmony import */ var luxon__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(luxon__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _graphql_subscriptions_message_created_graphql__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(90);
+/* harmony import */ var _graphql_subscriptions_message_created_graphql__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(129);
 /* harmony import */ var _graphql_subscriptions_message_created_graphql__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_graphql_subscriptions_message_created_graphql__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _graphql_subscriptions_message_deleted_graphql__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(91);
+/* harmony import */ var _graphql_subscriptions_message_deleted_graphql__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(130);
 /* harmony import */ var _graphql_subscriptions_message_deleted_graphql__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_graphql_subscriptions_message_deleted_graphql__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _graphql_subscriptions_message_updated_graphql__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(92);
+/* harmony import */ var _graphql_subscriptions_message_updated_graphql__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(131);
 /* harmony import */ var _graphql_subscriptions_message_updated_graphql__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_graphql_subscriptions_message_updated_graphql__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _graphql_subscriptions_online_updated_graphql__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(93);
+/* harmony import */ var _graphql_subscriptions_online_updated_graphql__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(132);
 /* harmony import */ var _graphql_subscriptions_online_updated_graphql__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_graphql_subscriptions_online_updated_graphql__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _graphql_subscriptions_user_updated_graphql__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(94);
+/* harmony import */ var _graphql_subscriptions_user_updated_graphql__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(133);
 /* harmony import */ var _graphql_subscriptions_user_updated_graphql__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_graphql_subscriptions_user_updated_graphql__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var _graphql_mutations_update_online_status_graphql__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(95);
+/* harmony import */ var _graphql_mutations_update_online_status_graphql__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(134);
 /* harmony import */ var _graphql_mutations_update_online_status_graphql__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_graphql_mutations_update_online_status_graphql__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var _graphql_mutations_delete_message_graphql__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(96);
+/* harmony import */ var _graphql_mutations_delete_message_graphql__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(135);
 /* harmony import */ var _graphql_mutations_delete_message_graphql__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_graphql_mutations_delete_message_graphql__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var _graphql_queries_get_chat_data_graphql__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(97);
+/* harmony import */ var _graphql_queries_get_chat_data_graphql__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(136);
 /* harmony import */ var _graphql_queries_get_chat_data_graphql__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_graphql_queries_get_chat_data_graphql__WEBPACK_IMPORTED_MODULE_10__);
-/* harmony import */ var _graphql_queries_get_user_by_id_graphql__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(98);
+/* harmony import */ var _graphql_queries_get_user_by_id_graphql__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(137);
 /* harmony import */ var _graphql_queries_get_user_by_id_graphql__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_graphql_queries_get_user_by_id_graphql__WEBPACK_IMPORTED_MODULE_11__);
-/* harmony import */ var _graphql_mutations_punish_graphql__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(99);
+/* harmony import */ var _graphql_mutations_punish_graphql__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(138);
 /* harmony import */ var _graphql_mutations_punish_graphql__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(_graphql_mutations_punish_graphql__WEBPACK_IMPORTED_MODULE_12__);
-/* harmony import */ var _graphql_queries_get_messages_graphql__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(100);
+/* harmony import */ var _graphql_queries_get_messages_graphql__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(139);
 /* harmony import */ var _graphql_queries_get_messages_graphql__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(_graphql_queries_get_messages_graphql__WEBPACK_IMPORTED_MODULE_13__);
 
 
@@ -1396,9 +4140,7 @@ const actions = Object(typed_vuex__WEBPACK_IMPORTED_MODULE_0__["actionTree"])({
     } catch (e) {}
   },
 
-  async getMessages({
-    commit
-  }, payload) {
+  async getMessages(_context, payload) {
     var _a, _b, _c;
 
     const client = (_b = (_a = this === null || this === void 0 ? void 0 : this.app.apolloProvider) === null || _a === void 0 ? void 0 : _a.defaultClient) !== null && _b !== void 0 ? _b : (_c = this.app.apolloProvider) === null || _c === void 0 ? void 0 : _c.defaultClient;
@@ -1413,19 +4155,26 @@ const actions = Object(typed_vuex__WEBPACK_IMPORTED_MODULE_0__["actionTree"])({
         variables: payload
       });
       if (errors || !data) return;
+      return data.getMessages;
+    } catch (e) {}
+  },
 
-      if (payload === null || payload === void 0 ? void 0 : payload.reverse) {
-        commit('ADD_MESSAGES_TO_END', data.getMessages);
-      } else {
-        if (payload === null || payload === void 0 ? void 0 : payload.lastId) {
-          commit('DELETE_MESSAGES_AFTER_ID', payload.lastId);
-        }
+  pushMessages({
+    commit
+  }, payload) {
+    var _a, _b;
 
-        commit('ADD_MESSAGES_TO_START', data.getMessages);
+    if ((_a = payload.variables) === null || _a === void 0 ? void 0 : _a.reverse) {
+      commit('ADD_MESSAGES_TO_END', payload.messages);
+    } else {
+      if ((_b = payload.variables) === null || _b === void 0 ? void 0 : _b.lastId) {
+        commit('DELETE_MESSAGES_AFTER_ID', payload.variables.lastId);
       }
 
-      commit('UPDATE_MESSAGES_SEPARATORS');
-    } catch (e) {}
+      commit('ADD_MESSAGES_TO_START', payload.messages);
+    }
+
+    commit('UPDATE_MESSAGES_SEPARATORS');
   },
 
   async getChatData({
@@ -1517,7 +4266,7 @@ const actions = Object(typed_vuex__WEBPACK_IMPORTED_MODULE_0__["actionTree"])({
 });
 
 /***/ }),
-/* 19 */
+/* 52 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1625,7 +4374,7 @@ const actions = Object(typed_vuex__WEBPACK_IMPORTED_MODULE_0__["actionTree"])({
 });
 
 /***/ }),
-/* 20 */
+/* 53 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1694,49 +4443,2162 @@ const actions = Object(typed_vuex__WEBPACK_IMPORTED_MODULE_0__["actionTree"])({
 });
 
 /***/ }),
-/* 21 */
+/* 54 */
+/***/ (function(module, exports) {
+
+module.exports = require("subscriptions-transport-ws");
+
+/***/ }),
+/* 55 */
 /***/ (function(module, exports) {
 
 module.exports = require("vue-client-only");
 
 /***/ }),
-/* 22 */
+/* 56 */
 /***/ (function(module, exports) {
 
 module.exports = require("vue-router");
 
 /***/ }),
-/* 23 */
+/* 57 */
 /***/ (function(module, exports) {
 
 module.exports = require("vue-i18n");
 
 /***/ }),
-/* 24 */
+/* 58 */
 /***/ (function(module, exports) {
 
 module.exports = require("cookie");
 
 /***/ }),
-/* 25 */
-/***/ (function(module, exports) {
+/* 59 */
+/***/ (function(module, exports, __webpack_require__) {
 
-module.exports = require("vue-apollo");
+(function (global, factory) {
+   true ? factory(exports, __webpack_require__(258)) : undefined;
+})(this, function (exports, gql) {
+  'use strict';
+
+  gql = gql && gql.hasOwnProperty('default') ? gql['default'] : gql;
+
+  function _typeof(obj) {
+    if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+      _typeof = function (obj) {
+        return typeof obj;
+      };
+    } else {
+      _typeof = function (obj) {
+        return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+      };
+    }
+
+    return _typeof(obj);
+  }
+
+  function _classCallCheck(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+      throw new TypeError("Cannot call a class as a function");
+    }
+  }
+
+  function _defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];
+      descriptor.enumerable = descriptor.enumerable || false;
+      descriptor.configurable = true;
+      if ("value" in descriptor) descriptor.writable = true;
+      Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }
+
+  function _createClass(Constructor, protoProps, staticProps) {
+    if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+    if (staticProps) _defineProperties(Constructor, staticProps);
+    return Constructor;
+  }
+
+  function _defineProperty(obj, key, value) {
+    if (key in obj) {
+      Object.defineProperty(obj, key, {
+        value: value,
+        enumerable: true,
+        configurable: true,
+        writable: true
+      });
+    } else {
+      obj[key] = value;
+    }
+
+    return obj;
+  }
+
+  function ownKeys(object, enumerableOnly) {
+    var keys = Object.keys(object);
+
+    if (Object.getOwnPropertySymbols) {
+      var symbols = Object.getOwnPropertySymbols(object);
+      if (enumerableOnly) symbols = symbols.filter(function (sym) {
+        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+      });
+      keys.push.apply(keys, symbols);
+    }
+
+    return keys;
+  }
+
+  function _objectSpread2(target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i] != null ? arguments[i] : {};
+
+      if (i % 2) {
+        ownKeys(source, true).forEach(function (key) {
+          _defineProperty(target, key, source[key]);
+        });
+      } else if (Object.getOwnPropertyDescriptors) {
+        Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+      } else {
+        ownKeys(source).forEach(function (key) {
+          Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+        });
+      }
+    }
+
+    return target;
+  }
+
+  function _inherits(subClass, superClass) {
+    if (typeof superClass !== "function" && superClass !== null) {
+      throw new TypeError("Super expression must either be null or a function");
+    }
+
+    subClass.prototype = Object.create(superClass && superClass.prototype, {
+      constructor: {
+        value: subClass,
+        writable: true,
+        configurable: true
+      }
+    });
+    if (superClass) _setPrototypeOf(subClass, superClass);
+  }
+
+  function _getPrototypeOf(o) {
+    _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
+      return o.__proto__ || Object.getPrototypeOf(o);
+    };
+    return _getPrototypeOf(o);
+  }
+
+  function _setPrototypeOf(o, p) {
+    _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
+      o.__proto__ = p;
+      return o;
+    };
+
+    return _setPrototypeOf(o, p);
+  }
+
+  function _assertThisInitialized(self) {
+    if (self === void 0) {
+      throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+    }
+
+    return self;
+  }
+
+  function _possibleConstructorReturn(self, call) {
+    if (call && (typeof call === "object" || typeof call === "function")) {
+      return call;
+    }
+
+    return _assertThisInitialized(self);
+  }
+
+  function _superPropBase(object, property) {
+    while (!Object.prototype.hasOwnProperty.call(object, property)) {
+      object = _getPrototypeOf(object);
+      if (object === null) break;
+    }
+
+    return object;
+  }
+
+  function _get(target, property, receiver) {
+    if (typeof Reflect !== "undefined" && Reflect.get) {
+      _get = Reflect.get;
+    } else {
+      _get = function _get(target, property, receiver) {
+        var base = _superPropBase(target, property);
+
+        if (!base) return;
+        var desc = Object.getOwnPropertyDescriptor(base, property);
+
+        if (desc.get) {
+          return desc.get.call(receiver);
+        }
+
+        return desc.value;
+      };
+    }
+
+    return _get(target, property, receiver || target);
+  }
+
+  function _slicedToArray(arr, i) {
+    return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest();
+  }
+
+  function _toConsumableArray(arr) {
+    return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread();
+  }
+
+  function _arrayWithoutHoles(arr) {
+    if (Array.isArray(arr)) {
+      for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) arr2[i] = arr[i];
+
+      return arr2;
+    }
+  }
+
+  function _arrayWithHoles(arr) {
+    if (Array.isArray(arr)) return arr;
+  }
+
+  function _iterableToArray(iter) {
+    if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter);
+  }
+
+  function _iterableToArrayLimit(arr, i) {
+    if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) {
+      return;
+    }
+
+    var _arr = [];
+    var _n = true;
+    var _d = false;
+    var _e = undefined;
+
+    try {
+      for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+        _arr.push(_s.value);
+
+        if (i && _arr.length === i) break;
+      }
+    } catch (err) {
+      _d = true;
+      _e = err;
+    } finally {
+      try {
+        if (!_n && _i["return"] != null) _i["return"]();
+      } finally {
+        if (_d) throw _e;
+      }
+    }
+
+    return _arr;
+  }
+
+  function _nonIterableSpread() {
+    throw new TypeError("Invalid attempt to spread non-iterable instance");
+  }
+
+  function _nonIterableRest() {
+    throw new TypeError("Invalid attempt to destructure non-iterable instance");
+  }
+
+  function createCommonjsModule(fn, module) {
+    return module = {
+      exports: {}
+    }, fn(module, module.exports), module.exports;
+  }
+  /* eslint-disable no-undefined,no-param-reassign,no-shadow */
+
+  /**
+   * Throttle execution of a function. Especially useful for rate limiting
+   * execution of handlers on events like resize and scroll.
+   *
+   * @param  {Number}    delay          A zero-or-greater delay in milliseconds. For event callbacks, values around 100 or 250 (or even higher) are most useful.
+   * @param  {Boolean}   [noTrailing]   Optional, defaults to false. If noTrailing is true, callback will only execute every `delay` milliseconds while the
+   *                                    throttled-function is being called. If noTrailing is false or unspecified, callback will be executed one final time
+   *                                    after the last throttled-function call. (After the throttled-function has not been called for `delay` milliseconds,
+   *                                    the internal counter is reset)
+   * @param  {Function}  callback       A function to be executed after delay milliseconds. The `this` context and all arguments are passed through, as-is,
+   *                                    to `callback` when the throttled-function is executed.
+   * @param  {Boolean}   [debounceMode] If `debounceMode` is true (at begin), schedule `clear` to execute after `delay` ms. If `debounceMode` is false (at end),
+   *                                    schedule `callback` to execute after `delay` ms.
+   *
+   * @return {Function}  A new, throttled, function.
+   */
+
+
+  function throttle(delay, noTrailing, callback, debounceMode) {
+    /*
+     * After wrapper has stopped being called, this timeout ensures that
+     * `callback` is executed at the proper times in `throttle` and `end`
+     * debounce modes.
+     */
+    var timeoutID;
+    var cancelled = false; // Keep track of the last time `callback` was executed.
+
+    var lastExec = 0; // Function to clear existing timeout
+
+    function clearExistingTimeout() {
+      if (timeoutID) {
+        clearTimeout(timeoutID);
+      }
+    } // Function to cancel next exec
+
+
+    function cancel() {
+      clearExistingTimeout();
+      cancelled = true;
+    } // `noTrailing` defaults to falsy.
+
+
+    if (typeof noTrailing !== 'boolean') {
+      debounceMode = callback;
+      callback = noTrailing;
+      noTrailing = undefined;
+    }
+    /*
+     * The `wrapper` function encapsulates all of the throttling / debouncing
+     * functionality and when executed will limit the rate at which `callback`
+     * is executed.
+     */
+
+
+    function wrapper() {
+      var self = this;
+      var elapsed = Date.now() - lastExec;
+      var args = arguments;
+
+      if (cancelled) {
+        return;
+      } // Execute `callback` and update the `lastExec` timestamp.
+
+
+      function exec() {
+        lastExec = Date.now();
+        callback.apply(self, args);
+      }
+      /*
+       * If `debounceMode` is true (at begin) this is used to clear the flag
+       * to allow future `callback` executions.
+       */
+
+
+      function clear() {
+        timeoutID = undefined;
+      }
+
+      if (debounceMode && !timeoutID) {
+        /*
+         * Since `wrapper` is being called for the first time and
+         * `debounceMode` is true (at begin), execute `callback`.
+         */
+        exec();
+      }
+
+      clearExistingTimeout();
+
+      if (debounceMode === undefined && elapsed > delay) {
+        /*
+         * In throttle mode, if `delay` time has been exceeded, execute
+         * `callback`.
+         */
+        exec();
+      } else if (noTrailing !== true) {
+        /*
+         * In trailing throttle mode, since `delay` time has not been
+         * exceeded, schedule `callback` to execute `delay` ms after most
+         * recent execution.
+         *
+         * If `debounceMode` is true (at begin), schedule `clear` to execute
+         * after `delay` ms.
+         *
+         * If `debounceMode` is false (at end), schedule `callback` to
+         * execute after `delay` ms.
+         */
+        timeoutID = setTimeout(debounceMode ? clear : exec, debounceMode === undefined ? delay - elapsed : delay);
+      }
+    }
+
+    wrapper.cancel = cancel; // Return the wrapper function.
+
+    return wrapper;
+  }
+  /* eslint-disable no-undefined */
+
+  /**
+   * Debounce execution of a function. Debouncing, unlike throttling,
+   * guarantees that a function is only executed a single time, either at the
+   * very beginning of a series of calls, or at the very end.
+   *
+   * @param  {Number}   delay         A zero-or-greater delay in milliseconds. For event callbacks, values around 100 or 250 (or even higher) are most useful.
+   * @param  {Boolean}  [atBegin]     Optional, defaults to false. If atBegin is false or unspecified, callback will only be executed `delay` milliseconds
+   *                                  after the last debounced-function call. If atBegin is true, callback will be executed only at the first debounced-function call.
+   *                                  (After the throttled-function has not been called for `delay` milliseconds, the internal counter is reset).
+   * @param  {Function} callback      A function to be executed after delay milliseconds. The `this` context and all arguments are passed through, as-is,
+   *                                  to `callback` when the debounced-function is executed.
+   *
+   * @return {Function} A new, debounced function.
+   */
+
+
+  function debounce(delay, atBegin, callback) {
+    return callback === undefined ? throttle(delay, atBegin, false) : throttle(delay, callback, atBegin !== false);
+  }
+
+  var index_esm = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    throttle: throttle,
+    debounce: debounce
+  });
+  var utils = createCommonjsModule(function (module, exports) {
+    var Globals = exports.Globals = {};
+
+    function factory(action) {
+      return function (cb, time) {
+        return action(time, cb);
+      };
+    }
+
+    exports.throttle = factory(index_esm.throttle);
+    exports.debounce = factory(index_esm.debounce);
+
+    exports.getMergedDefinition = function (def) {
+      return Globals.Vue.util.mergeOptions({}, def);
+    };
+
+    exports.reapply = function (options, context) {
+      while (typeof options === 'function') {
+        options = options.call(context);
+      }
+
+      return options;
+    };
+
+    exports.omit = function (obj, properties) {
+      return Object.entries(obj).filter(function (_ref) {
+        var _ref2 = _slicedToArray(_ref, 1),
+            key = _ref2[0];
+
+        return !properties.includes(key);
+      }).reduce(function (c, _ref3) {
+        var _ref4 = _slicedToArray(_ref3, 2),
+            key = _ref4[0],
+            val = _ref4[1];
+
+        c[key] = val;
+        return c;
+      }, {});
+    };
+
+    exports.addGqlError = function (error) {
+      if (error.graphQLErrors && error.graphQLErrors.length) {
+        error.gqlError = error.graphQLErrors[0];
+      }
+    };
+
+    exports.noop = function () {};
+  });
+  var utils_1 = utils.Globals;
+  var utils_2 = utils.throttle;
+  var utils_3 = utils.debounce;
+  var utils_4 = utils.getMergedDefinition;
+  var utils_5 = utils.reapply;
+  var utils_6 = utils.omit;
+  var utils_7 = utils.addGqlError;
+  var utils_8 = utils.noop;
+
+  var SmartApollo = /*#__PURE__*/function () {
+    function SmartApollo(vm, key, options) {
+      var autostart = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;
+
+      _classCallCheck(this, SmartApollo);
+
+      _defineProperty(this, "type", null);
+
+      _defineProperty(this, "vueApolloSpecialKeys", []);
+
+      this.vm = vm;
+      this.key = key;
+      this.initialOptions = options;
+      this.options = Object.assign({}, options);
+      this._skip = false;
+      this._pollInterval = null;
+      this._watchers = [];
+      this._destroyed = false;
+      this.lastApolloOptions = null;
+
+      if (autostart) {
+        this.autostart();
+      }
+    }
+
+    _createClass(SmartApollo, [{
+      key: "autostart",
+      value: function autostart() {
+        var _this = this;
+
+        if (typeof this.options.skip === 'function') {
+          this._skipWatcher = this.vm.$watch(function () {
+            return _this.options.skip.call(_this.vm, _this.vm, _this.key);
+          }, this.skipChanged.bind(this), {
+            immediate: true,
+            deep: this.options.deep
+          });
+        } else if (!this.options.skip) {
+          this.start();
+        } else {
+          this._skip = true;
+        }
+
+        if (typeof this.options.pollInterval === 'function') {
+          this._pollWatcher = this.vm.$watch(this.options.pollInterval.bind(this.vm), this.pollIntervalChanged.bind(this), {
+            immediate: true
+          });
+        }
+      }
+    }, {
+      key: "pollIntervalChanged",
+      value: function pollIntervalChanged(value, oldValue) {
+        if (value !== oldValue) {
+          this.pollInterval = value;
+
+          if (value == null) {
+            this.stopPolling();
+          } else {
+            this.startPolling(value);
+          }
+        }
+      }
+    }, {
+      key: "skipChanged",
+      value: function skipChanged(value, oldValue) {
+        if (value !== oldValue) {
+          this.skip = value;
+        }
+      }
+    }, {
+      key: "refresh",
+      value: function refresh() {
+        if (!this._skip) {
+          this.stop();
+          this.start();
+        }
+      }
+    }, {
+      key: "start",
+      value: function start() {
+        var _this2 = this;
+
+        this.starting = true; // Reactive options
+
+        var _loop = function _loop(_i2, _ref2) {
+          var prop = _ref2[_i2];
+
+          if (typeof _this2.initialOptions[prop] === 'function') {
+            var queryCb = _this2.initialOptions[prop].bind(_this2.vm);
+
+            _this2.options[prop] = queryCb();
+
+            var cb = function cb(query) {
+              _this2.options[prop] = query;
+
+              _this2.refresh();
+            };
+
+            if (!_this2.vm.$isServer) {
+              cb = _this2.options.throttle ? utils_2(cb, _this2.options.throttle) : cb;
+              cb = _this2.options.debounce ? utils_3(cb, _this2.options.debounce) : cb;
+            }
+
+            _this2._watchers.push(_this2.vm.$watch(queryCb, cb, {
+              deep: _this2.options.deep
+            }));
+          }
+        };
+
+        for (var _i2 = 0, _ref2 = ['query', 'document', 'context']; _i2 < _ref2.length; _i2++) {
+          _loop(_i2, _ref2);
+        } // GraphQL Variables
+
+
+        if (typeof this.options.variables === 'function') {
+          var cb = this.executeApollo.bind(this);
+
+          if (!this.vm.$isServer) {
+            cb = this.options.throttle ? utils_2(cb, this.options.throttle) : cb;
+            cb = this.options.debounce ? utils_3(cb, this.options.debounce) : cb;
+          }
+
+          this._watchers.push(this.vm.$watch(function () {
+            return _this2.options.variables.call(_this2.vm);
+          }, cb, {
+            immediate: true,
+            deep: this.options.deep
+          }));
+        } else {
+          this.executeApollo(this.options.variables);
+        }
+      }
+    }, {
+      key: "stop",
+      value: function stop() {
+        for (var _i4 = 0, _this$_watchers2 = this._watchers; _i4 < _this$_watchers2.length; _i4++) {
+          var unwatch = _this$_watchers2[_i4];
+          unwatch();
+        }
+
+        if (this.sub) {
+          this.sub.unsubscribe();
+          this.sub = null;
+        }
+      }
+    }, {
+      key: "generateApolloOptions",
+      value: function generateApolloOptions(variables) {
+        var apolloOptions = utils_6(this.options, this.vueApolloSpecialKeys);
+        apolloOptions.variables = variables;
+        this.lastApolloOptions = apolloOptions;
+        return apolloOptions;
+      }
+    }, {
+      key: "executeApollo",
+      value: function executeApollo(variables) {
+        this.starting = false;
+      }
+    }, {
+      key: "nextResult",
+      value: function nextResult(result) {
+        var error = result.error;
+        if (error) utils_7(error);
+      }
+    }, {
+      key: "callHandlers",
+      value: function callHandlers(handlers) {
+        var catched = false;
+
+        for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+          args[_key - 1] = arguments[_key];
+        }
+
+        for (var _i6 = 0; _i6 < handlers.length; _i6++) {
+          var handler = handlers[_i6];
+
+          if (handler) {
+            catched = true;
+            var result = handler.apply(this.vm, args);
+
+            if (typeof result !== 'undefined' && !result) {
+              break;
+            }
+          }
+        }
+
+        return catched;
+      }
+    }, {
+      key: "errorHandler",
+      value: function errorHandler() {
+        for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+          args[_key2] = arguments[_key2];
+        }
+
+        return this.callHandlers.apply(this, [[this.options.error, this.vm.$apollo.error, this.vm.$apollo.provider.errorHandler]].concat(args));
+      }
+    }, {
+      key: "catchError",
+      value: function catchError(error) {
+        utils_7(error);
+        var catched = this.errorHandler(error, this.vm, this.key, this.type, this.lastApolloOptions);
+        if (catched) return;
+
+        if (error.graphQLErrors && error.graphQLErrors.length !== 0) {
+          console.error("GraphQL execution errors for ".concat(this.type, " '").concat(this.key, "'"));
+
+          for (var _i8 = 0, _error$graphQLErrors2 = error.graphQLErrors; _i8 < _error$graphQLErrors2.length; _i8++) {
+            var e = _error$graphQLErrors2[_i8];
+            console.error(e);
+          }
+        } else if (error.networkError) {
+          console.error("Error sending the ".concat(this.type, " '").concat(this.key, "'"), error.networkError);
+        } else {
+          console.error("[vue-apollo] An error has occurred for ".concat(this.type, " '").concat(this.key, "'"));
+
+          if (Array.isArray(error)) {
+            var _console;
+
+            (_console = console).error.apply(_console, _toConsumableArray(error));
+          } else {
+            console.error(error);
+          }
+        }
+      }
+    }, {
+      key: "destroy",
+      value: function destroy() {
+        if (this._destroyed) return;
+        this._destroyed = true;
+        this.stop();
+
+        if (this._skipWatcher) {
+          this._skipWatcher();
+        }
+      }
+    }, {
+      key: "pollInterval",
+      get: function get() {
+        return this._pollInterval;
+      },
+      set: function set(value) {
+        this._pollInterval = value;
+      }
+    }, {
+      key: "skip",
+      get: function get() {
+        return this._skip;
+      },
+      set: function set(value) {
+        if (value) {
+          this.stop();
+        } else {
+          this.start();
+        }
+
+        this._skip = value;
+      }
+    }]);
+
+    return SmartApollo;
+  }();
+
+  var VUE_APOLLO_QUERY_KEYWORDS = ['variables', 'watch', 'update', 'result', 'error', 'loadingKey', 'watchLoading', 'skip', 'throttle', 'debounce', 'subscribeToMore', 'prefetch', 'manual'];
+
+  var SmartQuery = /*#__PURE__*/function (_SmartApollo) {
+    _inherits(SmartQuery, _SmartApollo);
+
+    function SmartQuery(vm, key, options) {
+      var _this;
+
+      var autostart = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;
+
+      _classCallCheck(this, SmartQuery); // Add reactive data related to the query
+
+
+      if (vm.$data.$apolloData && !vm.$data.$apolloData.queries[key]) {
+        vm.$set(vm.$data.$apolloData.queries, key, {
+          loading: false
+        });
+      }
+
+      _this = _possibleConstructorReturn(this, _getPrototypeOf(SmartQuery).call(this, vm, key, options, false));
+
+      _defineProperty(_assertThisInitialized(_this), "type", 'query');
+
+      _defineProperty(_assertThisInitialized(_this), "vueApolloSpecialKeys", VUE_APOLLO_QUERY_KEYWORDS);
+
+      _defineProperty(_assertThisInitialized(_this), "_loading", false);
+
+      _defineProperty(_assertThisInitialized(_this), "_linkedSubscriptions", []);
+
+      if (vm.$isServer) {
+        _this.firstRun = new Promise(function (resolve, reject) {
+          _this._firstRunResolve = resolve;
+          _this._firstRunReject = reject;
+        });
+      }
+
+      if (_this.vm.$isServer) {
+        _this.options.fetchPolicy = 'network-only';
+      }
+
+      if (!options.manual) {
+        _this.hasDataField = _this.vm.$data.hasOwnProperty(key);
+
+        if (_this.hasDataField) {
+          Object.defineProperty(_this.vm.$data.$apolloData.data, key, {
+            get: function get() {
+              return _this.vm.$data[key];
+            },
+            enumerable: true,
+            configurable: true
+          });
+        } else {
+          Object.defineProperty(_this.vm.$data, key, {
+            get: function get() {
+              return _this.vm.$data.$apolloData.data[key];
+            },
+            enumerable: true,
+            configurable: true
+          });
+        }
+      }
+
+      if (autostart) {
+        _this.autostart();
+      }
+
+      return _this;
+    }
+
+    _createClass(SmartQuery, [{
+      key: "stop",
+      value: function stop() {
+        _get(_getPrototypeOf(SmartQuery.prototype), "stop", this).call(this);
+
+        this.loadingDone();
+
+        if (this.observer) {
+          this.observer.stopPolling();
+          this.observer = null;
+        }
+      }
+    }, {
+      key: "generateApolloOptions",
+      value: function generateApolloOptions(variables) {
+        var apolloOptions = _get(_getPrototypeOf(SmartQuery.prototype), "generateApolloOptions", this).call(this, variables);
+
+        if (this.vm.$isServer) {
+          // Don't poll on the server, that would run indefinitely
+          delete apolloOptions.pollInterval;
+        }
+
+        return apolloOptions;
+      }
+    }, {
+      key: "executeApollo",
+      value: function executeApollo(variables) {
+        var variablesJson = JSON.stringify(variables);
+
+        if (this.sub) {
+          if (variablesJson === this.previousVariablesJson) {
+            return;
+          }
+
+          this.sub.unsubscribe(); // Subscribe to more subs
+
+          for (var _i2 = 0, _this$_linkedSubscrip2 = this._linkedSubscriptions; _i2 < _this$_linkedSubscrip2.length; _i2++) {
+            var sub = _this$_linkedSubscrip2[_i2];
+            sub.stop();
+          }
+        }
+
+        this.previousVariablesJson = variablesJson; // Create observer
+
+        this.observer = this.vm.$apollo.watchQuery(this.generateApolloOptions(variables));
+        this.startQuerySubscription();
+
+        if (this.options.fetchPolicy !== 'no-cache' || this.options.notifyOnNetworkStatusChange) {
+          var currentResult = this.maySetLoading();
+
+          if (!currentResult.loading || this.options.notifyOnNetworkStatusChange) {
+            this.nextResult(currentResult);
+          }
+        }
+
+        _get(_getPrototypeOf(SmartQuery.prototype), "executeApollo", this).call(this, variables); // Subscribe to more subs
+
+
+        for (var _i4 = 0, _this$_linkedSubscrip4 = this._linkedSubscriptions; _i4 < _this$_linkedSubscrip4.length; _i4++) {
+          var _sub = _this$_linkedSubscrip4[_i4];
+
+          _sub.start();
+        }
+      }
+    }, {
+      key: "startQuerySubscription",
+      value: function startQuerySubscription() {
+        if (this.sub && !this.sub.closed) return; // Create subscription
+
+        this.sub = this.observer.subscribe({
+          next: this.nextResult.bind(this),
+          error: this.catchError.bind(this)
+        });
+      }
+    }, {
+      key: "maySetLoading",
+      value: function maySetLoading() {
+        var force = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+        var currentResult = this.observer.getCurrentResult ? this.observer.getCurrentResult() : this.observer.currentResult();
+
+        if (force || currentResult.loading) {
+          if (!this.loading) {
+            this.applyLoadingModifier(1);
+          }
+
+          this.loading = true;
+        }
+
+        return currentResult;
+      }
+    }, {
+      key: "nextResult",
+      value: function nextResult(result) {
+        _get(_getPrototypeOf(SmartQuery.prototype), "nextResult", this).call(this, result);
+
+        var data = result.data,
+            loading = result.loading,
+            error = result.error,
+            errors = result.errors;
+        var anyErrors = errors && errors.length;
+
+        if (error || anyErrors) {
+          this.firstRunReject(error);
+        }
+
+        if (!loading) {
+          this.loadingDone();
+        } // If `errorPolicy` is set to `all`, an error won't be thrown
+        // Instead result will have an `errors` array of GraphQL Errors
+        // so we need to reconstruct an error object similar to the normal one
+
+
+        if (anyErrors) {
+          var e = new Error("GraphQL error: ".concat(errors.map(function (e) {
+            return e.message;
+          }).join(' | ')));
+          Object.assign(e, {
+            graphQLErrors: errors,
+            networkError: null
+          }); // We skip query catchError logic
+          // as we only want to dispatch the error
+
+          _get(_getPrototypeOf(SmartQuery.prototype), "catchError", this).call(this, e);
+        }
+
+        if (this.observer.options.errorPolicy === 'none' && (error || anyErrors)) {
+          // Don't apply result
+          return;
+        }
+
+        var hasResultCallback = typeof this.options.result === 'function';
+        if (data == null) ;else if (!this.options.manual) {
+          if (typeof this.options.update === 'function') {
+            this.setData(this.options.update.call(this.vm, data));
+          } else if (typeof data[this.key] === 'undefined' && Object.keys(data).length) {
+            console.error("Missing ".concat(this.key, " attribute on result"), data);
+          } else {
+            this.setData(data[this.key]);
+          }
+        } else if (!hasResultCallback) {
+          console.error("".concat(this.key, " query must have a 'result' hook in manual mode"));
+        }
+
+        if (hasResultCallback) {
+          this.options.result.call(this.vm, result, this.key);
+        }
+      }
+    }, {
+      key: "setData",
+      value: function setData(value) {
+        this.vm.$set(this.hasDataField ? this.vm.$data : this.vm.$data.$apolloData.data, this.key, value);
+      }
+    }, {
+      key: "catchError",
+      value: function catchError(error) {
+        _get(_getPrototypeOf(SmartQuery.prototype), "catchError", this).call(this, error);
+
+        this.firstRunReject(error);
+        this.loadingDone(error);
+        this.nextResult(this.observer.getCurrentResult ? this.observer.getCurrentResult() : this.observer.currentResult()); // The observable closes the sub if an error occurs
+
+        this.resubscribeToQuery();
+      }
+    }, {
+      key: "resubscribeToQuery",
+      value: function resubscribeToQuery() {
+        var lastError = this.observer.getLastError();
+        var lastResult = this.observer.getLastResult();
+        this.observer.resetLastResults();
+        this.startQuerySubscription();
+        Object.assign(this.observer, {
+          lastError: lastError,
+          lastResult: lastResult
+        });
+      }
+    }, {
+      key: "watchLoading",
+      value: function watchLoading() {
+        for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+          args[_key] = arguments[_key];
+        }
+
+        return this.callHandlers.apply(this, [[this.options.watchLoading, this.vm.$apollo.watchLoading, this.vm.$apollo.provider.watchLoading]].concat(args, [this]));
+      }
+    }, {
+      key: "applyLoadingModifier",
+      value: function applyLoadingModifier(value) {
+        var loadingKey = this.loadingKey;
+
+        if (loadingKey && typeof this.vm[loadingKey] === 'number') {
+          this.vm[loadingKey] += value;
+        }
+
+        this.watchLoading(value === 1, value);
+      }
+    }, {
+      key: "loadingDone",
+      value: function loadingDone() {
+        var error = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+
+        if (this.loading) {
+          this.applyLoadingModifier(-1);
+        }
+
+        this.loading = false;
+
+        if (!error) {
+          this.firstRunResolve();
+        }
+      }
+    }, {
+      key: "fetchMore",
+      value: function fetchMore() {
+        var _this2 = this;
+
+        if (this.observer) {
+          var _this$observer;
+
+          this.maySetLoading(true);
+          return (_this$observer = this.observer).fetchMore.apply(_this$observer, arguments).then(function (result) {
+            if (!result.loading) {
+              _this2.loadingDone();
+            }
+
+            return result;
+          });
+        }
+      }
+    }, {
+      key: "subscribeToMore",
+      value: function subscribeToMore() {
+        if (this.observer) {
+          var _this$observer2;
+
+          return {
+            unsubscribe: (_this$observer2 = this.observer).subscribeToMore.apply(_this$observer2, arguments)
+          };
+        }
+      }
+    }, {
+      key: "refetch",
+      value: function refetch(variables) {
+        var _this3 = this;
+
+        variables && (this.options.variables = variables);
+
+        if (this.observer) {
+          var result = this.observer.refetch(variables).then(function (result) {
+            if (!result.loading) {
+              _this3.loadingDone();
+            }
+
+            return result;
+          });
+          this.maySetLoading();
+          return result;
+        }
+      }
+    }, {
+      key: "setVariables",
+      value: function setVariables(variables, tryFetch) {
+        this.options.variables = variables;
+
+        if (this.observer) {
+          var result = this.observer.setVariables(variables, tryFetch);
+          this.maySetLoading();
+          return result;
+        }
+      }
+    }, {
+      key: "setOptions",
+      value: function setOptions(options) {
+        Object.assign(this.options, options);
+
+        if (this.observer) {
+          var result = this.observer.setOptions(options);
+          this.maySetLoading();
+          return result;
+        }
+      }
+    }, {
+      key: "startPolling",
+      value: function startPolling() {
+        if (this.observer) {
+          var _this$observer3;
+
+          return (_this$observer3 = this.observer).startPolling.apply(_this$observer3, arguments);
+        }
+      }
+    }, {
+      key: "stopPolling",
+      value: function stopPolling() {
+        if (this.observer) {
+          var _this$observer4;
+
+          return (_this$observer4 = this.observer).stopPolling.apply(_this$observer4, arguments);
+        }
+      }
+    }, {
+      key: "firstRunResolve",
+      value: function firstRunResolve() {
+        if (this._firstRunResolve) {
+          this._firstRunResolve();
+
+          this._firstRunResolve = null;
+        }
+      }
+    }, {
+      key: "firstRunReject",
+      value: function firstRunReject(error) {
+        if (this._firstRunReject) {
+          this._firstRunReject(error);
+
+          this._firstRunReject = null;
+        }
+      }
+    }, {
+      key: "destroy",
+      value: function destroy() {
+        _get(_getPrototypeOf(SmartQuery.prototype), "destroy", this).call(this);
+
+        if (this.loading) {
+          this.watchLoading(false, -1);
+        }
+
+        this.loading = false;
+      }
+    }, {
+      key: "client",
+      get: function get() {
+        return this.vm.$apollo.getClient(this.options);
+      }
+    }, {
+      key: "loading",
+      get: function get() {
+        return this.vm.$data.$apolloData && this.vm.$data.$apolloData.queries[this.key] ? this.vm.$data.$apolloData.queries[this.key].loading : this._loading;
+      },
+      set: function set(value) {
+        if (this._loading !== value) {
+          this._loading = value;
+
+          if (this.vm.$data.$apolloData && this.vm.$data.$apolloData.queries[this.key]) {
+            this.vm.$data.$apolloData.queries[this.key].loading = value;
+            this.vm.$data.$apolloData.loading += value ? 1 : -1;
+          }
+        }
+      }
+    }, {
+      key: "loadingKey",
+      get: function get() {
+        return this.options.loadingKey || this.vm.$apollo.loadingKey;
+      }
+    }]);
+
+    return SmartQuery;
+  }(SmartApollo);
+
+  var SmartSubscription = /*#__PURE__*/function (_SmartApollo) {
+    _inherits(SmartSubscription, _SmartApollo);
+
+    function SmartSubscription() {
+      var _getPrototypeOf2;
+
+      var _this;
+
+      _classCallCheck(this, SmartSubscription);
+
+      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(SmartSubscription)).call.apply(_getPrototypeOf2, [this].concat(args)));
+
+      _defineProperty(_assertThisInitialized(_this), "type", 'subscription');
+
+      _defineProperty(_assertThisInitialized(_this), "vueApolloSpecialKeys", ['variables', 'result', 'error', 'throttle', 'debounce', 'linkedQuery']);
+
+      return _this;
+    }
+
+    _createClass(SmartSubscription, [{
+      key: "executeApollo",
+      value: function executeApollo(variables) {
+        var variablesJson = JSON.stringify(variables);
+
+        if (this.sub) {
+          // do nothing if subscription is already running using exactly the same variables
+          if (variablesJson === this.previousVariablesJson) {
+            return;
+          }
+
+          this.sub.unsubscribe();
+        }
+
+        this.previousVariablesJson = variablesJson;
+        var apolloOptions = this.generateApolloOptions(variables);
+
+        if (typeof apolloOptions.updateQuery === 'function') {
+          apolloOptions.updateQuery = apolloOptions.updateQuery.bind(this.vm);
+        }
+
+        if (this.options.linkedQuery) {
+          if (typeof this.options.result === 'function') {
+            var rcb = this.options.result.bind(this.vm);
+            var ucb = apolloOptions.updateQuery && apolloOptions.updateQuery.bind(this.vm);
+
+            apolloOptions.updateQuery = function () {
+              rcb.apply(void 0, arguments);
+              return ucb && ucb.apply(void 0, arguments);
+            };
+          }
+
+          this.sub = this.options.linkedQuery.subscribeToMore(apolloOptions);
+        } else {
+          // Create observer
+          this.observer = this.vm.$apollo.subscribe(apolloOptions); // Create subscription
+
+          this.sub = this.observer.subscribe({
+            next: this.nextResult.bind(this),
+            error: this.catchError.bind(this)
+          });
+        }
+
+        _get(_getPrototypeOf(SmartSubscription.prototype), "executeApollo", this).call(this, variables);
+      }
+    }, {
+      key: "nextResult",
+      value: function nextResult(data) {
+        _get(_getPrototypeOf(SmartSubscription.prototype), "nextResult", this).call(this, data);
+
+        if (typeof this.options.result === 'function') {
+          this.options.result.call(this.vm, data, this.key);
+        }
+      }
+    }]);
+
+    return SmartSubscription;
+  }(SmartApollo);
+
+  var DollarApollo = /*#__PURE__*/function () {
+    function DollarApollo(vm) {
+      _classCallCheck(this, DollarApollo);
+
+      this._apolloSubscriptions = [];
+      this._watchers = [];
+      this.vm = vm;
+      this.queries = {};
+      this.subscriptions = {};
+      this.client = undefined;
+      this.loadingKey = undefined;
+      this.error = undefined;
+    }
+
+    _createClass(DollarApollo, [{
+      key: "getClient",
+      value: function getClient() {
+        var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+
+        if (!options || !options.client) {
+          if (_typeof(this.client) === 'object') {
+            return this.client;
+          }
+
+          if (this.client) {
+            if (!this.provider.clients) {
+              throw new Error("[vue-apollo] Missing 'clients' options in 'apolloProvider'");
+            } else {
+              var _client = this.provider.clients[this.client];
+
+              if (!_client) {
+                throw new Error("[vue-apollo] Missing client '".concat(this.client, "' in 'apolloProvider'"));
+              }
+
+              return _client;
+            }
+          }
+
+          return this.provider.defaultClient;
+        }
+
+        var client = this.provider.clients[options.client];
+
+        if (!client) {
+          throw new Error("[vue-apollo] Missing client '".concat(options.client, "' in 'apolloProvider'"));
+        }
+
+        return client;
+      }
+    }, {
+      key: "query",
+      value: function query(options) {
+        return this.getClient(options).query(options);
+      }
+    }, {
+      key: "watchQuery",
+      value: function watchQuery(options) {
+        var _this = this;
+
+        var observable = this.getClient(options).watchQuery(options);
+
+        var _subscribe = observable.subscribe.bind(observable);
+
+        observable.subscribe = function (options) {
+          var sub = _subscribe(options);
+
+          _this._apolloSubscriptions.push(sub);
+
+          return sub;
+        };
+
+        return observable;
+      }
+    }, {
+      key: "mutate",
+      value: function mutate(options) {
+        return this.getClient(options).mutate(options);
+      }
+    }, {
+      key: "subscribe",
+      value: function subscribe(options) {
+        var _this2 = this;
+
+        if (!this.vm.$isServer) {
+          var observable = this.getClient(options).subscribe(options);
+
+          var _subscribe = observable.subscribe.bind(observable);
+
+          observable.subscribe = function (options) {
+            var sub = _subscribe(options);
+
+            _this2._apolloSubscriptions.push(sub);
+
+            return sub;
+          };
+
+          return observable;
+        }
+      }
+    }, {
+      key: "addSmartQuery",
+      value: function addSmartQuery(key, options) {
+        var _this3 = this;
+
+        var finalOptions = utils_5(options, this.vm); // Simple query
+
+        if (!finalOptions.query) {
+          var query = finalOptions;
+          finalOptions = {
+            query: query
+          };
+        }
+
+        var apollo = this.vm.$options.apollo;
+        var defaultOptions = this.provider.defaultOptions;
+        var $query;
+
+        if (defaultOptions && defaultOptions.$query) {
+          $query = defaultOptions.$query;
+        }
+
+        if (apollo && apollo.$query) {
+          $query = _objectSpread2({}, $query || {}, {}, apollo.$query);
+        }
+
+        if ($query) {
+          // Also replaces 'undefined' values
+          for (var _key in $query) {
+            if (typeof finalOptions[_key] === 'undefined') {
+              finalOptions[_key] = $query[_key];
+            }
+          }
+        }
+
+        var smart = this.queries[key] = new SmartQuery(this.vm, key, finalOptions, false);
+
+        if (!this.vm.$isServer || finalOptions.prefetch !== false) {
+          smart.autostart();
+        }
+
+        if (!this.vm.$isServer) {
+          var subs = finalOptions.subscribeToMore;
+
+          if (subs) {
+            if (Array.isArray(subs)) {
+              subs.forEach(function (sub, index) {
+                _this3.addSmartSubscription("".concat(key).concat(index), _objectSpread2({}, sub, {
+                  linkedQuery: smart
+                }));
+              });
+            } else {
+              this.addSmartSubscription(key, _objectSpread2({}, subs, {
+                linkedQuery: smart
+              }));
+            }
+          }
+        }
+
+        return smart;
+      }
+    }, {
+      key: "addSmartSubscription",
+      value: function addSmartSubscription(key, options) {
+        if (!this.vm.$isServer) {
+          options = utils_5(options, this.vm);
+          var smart = this.subscriptions[key] = new SmartSubscription(this.vm, key, options, false);
+          smart.autostart();
+
+          if (options.linkedQuery) {
+            options.linkedQuery._linkedSubscriptions.push(smart);
+          }
+
+          return smart;
+        }
+      }
+    }, {
+      key: "defineReactiveSetter",
+      value: function defineReactiveSetter(key, func, deep) {
+        var _this4 = this;
+
+        this._watchers.push(this.vm.$watch(func, function (value) {
+          _this4[key] = value;
+        }, {
+          immediate: true,
+          deep: deep
+        }));
+      }
+    }, {
+      key: "destroy",
+      value: function destroy() {
+        for (var _i2 = 0, _this$_watchers2 = this._watchers; _i2 < _this$_watchers2.length; _i2++) {
+          var unwatch = _this$_watchers2[_i2];
+          unwatch();
+        }
+
+        for (var key in this.queries) {
+          this.queries[key].destroy();
+        }
+
+        for (var _key2 in this.subscriptions) {
+          this.subscriptions[_key2].destroy();
+        }
+
+        this._apolloSubscriptions.forEach(function (sub) {
+          sub.unsubscribe();
+        });
+      }
+    }, {
+      key: "provider",
+      get: function get() {
+        return this.vm.$apolloProvider;
+      }
+    }, {
+      key: "loading",
+      get: function get() {
+        return this.vm.$data.$apolloData.loading !== 0;
+      }
+    }, {
+      key: "data",
+      get: function get() {
+        return this.vm.$data.$apolloData.data;
+      }
+    }, {
+      key: "skipAllQueries",
+      set: function set(value) {
+        for (var key in this.queries) {
+          this.queries[key].skip = value;
+        }
+      }
+    }, {
+      key: "skipAllSubscriptions",
+      set: function set(value) {
+        for (var key in this.subscriptions) {
+          this.subscriptions[key].skip = value;
+        }
+      }
+    }, {
+      key: "skipAll",
+      set: function set(value) {
+        this.skipAllQueries = value;
+        this.skipAllSubscriptions = value;
+      }
+    }]);
+
+    return DollarApollo;
+  }();
+
+  var ApolloProvider = /*#__PURE__*/function () {
+    function ApolloProvider(options) {
+      _classCallCheck(this, ApolloProvider);
+
+      if (!options) {
+        throw new Error('Options argument required');
+      }
+
+      this.clients = options.clients || {};
+
+      if (options.defaultClient) {
+        this.clients.defaultClient = this.defaultClient = options.defaultClient;
+      }
+
+      this.defaultOptions = options.defaultOptions;
+      this.watchLoading = options.watchLoading;
+      this.errorHandler = options.errorHandler;
+      this.prefetch = options.prefetch;
+    }
+
+    _createClass(ApolloProvider, [{
+      key: "provide",
+      value: function provide() {
+        var key = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '$apolloProvider';
+        console.warn("<ApolloProvider>.provide() is deprecated. Use the 'apolloProvider' option instead with the provider object directly.");
+        return _defineProperty({}, key, this);
+      }
+    }]);
+
+    return ApolloProvider;
+  }();
+
+  function isDataFilled(data) {
+    return Object.keys(data).length > 0;
+  }
+
+  var CApolloQuery = {
+    name: 'ApolloQuery',
+    provide: function provide() {
+      return {
+        getDollarApollo: this.getDollarApollo,
+        getApolloQuery: this.getApolloQuery
+      };
+    },
+    props: {
+      query: {
+        type: [Function, Object],
+        required: true
+      },
+      variables: {
+        type: Object,
+        "default": undefined
+      },
+      fetchPolicy: {
+        type: String,
+        "default": undefined
+      },
+      pollInterval: {
+        type: Number,
+        "default": undefined
+      },
+      notifyOnNetworkStatusChange: {
+        type: Boolean,
+        "default": undefined
+      },
+      context: {
+        type: Object,
+        "default": undefined
+      },
+      update: {
+        type: Function,
+        "default": function _default(data) {
+          return data;
+        }
+      },
+      skip: {
+        type: Boolean,
+        "default": false
+      },
+      debounce: {
+        type: Number,
+        "default": 0
+      },
+      throttle: {
+        type: Number,
+        "default": 0
+      },
+      clientId: {
+        type: String,
+        "default": undefined
+      },
+      deep: {
+        type: Boolean,
+        "default": undefined
+      },
+      tag: {
+        type: String,
+        "default": 'div'
+      },
+      prefetch: {
+        type: Boolean,
+        "default": true
+      },
+      options: {
+        type: Object,
+        "default": function _default() {
+          return {};
+        }
+      }
+    },
+    data: function data() {
+      return {
+        result: {
+          data: null,
+          loading: false,
+          networkStatus: 7,
+          error: null
+        },
+        times: 0
+      };
+    },
+    watch: {
+      fetchPolicy: function fetchPolicy(value) {
+        this.$apollo.queries.query.setOptions({
+          fetchPolicy: value
+        });
+      },
+      pollInterval: function pollInterval(value) {
+        this.$apollo.queries.query.setOptions({
+          pollInterval: value
+        });
+      },
+      notifyOnNetworkStatusChange: function notifyOnNetworkStatusChange(value) {
+        this.$apollo.queries.query.setOptions({
+          notifyOnNetworkStatusChange: value
+        });
+      },
+      '$data.$apolloData.loading': function $data$apolloDataLoading(value) {
+        this.$emit('loading', !!value);
+      }
+    },
+    apollo: {
+      $client: function $client() {
+        return this.clientId;
+      },
+      query: function query() {
+        return _objectSpread2({
+          query: function query() {
+            if (typeof this.query === 'function') {
+              return this.query(gql);
+            }
+
+            return this.query;
+          },
+          variables: function variables() {
+            return this.variables;
+          },
+          fetchPolicy: this.fetchPolicy,
+          pollInterval: this.pollInterval,
+          debounce: this.debounce,
+          throttle: this.throttle,
+          notifyOnNetworkStatusChange: this.notifyOnNetworkStatusChange,
+          context: function context() {
+            return this.context;
+          },
+          skip: function skip() {
+            return this.skip;
+          },
+          deep: this.deep,
+          prefetch: this.prefetch
+        }, this.options, {
+          manual: true,
+          result: function result(_result) {
+            var _result2 = _result,
+                errors = _result2.errors,
+                loading = _result2.loading,
+                networkStatus = _result2.networkStatus;
+            var _result3 = _result,
+                error = _result3.error;
+            _result = Object.assign({}, _result);
+
+            if (errors && errors.length) {
+              error = new Error("Apollo errors occurred (".concat(errors.length, ")"));
+              error.graphQLErrors = errors;
+            }
+
+            var data = {};
+
+            if (loading) {
+              Object.assign(data, this.$_previousData, _result.data);
+            } else if (error) {
+              Object.assign(data, this.$apollo.queries.query.observer.getLastResult() || {}, _result.data);
+            } else {
+              data = _result.data;
+              this.$_previousData = _result.data;
+            }
+
+            var dataNotEmpty = isDataFilled(data);
+            this.result = {
+              data: dataNotEmpty ? this.update(data) : undefined,
+              fullData: dataNotEmpty ? data : undefined,
+              loading: loading,
+              error: error,
+              networkStatus: networkStatus
+            };
+            this.times = ++this.$_times;
+            this.$emit('result', this.result);
+          },
+          error: function error(_error) {
+            this.result.loading = false;
+            this.result.error = _error;
+            this.$emit('error', _error);
+          }
+        });
+      }
+    },
+    created: function created() {
+      this.$_times = 0;
+    },
+    methods: {
+      getDollarApollo: function getDollarApollo() {
+        return this.$apollo;
+      },
+      getApolloQuery: function getApolloQuery() {
+        return this.$apollo.queries.query;
+      }
+    },
+    render: function render(h) {
+      var result = this.$scopedSlots["default"]({
+        result: this.result,
+        times: this.times,
+        query: this.$apollo.queries.query,
+        isLoading: this.$apolloData.loading,
+        gqlError: this.result && this.result.error && this.result.error.gqlError
+      });
+
+      if (Array.isArray(result)) {
+        result = result.concat(this.$slots["default"]);
+      } else {
+        result = [result].concat(this.$slots["default"]);
+      }
+
+      return this.tag ? h(this.tag, result) : result[0];
+    }
+  };
+  var uid = 0;
+  var CApolloSubscribeToMore = {
+    name: 'ApolloSubscribeToMore',
+    inject: ['getDollarApollo', 'getApolloQuery'],
+    props: {
+      document: {
+        type: [Function, Object],
+        required: true
+      },
+      variables: {
+        type: Object,
+        "default": undefined
+      },
+      updateQuery: {
+        type: Function,
+        "default": undefined
+      }
+    },
+    watch: {
+      document: 'refresh',
+      variables: 'refresh'
+    },
+    created: function created() {
+      this.$_key = "sub_component_".concat(uid++);
+    },
+    mounted: function mounted() {
+      this.refresh();
+    },
+    beforeDestroy: function beforeDestroy() {
+      this.destroy();
+    },
+    methods: {
+      destroy: function destroy() {
+        if (this.$_sub) {
+          this.$_sub.destroy();
+        }
+      },
+      refresh: function refresh() {
+        this.destroy();
+        var document = this.document;
+
+        if (typeof document === 'function') {
+          document = document(gql);
+        }
+
+        this.$_sub = this.getDollarApollo().addSmartSubscription(this.$_key, {
+          document: document,
+          variables: this.variables,
+          updateQuery: this.updateQuery,
+          linkedQuery: this.getApolloQuery()
+        });
+      }
+    },
+    render: function render(h) {
+      return null;
+    }
+  };
+  var CApolloMutation = {
+    props: {
+      mutation: {
+        type: [Function, Object],
+        required: true
+      },
+      variables: {
+        type: Object,
+        "default": undefined
+      },
+      optimisticResponse: {
+        type: Object,
+        "default": undefined
+      },
+      update: {
+        type: Function,
+        "default": undefined
+      },
+      refetchQueries: {
+        type: Function,
+        "default": undefined
+      },
+      clientId: {
+        type: String,
+        "default": undefined
+      },
+      tag: {
+        type: String,
+        "default": 'div'
+      },
+      context: {
+        type: Object,
+        "default": undefined
+      }
+    },
+    data: function data() {
+      return {
+        loading: false,
+        error: null
+      };
+    },
+    watch: {
+      loading: function loading(value) {
+        this.$emit('loading', value);
+      }
+    },
+    methods: {
+      mutate: function mutate(options) {
+        var _this = this;
+
+        this.loading = true;
+        this.error = null;
+        var mutation = this.mutation;
+
+        if (typeof mutation === 'function') {
+          mutation = mutation(gql);
+        }
+
+        return this.$apollo.mutate(_objectSpread2({
+          mutation: mutation,
+          client: this.clientId,
+          variables: this.variables,
+          optimisticResponse: this.optimisticResponse,
+          update: this.update,
+          refetchQueries: this.refetchQueries,
+          context: this.context
+        }, options)).then(function (result) {
+          _this.$emit('done', result);
+
+          _this.loading = false;
+        })["catch"](function (e) {
+          utils_7(e);
+          _this.error = e;
+
+          _this.$emit('error', e);
+
+          _this.loading = false;
+        });
+      }
+    },
+    render: function render(h) {
+      var result = this.$scopedSlots["default"]({
+        mutate: this.mutate,
+        loading: this.loading,
+        error: this.error,
+        gqlError: this.error && this.error.gqlError
+      });
+
+      if (Array.isArray(result)) {
+        result = result.concat(this.$slots["default"]);
+      } else {
+        result = [result].concat(this.$slots["default"]);
+      }
+
+      return this.tag ? h(this.tag, result) : result[0];
+    }
+  };
+
+  function hasProperty(holder, key) {
+    return typeof holder !== 'undefined' && Object.prototype.hasOwnProperty.call(holder, key);
+  }
+
+  function initProvider() {
+    var options = this.$options; // ApolloProvider injection
+
+    var optionValue = options.apolloProvider;
+
+    if (optionValue) {
+      this.$apolloProvider = typeof optionValue === 'function' ? optionValue() : optionValue;
+    } else if (options.parent && options.parent.$apolloProvider) {
+      this.$apolloProvider = options.parent.$apolloProvider;
+    } else if (options.provide) {
+      // TODO remove
+      // Temporary retro-compatibility
+      var provided = typeof options.provide === 'function' ? options.provide.call(this) : options.provide;
+
+      if (provided && provided.$apolloProvider) {
+        this.$apolloProvider = provided.$apolloProvider;
+      }
+    }
+  }
+
+  function proxyData() {
+    var _this = this;
+
+    this.$_apolloInitData = {};
+    var apollo = this.$options.apollo;
+
+    if (apollo) {
+      var _loop = function _loop(key) {
+        if (key.charAt(0) !== '$') {
+          var options = apollo[key]; // Property proxy
+
+          if (!options.manual && !hasProperty(_this.$options.props, key) && !hasProperty(_this.$options.computed, key) && !hasProperty(_this.$options.methods, key)) {
+            Object.defineProperty(_this, key, {
+              get: function get() {
+                return _this.$data.$apolloData.data[key];
+              },
+              // For component class constructor
+              set: function set(value) {
+                return _this.$_apolloInitData[key] = value;
+              },
+              enumerable: true,
+              configurable: true
+            });
+          }
+        }
+      }; // watchQuery
+
+
+      for (var key in apollo) {
+        _loop(key);
+      }
+    }
+  }
+
+  function launch() {
+    var _this2 = this;
+
+    var apolloProvider = this.$apolloProvider;
+    if (this._apolloLaunched || !apolloProvider) return;
+    this._apolloLaunched = true; // Prepare properties
+
+    var apollo = this.$options.apollo;
+
+    if (apollo) {
+      this.$_apolloPromises = [];
+
+      if (!apollo.$init) {
+        apollo.$init = true; // Default options applied to `apollo` options
+
+        if (apolloProvider.defaultOptions) {
+          apollo = this.$options.apollo = Object.assign({}, apolloProvider.defaultOptions, apollo);
+        }
+      }
+
+      defineReactiveSetter(this.$apollo, 'skipAll', apollo.$skipAll, apollo.$deep);
+      defineReactiveSetter(this.$apollo, 'skipAllQueries', apollo.$skipAllQueries, apollo.$deep);
+      defineReactiveSetter(this.$apollo, 'skipAllSubscriptions', apollo.$skipAllSubscriptions, apollo.$deep);
+      defineReactiveSetter(this.$apollo, 'client', apollo.$client, apollo.$deep);
+      defineReactiveSetter(this.$apollo, 'loadingKey', apollo.$loadingKey, apollo.$deep);
+      defineReactiveSetter(this.$apollo, 'error', apollo.$error, apollo.$deep);
+      defineReactiveSetter(this.$apollo, 'watchLoading', apollo.$watchLoading, apollo.$deep); // Apollo Data
+
+      Object.defineProperty(this, '$apolloData', {
+        get: function get() {
+          return _this2.$data.$apolloData;
+        },
+        enumerable: true,
+        configurable: true
+      }); // watchQuery
+
+      for (var key in apollo) {
+        if (key.charAt(0) !== '$') {
+          var options = apollo[key];
+          var smart = this.$apollo.addSmartQuery(key, options);
+
+          if (this.$isServer) {
+            options = utils_5(options, this);
+
+            if (apolloProvider.prefetch !== false && options.prefetch !== false && apollo.$prefetch !== false && !smart.skip) {
+              this.$_apolloPromises.push(smart.firstRun);
+            }
+          }
+        }
+      }
+
+      if (apollo.subscribe) {
+        utils_1.Vue.util.warn('vue-apollo -> `subscribe` option is deprecated. Use the `$subscribe` option instead.');
+      }
+
+      if (apollo.$subscribe) {
+        for (var _key in apollo.$subscribe) {
+          this.$apollo.addSmartSubscription(_key, apollo.$subscribe[_key]);
+        }
+      }
+    }
+  }
+
+  function defineReactiveSetter($apollo, key, value, deep) {
+    if (typeof value !== 'undefined') {
+      if (typeof value === 'function') {
+        $apollo.defineReactiveSetter(key, value, deep);
+      } else {
+        $apollo[key] = value;
+      }
+    }
+  }
+
+  function destroy() {
+    if (this.$_apollo) {
+      this.$_apollo.destroy();
+    }
+  }
+
+  function installMixin(Vue, vueVersion) {
+    Vue.mixin(_objectSpread2({}, vueVersion === '1' ? {
+      init: initProvider
+    } : {}, {}, vueVersion === '2' ? {
+      data: function data() {
+        return {
+          '$apolloData': {
+            queries: {},
+            loading: 0,
+            data: this.$_apolloInitData
+          }
+        };
+      },
+      beforeCreate: function beforeCreate() {
+        initProvider.call(this);
+        proxyData.call(this);
+      },
+      serverPrefetch: function serverPrefetch() {
+        var _this3 = this;
+
+        if (this.$_apolloPromises) {
+          return Promise.all(this.$_apolloPromises).then(function () {
+            destroy.call(_this3);
+          })["catch"](function (e) {
+            destroy.call(_this3);
+            return Promise.reject(e);
+          });
+        }
+      }
+    } : {}, {
+      created: launch,
+      destroyed: destroy
+    }));
+  }
+
+  var keywords = ['$subscribe'];
+
+  function install(Vue, options) {
+    if (install.installed) return;
+    install.installed = true;
+    utils_1.Vue = Vue;
+    var vueVersion = Vue.version.substr(0, Vue.version.indexOf('.')); // Options merging
+
+    var merge = Vue.config.optionMergeStrategies.methods;
+
+    Vue.config.optionMergeStrategies.apollo = function (toVal, fromVal, vm) {
+      if (!toVal) return fromVal;
+      if (!fromVal) return toVal;
+      var toData = Object.assign({}, utils_6(toVal, keywords), toVal.data);
+      var fromData = Object.assign({}, utils_6(fromVal, keywords), fromVal.data);
+      var map = {};
+
+      for (var i = 0; i < keywords.length; i++) {
+        var key = keywords[i];
+        map[key] = merge(toVal[key], fromVal[key]);
+      }
+
+      return Object.assign(map, merge(toData, fromData));
+    }; // Lazy creation
+
+
+    if (!Vue.prototype.hasOwnProperty('$apollo')) {
+      Object.defineProperty(Vue.prototype, '$apollo', {
+        get: function get() {
+          if (!this.$_apollo) {
+            this.$_apollo = new DollarApollo(this);
+          }
+
+          return this.$_apollo;
+        }
+      });
+    }
+
+    installMixin(Vue, vueVersion);
+
+    if (vueVersion === '2') {
+      Vue.component('apollo-query', CApolloQuery);
+      Vue.component('ApolloQuery', CApolloQuery);
+      Vue.component('apollo-subscribe-to-more', CApolloSubscribeToMore);
+      Vue.component('ApolloSubscribeToMore', CApolloSubscribeToMore);
+      Vue.component('apollo-mutation', CApolloMutation);
+      Vue.component('ApolloMutation', CApolloMutation);
+    }
+  }
+
+  ApolloProvider.install = install; // eslint-disable-next-line no-undef
+
+  ApolloProvider.version = "3.0.5"; // Apollo provider
+
+  var ApolloProvider$1 = ApolloProvider; // Components
+
+  var ApolloQuery = CApolloQuery;
+  var ApolloSubscribeToMore = CApolloSubscribeToMore;
+  var ApolloMutation = CApolloMutation; // Auto-install
+
+  var GlobalVue = null;
+
+  if (typeof window !== 'undefined') {
+    GlobalVue = window.Vue;
+  } else if (typeof global !== 'undefined') {
+    GlobalVue = global.Vue;
+  }
+
+  if (GlobalVue) {
+    GlobalVue.use(ApolloProvider);
+  }
+
+  exports.ApolloMutation = ApolloMutation;
+  exports.ApolloProvider = ApolloProvider$1;
+  exports.ApolloQuery = ApolloQuery;
+  exports.ApolloSubscribeToMore = ApolloSubscribeToMore;
+  exports.default = ApolloProvider;
+  exports.install = install;
+  Object.defineProperty(exports, '__esModule', {
+    value: true
+  });
+});
 
 /***/ }),
-/* 26 */
+/* 60 */
 /***/ (function(module, exports) {
 
 module.exports = "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjxzdmcgeG1sbnM6c3ZnPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4wIiB3aWR0aD0iODBweCIgaGVpZ2h0PSI4MHB4IiB2aWV3Qm94PSIwIDAgMTI4IDEyOCIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+PHBhdGggZmlsbD0iI2ZmZmZmZiIgZmlsbC1vcGFjaXR5PSIxIiBkPSJNNjQuNCAxNmE0OSA0OSAwIDAgMC01MCA0OCA1MSA1MSAwIDAgMCA1MCA1Mi4yIDUzIDUzIDAgMCAwIDU0LTUyYy0uNy00OC00NS01NS43LTQ1LTU1LjdzNDUuMyAzLjggNDkgNTUuNmMuOCAzMi0yNC44IDU5LjUtNTggNjAuMi0zMyAuOC02MS40LTI1LjctNjItNjBDMS4zIDI5LjggMjguOC42IDY0LjMgMGMwIDAgOC41IDAgOC43IDguNCAwIDgtOC42IDcuNi04LjYgNy42eiIvPjwvc3ZnPgo="
 
 /***/ }),
-/* 27 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(119);
+var content = __webpack_require__(156);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
@@ -1746,13 +6608,13 @@ module.exports.__inject__ = function (context) {
 };
 
 /***/ }),
-/* 28 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(121);
+var content = __webpack_require__(158);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
@@ -1762,13 +6624,29 @@ module.exports.__inject__ = function (context) {
 };
 
 /***/ }),
-/* 29 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(123);
+var content = __webpack_require__(160);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add CSS to SSR context
+var add = __webpack_require__(4).default
+module.exports.__inject__ = function (context) {
+  add("75ee36b4", content, true, context)
+};
+
+/***/ }),
+/* 64 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(162);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
@@ -1778,13 +6656,13 @@ module.exports.__inject__ = function (context) {
 };
 
 /***/ }),
-/* 30 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(125);
+var content = __webpack_require__(164);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
@@ -1794,13 +6672,13 @@ module.exports.__inject__ = function (context) {
 };
 
 /***/ }),
-/* 31 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(127);
+var content = __webpack_require__(166);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
@@ -1810,13 +6688,13 @@ module.exports.__inject__ = function (context) {
 };
 
 /***/ }),
-/* 32 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(129);
+var content = __webpack_require__(168);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
@@ -1826,13 +6704,13 @@ module.exports.__inject__ = function (context) {
 };
 
 /***/ }),
-/* 33 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(131);
+var content = __webpack_require__(170);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
@@ -1842,295 +6720,7 @@ module.exports.__inject__ = function (context) {
 };
 
 /***/ }),
-/* 34 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(133);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add CSS to SSR context
-var add = __webpack_require__(4).default
-module.exports.__inject__ = function (context) {
-  add("08af7ee6", content, true, context)
-};
-
-/***/ }),
-/* 35 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(135);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add CSS to SSR context
-var add = __webpack_require__(4).default
-module.exports.__inject__ = function (context) {
-  add("1dfe5cd2", content, true, context)
-};
-
-/***/ }),
-/* 36 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(137);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add CSS to SSR context
-var add = __webpack_require__(4).default
-module.exports.__inject__ = function (context) {
-  add("36402f16", content, true, context)
-};
-
-/***/ }),
-/* 37 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(139);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add CSS to SSR context
-var add = __webpack_require__(4).default
-module.exports.__inject__ = function (context) {
-  add("edf87c24", content, true, context)
-};
-
-/***/ }),
-/* 38 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(143);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add CSS to SSR context
-var add = __webpack_require__(4).default
-module.exports.__inject__ = function (context) {
-  add("3b289a17", content, true, context)
-};
-
-/***/ }),
-/* 39 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(145);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add CSS to SSR context
-var add = __webpack_require__(4).default
-module.exports.__inject__ = function (context) {
-  add("7d9ef54c", content, true, context)
-};
-
-/***/ }),
-/* 40 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(147);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add CSS to SSR context
-var add = __webpack_require__(4).default
-module.exports.__inject__ = function (context) {
-  add("bbd8bb54", content, true, context)
-};
-
-/***/ }),
-/* 41 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(149);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add CSS to SSR context
-var add = __webpack_require__(4).default
-module.exports.__inject__ = function (context) {
-  add("07754c22", content, true, context)
-};
-
-/***/ }),
-/* 42 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(151);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add CSS to SSR context
-var add = __webpack_require__(4).default
-module.exports.__inject__ = function (context) {
-  add("5874c4ca", content, true, context)
-};
-
-/***/ }),
-/* 43 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(153);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add CSS to SSR context
-var add = __webpack_require__(4).default
-module.exports.__inject__ = function (context) {
-  add("9d112976", content, true, context)
-};
-
-/***/ }),
-/* 44 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(155);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add CSS to SSR context
-var add = __webpack_require__(4).default
-module.exports.__inject__ = function (context) {
-  add("723fc47a", content, true, context)
-};
-
-/***/ }),
-/* 45 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(157);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add CSS to SSR context
-var add = __webpack_require__(4).default
-module.exports.__inject__ = function (context) {
-  add("1a97d42f", content, true, context)
-};
-
-/***/ }),
-/* 46 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(159);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add CSS to SSR context
-var add = __webpack_require__(4).default
-module.exports.__inject__ = function (context) {
-  add("0beafbc6", content, true, context)
-};
-
-/***/ }),
-/* 47 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(161);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add CSS to SSR context
-var add = __webpack_require__(4).default
-module.exports.__inject__ = function (context) {
-  add("75c4c25b", content, true, context)
-};
-
-/***/ }),
-/* 48 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(163);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add CSS to SSR context
-var add = __webpack_require__(4).default
-module.exports.__inject__ = function (context) {
-  add("1f0c644a", content, true, context)
-};
-
-/***/ }),
-/* 49 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(165);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add CSS to SSR context
-var add = __webpack_require__(4).default
-module.exports.__inject__ = function (context) {
-  add("7c8dbfe5", content, true, context)
-};
-
-/***/ }),
-/* 50 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(167);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add CSS to SSR context
-var add = __webpack_require__(4).default
-module.exports.__inject__ = function (context) {
-  add("5cbbbd3f", content, true, context)
-};
-
-/***/ }),
-/* 51 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(169);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add CSS to SSR context
-var add = __webpack_require__(4).default
-module.exports.__inject__ = function (context) {
-  add("86a6b6be", content, true, context)
-};
-
-/***/ }),
-/* 52 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -2142,11 +6732,11 @@ if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(4).default
 module.exports.__inject__ = function (context) {
-  add("7dba24b0", content, true, context)
+  add("08af7ee6", content, true, context)
 };
 
 /***/ }),
-/* 53 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -2158,11 +6748,11 @@ if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(4).default
 module.exports.__inject__ = function (context) {
-  add("02f2a002", content, true, context)
+  add("1dfe5cd2", content, true, context)
 };
 
 /***/ }),
-/* 54 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -2174,11 +6764,11 @@ if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(4).default
 module.exports.__inject__ = function (context) {
-  add("47ec93ce", content, true, context)
+  add("36402f16", content, true, context)
 };
 
 /***/ }),
-/* 55 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -2190,27 +6780,11 @@ if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(4).default
 module.exports.__inject__ = function (context) {
-  add("518e2c62", content, true, context)
+  add("edf87c24", content, true, context)
 };
 
 /***/ }),
-/* 56 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(180);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add CSS to SSR context
-var add = __webpack_require__(4).default
-module.exports.__inject__ = function (context) {
-  add("8193f88c", content, true, context)
-};
-
-/***/ }),
-/* 57 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -2222,11 +6796,11 @@ if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(4).default
 module.exports.__inject__ = function (context) {
-  add("96aee47e", content, true, context)
+  add("3b289a17", content, true, context)
 };
 
 /***/ }),
-/* 58 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -2238,11 +6812,11 @@ if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(4).default
 module.exports.__inject__ = function (context) {
-  add("7ae7a16c", content, true, context)
+  add("7d9ef54c", content, true, context)
 };
 
 /***/ }),
-/* 59 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -2254,11 +6828,11 @@ if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(4).default
 module.exports.__inject__ = function (context) {
-  add("6b3dfd31", content, true, context)
+  add("bbd8bb54", content, true, context)
 };
 
 /***/ }),
-/* 60 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -2270,11 +6844,11 @@ if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(4).default
 module.exports.__inject__ = function (context) {
-  add("d6f4b9d6", content, true, context)
+  add("07754c22", content, true, context)
 };
 
 /***/ }),
-/* 61 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -2286,11 +6860,11 @@ if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(4).default
 module.exports.__inject__ = function (context) {
-  add("2a6dfbbe", content, true, context)
+  add("5874c4ca", content, true, context)
 };
 
 /***/ }),
-/* 62 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -2302,11 +6876,11 @@ if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(4).default
 module.exports.__inject__ = function (context) {
-  add("72daabed", content, true, context)
+  add("9d112976", content, true, context)
 };
 
 /***/ }),
-/* 63 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -2318,23 +6892,11 @@ if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(4).default
 module.exports.__inject__ = function (context) {
-  add("3191d5ad", content, true, context)
+  add("723fc47a", content, true, context)
 };
 
 /***/ }),
-/* 64 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(195);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-__webpack_require__(4).default("19c3077e", content, true)
-
-/***/ }),
-/* 65 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -2343,22 +6905,14 @@ __webpack_require__(4).default("19c3077e", content, true)
 var content = __webpack_require__(196);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
-__webpack_require__(4).default("c9897de0", content, true)
+// add CSS to SSR context
+var add = __webpack_require__(4).default
+module.exports.__inject__ = function (context) {
+  add("1a97d42f", content, true, context)
+};
 
 /***/ }),
-/* 66 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(197);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-__webpack_require__(4).default("0af5d4d6", content, true)
-
-/***/ }),
-/* 67 */
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -2367,10 +6921,30 @@ __webpack_require__(4).default("0af5d4d6", content, true)
 var content = __webpack_require__(198);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
-__webpack_require__(4).default("1182f508", content, true)
+// add CSS to SSR context
+var add = __webpack_require__(4).default
+module.exports.__inject__ = function (context) {
+  add("0beafbc6", content, true, context)
+};
 
 /***/ }),
-/* 68 */
+/* 82 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(200);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add CSS to SSR context
+var add = __webpack_require__(4).default
+module.exports.__inject__ = function (context) {
+  add("75c4c25b", content, true, context)
+};
+
+/***/ }),
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -2382,11 +6956,11 @@ if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(4).default
 module.exports.__inject__ = function (context) {
-  add("49f61046", content, true, context)
+  add("1f0c644a", content, true, context)
 };
 
 /***/ }),
-/* 69 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -2398,11 +6972,11 @@ if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(4).default
 module.exports.__inject__ = function (context) {
-  add("2570ef5e", content, true, context)
+  add("7c8dbfe5", content, true, context)
 };
 
 /***/ }),
-/* 70 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -2414,11 +6988,11 @@ if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(4).default
 module.exports.__inject__ = function (context) {
-  add("041261d0", content, true, context)
+  add("5cbbbd3f", content, true, context)
 };
 
 /***/ }),
-/* 71 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -2430,17 +7004,321 @@ if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(4).default
 module.exports.__inject__ = function (context) {
-  add("461436d8", content, true, context)
+  add("86a6b6be", content, true, context)
 };
 
 /***/ }),
-/* 72 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(210);
+var content = __webpack_require__(211);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add CSS to SSR context
+var add = __webpack_require__(4).default
+module.exports.__inject__ = function (context) {
+  add("7dba24b0", content, true, context)
+};
+
+/***/ }),
+/* 88 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(213);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add CSS to SSR context
+var add = __webpack_require__(4).default
+module.exports.__inject__ = function (context) {
+  add("02f2a002", content, true, context)
+};
+
+/***/ }),
+/* 89 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(215);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add CSS to SSR context
+var add = __webpack_require__(4).default
+module.exports.__inject__ = function (context) {
+  add("47ec93ce", content, true, context)
+};
+
+/***/ }),
+/* 90 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(217);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add CSS to SSR context
+var add = __webpack_require__(4).default
+module.exports.__inject__ = function (context) {
+  add("518e2c62", content, true, context)
+};
+
+/***/ }),
+/* 91 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(219);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add CSS to SSR context
+var add = __webpack_require__(4).default
+module.exports.__inject__ = function (context) {
+  add("8193f88c", content, true, context)
+};
+
+/***/ }),
+/* 92 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(221);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add CSS to SSR context
+var add = __webpack_require__(4).default
+module.exports.__inject__ = function (context) {
+  add("96aee47e", content, true, context)
+};
+
+/***/ }),
+/* 93 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(223);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add CSS to SSR context
+var add = __webpack_require__(4).default
+module.exports.__inject__ = function (context) {
+  add("7ae7a16c", content, true, context)
+};
+
+/***/ }),
+/* 94 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(225);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add CSS to SSR context
+var add = __webpack_require__(4).default
+module.exports.__inject__ = function (context) {
+  add("6b3dfd31", content, true, context)
+};
+
+/***/ }),
+/* 95 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(227);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add CSS to SSR context
+var add = __webpack_require__(4).default
+module.exports.__inject__ = function (context) {
+  add("d6f4b9d6", content, true, context)
+};
+
+/***/ }),
+/* 96 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(229);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add CSS to SSR context
+var add = __webpack_require__(4).default
+module.exports.__inject__ = function (context) {
+  add("2a6dfbbe", content, true, context)
+};
+
+/***/ }),
+/* 97 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(231);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add CSS to SSR context
+var add = __webpack_require__(4).default
+module.exports.__inject__ = function (context) {
+  add("72daabed", content, true, context)
+};
+
+/***/ }),
+/* 98 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(233);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add CSS to SSR context
+var add = __webpack_require__(4).default
+module.exports.__inject__ = function (context) {
+  add("3191d5ad", content, true, context)
+};
+
+/***/ }),
+/* 99 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(234);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+__webpack_require__(4).default("19c3077e", content, true)
+
+/***/ }),
+/* 100 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(235);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+__webpack_require__(4).default("c9897de0", content, true)
+
+/***/ }),
+/* 101 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(236);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+__webpack_require__(4).default("0af5d4d6", content, true)
+
+/***/ }),
+/* 102 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(237);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+__webpack_require__(4).default("1182f508", content, true)
+
+/***/ }),
+/* 103 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(241);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add CSS to SSR context
+var add = __webpack_require__(4).default
+module.exports.__inject__ = function (context) {
+  add("49f61046", content, true, context)
+};
+
+/***/ }),
+/* 104 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(243);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add CSS to SSR context
+var add = __webpack_require__(4).default
+module.exports.__inject__ = function (context) {
+  add("2570ef5e", content, true, context)
+};
+
+/***/ }),
+/* 105 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(245);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add CSS to SSR context
+var add = __webpack_require__(4).default
+module.exports.__inject__ = function (context) {
+  add("041261d0", content, true, context)
+};
+
+/***/ }),
+/* 106 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(247);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add CSS to SSR context
+var add = __webpack_require__(4).default
+module.exports.__inject__ = function (context) {
+  add("461436d8", content, true, context)
+};
+
+/***/ }),
+/* 107 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(249);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
@@ -2450,13 +7328,13 @@ module.exports.__inject__ = function (context) {
 };
 
 /***/ }),
-/* 73 */
+/* 108 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(212);
+var content = __webpack_require__(251);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
@@ -2466,19 +7344,194 @@ module.exports.__inject__ = function (context) {
 };
 
 /***/ }),
-/* 74 */
+/* 109 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var tslib_1 = __webpack_require__(8);
+
+var zen_observable_ts_1 = tslib_1.__importDefault(__webpack_require__(33));
+
+var apollo_utilities_1 = __webpack_require__(9);
+
+exports.getOperationName = apollo_utilities_1.getOperationName;
+
+var ts_invariant_1 = __webpack_require__(10);
+
+function validateOperation(operation) {
+  var OPERATION_FIELDS = ['query', 'operationName', 'variables', 'extensions', 'context'];
+
+  for (var _i = 0, _a = Object.keys(operation); _i < _a.length; _i++) {
+    var key = _a[_i];
+
+    if (OPERATION_FIELDS.indexOf(key) < 0) {
+      throw new ts_invariant_1.InvariantError("illegal argument: " + key);
+    }
+  }
+
+  return operation;
+}
+
+exports.validateOperation = validateOperation;
+
+var LinkError = function (_super) {
+  tslib_1.__extends(LinkError, _super);
+
+  function LinkError(message, link) {
+    var _this = _super.call(this, message) || this;
+
+    _this.link = link;
+    return _this;
+  }
+
+  return LinkError;
+}(Error);
+
+exports.LinkError = LinkError;
+
+function isTerminating(link) {
+  return link.request.length <= 1;
+}
+
+exports.isTerminating = isTerminating;
+
+function toPromise(observable) {
+  var completed = false;
+  return new Promise(function (resolve, reject) {
+    observable.subscribe({
+      next: function (data) {
+        if (completed) {
+          ts_invariant_1.invariant.warn("Promise Wrapper does not support multiple results from Observable");
+        } else {
+          completed = true;
+          resolve(data);
+        }
+      },
+      error: reject
+    });
+  });
+}
+
+exports.toPromise = toPromise;
+exports.makePromise = toPromise;
+
+function fromPromise(promise) {
+  return new zen_observable_ts_1.default(function (observer) {
+    promise.then(function (value) {
+      observer.next(value);
+      observer.complete();
+    }).catch(observer.error.bind(observer));
+  });
+}
+
+exports.fromPromise = fromPromise;
+
+function fromError(errorValue) {
+  return new zen_observable_ts_1.default(function (observer) {
+    observer.error(errorValue);
+  });
+}
+
+exports.fromError = fromError;
+
+function transformOperation(operation) {
+  var transformedOperation = {
+    variables: operation.variables || {},
+    extensions: operation.extensions || {},
+    operationName: operation.operationName,
+    query: operation.query
+  };
+
+  if (!transformedOperation.operationName) {
+    transformedOperation.operationName = typeof transformedOperation.query !== 'string' ? apollo_utilities_1.getOperationName(transformedOperation.query) : '';
+  }
+
+  return transformedOperation;
+}
+
+exports.transformOperation = transformOperation;
+
+function createOperation(starting, operation) {
+  var context = tslib_1.__assign({}, starting);
+
+  var setContext = function (next) {
+    if (typeof next === 'function') {
+      context = tslib_1.__assign({}, context, next(context));
+    } else {
+      context = tslib_1.__assign({}, context, next);
+    }
+  };
+
+  var getContext = function () {
+    return tslib_1.__assign({}, context);
+  };
+
+  Object.defineProperty(operation, 'setContext', {
+    enumerable: false,
+    value: setContext
+  });
+  Object.defineProperty(operation, 'getContext', {
+    enumerable: false,
+    value: getContext
+  });
+  Object.defineProperty(operation, 'toKey', {
+    enumerable: false,
+    value: function () {
+      return getKey(operation);
+    }
+  });
+  return operation;
+}
+
+exports.createOperation = createOperation;
+
+function getKey(operation) {
+  var query = operation.query,
+      variables = operation.variables,
+      operationName = operation.operationName;
+  return JSON.stringify([operationName, query, variables]);
+}
+
+exports.getKey = getKey;
+
+/***/ }),
+/* 110 */
+/***/ (function(module, exports) {
+
+module.exports = require("core-js/modules/esnext.weak-map.delete-all.js");
+
+/***/ }),
+/* 111 */
+/***/ (function(module, exports) {
+
+module.exports = require("graphql/language/visitor");
+
+/***/ }),
+/* 112 */
+/***/ (function(module, exports) {
+
+module.exports = require("graphql/language/printer");
+
+/***/ }),
+/* 113 */
 /***/ (function(module, exports) {
 
 module.exports = require("querystring");
 
 /***/ }),
-/* 75 */
+/* 114 */
 /***/ (function(module, exports) {
 
 module.exports = require("node-fetch");
 
 /***/ }),
-/* 76 */
+/* 115 */
 /***/ (function(module, exports) {
 
 
@@ -2606,7 +7659,7 @@ module.exports = require("node-fetch");
 
 
 /***/ }),
-/* 77 */
+/* 116 */
 /***/ (function(module, exports) {
 
 
@@ -2734,7 +7787,7 @@ module.exports = require("node-fetch");
 
 
 /***/ }),
-/* 78 */
+/* 117 */
 /***/ (function(module, exports) {
 
 
@@ -2862,7 +7915,7 @@ module.exports = require("node-fetch");
 
 
 /***/ }),
-/* 79 */
+/* 118 */
 /***/ (function(module, exports) {
 
 
@@ -2990,7 +8043,7 @@ module.exports = require("node-fetch");
 
 
 /***/ }),
-/* 80 */
+/* 119 */
 /***/ (function(module, exports) {
 
 
@@ -3118,7 +8171,7 @@ module.exports = require("node-fetch");
 
 
 /***/ }),
-/* 81 */
+/* 120 */
 /***/ (function(module, exports) {
 
 
@@ -3246,19 +8299,19 @@ module.exports = require("node-fetch");
 
 
 /***/ }),
-/* 82 */
+/* 121 */
 /***/ (function(module, exports) {
 
 module.exports = require("popper.js");
 
 /***/ }),
-/* 83 */
+/* 122 */
 /***/ (function(module, exports) {
 
 module.exports = require("accesscontrol");
 
 /***/ }),
-/* 84 */
+/* 123 */
 /***/ (function(module, exports) {
 
 
@@ -3386,7 +8439,7 @@ module.exports = require("accesscontrol");
 
 
 /***/ }),
-/* 85 */
+/* 124 */
 /***/ (function(module, exports) {
 
 
@@ -3514,7 +8567,7 @@ module.exports = require("accesscontrol");
 
 
 /***/ }),
-/* 86 */
+/* 125 */
 /***/ (function(module, exports) {
 
 
@@ -3642,7 +8695,7 @@ module.exports = require("accesscontrol");
 
 
 /***/ }),
-/* 87 */
+/* 126 */
 /***/ (function(module, exports) {
 
 
@@ -3770,7 +8823,7 @@ module.exports = require("accesscontrol");
 
 
 /***/ }),
-/* 88 */
+/* 127 */
 /***/ (function(module, exports) {
 
 
@@ -3898,7 +8951,7 @@ module.exports = require("accesscontrol");
 
 
 /***/ }),
-/* 89 */
+/* 128 */
 /***/ (function(module, exports) {
 
 
@@ -4026,7 +9079,7 @@ module.exports = require("accesscontrol");
 
 
 /***/ }),
-/* 90 */
+/* 129 */
 /***/ (function(module, exports) {
 
 
@@ -4154,7 +9207,7 @@ module.exports = require("accesscontrol");
 
 
 /***/ }),
-/* 91 */
+/* 130 */
 /***/ (function(module, exports) {
 
 
@@ -4282,7 +9335,7 @@ module.exports = require("accesscontrol");
 
 
 /***/ }),
-/* 92 */
+/* 131 */
 /***/ (function(module, exports) {
 
 
@@ -4410,7 +9463,7 @@ module.exports = require("accesscontrol");
 
 
 /***/ }),
-/* 93 */
+/* 132 */
 /***/ (function(module, exports) {
 
 
@@ -4538,7 +9591,7 @@ module.exports = require("accesscontrol");
 
 
 /***/ }),
-/* 94 */
+/* 133 */
 /***/ (function(module, exports) {
 
 
@@ -4666,7 +9719,7 @@ module.exports = require("accesscontrol");
 
 
 /***/ }),
-/* 95 */
+/* 134 */
 /***/ (function(module, exports) {
 
 
@@ -4794,7 +9847,7 @@ module.exports = require("accesscontrol");
 
 
 /***/ }),
-/* 96 */
+/* 135 */
 /***/ (function(module, exports) {
 
 
@@ -4922,7 +9975,7 @@ module.exports = require("accesscontrol");
 
 
 /***/ }),
-/* 97 */
+/* 136 */
 /***/ (function(module, exports) {
 
 
@@ -5050,7 +10103,7 @@ module.exports = require("accesscontrol");
 
 
 /***/ }),
-/* 98 */
+/* 137 */
 /***/ (function(module, exports) {
 
 
@@ -5178,7 +10231,7 @@ module.exports = require("accesscontrol");
 
 
 /***/ }),
-/* 99 */
+/* 138 */
 /***/ (function(module, exports) {
 
 
@@ -5306,7 +10359,7 @@ module.exports = require("accesscontrol");
 
 
 /***/ }),
-/* 100 */
+/* 139 */
 /***/ (function(module, exports) {
 
 
@@ -5434,7 +10487,7 @@ module.exports = require("accesscontrol");
 
 
 /***/ }),
-/* 101 */
+/* 140 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {/**
@@ -7186,91 +12239,3570 @@ function stubFalse() {
 
 module.exports = cloneDeep;
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(215)(module)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(254)(module)))
 
 /***/ }),
-/* 102 */
-/***/ (function(module, exports) {
-
-module.exports = require("apollo-client");
-
-/***/ }),
-/* 103 */
-/***/ (function(module, exports) {
-
-module.exports = require("apollo-upload-client");
-
-/***/ }),
-/* 104 */
-/***/ (function(module, exports) {
-
-module.exports = require("subscriptions-transport-ws");
-
-/***/ }),
-/* 105 */
+/* 141 */
 /***/ (function(module, exports) {
 
 module.exports = require("subscriptions-transport-ws/dist/message-types");
 
 /***/ }),
-/* 106 */
-/***/ (function(module, exports) {
+/* 142 */
+/***/ (function(module, exports, __webpack_require__) {
 
-module.exports = require("apollo-link-ws");
+(function (global, factory) {
+   true ? factory(exports, __webpack_require__(7), __webpack_require__(112)) : undefined;
+})(this, function (exports, apolloLink, graphql_language_printer) {
+  'use strict';
+
+  var sha256 = __webpack_require__(263);
+
+  var VERSION = 1;
+
+  var defaultGenerateHash = function (query) {
+    return sha256().update(graphql_language_printer.print(query)).digest('hex');
+  };
+
+  var defaultOptions = {
+    generateHash: defaultGenerateHash,
+    disable: function (_a) {
+      var graphQLErrors = _a.graphQLErrors,
+          operation = _a.operation;
+
+      if (graphQLErrors && graphQLErrors.some(function (_a) {
+        var message = _a.message;
+        return message === 'PersistedQueryNotSupported';
+      })) {
+        return true;
+      }
+
+      var response = operation.getContext().response;
+
+      if (response && response.status && (response.status === 400 || response.status === 500)) {
+        return true;
+      }
+
+      return false;
+    },
+    useGETForHashedQueries: false
+  };
+
+  function definitionIsMutation(d) {
+    return d.kind === 'OperationDefinition' && d.operation === 'mutation';
+  }
+
+  function operationIsQuery(operation) {
+    return !operation.query.definitions.some(definitionIsMutation);
+  }
+
+  var hasOwnProperty = Object.prototype.hasOwnProperty;
+  var hashesKeyString = '__createPersistedQueryLink_hashes';
+  var hashesKey = typeof Symbol === 'function' ? Symbol.for(hashesKeyString) : hashesKeyString;
+  var nextHashesChildKey = 0;
+
+  var createPersistedQueryLink = function (options) {
+    if (options === void 0) {
+      options = {};
+    }
+
+    var _a = Object.assign({}, defaultOptions, options),
+        generateHash = _a.generateHash,
+        disable = _a.disable,
+        useGETForHashedQueries = _a.useGETForHashedQueries;
+
+    var supportsPersistedQueries = true;
+    var hashesChildKey = 'forLink' + nextHashesChildKey++;
+
+    function getQueryHash(query) {
+      if (!query || typeof query !== "object") {
+        return generateHash(query);
+      }
+
+      if (!hasOwnProperty.call(query, hashesKey)) {
+        Object.defineProperty(query, hashesKey, {
+          value: Object.create(null),
+          enumerable: false
+        });
+      }
+
+      var hashes = query[hashesKey];
+      return hasOwnProperty.call(hashes, hashesChildKey) ? hashes[hashesChildKey] : hashes[hashesChildKey] = generateHash(query);
+    }
+
+    return new apolloLink.ApolloLink(function (operation, forward) {
+      if (!forward) {
+        throw new Error('PersistedQueryLink cannot be the last link in the chain.');
+      }
+
+      var query = operation.query;
+      var hashError;
+
+      if (supportsPersistedQueries) {
+        try {
+          operation.extensions.persistedQuery = {
+            version: VERSION,
+            sha256Hash: getQueryHash(query)
+          };
+        } catch (e) {
+          hashError = e;
+        }
+      }
+
+      return new apolloLink.Observable(function (observer) {
+        if (hashError) {
+          observer.error(hashError);
+          return;
+        }
+
+        var subscription;
+        var retried = false;
+        var originalFetchOptions;
+        var setFetchOptions = false;
+
+        var retry = function (_a, cb) {
+          var response = _a.response,
+              networkError = _a.networkError;
+
+          if (!retried && (response && response.errors || networkError)) {
+            retried = true;
+            var disablePayload = {
+              response: response,
+              networkError: networkError,
+              operation: operation,
+              graphQLErrors: response ? response.errors : undefined
+            };
+            supportsPersistedQueries = !disable(disablePayload);
+
+            if (response && response.errors && response.errors.some(function (_a) {
+              var message = _a.message;
+              return message === 'PersistedQueryNotFound';
+            }) || !supportsPersistedQueries) {
+              if (subscription) subscription.unsubscribe();
+              operation.setContext({
+                http: {
+                  includeQuery: true,
+                  includeExtensions: supportsPersistedQueries
+                }
+              });
+
+              if (setFetchOptions) {
+                operation.setContext({
+                  fetchOptions: originalFetchOptions
+                });
+              }
+
+              subscription = forward(operation).subscribe(handler);
+              return;
+            }
+          }
+
+          cb();
+        };
+
+        var handler = {
+          next: function (response) {
+            retry({
+              response: response
+            }, function () {
+              return observer.next(response);
+            });
+          },
+          error: function (networkError) {
+            retry({
+              networkError: networkError
+            }, function () {
+              return observer.error(networkError);
+            });
+          },
+          complete: observer.complete.bind(observer)
+        };
+        operation.setContext({
+          http: {
+            includeQuery: !supportsPersistedQueries,
+            includeExtensions: supportsPersistedQueries
+          }
+        });
+
+        if (useGETForHashedQueries && supportsPersistedQueries && operationIsQuery(operation)) {
+          operation.setContext(function (_a) {
+            var _b = _a.fetchOptions,
+                fetchOptions = _b === void 0 ? {} : _b;
+            originalFetchOptions = fetchOptions;
+            return {
+              fetchOptions: Object.assign({}, fetchOptions, {
+                method: 'GET'
+              })
+            };
+          });
+          setFetchOptions = true;
+        }
+
+        subscription = forward(operation).subscribe(handler);
+        return function () {
+          if (subscription) subscription.unsubscribe();
+        };
+      });
+    });
+  };
+
+  exports.VERSION = VERSION;
+  exports.defaultGenerateHash = defaultGenerateHash;
+  exports.defaultOptions = defaultOptions;
+  exports.createPersistedQueryLink = createPersistedQueryLink;
+  Object.defineProperty(exports, '__esModule', {
+    value: true
+  });
+});
 
 /***/ }),
-/* 107 */
-/***/ (function(module, exports) {
+/* 143 */
+/***/ (function(module, exports, __webpack_require__) {
 
-module.exports = require("apollo-utilities");
+__webpack_require__(11);
+
+__webpack_require__(12);
+
+__webpack_require__(13);
+
+__webpack_require__(14);
+
+__webpack_require__(15);
+
+__webpack_require__(16);
+
+__webpack_require__(17);
+
+__webpack_require__(18);
+
+__webpack_require__(19);
+
+__webpack_require__(20);
+
+__webpack_require__(21);
+
+__webpack_require__(22);
+
+__webpack_require__(23);
+
+(function (global, factory) {
+   true ? factory(exports, __webpack_require__(264), __webpack_require__(9), __webpack_require__(7), __webpack_require__(265)) : undefined;
+})(this, function (exports, graphql, apolloUtilities, apolloLink, Async) {
+  'use strict';
+
+  var connectionRemoveConfig = {
+    test: function (directive) {
+      return directive.name.value === 'client';
+    },
+    remove: true
+  };
+  var removed = new Map();
+
+  function removeClientSetsFromDocument(query) {
+    var cached = removed.get(query);
+    if (cached) return cached;
+    apolloUtilities.checkDocument(query);
+    var docClone = apolloUtilities.removeDirectivesFromDocument([connectionRemoveConfig], query);
+    removed.set(query, docClone);
+    return docClone;
+  }
+
+  function normalizeTypeDefs(typeDefs) {
+    var defs = Array.isArray(typeDefs) ? typeDefs : [typeDefs];
+    return defs.map(function (typeDef) {
+      return typeof typeDef === 'string' ? typeDef : graphql.print(typeDef);
+    }).map(function (str) {
+      return str.trim();
+    }).join('\n');
+  }
+
+  var __extends = undefined && undefined.__extends || function () {
+    var extendStatics = Object.setPrototypeOf || {
+      __proto__: []
+    } instanceof Array && function (d, b) {
+      d.__proto__ = b;
+    } || function (d, b) {
+      for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    };
+
+    return function (d, b) {
+      extendStatics(d, b);
+
+      function __() {
+        this.constructor = d;
+      }
+
+      d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+  }();
+
+  var graphql$1 = Async.graphql;
+
+  var capitalizeFirstLetter = function (str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  };
+
+  var withClientState = function (clientStateConfig) {
+    if (clientStateConfig === void 0) {
+      clientStateConfig = {
+        resolvers: {},
+        defaults: {}
+      };
+    }
+
+    var defaults = clientStateConfig.defaults,
+        cache = clientStateConfig.cache,
+        typeDefs = clientStateConfig.typeDefs,
+        fragmentMatcher = clientStateConfig.fragmentMatcher;
+
+    if (cache && defaults) {
+      cache.writeData({
+        data: defaults
+      });
+    }
+
+    return new (function (_super) {
+      __extends(StateLink, _super);
+
+      function StateLink() {
+        return _super !== null && _super.apply(this, arguments) || this;
+      }
+
+      StateLink.prototype.writeDefaults = function () {
+        if (cache && defaults) {
+          cache.writeData({
+            data: defaults
+          });
+        }
+      };
+
+      StateLink.prototype.request = function (operation, forward) {
+        if (forward === void 0) {
+          forward = function () {
+            return apolloLink.Observable.of({
+              data: {}
+            });
+          };
+        }
+
+        if (typeDefs) {
+          var directives_1 = 'directive @client on FIELD';
+          var definition_1 = normalizeTypeDefs(typeDefs);
+          operation.setContext(function (_a) {
+            var _b = _a.schemas,
+                schemas = _b === void 0 ? [] : _b;
+            return {
+              schemas: schemas.concat([{
+                definition: definition_1,
+                directives: directives_1
+              }])
+            };
+          });
+        }
+
+        var isClient = apolloUtilities.hasDirectives(['client'], operation.query);
+        if (!isClient) return forward(operation);
+        var resolvers = typeof clientStateConfig.resolvers === 'function' ? clientStateConfig.resolvers() : clientStateConfig.resolvers;
+        var server = removeClientSetsFromDocument(operation.query);
+        var query = operation.query;
+        var type = capitalizeFirstLetter((apolloUtilities.getMainDefinition(query) || {}).operation) || 'Query';
+
+        var resolver = function (fieldName, rootValue, args, context, info) {
+          if (rootValue === void 0) {
+            rootValue = {};
+          }
+
+          var resultKey = info.resultKey;
+          var aliasedNode = rootValue[resultKey];
+          var preAliasingNode = rootValue[fieldName];
+          var aliasNeeded = resultKey !== fieldName;
+
+          if (aliasedNode !== undefined || preAliasingNode !== undefined) {
+            return aliasedNode || preAliasingNode;
+          }
+
+          var resolverMap = resolvers[rootValue.__typename || type];
+
+          if (resolverMap) {
+            var resolve = resolverMap[fieldName];
+            if (resolve) return resolve(rootValue, args, context, info);
+          }
+
+          return (aliasNeeded ? aliasedNode : preAliasingNode) || (defaults || {})[fieldName];
+        };
+
+        if (server) operation.query = server;
+        var obs = server && forward ? forward(operation) : apolloLink.Observable.of({
+          data: {}
+        });
+        return new apolloLink.Observable(function (observer) {
+          var complete = false;
+          var handlingNext = false;
+          obs.subscribe({
+            next: function (_a) {
+              var data = _a.data,
+                  errors = _a.errors;
+              var observerErrorHandler = observer.error.bind(observer);
+              var context = operation.getContext();
+              handlingNext = true;
+              graphql$1(resolver, query, data, context, operation.variables, {
+                fragmentMatcher: fragmentMatcher
+              }).then(function (nextData) {
+                observer.next({
+                  data: nextData,
+                  errors: errors
+                });
+
+                if (complete) {
+                  observer.complete();
+                }
+
+                handlingNext = false;
+              }).catch(observerErrorHandler);
+            },
+            error: observer.error.bind(observer),
+            complete: function () {
+              if (!handlingNext) {
+                observer.complete();
+              }
+
+              complete = true;
+            }
+          });
+        });
+      };
+
+      return StateLink;
+    }(apolloLink.ApolloLink))();
+  };
+
+  exports.withClientState = withClientState;
+  Object.defineProperty(exports, '__esModule', {
+    value: true
+  });
+});
 
 /***/ }),
-/* 108 */
-/***/ (function(module, exports) {
+/* 144 */
+/***/ (function(module, exports, __webpack_require__) {
 
-module.exports = require("apollo-link-persisted-queries");
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(268);
+
+var _extends2 = _interopRequireDefault(__webpack_require__(269));
+
+var _require = __webpack_require__(7),
+    ApolloLink = _require.ApolloLink,
+    Observable = _require.Observable;
+
+var _require2 = __webpack_require__(270),
+    selectURI = _require2.selectURI,
+    selectHttpOptionsAndBody = _require2.selectHttpOptionsAndBody,
+    fallbackHttpConfig = _require2.fallbackHttpConfig,
+    serializeFetchParameter = _require2.serializeFetchParameter,
+    createSignalIfSupported = _require2.createSignalIfSupported,
+    parseAndCheckHttpResponse = _require2.parseAndCheckHttpResponse;
+
+var _require3 = __webpack_require__(271),
+    extractFiles = _require3.extractFiles,
+    isExtractableFile = _require3.isExtractableFile,
+    ReactNativeFile = _require3.ReactNativeFile;
+
+exports.ReactNativeFile = ReactNativeFile;
+exports.isExtractableFile = isExtractableFile;
+
+function formDataAppendFile(formData, fieldName, file) {
+  formData.append(fieldName, file, file.name);
+}
+
+exports.formDataAppendFile = formDataAppendFile;
+
+exports.createUploadLink = function (_temp) {
+  var _ref = _temp === void 0 ? {} : _temp,
+      _ref$uri = _ref.uri,
+      fetchUri = _ref$uri === void 0 ? '/graphql' : _ref$uri,
+      _ref$isExtractableFil = _ref.isExtractableFile,
+      customIsExtractableFile = _ref$isExtractableFil === void 0 ? isExtractableFile : _ref$isExtractableFil,
+      CustomFormData = _ref.FormData,
+      _ref$formDataAppendFi = _ref.formDataAppendFile,
+      customFormDataAppendFile = _ref$formDataAppendFi === void 0 ? formDataAppendFile : _ref$formDataAppendFi,
+      customFetch = _ref.fetch,
+      fetchOptions = _ref.fetchOptions,
+      credentials = _ref.credentials,
+      headers = _ref.headers,
+      includeExtensions = _ref.includeExtensions;
+
+  var linkConfig = {
+    http: {
+      includeExtensions: includeExtensions
+    },
+    options: fetchOptions,
+    credentials: credentials,
+    headers: headers
+  };
+  return new ApolloLink(function (operation) {
+    var uri = selectURI(operation, fetchUri);
+    var context = operation.getContext();
+    var _context$clientAwaren = context.clientAwareness;
+    _context$clientAwaren = _context$clientAwaren === void 0 ? {} : _context$clientAwaren;
+    var name = _context$clientAwaren.name,
+        version = _context$clientAwaren.version,
+        headers = context.headers;
+    var contextConfig = {
+      http: context.http,
+      options: context.fetchOptions,
+      credentials: context.credentials,
+      headers: (0, _extends2.default)({}, name && {
+        'apollographql-client-name': name
+      }, {}, version && {
+        'apollographql-client-version': version
+      }, {}, headers)
+    };
+
+    var _selectHttpOptionsAnd = selectHttpOptionsAndBody(operation, fallbackHttpConfig, linkConfig, contextConfig),
+        options = _selectHttpOptionsAnd.options,
+        body = _selectHttpOptionsAnd.body;
+
+    var _extractFiles = extractFiles(body, '', customIsExtractableFile),
+        clone = _extractFiles.clone,
+        files = _extractFiles.files;
+
+    var payload = serializeFetchParameter(clone, 'Payload');
+
+    if (files.size) {
+      delete options.headers['content-type'];
+      var RuntimeFormData = CustomFormData || FormData;
+      var form = new RuntimeFormData();
+      form.append('operations', payload);
+      var map = {};
+      var i = 0;
+      files.forEach(function (paths) {
+        map[++i] = paths;
+      });
+      form.append('map', JSON.stringify(map));
+      i = 0;
+      files.forEach(function (paths, file) {
+        customFormDataAppendFile(form, ++i, file);
+      });
+      options.body = form;
+    } else options.body = payload;
+
+    return new Observable(function (observer) {
+      var abortController;
+
+      if (!options.signal) {
+        var _createSignalIfSuppor = createSignalIfSupported(),
+            controller = _createSignalIfSuppor.controller;
+
+        if (controller) {
+          abortController = controller;
+          options.signal = abortController.signal;
+        }
+      }
+
+      var runtimeFetch = customFetch || fetch;
+      runtimeFetch(uri, options).then(function (response) {
+        operation.setContext({
+          response: response
+        });
+        return response;
+      }).then(parseAndCheckHttpResponse(operation)).then(function (result) {
+        observer.next(result);
+        observer.complete();
+      }).catch(function (error) {
+        if (error.name === 'AbortError') return;
+        if (error.result && error.result.errors && error.result.data) observer.next(error.result);
+        observer.error(error);
+      });
+      return function () {
+        if (abortController) abortController.abort();
+      };
+    });
+  });
+};
 
 /***/ }),
-/* 109 */
-/***/ (function(module, exports) {
+/* 145 */
+/***/ (function(module, exports, __webpack_require__) {
 
-module.exports = require("apollo-link-context");
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var tslib_1 = __webpack_require__(8);
+
+var apollo_link_1 = __webpack_require__(7);
+
+function setContext(setter) {
+  return new apollo_link_1.ApolloLink(function (operation, forward) {
+    var request = tslib_1.__rest(operation, []);
+
+    return new apollo_link_1.Observable(function (observer) {
+      var handle;
+      Promise.resolve(request).then(function (req) {
+        return setter(req, operation.getContext());
+      }).then(operation.setContext).then(function () {
+        handle = forward(operation).subscribe({
+          next: observer.next.bind(observer),
+          error: observer.error.bind(observer),
+          complete: observer.complete.bind(observer)
+        });
+      }).catch(observer.error.bind(observer));
+      return function () {
+        if (handle) handle.unsubscribe();
+      };
+    });
+  });
+}
+
+exports.setContext = setContext;
 
 /***/ }),
-/* 110 */
-/***/ (function(module, exports) {
+/* 146 */
+/***/ (function(module, exports, __webpack_require__) {
 
-module.exports = require("apollo-link-state");
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var tslib_1 = __webpack_require__(8);
+
+tslib_1.__exportStar(__webpack_require__(272), exports);
 
 /***/ }),
-/* 111 */
-/***/ (function(module, exports) {
+/* 147 */
+/***/ (function(module, exports, __webpack_require__) {
 
-module.exports = require("apollo-link-error");
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;__webpack_require__(34);
+
+__webpack_require__(35);
+
+__webpack_require__(36);
+
+__webpack_require__(37);
+
+__webpack_require__(38);
+
+__webpack_require__(39);
+
+__webpack_require__(40);
+
+__webpack_require__(41);
+
+__webpack_require__(42);
+
+__webpack_require__(43);
+
+__webpack_require__(44);
+
+__webpack_require__(45);
+
+__webpack_require__(46);
+
+__webpack_require__(47);
+
+__webpack_require__(48);
+
+__webpack_require__(49);
+
+__webpack_require__(11);
+
+__webpack_require__(12);
+
+__webpack_require__(13);
+
+__webpack_require__(14);
+
+__webpack_require__(15);
+
+__webpack_require__(16);
+
+__webpack_require__(17);
+
+__webpack_require__(18);
+
+__webpack_require__(19);
+
+__webpack_require__(20);
+
+__webpack_require__(21);
+
+__webpack_require__(22);
+
+__webpack_require__(23);
+
+__webpack_require__(110);
+
+(function (global, factory) {
+  if (true) {
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(8), __webpack_require__(9), __webpack_require__(7), __webpack_require__(273), __webpack_require__(10), __webpack_require__(111)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+  } else { var mod; }
+})(typeof globalThis !== "undefined" ? globalThis : typeof self !== "undefined" ? self : this, function (_exports, _tslib, _apolloUtilities, _apolloLink, _symbolObservable, _tsInvariant, _visitor) {
+  _exports.__esModule = true;
+  _exports.isApolloError = isApolloError;
+  _exports.ObservableQuery = _exports.NetworkStatus = _exports.FetchType = _exports.ApolloError = _exports.ApolloClient = _exports.default = void 0;
+  _symbolObservable = _interopRequireDefault(_symbolObservable);
+
+  function _interopRequireDefault(obj) {
+    return obj && obj.__esModule ? obj : {
+      default: obj
+    };
+  }
+
+  var NetworkStatus;
+  _exports.NetworkStatus = NetworkStatus;
+
+  (function (NetworkStatus) {
+    NetworkStatus[NetworkStatus["loading"] = 1] = "loading";
+    NetworkStatus[NetworkStatus["setVariables"] = 2] = "setVariables";
+    NetworkStatus[NetworkStatus["fetchMore"] = 3] = "fetchMore";
+    NetworkStatus[NetworkStatus["refetch"] = 4] = "refetch";
+    NetworkStatus[NetworkStatus["poll"] = 6] = "poll";
+    NetworkStatus[NetworkStatus["ready"] = 7] = "ready";
+    NetworkStatus[NetworkStatus["error"] = 8] = "error";
+  })(NetworkStatus || (_exports.NetworkStatus = NetworkStatus = {}));
+
+  function isNetworkRequestInFlight(networkStatus) {
+    return networkStatus < 7;
+  }
+
+  var Observable = function (_super) {
+    (0, _tslib.__extends)(Observable, _super);
+
+    function Observable() {
+      return _super !== null && _super.apply(this, arguments) || this;
+    }
+
+    Observable.prototype[_symbolObservable.default] = function () {
+      return this;
+    };
+
+    Observable.prototype['@@observable'] = function () {
+      return this;
+    };
+
+    return Observable;
+  }(_apolloLink.Observable);
+
+  function isNonEmptyArray(value) {
+    return Array.isArray(value) && value.length > 0;
+  }
+
+  function isApolloError(err) {
+    return err.hasOwnProperty('graphQLErrors');
+  }
+
+  var generateErrorMessage = function (err) {
+    var message = '';
+
+    if (isNonEmptyArray(err.graphQLErrors)) {
+      err.graphQLErrors.forEach(function (graphQLError) {
+        var errorMessage = graphQLError ? graphQLError.message : 'Error message not found.';
+        message += "GraphQL error: " + errorMessage + "\n";
+      });
+    }
+
+    if (err.networkError) {
+      message += 'Network error: ' + err.networkError.message + '\n';
+    }
+
+    message = message.replace(/\n$/, '');
+    return message;
+  };
+
+  var ApolloError = function (_super) {
+    (0, _tslib.__extends)(ApolloError, _super);
+
+    function ApolloError(_a) {
+      var graphQLErrors = _a.graphQLErrors,
+          networkError = _a.networkError,
+          errorMessage = _a.errorMessage,
+          extraInfo = _a.extraInfo;
+
+      var _this = _super.call(this, errorMessage) || this;
+
+      _this.graphQLErrors = graphQLErrors || [];
+      _this.networkError = networkError || null;
+
+      if (!errorMessage) {
+        _this.message = generateErrorMessage(_this);
+      } else {
+        _this.message = errorMessage;
+      }
+
+      _this.extraInfo = extraInfo;
+      _this.__proto__ = ApolloError.prototype;
+      return _this;
+    }
+
+    return ApolloError;
+  }(Error);
+
+  _exports.ApolloError = ApolloError;
+  var FetchType;
+  _exports.FetchType = FetchType;
+
+  (function (FetchType) {
+    FetchType[FetchType["normal"] = 1] = "normal";
+    FetchType[FetchType["refetch"] = 2] = "refetch";
+    FetchType[FetchType["poll"] = 3] = "poll";
+  })(FetchType || (_exports.FetchType = FetchType = {}));
+
+  var hasError = function (storeValue, policy) {
+    if (policy === void 0) {
+      policy = 'none';
+    }
+
+    return storeValue && (storeValue.networkError || policy === 'none' && isNonEmptyArray(storeValue.graphQLErrors));
+  };
+
+  var ObservableQuery = function (_super) {
+    (0, _tslib.__extends)(ObservableQuery, _super);
+
+    function ObservableQuery(_a) {
+      var queryManager = _a.queryManager,
+          options = _a.options,
+          _b = _a.shouldSubscribe,
+          shouldSubscribe = _b === void 0 ? true : _b;
+
+      var _this = _super.call(this, function (observer) {
+        return _this.onSubscribe(observer);
+      }) || this;
+
+      _this.observers = new Set();
+      _this.subscriptions = new Set();
+      _this.isTornDown = false;
+      _this.options = options;
+      _this.variables = options.variables || {};
+      _this.queryId = queryManager.generateQueryId();
+      _this.shouldSubscribe = shouldSubscribe;
+      var opDef = (0, _apolloUtilities.getOperationDefinition)(options.query);
+      _this.queryName = opDef && opDef.name && opDef.name.value;
+      _this.queryManager = queryManager;
+      return _this;
+    }
+
+    ObservableQuery.prototype.result = function () {
+      var _this = this;
+
+      return new Promise(function (resolve, reject) {
+        var observer = {
+          next: function (result) {
+            resolve(result);
+
+            _this.observers.delete(observer);
+
+            if (!_this.observers.size) {
+              _this.queryManager.removeQuery(_this.queryId);
+            }
+
+            setTimeout(function () {
+              subscription.unsubscribe();
+            }, 0);
+          },
+          error: reject
+        };
+
+        var subscription = _this.subscribe(observer);
+      });
+    };
+
+    ObservableQuery.prototype.currentResult = function () {
+      var result = this.getCurrentResult();
+
+      if (result.data === undefined) {
+        result.data = {};
+      }
+
+      return result;
+    };
+
+    ObservableQuery.prototype.getCurrentResult = function () {
+      if (this.isTornDown) {
+        var lastResult = this.lastResult;
+        return {
+          data: !this.lastError && lastResult && lastResult.data || void 0,
+          error: this.lastError,
+          loading: false,
+          networkStatus: NetworkStatus.error
+        };
+      }
+
+      var _a = this.queryManager.getCurrentQueryResult(this),
+          data = _a.data,
+          partial = _a.partial;
+
+      var queryStoreValue = this.queryManager.queryStore.get(this.queryId);
+      var result;
+      var fetchPolicy = this.options.fetchPolicy;
+      var isNetworkFetchPolicy = fetchPolicy === 'network-only' || fetchPolicy === 'no-cache';
+
+      if (queryStoreValue) {
+        var networkStatus = queryStoreValue.networkStatus;
+
+        if (hasError(queryStoreValue, this.options.errorPolicy)) {
+          return {
+            data: void 0,
+            loading: false,
+            networkStatus: networkStatus,
+            error: new ApolloError({
+              graphQLErrors: queryStoreValue.graphQLErrors,
+              networkError: queryStoreValue.networkError
+            })
+          };
+        }
+
+        if (queryStoreValue.variables) {
+          this.options.variables = (0, _tslib.__assign)((0, _tslib.__assign)({}, this.options.variables), queryStoreValue.variables);
+          this.variables = this.options.variables;
+        }
+
+        result = {
+          data: data,
+          loading: isNetworkRequestInFlight(networkStatus),
+          networkStatus: networkStatus
+        };
+
+        if (queryStoreValue.graphQLErrors && this.options.errorPolicy === 'all') {
+          result.errors = queryStoreValue.graphQLErrors;
+        }
+      } else {
+        var loading = isNetworkFetchPolicy || partial && fetchPolicy !== 'cache-only';
+        result = {
+          data: data,
+          loading: loading,
+          networkStatus: loading ? NetworkStatus.loading : NetworkStatus.ready
+        };
+      }
+
+      if (!partial) {
+        this.updateLastResult((0, _tslib.__assign)((0, _tslib.__assign)({}, result), {
+          stale: false
+        }));
+      }
+
+      return (0, _tslib.__assign)((0, _tslib.__assign)({}, result), {
+        partial: partial
+      });
+    };
+
+    ObservableQuery.prototype.isDifferentFromLastResult = function (newResult) {
+      var snapshot = this.lastResultSnapshot;
+      return !(snapshot && newResult && snapshot.networkStatus === newResult.networkStatus && snapshot.stale === newResult.stale && (0, _apolloUtilities.isEqual)(snapshot.data, newResult.data));
+    };
+
+    ObservableQuery.prototype.getLastResult = function () {
+      return this.lastResult;
+    };
+
+    ObservableQuery.prototype.getLastError = function () {
+      return this.lastError;
+    };
+
+    ObservableQuery.prototype.resetLastResults = function () {
+      delete this.lastResult;
+      delete this.lastResultSnapshot;
+      delete this.lastError;
+      this.isTornDown = false;
+    };
+
+    ObservableQuery.prototype.resetQueryStoreErrors = function () {
+      var queryStore = this.queryManager.queryStore.get(this.queryId);
+
+      if (queryStore) {
+        queryStore.networkError = null;
+        queryStore.graphQLErrors = [];
+      }
+    };
+
+    ObservableQuery.prototype.refetch = function (variables) {
+      var fetchPolicy = this.options.fetchPolicy;
+
+      if (fetchPolicy === 'cache-only') {
+        return Promise.reject( true ? new _tsInvariant.InvariantError(1) : undefined);
+      }
+
+      if (fetchPolicy !== 'no-cache' && fetchPolicy !== 'cache-and-network') {
+        fetchPolicy = 'network-only';
+      }
+
+      if (!(0, _apolloUtilities.isEqual)(this.variables, variables)) {
+        this.variables = (0, _tslib.__assign)((0, _tslib.__assign)({}, this.variables), variables);
+      }
+
+      if (!(0, _apolloUtilities.isEqual)(this.options.variables, this.variables)) {
+        this.options.variables = (0, _tslib.__assign)((0, _tslib.__assign)({}, this.options.variables), this.variables);
+      }
+
+      return this.queryManager.fetchQuery(this.queryId, (0, _tslib.__assign)((0, _tslib.__assign)({}, this.options), {
+        fetchPolicy: fetchPolicy
+      }), FetchType.refetch);
+    };
+
+    ObservableQuery.prototype.fetchMore = function (fetchMoreOptions) {
+      var _this = this;
+
+       true ? (0, _tsInvariant.invariant)(fetchMoreOptions.updateQuery, 2) : undefined;
+      var combinedOptions = (0, _tslib.__assign)((0, _tslib.__assign)({}, fetchMoreOptions.query ? fetchMoreOptions : (0, _tslib.__assign)((0, _tslib.__assign)((0, _tslib.__assign)({}, this.options), fetchMoreOptions), {
+        variables: (0, _tslib.__assign)((0, _tslib.__assign)({}, this.variables), fetchMoreOptions.variables)
+      })), {
+        fetchPolicy: 'network-only'
+      });
+      var qid = this.queryManager.generateQueryId();
+      return this.queryManager.fetchQuery(qid, combinedOptions, FetchType.normal, this.queryId).then(function (fetchMoreResult) {
+        _this.updateQuery(function (previousResult) {
+          return fetchMoreOptions.updateQuery(previousResult, {
+            fetchMoreResult: fetchMoreResult.data,
+            variables: combinedOptions.variables
+          });
+        });
+
+        _this.queryManager.stopQuery(qid);
+
+        return fetchMoreResult;
+      }, function (error) {
+        _this.queryManager.stopQuery(qid);
+
+        throw error;
+      });
+    };
+
+    ObservableQuery.prototype.subscribeToMore = function (options) {
+      var _this = this;
+
+      var subscription = this.queryManager.startGraphQLSubscription({
+        query: options.document,
+        variables: options.variables
+      }).subscribe({
+        next: function (subscriptionData) {
+          var updateQuery = options.updateQuery;
+
+          if (updateQuery) {
+            _this.updateQuery(function (previous, _a) {
+              var variables = _a.variables;
+              return updateQuery(previous, {
+                subscriptionData: subscriptionData,
+                variables: variables
+              });
+            });
+          }
+        },
+        error: function (err) {
+          if (options.onError) {
+            options.onError(err);
+            return;
+          }
+
+           true || false;
+        }
+      });
+      this.subscriptions.add(subscription);
+      return function () {
+        if (_this.subscriptions.delete(subscription)) {
+          subscription.unsubscribe();
+        }
+      };
+    };
+
+    ObservableQuery.prototype.setOptions = function (opts) {
+      var oldFetchPolicy = this.options.fetchPolicy;
+      this.options = (0, _tslib.__assign)((0, _tslib.__assign)({}, this.options), opts);
+
+      if (opts.pollInterval) {
+        this.startPolling(opts.pollInterval);
+      } else if (opts.pollInterval === 0) {
+        this.stopPolling();
+      }
+
+      var fetchPolicy = opts.fetchPolicy;
+      return this.setVariables(this.options.variables, oldFetchPolicy !== fetchPolicy && (oldFetchPolicy === 'cache-only' || oldFetchPolicy === 'standby' || fetchPolicy === 'network-only'), opts.fetchResults);
+    };
+
+    ObservableQuery.prototype.setVariables = function (variables, tryFetch, fetchResults) {
+      if (tryFetch === void 0) {
+        tryFetch = false;
+      }
+
+      if (fetchResults === void 0) {
+        fetchResults = true;
+      }
+
+      this.isTornDown = false;
+      variables = variables || this.variables;
+
+      if (!tryFetch && (0, _apolloUtilities.isEqual)(variables, this.variables)) {
+        return this.observers.size && fetchResults ? this.result() : Promise.resolve();
+      }
+
+      this.variables = this.options.variables = variables;
+
+      if (!this.observers.size) {
+        return Promise.resolve();
+      }
+
+      return this.queryManager.fetchQuery(this.queryId, this.options);
+    };
+
+    ObservableQuery.prototype.updateQuery = function (mapFn) {
+      var queryManager = this.queryManager;
+
+      var _a = queryManager.getQueryWithPreviousResult(this.queryId),
+          previousResult = _a.previousResult,
+          variables = _a.variables,
+          document = _a.document;
+
+      var newResult = (0, _apolloUtilities.tryFunctionOrLogError)(function () {
+        return mapFn(previousResult, {
+          variables: variables
+        });
+      });
+
+      if (newResult) {
+        queryManager.dataStore.markUpdateQueryResult(document, variables, newResult);
+        queryManager.broadcastQueries();
+      }
+    };
+
+    ObservableQuery.prototype.stopPolling = function () {
+      this.queryManager.stopPollingQuery(this.queryId);
+      this.options.pollInterval = undefined;
+    };
+
+    ObservableQuery.prototype.startPolling = function (pollInterval) {
+      assertNotCacheFirstOrOnly(this);
+      this.options.pollInterval = pollInterval;
+      this.queryManager.startPollingQuery(this.options, this.queryId);
+    };
+
+    ObservableQuery.prototype.updateLastResult = function (newResult) {
+      var previousResult = this.lastResult;
+      this.lastResult = newResult;
+      this.lastResultSnapshot = this.queryManager.assumeImmutableResults ? newResult : (0, _apolloUtilities.cloneDeep)(newResult);
+      return previousResult;
+    };
+
+    ObservableQuery.prototype.onSubscribe = function (observer) {
+      var _this = this;
+
+      try {
+        var subObserver = observer._subscription._observer;
+
+        if (subObserver && !subObserver.error) {
+          subObserver.error = defaultSubscriptionObserverErrorCallback;
+        }
+      } catch (_a) {}
+
+      var first = !this.observers.size;
+      this.observers.add(observer);
+      if (observer.next && this.lastResult) observer.next(this.lastResult);
+      if (observer.error && this.lastError) observer.error(this.lastError);
+
+      if (first) {
+        this.setUpQuery();
+      }
+
+      return function () {
+        if (_this.observers.delete(observer) && !_this.observers.size) {
+          _this.tearDownQuery();
+        }
+      };
+    };
+
+    ObservableQuery.prototype.setUpQuery = function () {
+      var _this = this;
+
+      var _a = this,
+          queryManager = _a.queryManager,
+          queryId = _a.queryId;
+
+      if (this.shouldSubscribe) {
+        queryManager.addObservableQuery(queryId, this);
+      }
+
+      if (this.options.pollInterval) {
+        assertNotCacheFirstOrOnly(this);
+        queryManager.startPollingQuery(this.options, queryId);
+      }
+
+      var onError = function (error) {
+        _this.updateLastResult((0, _tslib.__assign)((0, _tslib.__assign)({}, _this.lastResult), {
+          errors: error.graphQLErrors,
+          networkStatus: NetworkStatus.error,
+          loading: false
+        }));
+
+        iterateObserversSafely(_this.observers, 'error', _this.lastError = error);
+      };
+
+      queryManager.observeQuery(queryId, this.options, {
+        next: function (result) {
+          if (_this.lastError || _this.isDifferentFromLastResult(result)) {
+            var previousResult_1 = _this.updateLastResult(result);
+
+            var _a = _this.options,
+                query_1 = _a.query,
+                variables = _a.variables,
+                fetchPolicy_1 = _a.fetchPolicy;
+
+            if (queryManager.transform(query_1).hasClientExports) {
+              queryManager.getLocalState().addExportedVariables(query_1, variables).then(function (variables) {
+                var previousVariables = _this.variables;
+                _this.variables = _this.options.variables = variables;
+
+                if (!result.loading && previousResult_1 && fetchPolicy_1 !== 'cache-only' && queryManager.transform(query_1).serverQuery && !(0, _apolloUtilities.isEqual)(previousVariables, variables)) {
+                  _this.refetch();
+                } else {
+                  iterateObserversSafely(_this.observers, 'next', result);
+                }
+              });
+            } else {
+              iterateObserversSafely(_this.observers, 'next', result);
+            }
+          }
+        },
+        error: onError
+      }).catch(onError);
+    };
+
+    ObservableQuery.prototype.tearDownQuery = function () {
+      var queryManager = this.queryManager;
+      this.isTornDown = true;
+      queryManager.stopPollingQuery(this.queryId);
+      this.subscriptions.forEach(function (sub) {
+        return sub.unsubscribe();
+      });
+      this.subscriptions.clear();
+      queryManager.removeObservableQuery(this.queryId);
+      queryManager.stopQuery(this.queryId);
+      this.observers.clear();
+    };
+
+    return ObservableQuery;
+  }(Observable);
+
+  _exports.ObservableQuery = ObservableQuery;
+
+  function defaultSubscriptionObserverErrorCallback(error) {
+     true || false;
+  }
+
+  function iterateObserversSafely(observers, method, argument) {
+    var observersWithMethod = [];
+    observers.forEach(function (obs) {
+      return obs[method] && observersWithMethod.push(obs);
+    });
+    observersWithMethod.forEach(function (obs) {
+      return obs[method](argument);
+    });
+  }
+
+  function assertNotCacheFirstOrOnly(obsQuery) {
+    var fetchPolicy = obsQuery.options.fetchPolicy;
+     true ? (0, _tsInvariant.invariant)(fetchPolicy !== 'cache-first' && fetchPolicy !== 'cache-only', 3) : undefined;
+  }
+
+  var MutationStore = function () {
+    function MutationStore() {
+      this.store = {};
+    }
+
+    MutationStore.prototype.getStore = function () {
+      return this.store;
+    };
+
+    MutationStore.prototype.get = function (mutationId) {
+      return this.store[mutationId];
+    };
+
+    MutationStore.prototype.initMutation = function (mutationId, mutation, variables) {
+      this.store[mutationId] = {
+        mutation: mutation,
+        variables: variables || {},
+        loading: true,
+        error: null
+      };
+    };
+
+    MutationStore.prototype.markMutationError = function (mutationId, error) {
+      var mutation = this.store[mutationId];
+
+      if (mutation) {
+        mutation.loading = false;
+        mutation.error = error;
+      }
+    };
+
+    MutationStore.prototype.markMutationResult = function (mutationId) {
+      var mutation = this.store[mutationId];
+
+      if (mutation) {
+        mutation.loading = false;
+        mutation.error = null;
+      }
+    };
+
+    MutationStore.prototype.reset = function () {
+      this.store = {};
+    };
+
+    return MutationStore;
+  }();
+
+  var QueryStore = function () {
+    function QueryStore() {
+      this.store = {};
+    }
+
+    QueryStore.prototype.getStore = function () {
+      return this.store;
+    };
+
+    QueryStore.prototype.get = function (queryId) {
+      return this.store[queryId];
+    };
+
+    QueryStore.prototype.initQuery = function (query) {
+      var previousQuery = this.store[query.queryId];
+       true ? (0, _tsInvariant.invariant)(!previousQuery || previousQuery.document === query.document || (0, _apolloUtilities.isEqual)(previousQuery.document, query.document), 19) : undefined;
+      var isSetVariables = false;
+      var previousVariables = null;
+
+      if (query.storePreviousVariables && previousQuery && previousQuery.networkStatus !== NetworkStatus.loading) {
+        if (!(0, _apolloUtilities.isEqual)(previousQuery.variables, query.variables)) {
+          isSetVariables = true;
+          previousVariables = previousQuery.variables;
+        }
+      }
+
+      var networkStatus;
+
+      if (isSetVariables) {
+        networkStatus = NetworkStatus.setVariables;
+      } else if (query.isPoll) {
+        networkStatus = NetworkStatus.poll;
+      } else if (query.isRefetch) {
+        networkStatus = NetworkStatus.refetch;
+      } else {
+        networkStatus = NetworkStatus.loading;
+      }
+
+      var graphQLErrors = [];
+
+      if (previousQuery && previousQuery.graphQLErrors) {
+        graphQLErrors = previousQuery.graphQLErrors;
+      }
+
+      this.store[query.queryId] = {
+        document: query.document,
+        variables: query.variables,
+        previousVariables: previousVariables,
+        networkError: null,
+        graphQLErrors: graphQLErrors,
+        networkStatus: networkStatus,
+        metadata: query.metadata
+      };
+
+      if (typeof query.fetchMoreForQueryId === 'string' && this.store[query.fetchMoreForQueryId]) {
+        this.store[query.fetchMoreForQueryId].networkStatus = NetworkStatus.fetchMore;
+      }
+    };
+
+    QueryStore.prototype.markQueryResult = function (queryId, result, fetchMoreForQueryId) {
+      if (!this.store || !this.store[queryId]) return;
+      this.store[queryId].networkError = null;
+      this.store[queryId].graphQLErrors = isNonEmptyArray(result.errors) ? result.errors : [];
+      this.store[queryId].previousVariables = null;
+      this.store[queryId].networkStatus = NetworkStatus.ready;
+
+      if (typeof fetchMoreForQueryId === 'string' && this.store[fetchMoreForQueryId]) {
+        this.store[fetchMoreForQueryId].networkStatus = NetworkStatus.ready;
+      }
+    };
+
+    QueryStore.prototype.markQueryError = function (queryId, error, fetchMoreForQueryId) {
+      if (!this.store || !this.store[queryId]) return;
+      this.store[queryId].networkError = error;
+      this.store[queryId].networkStatus = NetworkStatus.error;
+
+      if (typeof fetchMoreForQueryId === 'string') {
+        this.markQueryResultClient(fetchMoreForQueryId, true);
+      }
+    };
+
+    QueryStore.prototype.markQueryResultClient = function (queryId, complete) {
+      var storeValue = this.store && this.store[queryId];
+
+      if (storeValue) {
+        storeValue.networkError = null;
+        storeValue.previousVariables = null;
+
+        if (complete) {
+          storeValue.networkStatus = NetworkStatus.ready;
+        }
+      }
+    };
+
+    QueryStore.prototype.stopQuery = function (queryId) {
+      delete this.store[queryId];
+    };
+
+    QueryStore.prototype.reset = function (observableQueryIds) {
+      var _this = this;
+
+      Object.keys(this.store).forEach(function (queryId) {
+        if (observableQueryIds.indexOf(queryId) < 0) {
+          _this.stopQuery(queryId);
+        } else {
+          _this.store[queryId].networkStatus = NetworkStatus.loading;
+        }
+      });
+    };
+
+    return QueryStore;
+  }();
+
+  function capitalizeFirstLetter(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+
+  var LocalState = function () {
+    function LocalState(_a) {
+      var cache = _a.cache,
+          client = _a.client,
+          resolvers = _a.resolvers,
+          fragmentMatcher = _a.fragmentMatcher;
+      this.cache = cache;
+
+      if (client) {
+        this.client = client;
+      }
+
+      if (resolvers) {
+        this.addResolvers(resolvers);
+      }
+
+      if (fragmentMatcher) {
+        this.setFragmentMatcher(fragmentMatcher);
+      }
+    }
+
+    LocalState.prototype.addResolvers = function (resolvers) {
+      var _this = this;
+
+      this.resolvers = this.resolvers || {};
+
+      if (Array.isArray(resolvers)) {
+        resolvers.forEach(function (resolverGroup) {
+          _this.resolvers = (0, _apolloUtilities.mergeDeep)(_this.resolvers, resolverGroup);
+        });
+      } else {
+        this.resolvers = (0, _apolloUtilities.mergeDeep)(this.resolvers, resolvers);
+      }
+    };
+
+    LocalState.prototype.setResolvers = function (resolvers) {
+      this.resolvers = {};
+      this.addResolvers(resolvers);
+    };
+
+    LocalState.prototype.getResolvers = function () {
+      return this.resolvers || {};
+    };
+
+    LocalState.prototype.runResolvers = function (_a) {
+      var document = _a.document,
+          remoteResult = _a.remoteResult,
+          context = _a.context,
+          variables = _a.variables,
+          _b = _a.onlyRunForcedResolvers,
+          onlyRunForcedResolvers = _b === void 0 ? false : _b;
+      return (0, _tslib.__awaiter)(this, void 0, void 0, function () {
+        return (0, _tslib.__generator)(this, function (_c) {
+          if (document) {
+            return [2, this.resolveDocument(document, remoteResult.data, context, variables, this.fragmentMatcher, onlyRunForcedResolvers).then(function (localResult) {
+              return (0, _tslib.__assign)((0, _tslib.__assign)({}, remoteResult), {
+                data: localResult.result
+              });
+            })];
+          }
+
+          return [2, remoteResult];
+        });
+      });
+    };
+
+    LocalState.prototype.setFragmentMatcher = function (fragmentMatcher) {
+      this.fragmentMatcher = fragmentMatcher;
+    };
+
+    LocalState.prototype.getFragmentMatcher = function () {
+      return this.fragmentMatcher;
+    };
+
+    LocalState.prototype.clientQuery = function (document) {
+      if ((0, _apolloUtilities.hasDirectives)(['client'], document)) {
+        if (this.resolvers) {
+          return document;
+        }
+
+         true || false;
+      }
+
+      return null;
+    };
+
+    LocalState.prototype.serverQuery = function (document) {
+      return this.resolvers ? (0, _apolloUtilities.removeClientSetsFromDocument)(document) : document;
+    };
+
+    LocalState.prototype.prepareContext = function (context) {
+      if (context === void 0) {
+        context = {};
+      }
+
+      var cache = this.cache;
+      var newContext = (0, _tslib.__assign)((0, _tslib.__assign)({}, context), {
+        cache: cache,
+        getCacheKey: function (obj) {
+          if (cache.config) {
+            return cache.config.dataIdFromObject(obj);
+          } else {
+             true ? (0, _tsInvariant.invariant)(false, 6) : undefined;
+          }
+        }
+      });
+      return newContext;
+    };
+
+    LocalState.prototype.addExportedVariables = function (document, variables, context) {
+      if (variables === void 0) {
+        variables = {};
+      }
+
+      if (context === void 0) {
+        context = {};
+      }
+
+      return (0, _tslib.__awaiter)(this, void 0, void 0, function () {
+        return (0, _tslib.__generator)(this, function (_a) {
+          if (document) {
+            return [2, this.resolveDocument(document, this.buildRootValueFromCache(document, variables) || {}, this.prepareContext(context), variables).then(function (data) {
+              return (0, _tslib.__assign)((0, _tslib.__assign)({}, variables), data.exportedVariables);
+            })];
+          }
+
+          return [2, (0, _tslib.__assign)({}, variables)];
+        });
+      });
+    };
+
+    LocalState.prototype.shouldForceResolvers = function (document) {
+      var forceResolvers = false;
+      (0, _visitor.visit)(document, {
+        Directive: {
+          enter: function (node) {
+            if (node.name.value === 'client' && node.arguments) {
+              forceResolvers = node.arguments.some(function (arg) {
+                return arg.name.value === 'always' && arg.value.kind === 'BooleanValue' && arg.value.value === true;
+              });
+
+              if (forceResolvers) {
+                return _visitor.BREAK;
+              }
+            }
+          }
+        }
+      });
+      return forceResolvers;
+    };
+
+    LocalState.prototype.buildRootValueFromCache = function (document, variables) {
+      return this.cache.diff({
+        query: (0, _apolloUtilities.buildQueryFromSelectionSet)(document),
+        variables: variables,
+        returnPartialData: true,
+        optimistic: false
+      }).result;
+    };
+
+    LocalState.prototype.resolveDocument = function (document, rootValue, context, variables, fragmentMatcher, onlyRunForcedResolvers) {
+      if (context === void 0) {
+        context = {};
+      }
+
+      if (variables === void 0) {
+        variables = {};
+      }
+
+      if (fragmentMatcher === void 0) {
+        fragmentMatcher = function () {
+          return true;
+        };
+      }
+
+      if (onlyRunForcedResolvers === void 0) {
+        onlyRunForcedResolvers = false;
+      }
+
+      return (0, _tslib.__awaiter)(this, void 0, void 0, function () {
+        var mainDefinition, fragments, fragmentMap, definitionOperation, defaultOperationType, _a, cache, client, execContext;
+
+        return (0, _tslib.__generator)(this, function (_b) {
+          mainDefinition = (0, _apolloUtilities.getMainDefinition)(document);
+          fragments = (0, _apolloUtilities.getFragmentDefinitions)(document);
+          fragmentMap = (0, _apolloUtilities.createFragmentMap)(fragments);
+          definitionOperation = mainDefinition.operation;
+          defaultOperationType = definitionOperation ? capitalizeFirstLetter(definitionOperation) : 'Query';
+          _a = this, cache = _a.cache, client = _a.client;
+          execContext = {
+            fragmentMap: fragmentMap,
+            context: (0, _tslib.__assign)((0, _tslib.__assign)({}, context), {
+              cache: cache,
+              client: client
+            }),
+            variables: variables,
+            fragmentMatcher: fragmentMatcher,
+            defaultOperationType: defaultOperationType,
+            exportedVariables: {},
+            onlyRunForcedResolvers: onlyRunForcedResolvers
+          };
+          return [2, this.resolveSelectionSet(mainDefinition.selectionSet, rootValue, execContext).then(function (result) {
+            return {
+              result: result,
+              exportedVariables: execContext.exportedVariables
+            };
+          })];
+        });
+      });
+    };
+
+    LocalState.prototype.resolveSelectionSet = function (selectionSet, rootValue, execContext) {
+      return (0, _tslib.__awaiter)(this, void 0, void 0, function () {
+        var fragmentMap, context, variables, resultsToMerge, execute;
+
+        var _this = this;
+
+        return (0, _tslib.__generator)(this, function (_a) {
+          fragmentMap = execContext.fragmentMap, context = execContext.context, variables = execContext.variables;
+          resultsToMerge = [rootValue];
+
+          execute = function (selection) {
+            return (0, _tslib.__awaiter)(_this, void 0, void 0, function () {
+              var fragment, typeCondition;
+              return (0, _tslib.__generator)(this, function (_a) {
+                if (!(0, _apolloUtilities.shouldInclude)(selection, variables)) {
+                  return [2];
+                }
+
+                if ((0, _apolloUtilities.isField)(selection)) {
+                  return [2, this.resolveField(selection, rootValue, execContext).then(function (fieldResult) {
+                    var _a;
+
+                    if (typeof fieldResult !== 'undefined') {
+                      resultsToMerge.push((_a = {}, _a[(0, _apolloUtilities.resultKeyNameFromField)(selection)] = fieldResult, _a));
+                    }
+                  })];
+                }
+
+                if ((0, _apolloUtilities.isInlineFragment)(selection)) {
+                  fragment = selection;
+                } else {
+                  fragment = fragmentMap[selection.name.value];
+                   true ? (0, _tsInvariant.invariant)(fragment, 7) : undefined;
+                }
+
+                if (fragment && fragment.typeCondition) {
+                  typeCondition = fragment.typeCondition.name.value;
+
+                  if (execContext.fragmentMatcher(rootValue, typeCondition, context)) {
+                    return [2, this.resolveSelectionSet(fragment.selectionSet, rootValue, execContext).then(function (fragmentResult) {
+                      resultsToMerge.push(fragmentResult);
+                    })];
+                  }
+                }
+
+                return [2];
+              });
+            });
+          };
+
+          return [2, Promise.all(selectionSet.selections.map(execute)).then(function () {
+            return (0, _apolloUtilities.mergeDeepArray)(resultsToMerge);
+          })];
+        });
+      });
+    };
+
+    LocalState.prototype.resolveField = function (field, rootValue, execContext) {
+      return (0, _tslib.__awaiter)(this, void 0, void 0, function () {
+        var variables, fieldName, aliasedFieldName, aliasUsed, defaultResult, resultPromise, resolverType, resolverMap, resolve;
+
+        var _this = this;
+
+        return (0, _tslib.__generator)(this, function (_a) {
+          variables = execContext.variables;
+          fieldName = field.name.value;
+          aliasedFieldName = (0, _apolloUtilities.resultKeyNameFromField)(field);
+          aliasUsed = fieldName !== aliasedFieldName;
+          defaultResult = rootValue[aliasedFieldName] || rootValue[fieldName];
+          resultPromise = Promise.resolve(defaultResult);
+
+          if (!execContext.onlyRunForcedResolvers || this.shouldForceResolvers(field)) {
+            resolverType = rootValue.__typename || execContext.defaultOperationType;
+            resolverMap = this.resolvers && this.resolvers[resolverType];
+
+            if (resolverMap) {
+              resolve = resolverMap[aliasUsed ? fieldName : aliasedFieldName];
+
+              if (resolve) {
+                resultPromise = Promise.resolve(resolve(rootValue, (0, _apolloUtilities.argumentsObjectFromField)(field, variables), execContext.context, {
+                  field: field,
+                  fragmentMap: execContext.fragmentMap
+                }));
+              }
+            }
+          }
+
+          return [2, resultPromise.then(function (result) {
+            if (result === void 0) {
+              result = defaultResult;
+            }
+
+            if (field.directives) {
+              field.directives.forEach(function (directive) {
+                if (directive.name.value === 'export' && directive.arguments) {
+                  directive.arguments.forEach(function (arg) {
+                    if (arg.name.value === 'as' && arg.value.kind === 'StringValue') {
+                      execContext.exportedVariables[arg.value.value] = result;
+                    }
+                  });
+                }
+              });
+            }
+
+            if (!field.selectionSet) {
+              return result;
+            }
+
+            if (result == null) {
+              return result;
+            }
+
+            if (Array.isArray(result)) {
+              return _this.resolveSubSelectedArray(field, result, execContext);
+            }
+
+            if (field.selectionSet) {
+              return _this.resolveSelectionSet(field.selectionSet, result, execContext);
+            }
+          })];
+        });
+      });
+    };
+
+    LocalState.prototype.resolveSubSelectedArray = function (field, result, execContext) {
+      var _this = this;
+
+      return Promise.all(result.map(function (item) {
+        if (item === null) {
+          return null;
+        }
+
+        if (Array.isArray(item)) {
+          return _this.resolveSubSelectedArray(field, item, execContext);
+        }
+
+        if (field.selectionSet) {
+          return _this.resolveSelectionSet(field.selectionSet, item, execContext);
+        }
+      }));
+    };
+
+    return LocalState;
+  }();
+
+  function multiplex(inner) {
+    var observers = new Set();
+    var sub = null;
+    return new Observable(function (observer) {
+      observers.add(observer);
+      sub = sub || inner.subscribe({
+        next: function (value) {
+          observers.forEach(function (obs) {
+            return obs.next && obs.next(value);
+          });
+        },
+        error: function (error) {
+          observers.forEach(function (obs) {
+            return obs.error && obs.error(error);
+          });
+        },
+        complete: function () {
+          observers.forEach(function (obs) {
+            return obs.complete && obs.complete();
+          });
+        }
+      });
+      return function () {
+        if (observers.delete(observer) && !observers.size && sub) {
+          sub.unsubscribe();
+          sub = null;
+        }
+      };
+    });
+  }
+
+  function asyncMap(observable, mapFn) {
+    return new Observable(function (observer) {
+      var next = observer.next,
+          error = observer.error,
+          complete = observer.complete;
+      var activeNextCount = 0;
+      var completed = false;
+      var handler = {
+        next: function (value) {
+          ++activeNextCount;
+          new Promise(function (resolve) {
+            resolve(mapFn(value));
+          }).then(function (result) {
+            --activeNextCount;
+            next && next.call(observer, result);
+            completed && handler.complete();
+          }, function (e) {
+            --activeNextCount;
+            error && error.call(observer, e);
+          });
+        },
+        error: function (e) {
+          error && error.call(observer, e);
+        },
+        complete: function () {
+          completed = true;
+
+          if (!activeNextCount) {
+            complete && complete.call(observer);
+          }
+        }
+      };
+      var sub = observable.subscribe(handler);
+      return function () {
+        return sub.unsubscribe();
+      };
+    });
+  }
+
+  var hasOwnProperty = Object.prototype.hasOwnProperty;
+
+  var QueryManager = function () {
+    function QueryManager(_a) {
+      var link = _a.link,
+          _b = _a.queryDeduplication,
+          queryDeduplication = _b === void 0 ? false : _b,
+          store = _a.store,
+          _c = _a.onBroadcast,
+          onBroadcast = _c === void 0 ? function () {
+        return undefined;
+      } : _c,
+          _d = _a.ssrMode,
+          ssrMode = _d === void 0 ? false : _d,
+          _e = _a.clientAwareness,
+          clientAwareness = _e === void 0 ? {} : _e,
+          localState = _a.localState,
+          assumeImmutableResults = _a.assumeImmutableResults;
+      this.mutationStore = new MutationStore();
+      this.queryStore = new QueryStore();
+      this.clientAwareness = {};
+      this.idCounter = 1;
+      this.queries = new Map();
+      this.fetchQueryRejectFns = new Map();
+      this.transformCache = new (_apolloUtilities.canUseWeakMap ? WeakMap : Map)();
+      this.inFlightLinkObservables = new Map();
+      this.pollingInfoByQueryId = new Map();
+      this.link = link;
+      this.queryDeduplication = queryDeduplication;
+      this.dataStore = store;
+      this.onBroadcast = onBroadcast;
+      this.clientAwareness = clientAwareness;
+      this.localState = localState || new LocalState({
+        cache: store.getCache()
+      });
+      this.ssrMode = ssrMode;
+      this.assumeImmutableResults = !!assumeImmutableResults;
+    }
+
+    QueryManager.prototype.stop = function () {
+      var _this = this;
+
+      this.queries.forEach(function (_info, queryId) {
+        _this.stopQueryNoBroadcast(queryId);
+      });
+      this.fetchQueryRejectFns.forEach(function (reject) {
+        reject( true ? new _tsInvariant.InvariantError(8) : undefined);
+      });
+    };
+
+    QueryManager.prototype.mutate = function (_a) {
+      var mutation = _a.mutation,
+          variables = _a.variables,
+          optimisticResponse = _a.optimisticResponse,
+          updateQueriesByName = _a.updateQueries,
+          _b = _a.refetchQueries,
+          refetchQueries = _b === void 0 ? [] : _b,
+          _c = _a.awaitRefetchQueries,
+          awaitRefetchQueries = _c === void 0 ? false : _c,
+          updateWithProxyFn = _a.update,
+          _d = _a.errorPolicy,
+          errorPolicy = _d === void 0 ? 'none' : _d,
+          fetchPolicy = _a.fetchPolicy,
+          _e = _a.context,
+          context = _e === void 0 ? {} : _e;
+      return (0, _tslib.__awaiter)(this, void 0, void 0, function () {
+        var mutationId, generateUpdateQueriesInfo, self;
+
+        var _this = this;
+
+        return (0, _tslib.__generator)(this, function (_f) {
+          switch (_f.label) {
+            case 0:
+               true ? (0, _tsInvariant.invariant)(mutation, 9) : undefined;
+               true ? (0, _tsInvariant.invariant)(!fetchPolicy || fetchPolicy === 'no-cache', 10) : undefined;
+              mutationId = this.generateQueryId();
+              mutation = this.transform(mutation).document;
+              this.setQuery(mutationId, function () {
+                return {
+                  document: mutation
+                };
+              });
+              variables = this.getVariables(mutation, variables);
+              if (!this.transform(mutation).hasClientExports) return [3, 2];
+              return [4, this.localState.addExportedVariables(mutation, variables, context)];
+
+            case 1:
+              variables = _f.sent();
+              _f.label = 2;
+
+            case 2:
+              generateUpdateQueriesInfo = function () {
+                var ret = {};
+
+                if (updateQueriesByName) {
+                  _this.queries.forEach(function (_a, queryId) {
+                    var observableQuery = _a.observableQuery;
+
+                    if (observableQuery) {
+                      var queryName = observableQuery.queryName;
+
+                      if (queryName && hasOwnProperty.call(updateQueriesByName, queryName)) {
+                        ret[queryId] = {
+                          updater: updateQueriesByName[queryName],
+                          query: _this.queryStore.get(queryId)
+                        };
+                      }
+                    }
+                  });
+                }
+
+                return ret;
+              };
+
+              this.mutationStore.initMutation(mutationId, mutation, variables);
+              this.dataStore.markMutationInit({
+                mutationId: mutationId,
+                document: mutation,
+                variables: variables,
+                updateQueries: generateUpdateQueriesInfo(),
+                update: updateWithProxyFn,
+                optimisticResponse: optimisticResponse
+              });
+              this.broadcastQueries();
+              self = this;
+              return [2, new Promise(function (resolve, reject) {
+                var storeResult;
+                var error;
+                self.getObservableFromLink(mutation, (0, _tslib.__assign)((0, _tslib.__assign)({}, context), {
+                  optimisticResponse: optimisticResponse
+                }), variables, false).subscribe({
+                  next: function (result) {
+                    if ((0, _apolloUtilities.graphQLResultHasError)(result) && errorPolicy === 'none') {
+                      error = new ApolloError({
+                        graphQLErrors: result.errors
+                      });
+                      return;
+                    }
+
+                    self.mutationStore.markMutationResult(mutationId);
+
+                    if (fetchPolicy !== 'no-cache') {
+                      self.dataStore.markMutationResult({
+                        mutationId: mutationId,
+                        result: result,
+                        document: mutation,
+                        variables: variables,
+                        updateQueries: generateUpdateQueriesInfo(),
+                        update: updateWithProxyFn
+                      });
+                    }
+
+                    storeResult = result;
+                  },
+                  error: function (err) {
+                    self.mutationStore.markMutationError(mutationId, err);
+                    self.dataStore.markMutationComplete({
+                      mutationId: mutationId,
+                      optimisticResponse: optimisticResponse
+                    });
+                    self.broadcastQueries();
+                    self.setQuery(mutationId, function () {
+                      return {
+                        document: null
+                      };
+                    });
+                    reject(new ApolloError({
+                      networkError: err
+                    }));
+                  },
+                  complete: function () {
+                    if (error) {
+                      self.mutationStore.markMutationError(mutationId, error);
+                    }
+
+                    self.dataStore.markMutationComplete({
+                      mutationId: mutationId,
+                      optimisticResponse: optimisticResponse
+                    });
+                    self.broadcastQueries();
+
+                    if (error) {
+                      reject(error);
+                      return;
+                    }
+
+                    if (typeof refetchQueries === 'function') {
+                      refetchQueries = refetchQueries(storeResult);
+                    }
+
+                    var refetchQueryPromises = [];
+
+                    if (isNonEmptyArray(refetchQueries)) {
+                      refetchQueries.forEach(function (refetchQuery) {
+                        if (typeof refetchQuery === 'string') {
+                          self.queries.forEach(function (_a) {
+                            var observableQuery = _a.observableQuery;
+
+                            if (observableQuery && observableQuery.queryName === refetchQuery) {
+                              refetchQueryPromises.push(observableQuery.refetch());
+                            }
+                          });
+                        } else {
+                          var queryOptions = {
+                            query: refetchQuery.query,
+                            variables: refetchQuery.variables,
+                            fetchPolicy: 'network-only'
+                          };
+
+                          if (refetchQuery.context) {
+                            queryOptions.context = refetchQuery.context;
+                          }
+
+                          refetchQueryPromises.push(self.query(queryOptions));
+                        }
+                      });
+                    }
+
+                    Promise.all(awaitRefetchQueries ? refetchQueryPromises : []).then(function () {
+                      self.setQuery(mutationId, function () {
+                        return {
+                          document: null
+                        };
+                      });
+
+                      if (errorPolicy === 'ignore' && storeResult && (0, _apolloUtilities.graphQLResultHasError)(storeResult)) {
+                        delete storeResult.errors;
+                      }
+
+                      resolve(storeResult);
+                    });
+                  }
+                });
+              })];
+          }
+        });
+      });
+    };
+
+    QueryManager.prototype.fetchQuery = function (queryId, options, fetchType, fetchMoreForQueryId) {
+      return (0, _tslib.__awaiter)(this, void 0, void 0, function () {
+        var _a, metadata, _b, fetchPolicy, _c, context, query, variables, storeResult, isNetworkOnly, needToFetch, _d, complete, result, shouldFetch, requestId, cancel, networkResult;
+
+        var _this = this;
+
+        return (0, _tslib.__generator)(this, function (_e) {
+          switch (_e.label) {
+            case 0:
+              _a = options.metadata, metadata = _a === void 0 ? null : _a, _b = options.fetchPolicy, fetchPolicy = _b === void 0 ? 'cache-first' : _b, _c = options.context, context = _c === void 0 ? {} : _c;
+              query = this.transform(options.query).document;
+              variables = this.getVariables(query, options.variables);
+              if (!this.transform(query).hasClientExports) return [3, 2];
+              return [4, this.localState.addExportedVariables(query, variables, context)];
+
+            case 1:
+              variables = _e.sent();
+              _e.label = 2;
+
+            case 2:
+              options = (0, _tslib.__assign)((0, _tslib.__assign)({}, options), {
+                variables: variables
+              });
+              isNetworkOnly = fetchPolicy === 'network-only' || fetchPolicy === 'no-cache';
+              needToFetch = isNetworkOnly;
+
+              if (!isNetworkOnly) {
+                _d = this.dataStore.getCache().diff({
+                  query: query,
+                  variables: variables,
+                  returnPartialData: true,
+                  optimistic: false
+                }), complete = _d.complete, result = _d.result;
+                needToFetch = !complete || fetchPolicy === 'cache-and-network';
+                storeResult = result;
+              }
+
+              shouldFetch = needToFetch && fetchPolicy !== 'cache-only' && fetchPolicy !== 'standby';
+              if ((0, _apolloUtilities.hasDirectives)(['live'], query)) shouldFetch = true;
+              requestId = this.idCounter++;
+              cancel = fetchPolicy !== 'no-cache' ? this.updateQueryWatch(queryId, query, options) : undefined;
+              this.setQuery(queryId, function () {
+                return {
+                  document: query,
+                  lastRequestId: requestId,
+                  invalidated: true,
+                  cancel: cancel
+                };
+              });
+              this.invalidate(fetchMoreForQueryId);
+              this.queryStore.initQuery({
+                queryId: queryId,
+                document: query,
+                storePreviousVariables: shouldFetch,
+                variables: variables,
+                isPoll: fetchType === FetchType.poll,
+                isRefetch: fetchType === FetchType.refetch,
+                metadata: metadata,
+                fetchMoreForQueryId: fetchMoreForQueryId
+              });
+              this.broadcastQueries();
+
+              if (shouldFetch) {
+                networkResult = this.fetchRequest({
+                  requestId: requestId,
+                  queryId: queryId,
+                  document: query,
+                  options: options,
+                  fetchMoreForQueryId: fetchMoreForQueryId
+                }).catch(function (error) {
+                  if (isApolloError(error)) {
+                    throw error;
+                  } else {
+                    if (requestId >= _this.getQuery(queryId).lastRequestId) {
+                      _this.queryStore.markQueryError(queryId, error, fetchMoreForQueryId);
+
+                      _this.invalidate(queryId);
+
+                      _this.invalidate(fetchMoreForQueryId);
+
+                      _this.broadcastQueries();
+                    }
+
+                    throw new ApolloError({
+                      networkError: error
+                    });
+                  }
+                });
+
+                if (fetchPolicy !== 'cache-and-network') {
+                  return [2, networkResult];
+                }
+
+                networkResult.catch(function () {});
+              }
+
+              this.queryStore.markQueryResultClient(queryId, !shouldFetch);
+              this.invalidate(queryId);
+              this.invalidate(fetchMoreForQueryId);
+
+              if (this.transform(query).hasForcedResolvers) {
+                return [2, this.localState.runResolvers({
+                  document: query,
+                  remoteResult: {
+                    data: storeResult
+                  },
+                  context: context,
+                  variables: variables,
+                  onlyRunForcedResolvers: true
+                }).then(function (result) {
+                  _this.markQueryResult(queryId, result, options, fetchMoreForQueryId);
+
+                  _this.broadcastQueries();
+
+                  return result;
+                })];
+              }
+
+              this.broadcastQueries();
+              return [2, {
+                data: storeResult
+              }];
+          }
+        });
+      });
+    };
+
+    QueryManager.prototype.markQueryResult = function (queryId, result, _a, fetchMoreForQueryId) {
+      var fetchPolicy = _a.fetchPolicy,
+          variables = _a.variables,
+          errorPolicy = _a.errorPolicy;
+
+      if (fetchPolicy === 'no-cache') {
+        this.setQuery(queryId, function () {
+          return {
+            newData: {
+              result: result.data,
+              complete: true
+            }
+          };
+        });
+      } else {
+        this.dataStore.markQueryResult(result, this.getQuery(queryId).document, variables, fetchMoreForQueryId, errorPolicy === 'ignore' || errorPolicy === 'all');
+      }
+    };
+
+    QueryManager.prototype.queryListenerForObserver = function (queryId, options, observer) {
+      var _this = this;
+
+      function invoke(method, argument) {
+        if (observer[method]) {
+          try {
+            observer[method](argument);
+          } catch (e) {
+             true || false;
+          }
+        } else if (method === 'error') {
+           true || false;
+        }
+      }
+
+      return function (queryStoreValue, newData) {
+        _this.invalidate(queryId, false);
+
+        if (!queryStoreValue) return;
+
+        var _a = _this.getQuery(queryId),
+            observableQuery = _a.observableQuery,
+            document = _a.document;
+
+        var fetchPolicy = observableQuery ? observableQuery.options.fetchPolicy : options.fetchPolicy;
+        if (fetchPolicy === 'standby') return;
+        var loading = isNetworkRequestInFlight(queryStoreValue.networkStatus);
+        var lastResult = observableQuery && observableQuery.getLastResult();
+        var networkStatusChanged = !!(lastResult && lastResult.networkStatus !== queryStoreValue.networkStatus);
+        var shouldNotifyIfLoading = options.returnPartialData || !newData && queryStoreValue.previousVariables || networkStatusChanged && options.notifyOnNetworkStatusChange || fetchPolicy === 'cache-only' || fetchPolicy === 'cache-and-network';
+
+        if (loading && !shouldNotifyIfLoading) {
+          return;
+        }
+
+        var hasGraphQLErrors = isNonEmptyArray(queryStoreValue.graphQLErrors);
+        var errorPolicy = observableQuery && observableQuery.options.errorPolicy || options.errorPolicy || 'none';
+
+        if (errorPolicy === 'none' && hasGraphQLErrors || queryStoreValue.networkError) {
+          return invoke('error', new ApolloError({
+            graphQLErrors: queryStoreValue.graphQLErrors,
+            networkError: queryStoreValue.networkError
+          }));
+        }
+
+        try {
+          var data = void 0;
+          var isMissing = void 0;
+
+          if (newData) {
+            if (fetchPolicy !== 'no-cache' && fetchPolicy !== 'network-only') {
+              _this.setQuery(queryId, function () {
+                return {
+                  newData: null
+                };
+              });
+            }
+
+            data = newData.result;
+            isMissing = !newData.complete;
+          } else {
+            var lastError = observableQuery && observableQuery.getLastError();
+            var errorStatusChanged = errorPolicy !== 'none' && (lastError && lastError.graphQLErrors) !== queryStoreValue.graphQLErrors;
+
+            if (lastResult && lastResult.data && !errorStatusChanged) {
+              data = lastResult.data;
+              isMissing = false;
+            } else {
+              var diffResult = _this.dataStore.getCache().diff({
+                query: document,
+                variables: queryStoreValue.previousVariables || queryStoreValue.variables,
+                returnPartialData: true,
+                optimistic: true
+              });
+
+              data = diffResult.result;
+              isMissing = !diffResult.complete;
+            }
+          }
+
+          var stale = isMissing && !(options.returnPartialData || fetchPolicy === 'cache-only');
+          var resultFromStore = {
+            data: stale ? lastResult && lastResult.data : data,
+            loading: loading,
+            networkStatus: queryStoreValue.networkStatus,
+            stale: stale
+          };
+
+          if (errorPolicy === 'all' && hasGraphQLErrors) {
+            resultFromStore.errors = queryStoreValue.graphQLErrors;
+          }
+
+          invoke('next', resultFromStore);
+        } catch (networkError) {
+          invoke('error', new ApolloError({
+            networkError: networkError
+          }));
+        }
+      };
+    };
+
+    QueryManager.prototype.transform = function (document) {
+      var transformCache = this.transformCache;
+
+      if (!transformCache.has(document)) {
+        var cache = this.dataStore.getCache();
+        var transformed = cache.transformDocument(document);
+        var forLink = (0, _apolloUtilities.removeConnectionDirectiveFromDocument)(cache.transformForLink(transformed));
+        var clientQuery = this.localState.clientQuery(transformed);
+        var serverQuery = this.localState.serverQuery(forLink);
+        var cacheEntry_1 = {
+          document: transformed,
+          hasClientExports: (0, _apolloUtilities.hasClientExports)(transformed),
+          hasForcedResolvers: this.localState.shouldForceResolvers(transformed),
+          clientQuery: clientQuery,
+          serverQuery: serverQuery,
+          defaultVars: (0, _apolloUtilities.getDefaultValues)((0, _apolloUtilities.getOperationDefinition)(transformed))
+        };
+
+        var add = function (doc) {
+          if (doc && !transformCache.has(doc)) {
+            transformCache.set(doc, cacheEntry_1);
+          }
+        };
+
+        add(document);
+        add(transformed);
+        add(clientQuery);
+        add(serverQuery);
+      }
+
+      return transformCache.get(document);
+    };
+
+    QueryManager.prototype.getVariables = function (document, variables) {
+      return (0, _tslib.__assign)((0, _tslib.__assign)({}, this.transform(document).defaultVars), variables);
+    };
+
+    QueryManager.prototype.watchQuery = function (options, shouldSubscribe) {
+      if (shouldSubscribe === void 0) {
+        shouldSubscribe = true;
+      }
+
+       true ? (0, _tsInvariant.invariant)(options.fetchPolicy !== 'standby', 11) : undefined;
+      options.variables = this.getVariables(options.query, options.variables);
+
+      if (typeof options.notifyOnNetworkStatusChange === 'undefined') {
+        options.notifyOnNetworkStatusChange = false;
+      }
+
+      var transformedOptions = (0, _tslib.__assign)({}, options);
+      return new ObservableQuery({
+        queryManager: this,
+        options: transformedOptions,
+        shouldSubscribe: shouldSubscribe
+      });
+    };
+
+    QueryManager.prototype.query = function (options) {
+      var _this = this;
+
+       true ? (0, _tsInvariant.invariant)(options.query, 12) : undefined;
+       true ? (0, _tsInvariant.invariant)(options.query.kind === 'Document', 13) : undefined;
+       true ? (0, _tsInvariant.invariant)(!options.returnPartialData, 14) : undefined;
+       true ? (0, _tsInvariant.invariant)(!options.pollInterval, 15) : undefined;
+      return new Promise(function (resolve, reject) {
+        var watchedQuery = _this.watchQuery(options, false);
+
+        _this.fetchQueryRejectFns.set("query:" + watchedQuery.queryId, reject);
+
+        watchedQuery.result().then(resolve, reject).then(function () {
+          return _this.fetchQueryRejectFns.delete("query:" + watchedQuery.queryId);
+        });
+      });
+    };
+
+    QueryManager.prototype.generateQueryId = function () {
+      return String(this.idCounter++);
+    };
+
+    QueryManager.prototype.stopQueryInStore = function (queryId) {
+      this.stopQueryInStoreNoBroadcast(queryId);
+      this.broadcastQueries();
+    };
+
+    QueryManager.prototype.stopQueryInStoreNoBroadcast = function (queryId) {
+      this.stopPollingQuery(queryId);
+      this.queryStore.stopQuery(queryId);
+      this.invalidate(queryId);
+    };
+
+    QueryManager.prototype.addQueryListener = function (queryId, listener) {
+      this.setQuery(queryId, function (_a) {
+        var listeners = _a.listeners;
+        listeners.add(listener);
+        return {
+          invalidated: false
+        };
+      });
+    };
+
+    QueryManager.prototype.updateQueryWatch = function (queryId, document, options) {
+      var _this = this;
+
+      var cancel = this.getQuery(queryId).cancel;
+      if (cancel) cancel();
+
+      var previousResult = function () {
+        var previousResult = null;
+
+        var observableQuery = _this.getQuery(queryId).observableQuery;
+
+        if (observableQuery) {
+          var lastResult = observableQuery.getLastResult();
+
+          if (lastResult) {
+            previousResult = lastResult.data;
+          }
+        }
+
+        return previousResult;
+      };
+
+      return this.dataStore.getCache().watch({
+        query: document,
+        variables: options.variables,
+        optimistic: true,
+        previousResult: previousResult,
+        callback: function (newData) {
+          _this.setQuery(queryId, function () {
+            return {
+              invalidated: true,
+              newData: newData
+            };
+          });
+        }
+      });
+    };
+
+    QueryManager.prototype.addObservableQuery = function (queryId, observableQuery) {
+      this.setQuery(queryId, function () {
+        return {
+          observableQuery: observableQuery
+        };
+      });
+    };
+
+    QueryManager.prototype.removeObservableQuery = function (queryId) {
+      var cancel = this.getQuery(queryId).cancel;
+      this.setQuery(queryId, function () {
+        return {
+          observableQuery: null
+        };
+      });
+      if (cancel) cancel();
+    };
+
+    QueryManager.prototype.clearStore = function () {
+      this.fetchQueryRejectFns.forEach(function (reject) {
+        reject( true ? new _tsInvariant.InvariantError(16) : undefined);
+      });
+      var resetIds = [];
+      this.queries.forEach(function (_a, queryId) {
+        var observableQuery = _a.observableQuery;
+        if (observableQuery) resetIds.push(queryId);
+      });
+      this.queryStore.reset(resetIds);
+      this.mutationStore.reset();
+      return this.dataStore.reset();
+    };
+
+    QueryManager.prototype.resetStore = function () {
+      var _this = this;
+
+      return this.clearStore().then(function () {
+        return _this.reFetchObservableQueries();
+      });
+    };
+
+    QueryManager.prototype.reFetchObservableQueries = function (includeStandby) {
+      var _this = this;
+
+      if (includeStandby === void 0) {
+        includeStandby = false;
+      }
+
+      var observableQueryPromises = [];
+      this.queries.forEach(function (_a, queryId) {
+        var observableQuery = _a.observableQuery;
+
+        if (observableQuery) {
+          var fetchPolicy = observableQuery.options.fetchPolicy;
+          observableQuery.resetLastResults();
+
+          if (fetchPolicy !== 'cache-only' && (includeStandby || fetchPolicy !== 'standby')) {
+            observableQueryPromises.push(observableQuery.refetch());
+          }
+
+          _this.setQuery(queryId, function () {
+            return {
+              newData: null
+            };
+          });
+
+          _this.invalidate(queryId);
+        }
+      });
+      this.broadcastQueries();
+      return Promise.all(observableQueryPromises);
+    };
+
+    QueryManager.prototype.observeQuery = function (queryId, options, observer) {
+      this.addQueryListener(queryId, this.queryListenerForObserver(queryId, options, observer));
+      return this.fetchQuery(queryId, options);
+    };
+
+    QueryManager.prototype.startQuery = function (queryId, options, listener) {
+       true || false;
+      this.addQueryListener(queryId, listener);
+      this.fetchQuery(queryId, options).catch(function () {
+        return undefined;
+      });
+      return queryId;
+    };
+
+    QueryManager.prototype.startGraphQLSubscription = function (_a) {
+      var _this = this;
+
+      var query = _a.query,
+          fetchPolicy = _a.fetchPolicy,
+          variables = _a.variables;
+      query = this.transform(query).document;
+      variables = this.getVariables(query, variables);
+
+      var makeObservable = function (variables) {
+        return _this.getObservableFromLink(query, {}, variables, false).map(function (result) {
+          if (!fetchPolicy || fetchPolicy !== 'no-cache') {
+            _this.dataStore.markSubscriptionResult(result, query, variables);
+
+            _this.broadcastQueries();
+          }
+
+          if ((0, _apolloUtilities.graphQLResultHasError)(result)) {
+            throw new ApolloError({
+              graphQLErrors: result.errors
+            });
+          }
+
+          return result;
+        });
+      };
+
+      if (this.transform(query).hasClientExports) {
+        var observablePromise_1 = this.localState.addExportedVariables(query, variables).then(makeObservable);
+        return new Observable(function (observer) {
+          var sub = null;
+          observablePromise_1.then(function (observable) {
+            return sub = observable.subscribe(observer);
+          }, observer.error);
+          return function () {
+            return sub && sub.unsubscribe();
+          };
+        });
+      }
+
+      return makeObservable(variables);
+    };
+
+    QueryManager.prototype.stopQuery = function (queryId) {
+      this.stopQueryNoBroadcast(queryId);
+      this.broadcastQueries();
+    };
+
+    QueryManager.prototype.stopQueryNoBroadcast = function (queryId) {
+      this.stopQueryInStoreNoBroadcast(queryId);
+      this.removeQuery(queryId);
+    };
+
+    QueryManager.prototype.removeQuery = function (queryId) {
+      this.fetchQueryRejectFns.delete("query:" + queryId);
+      this.fetchQueryRejectFns.delete("fetchRequest:" + queryId);
+      this.getQuery(queryId).subscriptions.forEach(function (x) {
+        return x.unsubscribe();
+      });
+      this.queries.delete(queryId);
+    };
+
+    QueryManager.prototype.getCurrentQueryResult = function (observableQuery, optimistic) {
+      if (optimistic === void 0) {
+        optimistic = true;
+      }
+
+      var _a = observableQuery.options,
+          variables = _a.variables,
+          query = _a.query,
+          fetchPolicy = _a.fetchPolicy,
+          returnPartialData = _a.returnPartialData;
+      var lastResult = observableQuery.getLastResult();
+      var newData = this.getQuery(observableQuery.queryId).newData;
+
+      if (newData && newData.complete) {
+        return {
+          data: newData.result,
+          partial: false
+        };
+      }
+
+      if (fetchPolicy === 'no-cache' || fetchPolicy === 'network-only') {
+        return {
+          data: undefined,
+          partial: false
+        };
+      }
+
+      var _b = this.dataStore.getCache().diff({
+        query: query,
+        variables: variables,
+        previousResult: lastResult ? lastResult.data : undefined,
+        returnPartialData: true,
+        optimistic: optimistic
+      }),
+          result = _b.result,
+          complete = _b.complete;
+
+      return {
+        data: complete || returnPartialData ? result : void 0,
+        partial: !complete
+      };
+    };
+
+    QueryManager.prototype.getQueryWithPreviousResult = function (queryIdOrObservable) {
+      var observableQuery;
+
+      if (typeof queryIdOrObservable === 'string') {
+        var foundObserveableQuery = this.getQuery(queryIdOrObservable).observableQuery;
+         true ? (0, _tsInvariant.invariant)(foundObserveableQuery, 17) : undefined;
+        observableQuery = foundObserveableQuery;
+      } else {
+        observableQuery = queryIdOrObservable;
+      }
+
+      var _a = observableQuery.options,
+          variables = _a.variables,
+          query = _a.query;
+      return {
+        previousResult: this.getCurrentQueryResult(observableQuery, false).data,
+        variables: variables,
+        document: query
+      };
+    };
+
+    QueryManager.prototype.broadcastQueries = function () {
+      var _this = this;
+
+      this.onBroadcast();
+      this.queries.forEach(function (info, id) {
+        if (info.invalidated) {
+          info.listeners.forEach(function (listener) {
+            if (listener) {
+              listener(_this.queryStore.get(id), info.newData);
+            }
+          });
+        }
+      });
+    };
+
+    QueryManager.prototype.getLocalState = function () {
+      return this.localState;
+    };
+
+    QueryManager.prototype.getObservableFromLink = function (query, context, variables, deduplication) {
+      var _this = this;
+
+      if (deduplication === void 0) {
+        deduplication = this.queryDeduplication;
+      }
+
+      var observable;
+      var serverQuery = this.transform(query).serverQuery;
+
+      if (serverQuery) {
+        var _a = this,
+            inFlightLinkObservables_1 = _a.inFlightLinkObservables,
+            link = _a.link;
+
+        var operation = {
+          query: serverQuery,
+          variables: variables,
+          operationName: (0, _apolloUtilities.getOperationName)(serverQuery) || void 0,
+          context: this.prepareContext((0, _tslib.__assign)((0, _tslib.__assign)({}, context), {
+            forceFetch: !deduplication
+          }))
+        };
+        context = operation.context;
+
+        if (deduplication) {
+          var byVariables_1 = inFlightLinkObservables_1.get(serverQuery) || new Map();
+          inFlightLinkObservables_1.set(serverQuery, byVariables_1);
+          var varJson_1 = JSON.stringify(variables);
+          observable = byVariables_1.get(varJson_1);
+
+          if (!observable) {
+            byVariables_1.set(varJson_1, observable = multiplex((0, _apolloLink.execute)(link, operation)));
+
+            var cleanup = function () {
+              byVariables_1.delete(varJson_1);
+              if (!byVariables_1.size) inFlightLinkObservables_1.delete(serverQuery);
+              cleanupSub_1.unsubscribe();
+            };
+
+            var cleanupSub_1 = observable.subscribe({
+              next: cleanup,
+              error: cleanup,
+              complete: cleanup
+            });
+          }
+        } else {
+          observable = multiplex((0, _apolloLink.execute)(link, operation));
+        }
+      } else {
+        observable = Observable.of({
+          data: {}
+        });
+        context = this.prepareContext(context);
+      }
+
+      var clientQuery = this.transform(query).clientQuery;
+
+      if (clientQuery) {
+        observable = asyncMap(observable, function (result) {
+          return _this.localState.runResolvers({
+            document: clientQuery,
+            remoteResult: result,
+            context: context,
+            variables: variables
+          });
+        });
+      }
+
+      return observable;
+    };
+
+    QueryManager.prototype.fetchRequest = function (_a) {
+      var _this = this;
+
+      var requestId = _a.requestId,
+          queryId = _a.queryId,
+          document = _a.document,
+          options = _a.options,
+          fetchMoreForQueryId = _a.fetchMoreForQueryId;
+      var variables = options.variables,
+          _b = options.errorPolicy,
+          errorPolicy = _b === void 0 ? 'none' : _b,
+          fetchPolicy = options.fetchPolicy;
+      var resultFromStore;
+      var errorsFromStore;
+      return new Promise(function (resolve, reject) {
+        var observable = _this.getObservableFromLink(document, options.context, variables);
+
+        var fqrfId = "fetchRequest:" + queryId;
+
+        _this.fetchQueryRejectFns.set(fqrfId, reject);
+
+        var cleanup = function () {
+          _this.fetchQueryRejectFns.delete(fqrfId);
+
+          _this.setQuery(queryId, function (_a) {
+            var subscriptions = _a.subscriptions;
+            subscriptions.delete(subscription);
+          });
+        };
+
+        var subscription = observable.map(function (result) {
+          if (requestId >= _this.getQuery(queryId).lastRequestId) {
+            _this.markQueryResult(queryId, result, options, fetchMoreForQueryId);
+
+            _this.queryStore.markQueryResult(queryId, result, fetchMoreForQueryId);
+
+            _this.invalidate(queryId);
+
+            _this.invalidate(fetchMoreForQueryId);
+
+            _this.broadcastQueries();
+          }
+
+          if (errorPolicy === 'none' && isNonEmptyArray(result.errors)) {
+            return reject(new ApolloError({
+              graphQLErrors: result.errors
+            }));
+          }
+
+          if (errorPolicy === 'all') {
+            errorsFromStore = result.errors;
+          }
+
+          if (fetchMoreForQueryId || fetchPolicy === 'no-cache') {
+            resultFromStore = result.data;
+          } else {
+            var _a = _this.dataStore.getCache().diff({
+              variables: variables,
+              query: document,
+              optimistic: false,
+              returnPartialData: true
+            }),
+                result_1 = _a.result,
+                complete = _a.complete;
+
+            if (complete || options.returnPartialData) {
+              resultFromStore = result_1;
+            }
+          }
+        }).subscribe({
+          error: function (error) {
+            cleanup();
+            reject(error);
+          },
+          complete: function () {
+            cleanup();
+            resolve({
+              data: resultFromStore,
+              errors: errorsFromStore,
+              loading: false,
+              networkStatus: NetworkStatus.ready,
+              stale: false
+            });
+          }
+        });
+
+        _this.setQuery(queryId, function (_a) {
+          var subscriptions = _a.subscriptions;
+          subscriptions.add(subscription);
+        });
+      });
+    };
+
+    QueryManager.prototype.getQuery = function (queryId) {
+      return this.queries.get(queryId) || {
+        listeners: new Set(),
+        invalidated: false,
+        document: null,
+        newData: null,
+        lastRequestId: 1,
+        observableQuery: null,
+        subscriptions: new Set()
+      };
+    };
+
+    QueryManager.prototype.setQuery = function (queryId, updater) {
+      var prev = this.getQuery(queryId);
+      var newInfo = (0, _tslib.__assign)((0, _tslib.__assign)({}, prev), updater(prev));
+      this.queries.set(queryId, newInfo);
+    };
+
+    QueryManager.prototype.invalidate = function (queryId, invalidated) {
+      if (invalidated === void 0) {
+        invalidated = true;
+      }
+
+      if (queryId) {
+        this.setQuery(queryId, function () {
+          return {
+            invalidated: invalidated
+          };
+        });
+      }
+    };
+
+    QueryManager.prototype.prepareContext = function (context) {
+      if (context === void 0) {
+        context = {};
+      }
+
+      var newContext = this.localState.prepareContext(context);
+      return (0, _tslib.__assign)((0, _tslib.__assign)({}, newContext), {
+        clientAwareness: this.clientAwareness
+      });
+    };
+
+    QueryManager.prototype.checkInFlight = function (queryId) {
+      var query = this.queryStore.get(queryId);
+      return query && query.networkStatus !== NetworkStatus.ready && query.networkStatus !== NetworkStatus.error;
+    };
+
+    QueryManager.prototype.startPollingQuery = function (options, queryId, listener) {
+      var _this = this;
+
+      var pollInterval = options.pollInterval;
+       true ? (0, _tsInvariant.invariant)(pollInterval, 18) : undefined;
+
+      if (!this.ssrMode) {
+        var info = this.pollingInfoByQueryId.get(queryId);
+
+        if (!info) {
+          this.pollingInfoByQueryId.set(queryId, info = {});
+        }
+
+        info.interval = pollInterval;
+        info.options = (0, _tslib.__assign)((0, _tslib.__assign)({}, options), {
+          fetchPolicy: 'network-only'
+        });
+
+        var maybeFetch_1 = function () {
+          var info = _this.pollingInfoByQueryId.get(queryId);
+
+          if (info) {
+            if (_this.checkInFlight(queryId)) {
+              poll_1();
+            } else {
+              _this.fetchQuery(queryId, info.options, FetchType.poll).then(poll_1, poll_1);
+            }
+          }
+        };
+
+        var poll_1 = function () {
+          var info = _this.pollingInfoByQueryId.get(queryId);
+
+          if (info) {
+            clearTimeout(info.timeout);
+            info.timeout = setTimeout(maybeFetch_1, info.interval);
+          }
+        };
+
+        if (listener) {
+          this.addQueryListener(queryId, listener);
+        }
+
+        poll_1();
+      }
+
+      return queryId;
+    };
+
+    QueryManager.prototype.stopPollingQuery = function (queryId) {
+      this.pollingInfoByQueryId.delete(queryId);
+    };
+
+    return QueryManager;
+  }();
+
+  var DataStore = function () {
+    function DataStore(initialCache) {
+      this.cache = initialCache;
+    }
+
+    DataStore.prototype.getCache = function () {
+      return this.cache;
+    };
+
+    DataStore.prototype.markQueryResult = function (result, document, variables, fetchMoreForQueryId, ignoreErrors) {
+      if (ignoreErrors === void 0) {
+        ignoreErrors = false;
+      }
+
+      var writeWithErrors = !(0, _apolloUtilities.graphQLResultHasError)(result);
+
+      if (ignoreErrors && (0, _apolloUtilities.graphQLResultHasError)(result) && result.data) {
+        writeWithErrors = true;
+      }
+
+      if (!fetchMoreForQueryId && writeWithErrors) {
+        this.cache.write({
+          result: result.data,
+          dataId: 'ROOT_QUERY',
+          query: document,
+          variables: variables
+        });
+      }
+    };
+
+    DataStore.prototype.markSubscriptionResult = function (result, document, variables) {
+      if (!(0, _apolloUtilities.graphQLResultHasError)(result)) {
+        this.cache.write({
+          result: result.data,
+          dataId: 'ROOT_SUBSCRIPTION',
+          query: document,
+          variables: variables
+        });
+      }
+    };
+
+    DataStore.prototype.markMutationInit = function (mutation) {
+      var _this = this;
+
+      if (mutation.optimisticResponse) {
+        var optimistic_1;
+
+        if (typeof mutation.optimisticResponse === 'function') {
+          optimistic_1 = mutation.optimisticResponse(mutation.variables);
+        } else {
+          optimistic_1 = mutation.optimisticResponse;
+        }
+
+        this.cache.recordOptimisticTransaction(function (c) {
+          var orig = _this.cache;
+          _this.cache = c;
+
+          try {
+            _this.markMutationResult({
+              mutationId: mutation.mutationId,
+              result: {
+                data: optimistic_1
+              },
+              document: mutation.document,
+              variables: mutation.variables,
+              updateQueries: mutation.updateQueries,
+              update: mutation.update
+            });
+          } finally {
+            _this.cache = orig;
+          }
+        }, mutation.mutationId);
+      }
+    };
+
+    DataStore.prototype.markMutationResult = function (mutation) {
+      var _this = this;
+
+      if (!(0, _apolloUtilities.graphQLResultHasError)(mutation.result)) {
+        var cacheWrites_1 = [{
+          result: mutation.result.data,
+          dataId: 'ROOT_MUTATION',
+          query: mutation.document,
+          variables: mutation.variables
+        }];
+        var updateQueries_1 = mutation.updateQueries;
+
+        if (updateQueries_1) {
+          Object.keys(updateQueries_1).forEach(function (id) {
+            var _a = updateQueries_1[id],
+                query = _a.query,
+                updater = _a.updater;
+
+            var _b = _this.cache.diff({
+              query: query.document,
+              variables: query.variables,
+              returnPartialData: true,
+              optimistic: false
+            }),
+                currentQueryResult = _b.result,
+                complete = _b.complete;
+
+            if (complete) {
+              var nextQueryResult = (0, _apolloUtilities.tryFunctionOrLogError)(function () {
+                return updater(currentQueryResult, {
+                  mutationResult: mutation.result,
+                  queryName: (0, _apolloUtilities.getOperationName)(query.document) || undefined,
+                  queryVariables: query.variables
+                });
+              });
+
+              if (nextQueryResult) {
+                cacheWrites_1.push({
+                  result: nextQueryResult,
+                  dataId: 'ROOT_QUERY',
+                  query: query.document,
+                  variables: query.variables
+                });
+              }
+            }
+          });
+        }
+
+        this.cache.performTransaction(function (c) {
+          cacheWrites_1.forEach(function (write) {
+            return c.write(write);
+          });
+          var update = mutation.update;
+
+          if (update) {
+            (0, _apolloUtilities.tryFunctionOrLogError)(function () {
+              return update(c, mutation.result);
+            });
+          }
+        });
+      }
+    };
+
+    DataStore.prototype.markMutationComplete = function (_a) {
+      var mutationId = _a.mutationId,
+          optimisticResponse = _a.optimisticResponse;
+
+      if (optimisticResponse) {
+        this.cache.removeOptimistic(mutationId);
+      }
+    };
+
+    DataStore.prototype.markUpdateQueryResult = function (document, variables, newResult) {
+      this.cache.write({
+        result: newResult,
+        dataId: 'ROOT_QUERY',
+        variables: variables,
+        query: document
+      });
+    };
+
+    DataStore.prototype.reset = function () {
+      return this.cache.reset();
+    };
+
+    return DataStore;
+  }();
+
+  var version = "2.6.10";
+  var hasSuggestedDevtools = false;
+
+  var ApolloClient = function () {
+    function ApolloClient(options) {
+      var _this = this;
+
+      this.defaultOptions = {};
+      this.resetStoreCallbacks = [];
+      this.clearStoreCallbacks = [];
+      var cache = options.cache,
+          _a = options.ssrMode,
+          ssrMode = _a === void 0 ? false : _a,
+          _b = options.ssrForceFetchDelay,
+          ssrForceFetchDelay = _b === void 0 ? 0 : _b,
+          connectToDevTools = options.connectToDevTools,
+          _c = options.queryDeduplication,
+          queryDeduplication = _c === void 0 ? true : _c,
+          defaultOptions = options.defaultOptions,
+          _d = options.assumeImmutableResults,
+          assumeImmutableResults = _d === void 0 ? false : _d,
+          resolvers = options.resolvers,
+          typeDefs = options.typeDefs,
+          fragmentMatcher = options.fragmentMatcher,
+          clientAwarenessName = options.name,
+          clientAwarenessVersion = options.version;
+      var link = options.link;
+
+      if (!link && resolvers) {
+        link = _apolloLink.ApolloLink.empty();
+      }
+
+      if (!link || !cache) {
+        throw  true ? new _tsInvariant.InvariantError(4) : undefined;
+      }
+
+      this.link = link;
+      this.cache = cache;
+      this.store = new DataStore(cache);
+      this.disableNetworkFetches = ssrMode || ssrForceFetchDelay > 0;
+      this.queryDeduplication = queryDeduplication;
+      this.defaultOptions = defaultOptions || {};
+      this.typeDefs = typeDefs;
+
+      if (ssrForceFetchDelay) {
+        setTimeout(function () {
+          return _this.disableNetworkFetches = false;
+        }, ssrForceFetchDelay);
+      }
+
+      this.watchQuery = this.watchQuery.bind(this);
+      this.query = this.query.bind(this);
+      this.mutate = this.mutate.bind(this);
+      this.resetStore = this.resetStore.bind(this);
+      this.reFetchObservableQueries = this.reFetchObservableQueries.bind(this);
+      var defaultConnectToDevTools =  false && false;
+
+      if (typeof connectToDevTools === 'undefined' ? defaultConnectToDevTools : connectToDevTools && typeof window !== 'undefined') {
+        window.__APOLLO_CLIENT__ = this;
+      }
+
+      if (!hasSuggestedDevtools && "production" !== 'production') {
+        hasSuggestedDevtools = true;
+
+        if (typeof window !== 'undefined' && window.document && window.top === window.self) {
+          if (typeof window.__APOLLO_DEVTOOLS_GLOBAL_HOOK__ === 'undefined') {
+            if (window.navigator && window.navigator.userAgent && window.navigator.userAgent.indexOf('Chrome') > -1) {
+              console.debug('Download the Apollo DevTools ' + 'for a better development experience: ' + 'https://chrome.google.com/webstore/detail/apollo-client-developer-t/jdkknkkbebbapilgoeccciglkfbmbnfm');
+            }
+          }
+        }
+      }
+
+      this.version = version;
+      this.localState = new LocalState({
+        cache: cache,
+        client: this,
+        resolvers: resolvers,
+        fragmentMatcher: fragmentMatcher
+      });
+      this.queryManager = new QueryManager({
+        link: this.link,
+        store: this.store,
+        queryDeduplication: queryDeduplication,
+        ssrMode: ssrMode,
+        clientAwareness: {
+          name: clientAwarenessName,
+          version: clientAwarenessVersion
+        },
+        localState: this.localState,
+        assumeImmutableResults: assumeImmutableResults,
+        onBroadcast: function () {
+          if (_this.devToolsHookCb) {
+            _this.devToolsHookCb({
+              action: {},
+              state: {
+                queries: _this.queryManager.queryStore.getStore(),
+                mutations: _this.queryManager.mutationStore.getStore()
+              },
+              dataWithOptimisticResults: _this.cache.extract(true)
+            });
+          }
+        }
+      });
+    }
+
+    ApolloClient.prototype.stop = function () {
+      this.queryManager.stop();
+    };
+
+    ApolloClient.prototype.watchQuery = function (options) {
+      if (this.defaultOptions.watchQuery) {
+        options = (0, _tslib.__assign)((0, _tslib.__assign)({}, this.defaultOptions.watchQuery), options);
+      }
+
+      if (this.disableNetworkFetches && (options.fetchPolicy === 'network-only' || options.fetchPolicy === 'cache-and-network')) {
+        options = (0, _tslib.__assign)((0, _tslib.__assign)({}, options), {
+          fetchPolicy: 'cache-first'
+        });
+      }
+
+      return this.queryManager.watchQuery(options);
+    };
+
+    ApolloClient.prototype.query = function (options) {
+      if (this.defaultOptions.query) {
+        options = (0, _tslib.__assign)((0, _tslib.__assign)({}, this.defaultOptions.query), options);
+      }
+
+       true ? (0, _tsInvariant.invariant)(options.fetchPolicy !== 'cache-and-network', 5) : undefined;
+
+      if (this.disableNetworkFetches && options.fetchPolicy === 'network-only') {
+        options = (0, _tslib.__assign)((0, _tslib.__assign)({}, options), {
+          fetchPolicy: 'cache-first'
+        });
+      }
+
+      return this.queryManager.query(options);
+    };
+
+    ApolloClient.prototype.mutate = function (options) {
+      if (this.defaultOptions.mutate) {
+        options = (0, _tslib.__assign)((0, _tslib.__assign)({}, this.defaultOptions.mutate), options);
+      }
+
+      return this.queryManager.mutate(options);
+    };
+
+    ApolloClient.prototype.subscribe = function (options) {
+      return this.queryManager.startGraphQLSubscription(options);
+    };
+
+    ApolloClient.prototype.readQuery = function (options, optimistic) {
+      if (optimistic === void 0) {
+        optimistic = false;
+      }
+
+      return this.cache.readQuery(options, optimistic);
+    };
+
+    ApolloClient.prototype.readFragment = function (options, optimistic) {
+      if (optimistic === void 0) {
+        optimistic = false;
+      }
+
+      return this.cache.readFragment(options, optimistic);
+    };
+
+    ApolloClient.prototype.writeQuery = function (options) {
+      var result = this.cache.writeQuery(options);
+      this.queryManager.broadcastQueries();
+      return result;
+    };
+
+    ApolloClient.prototype.writeFragment = function (options) {
+      var result = this.cache.writeFragment(options);
+      this.queryManager.broadcastQueries();
+      return result;
+    };
+
+    ApolloClient.prototype.writeData = function (options) {
+      var result = this.cache.writeData(options);
+      this.queryManager.broadcastQueries();
+      return result;
+    };
+
+    ApolloClient.prototype.__actionHookForDevTools = function (cb) {
+      this.devToolsHookCb = cb;
+    };
+
+    ApolloClient.prototype.__requestRaw = function (payload) {
+      return (0, _apolloLink.execute)(this.link, payload);
+    };
+
+    ApolloClient.prototype.initQueryManager = function () {
+       true || false;
+      return this.queryManager;
+    };
+
+    ApolloClient.prototype.resetStore = function () {
+      var _this = this;
+
+      return Promise.resolve().then(function () {
+        return _this.queryManager.clearStore();
+      }).then(function () {
+        return Promise.all(_this.resetStoreCallbacks.map(function (fn) {
+          return fn();
+        }));
+      }).then(function () {
+        return _this.reFetchObservableQueries();
+      });
+    };
+
+    ApolloClient.prototype.clearStore = function () {
+      var _this = this;
+
+      return Promise.resolve().then(function () {
+        return _this.queryManager.clearStore();
+      }).then(function () {
+        return Promise.all(_this.clearStoreCallbacks.map(function (fn) {
+          return fn();
+        }));
+      });
+    };
+
+    ApolloClient.prototype.onResetStore = function (cb) {
+      var _this = this;
+
+      this.resetStoreCallbacks.push(cb);
+      return function () {
+        _this.resetStoreCallbacks = _this.resetStoreCallbacks.filter(function (c) {
+          return c !== cb;
+        });
+      };
+    };
+
+    ApolloClient.prototype.onClearStore = function (cb) {
+      var _this = this;
+
+      this.clearStoreCallbacks.push(cb);
+      return function () {
+        _this.clearStoreCallbacks = _this.clearStoreCallbacks.filter(function (c) {
+          return c !== cb;
+        });
+      };
+    };
+
+    ApolloClient.prototype.reFetchObservableQueries = function (includeStandby) {
+      return this.queryManager.reFetchObservableQueries(includeStandby);
+    };
+
+    ApolloClient.prototype.extract = function (optimistic) {
+      return this.cache.extract(optimistic);
+    };
+
+    ApolloClient.prototype.restore = function (serializedState) {
+      return this.cache.restore(serializedState);
+    };
+
+    ApolloClient.prototype.addResolvers = function (resolvers) {
+      this.localState.addResolvers(resolvers);
+    };
+
+    ApolloClient.prototype.setResolvers = function (resolvers) {
+      this.localState.setResolvers(resolvers);
+    };
+
+    ApolloClient.prototype.getResolvers = function () {
+      return this.localState.getResolvers();
+    };
+
+    ApolloClient.prototype.setLocalStateFragmentMatcher = function (fragmentMatcher) {
+      this.localState.setFragmentMatcher(fragmentMatcher);
+    };
+
+    return ApolloClient;
+  }();
+
+  _exports.ApolloClient = ApolloClient;
+  var _default = ApolloClient;
+  _exports.default = _default;
+});
 
 /***/ }),
-/* 112 */
+/* 148 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var tslib_1 = __webpack_require__(8);
+
+var apollo_link_1 = __webpack_require__(7);
+
+function onError(errorHandler) {
+  return new apollo_link_1.ApolloLink(function (operation, forward) {
+    return new apollo_link_1.Observable(function (observer) {
+      var sub;
+      var retriedSub;
+      var retriedResult;
+
+      try {
+        sub = forward(operation).subscribe({
+          next: function (result) {
+            if (result.errors) {
+              retriedResult = errorHandler({
+                graphQLErrors: result.errors,
+                response: result,
+                operation: operation,
+                forward: forward
+              });
+
+              if (retriedResult) {
+                retriedSub = retriedResult.subscribe({
+                  next: observer.next.bind(observer),
+                  error: observer.error.bind(observer),
+                  complete: observer.complete.bind(observer)
+                });
+                return;
+              }
+            }
+
+            observer.next(result);
+          },
+          error: function (networkError) {
+            retriedResult = errorHandler({
+              operation: operation,
+              networkError: networkError,
+              graphQLErrors: networkError && networkError.result && networkError.result.errors,
+              forward: forward
+            });
+
+            if (retriedResult) {
+              retriedSub = retriedResult.subscribe({
+                next: observer.next.bind(observer),
+                error: observer.error.bind(observer),
+                complete: observer.complete.bind(observer)
+              });
+              return;
+            }
+
+            observer.error(networkError);
+          },
+          complete: function () {
+            if (!retriedResult) {
+              observer.complete.bind(observer)();
+            }
+          }
+        });
+      } catch (e) {
+        errorHandler({
+          networkError: e,
+          operation: operation,
+          forward: forward
+        });
+        observer.error(e);
+      }
+
+      return function () {
+        if (sub) sub.unsubscribe();
+        if (retriedSub) sub.unsubscribe();
+      };
+    });
+  });
+}
+
+exports.onError = onError;
+
+var ErrorLink = function (_super) {
+  tslib_1.__extends(ErrorLink, _super);
+
+  function ErrorLink(errorHandler) {
+    var _this = _super.call(this) || this;
+
+    _this.link = onError(errorHandler);
+    return _this;
+  }
+
+  ErrorLink.prototype.request = function (operation, forward) {
+    return this.link.request(operation, forward);
+  };
+
+  return ErrorLink;
+}(apollo_link_1.ApolloLink);
+
+exports.ErrorLink = ErrorLink;
+
+/***/ }),
+/* 149 */
 /***/ (function(module, exports) {
 
 module.exports = require("vue-functional-data-merge");
 
 /***/ }),
-/* 113 */
+/* 150 */
 /***/ (function(module, exports) {
 
 module.exports = require("cookie-universal");
 
 /***/ }),
-/* 114 */,
-/* 115 */,
-/* 116 */
+/* 151 */,
+/* 152 */,
+/* 153 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(224);
+module.exports = __webpack_require__(279);
 
 
 /***/ }),
-/* 117 */
+/* 154 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7292,18 +15824,18 @@ __webpack_require__.r(__webpack_exports__);
 });
 
 /***/ }),
-/* 118 */
+/* 155 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_upload_file_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(27);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_upload_file_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(61);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_upload_file_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_upload_file_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_upload_file_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_upload_file_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
-/* 119 */
+/* 156 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -7316,18 +15848,18 @@ module.exports = exports;
 
 
 /***/ }),
-/* 120 */
+/* 157 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_message_update_input_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(28);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_message_update_input_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(62);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_message_update_input_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_message_update_input_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_message_update_input_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_message_update_input_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
-/* 121 */
+/* 158 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -7340,42 +15872,66 @@ module.exports = exports;
 
 
 /***/ }),
-/* 122 */
+/* 159 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_message_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(29);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_message_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_message_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_message_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_message_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_message_img_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(63);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_message_img_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_message_img_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_message_img_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_message_img_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
-/* 123 */
+/* 160 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(3);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, ".message{position:relative;display:block;overflow:hidden;flex-shrink:0;min-height:60px;padding:8px 50px 8px 70px;line-height:22px;transition:background .15s ease}.message:active,.message:focus,.message:hover{background:hsla(0,0%,100%,.05)}.message_view_compact{min-height:unset;padding:2px 50px 2px 16px}.message_view_compact .message__content{display:flex}.message_view_compact .message__header{display:flex;margin-right:8px;align-self:flex-end}.message_view_compact .message__timestamp{margin-right:8px;margin-left:0}.message_view_compact .message__body{flex-shrink:1}.message_view_compact .message__text{margin-bottom:0;color:var(--primary-text)}.message_view_compact .message__avatar{display:none}.message_type_system:active,.message_type_system:focus,.message_type_system:hover{background:inherit}.message_type_system .message__header{margin-right:0}.message_type_system .message__timestamp{margin-left:0;font-style:italic}.message_type_system .message__author-name{display:none}.message_type_system .message__text{font-style:italic}.message_type_deleted{opacity:.4}.message_type_deleted .message__text{font-style:italic}.message_type_deleted:hover{opacity:1}.message_state_not-delivered{opacity:.5}.message__avatar{position:absolute;top:33px;left:20px;width:40px;height:40px;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;border-radius:50%;-o-object-fit:cover;object-fit:cover;-o-object-position:center center;object-position:center center}.message__avatar:first-child{top:10px}.message__avatar_type_default{font-size:18px;line-height:40px;text-align:center;text-transform:uppercase;background:hsla(0,0%,100%,.1);border-radius:50%}.message__author-name{display:inline-block;vertical-align:middle;overflow:hidden;max-width:150px;font-size:14px;font-weight:600;white-space:nowrap;text-overflow:ellipsis;cursor:pointer}.message__author-name:hover{text-decoration:underline}.message__header{min-height:22px;font-size:0;white-space:pre-line}.message__timestamp{display:inline;vertical-align:middle;margin-left:8px;color:var(--gray_300);font-size:11px;white-space:nowrap;cursor:default}.message__text{display:block;margin:0 0 6px;color:var(--secondary-text);line-height:20px;word-break:break-word}.message__text:last-child{margin-bottom:0}.message__emoji{vertical-align:bottom;max-width:50px;max-height:50px;padding:1px;-o-object-fit:contain;object-fit:contain}.message__body{flex-grow:1;flex-shrink:0}.message__image{display:block;max-width:100%;height:auto;cursor:pointer;-o-object-fit:cover;object-fit:cover}", ""]);
+exports.push([module.i, ".message-img{display:block;cursor:pointer}.message-img__responsive{position:relative}.message-img__image{position:absolute;top:0;left:0;width:100%;height:100%}", ""]);
 // Exports
 module.exports = exports;
 
 
 /***/ }),
-/* 124 */
+/* 161 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_messages_separator_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(30);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_message_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(64);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_message_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_message_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_message_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_message_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+
+
+/***/ }),
+/* 162 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// Imports
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(3);
+exports = ___CSS_LOADER_API_IMPORT___(false);
+// Module
+exports.push([module.i, ".message{position:relative;display:block;overflow:hidden;flex-shrink:0;min-height:60px;padding:8px 50px 8px 70px;line-height:22px;transition:background .15s ease}.message:active,.message:focus,.message:hover{background:hsla(0,0%,100%,.05)}.message_view_compact{min-height:unset;padding:2px 50px 2px 16px}.message_view_compact .message__content{display:flex}.message_view_compact .message__header{display:flex;margin-right:8px;align-self:flex-end}.message_view_compact .message__timestamp{margin-right:8px;margin-left:0}.message_view_compact .message__body{flex-shrink:1}.message_view_compact .message__text{margin-bottom:0;color:var(--primary-text)}.message_view_compact .message__avatar{display:none}.message_type_system:active,.message_type_system:focus,.message_type_system:hover{background:inherit}.message_type_system .message__header{margin-right:0}.message_type_system .message__timestamp{margin-left:0;font-style:italic}.message_type_system .message__author-name{display:none}.message_type_system .message__text{font-style:italic}.message_type_deleted{opacity:.4}.message_type_deleted .message__text{font-style:italic}.message_type_deleted:hover{opacity:1}.message_state_not-delivered{opacity:.5}.message__avatar{position:absolute;top:33px;left:20px;width:40px;height:40px;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;border-radius:50%;-o-object-fit:cover;object-fit:cover;-o-object-position:center center;object-position:center center}.message__avatar:first-child{top:10px}.message__avatar_type_default{font-size:18px;line-height:40px;text-align:center;text-transform:uppercase;background:hsla(0,0%,100%,.1);border-radius:50%}.message__author-name{display:inline-block;vertical-align:middle;overflow:hidden;max-width:150px;font-size:14px;font-weight:600;white-space:nowrap;text-overflow:ellipsis;cursor:pointer}.message__author-name:hover{text-decoration:underline}.message__header{min-height:22px;font-size:0;white-space:pre-line}.message__timestamp{display:inline;vertical-align:middle;margin-left:8px;color:var(--gray_300);font-size:11px;white-space:nowrap;cursor:default}.message__text{display:block;margin:0 0 6px;color:var(--secondary-text);line-height:20px;word-break:break-word}.message__text:last-child{margin-bottom:0}.message__emoji{vertical-align:bottom;max-width:50px;max-height:50px;padding:1px;-o-object-fit:contain;object-fit:contain}.message__body{flex-grow:1;flex-shrink:0}", ""]);
+// Exports
+module.exports = exports;
+
+
+/***/ }),
+/* 163 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_messages_separator_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(65);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_messages_separator_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_messages_separator_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_messages_separator_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_messages_separator_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
-/* 125 */
+/* 164 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -7388,42 +15944,42 @@ module.exports = exports;
 
 
 /***/ }),
-/* 126 */
+/* 165 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_chat_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(31);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_chat_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(66);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_chat_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_chat_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_chat_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_chat_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
-/* 127 */
+/* 166 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(3);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, ".chat{position:relative;display:flex;overflow-x:hidden;overflow-y:scroll;overflow:hidden scroll;flex-direction:column-reverse;width:100%;height:100%;scroll-behavior:smooth}@-moz-document url-prefix(){.chat{background:var(--primary-background)}}.chat__messages{position:absolute;display:flex;justify-content:flex-end;flex-direction:column;width:100%;min-height:100%;padding:0 0 10px}.chat__messages-loader{position:relative;height:70px}.chat__messages-loader .icon{position:absolute;top:50%;left:50%;width:50px;height:50px;margin-top:-25px;margin-left:-25px;-webkit-animation:spin 4s linear infinite;animation:spin 4s linear infinite}.chat__loader{position:absolute;width:100%;height:100%}.chat__loader .icon{position:absolute;top:50%;left:50%;width:50px;height:50px;margin-top:-25px;margin-left:-25px;-webkit-animation:spin 4s linear infinite;animation:spin 4s linear infinite}@-webkit-keyframes spin{to{transform:rotate(1turn);-webkit-transform:rotate(1turn)}}@keyframes spin{to{transform:rotate(1turn);-webkit-transform:rotate(1turn)}}", ""]);
+exports.push([module.i, ".chat{position:relative;display:flex;overflow-x:hidden;overflow-y:scroll;overflow:hidden scroll;flex-grow:1;flex-direction:column;width:100%;height:100%}@-moz-document url-prefix(){.chat{background:var(--primary-background)}}.chat__messages{padding:0 0 10px}.chat__messages-loader{position:relative;height:70px}.chat__messages-loader .icon{position:absolute;top:50%;left:50%;width:50px;height:50px;margin-top:-25px;margin-left:-25px;-webkit-animation:spin 4s linear infinite;animation:spin 4s linear infinite}.chat__loader{position:absolute;top:0;left:0;width:100%;height:100%}.chat__loader .icon{position:absolute;top:50%;left:50%;width:50px;height:50px;margin-top:-25px;margin-left:-25px;-webkit-animation:spin 4s linear infinite;animation:spin 4s linear infinite}@-webkit-keyframes spin{to{transform:rotate(1turn);-webkit-transform:rotate(1turn)}}@keyframes spin{to{transform:rotate(1turn);-webkit-transform:rotate(1turn)}}", ""]);
 // Exports
 module.exports = exports;
 
 
 /***/ }),
-/* 128 */
+/* 167 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_3_oneOf_1_2_node_modules_vue_loader_lib_index_js_vue_loader_options_chat_vue_vue_type_style_index_1_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(32);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_3_oneOf_1_2_node_modules_vue_loader_lib_index_js_vue_loader_options_chat_vue_vue_type_style_index_1_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_3_oneOf_1_2_node_modules_vue_loader_lib_index_js_vue_loader_options_chat_vue_vue_type_style_index_1_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_3_oneOf_1_2_node_modules_vue_loader_lib_index_js_vue_loader_options_chat_vue_vue_type_style_index_1_lang_css___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_3_oneOf_1_2_node_modules_vue_loader_lib_index_js_vue_loader_options_chat_vue_vue_type_style_index_1_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_3_oneOf_1_2_node_modules_vue_loader_lib_index_js_vue_loader_options_chat_vue_vue_type_style_index_1_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
-/* 129 */
+/* 168 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -7436,18 +15992,18 @@ module.exports = exports;
 
 
 /***/ }),
-/* 130 */
+/* 169 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_emoji_panel_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(33);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_emoji_panel_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(68);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_emoji_panel_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_emoji_panel_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_emoji_panel_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_emoji_panel_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
-/* 131 */
+/* 170 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -7460,18 +16016,18 @@ module.exports = exports;
 
 
 /***/ }),
-/* 132 */
+/* 171 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_attach_panel_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(34);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_attach_panel_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(69);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_attach_panel_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_attach_panel_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_attach_panel_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_attach_panel_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
-/* 133 */
+/* 172 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -7484,18 +16040,18 @@ module.exports = exports;
 
 
 /***/ }),
-/* 134 */
+/* 173 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_button_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(35);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_button_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(70);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_button_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_button_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_button_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_button_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
-/* 135 */
+/* 174 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -7508,18 +16064,18 @@ module.exports = exports;
 
 
 /***/ }),
-/* 136 */
+/* 175 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_progress_bar_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(36);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_progress_bar_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(71);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_progress_bar_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_progress_bar_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_progress_bar_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_progress_bar_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
-/* 137 */
+/* 176 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -7532,24 +16088,24 @@ module.exports = exports;
 
 
 /***/ }),
-/* 138 */
+/* 177 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_footer_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(37);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_footer_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(72);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_footer_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_footer_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_footer_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_footer_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
-/* 139 */
+/* 178 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(3);
-var ___CSS_LOADER_GET_URL_IMPORT___ = __webpack_require__(140);
-var ___CSS_LOADER_URL_IMPORT_0___ = __webpack_require__(141);
+var ___CSS_LOADER_GET_URL_IMPORT___ = __webpack_require__(179);
+var ___CSS_LOADER_URL_IMPORT_0___ = __webpack_require__(180);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 var ___CSS_LOADER_URL_REPLACEMENT_0___ = ___CSS_LOADER_GET_URL_IMPORT___(___CSS_LOADER_URL_IMPORT_0___);
 // Module
@@ -7559,7 +16115,7 @@ module.exports = exports;
 
 
 /***/ }),
-/* 140 */
+/* 179 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7599,24 +16155,24 @@ module.exports = function (url, options) {
 };
 
 /***/ }),
-/* 141 */
+/* 180 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "img/faces.3c3e548.png";
 
 /***/ }),
-/* 142 */
+/* 181 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_reminder_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(38);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_reminder_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(73);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_reminder_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_reminder_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_reminder_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_reminder_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
-/* 143 */
+/* 182 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -7629,18 +16185,18 @@ module.exports = exports;
 
 
 /***/ }),
-/* 144 */
+/* 183 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_main_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(39);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_main_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(74);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_main_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_main_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_main_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_main_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
-/* 145 */
+/* 184 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -7653,18 +16209,18 @@ module.exports = exports;
 
 
 /***/ }),
-/* 146 */
+/* 185 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_confirmation_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(40);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_confirmation_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(75);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_confirmation_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_confirmation_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_confirmation_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_confirmation_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
-/* 147 */
+/* 186 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -7677,18 +16233,18 @@ module.exports = exports;
 
 
 /***/ }),
-/* 148 */
+/* 187 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_text_field_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(41);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_text_field_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_text_field_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_text_field_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_text_field_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_text_field_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
-/* 149 */
+/* 188 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -7701,18 +16257,18 @@ module.exports = exports;
 
 
 /***/ }),
-/* 150 */
+/* 189 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_form_error_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(42);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_form_error_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(77);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_form_error_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_form_error_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_form_error_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_form_error_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
-/* 151 */
+/* 190 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -7725,18 +16281,18 @@ module.exports = exports;
 
 
 /***/ }),
-/* 152 */
+/* 191 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_form_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(43);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_form_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(78);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_form_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_form_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_form_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_form_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
-/* 153 */
+/* 192 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -7749,18 +16305,18 @@ module.exports = exports;
 
 
 /***/ }),
-/* 154 */
+/* 193 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_reset_password_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(44);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_reset_password_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(79);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_reset_password_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_reset_password_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_reset_password_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_reset_password_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
-/* 155 */
+/* 194 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -7773,18 +16329,18 @@ module.exports = exports;
 
 
 /***/ }),
-/* 156 */
+/* 195 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_discord_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(45);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_discord_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(80);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_discord_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_discord_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_discord_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_discord_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
-/* 157 */
+/* 196 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -7797,18 +16353,18 @@ module.exports = exports;
 
 
 /***/ }),
-/* 158 */
+/* 197 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_checkbox_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(46);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_checkbox_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(81);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_checkbox_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_checkbox_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_checkbox_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_checkbox_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
-/* 159 */
+/* 198 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -7821,18 +16377,18 @@ module.exports = exports;
 
 
 /***/ }),
-/* 160 */
+/* 199 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_tile_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(47);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_tile_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(82);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_tile_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_tile_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_tile_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_tile_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
-/* 161 */
+/* 200 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -7845,18 +16401,18 @@ module.exports = exports;
 
 
 /***/ }),
-/* 162 */
+/* 201 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_modal_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(48);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_modal_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(83);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_modal_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_modal_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_modal_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_modal_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
-/* 163 */
+/* 202 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -7869,18 +16425,18 @@ module.exports = exports;
 
 
 /***/ }),
-/* 164 */
+/* 203 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_3_oneOf_1_2_node_modules_vue_loader_lib_index_js_vue_loader_options_modal_vue_vue_type_style_index_1_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(49);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_3_oneOf_1_2_node_modules_vue_loader_lib_index_js_vue_loader_options_modal_vue_vue_type_style_index_1_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(84);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_3_oneOf_1_2_node_modules_vue_loader_lib_index_js_vue_loader_options_modal_vue_vue_type_style_index_1_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_3_oneOf_1_2_node_modules_vue_loader_lib_index_js_vue_loader_options_modal_vue_vue_type_style_index_1_lang_css___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_3_oneOf_1_2_node_modules_vue_loader_lib_index_js_vue_loader_options_modal_vue_vue_type_style_index_1_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_3_oneOf_1_2_node_modules_vue_loader_lib_index_js_vue_loader_options_modal_vue_vue_type_style_index_1_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
-/* 165 */
+/* 204 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -7893,18 +16449,18 @@ module.exports = exports;
 
 
 /***/ }),
-/* 166 */
+/* 205 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_login_modal_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(50);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_login_modal_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(85);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_login_modal_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_login_modal_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_login_modal_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_login_modal_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
-/* 167 */
+/* 206 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -7917,18 +16473,18 @@ module.exports = exports;
 
 
 /***/ }),
-/* 168 */
+/* 207 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_register_modal_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(51);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_register_modal_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(86);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_register_modal_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_register_modal_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_register_modal_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_register_modal_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
-/* 169 */
+/* 208 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -7941,24 +16497,24 @@ module.exports = exports;
 
 
 /***/ }),
-/* 170 */
+/* 209 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "img/loading.6997a66.png";
 
 /***/ }),
-/* 171 */
+/* 210 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_avatar_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(52);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_avatar_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(87);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_avatar_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_avatar_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_avatar_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_avatar_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
-/* 172 */
+/* 211 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -7971,18 +16527,18 @@ module.exports = exports;
 
 
 /***/ }),
-/* 173 */
+/* 212 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_profile_modal_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(53);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_profile_modal_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(88);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_profile_modal_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_profile_modal_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_profile_modal_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_profile_modal_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
-/* 174 */
+/* 213 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -7995,18 +16551,18 @@ module.exports = exports;
 
 
 /***/ }),
-/* 175 */
+/* 214 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_request_password_reset_modal_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(54);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_request_password_reset_modal_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(89);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_request_password_reset_modal_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_request_password_reset_modal_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_request_password_reset_modal_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_request_password_reset_modal_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
-/* 176 */
+/* 215 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -8019,18 +16575,18 @@ module.exports = exports;
 
 
 /***/ }),
-/* 177 */
+/* 216 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_request_email_confirmation_modal_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(55);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_request_email_confirmation_modal_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(90);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_request_email_confirmation_modal_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_request_email_confirmation_modal_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_request_email_confirmation_modal_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_request_email_confirmation_modal_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
-/* 178 */
+/* 217 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -8043,18 +16599,18 @@ module.exports = exports;
 
 
 /***/ }),
-/* 179 */
+/* 218 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_email_confirmed_modal_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(56);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_email_confirmed_modal_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(91);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_email_confirmed_modal_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_email_confirmed_modal_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_email_confirmed_modal_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_email_confirmed_modal_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
-/* 180 */
+/* 219 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -8067,18 +16623,18 @@ module.exports = exports;
 
 
 /***/ }),
-/* 181 */
+/* 220 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_node_modules_vue_loader_lib_index_js_vue_loader_options_select_vue_vue_type_style_index_0_id_4b0a875a_lang_stylus_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(57);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_node_modules_vue_loader_lib_index_js_vue_loader_options_select_vue_vue_type_style_index_0_id_4b0a875a_lang_stylus_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(92);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_node_modules_vue_loader_lib_index_js_vue_loader_options_select_vue_vue_type_style_index_0_id_4b0a875a_lang_stylus_scoped_true___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_node_modules_vue_loader_lib_index_js_vue_loader_options_select_vue_vue_type_style_index_0_id_4b0a875a_lang_stylus_scoped_true___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_node_modules_vue_loader_lib_index_js_vue_loader_options_select_vue_vue_type_style_index_0_id_4b0a875a_lang_stylus_scoped_true___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_node_modules_vue_loader_lib_index_js_vue_loader_options_select_vue_vue_type_style_index_0_id_4b0a875a_lang_stylus_scoped_true___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
-/* 182 */
+/* 221 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -8091,18 +16647,18 @@ module.exports = exports;
 
 
 /***/ }),
-/* 183 */
+/* 222 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_select_styl_vue_type_style_index_1_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(58);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_select_styl_vue_type_style_index_1_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(93);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_select_styl_vue_type_style_index_1_lang_stylus___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_select_styl_vue_type_style_index_1_lang_stylus___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_select_styl_vue_type_style_index_1_lang_stylus___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_select_styl_vue_type_style_index_1_lang_stylus___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
-/* 184 */
+/* 223 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -8115,18 +16671,18 @@ module.exports = exports;
 
 
 /***/ }),
-/* 185 */
+/* 224 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_punishment_modal_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(59);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_punishment_modal_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(94);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_punishment_modal_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_punishment_modal_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_punishment_modal_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_punishment_modal_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
-/* 186 */
+/* 225 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -8139,18 +16695,18 @@ module.exports = exports;
 
 
 /***/ }),
-/* 187 */
+/* 226 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_switch_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(60);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_switch_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(95);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_switch_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_switch_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_switch_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_switch_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
-/* 188 */
+/* 227 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -8163,18 +16719,18 @@ module.exports = exports;
 
 
 /***/ }),
-/* 189 */
+/* 228 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_settings_modal_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(61);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_settings_modal_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(96);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_settings_modal_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_settings_modal_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_settings_modal_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_settings_modal_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
-/* 190 */
+/* 229 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -8187,18 +16743,18 @@ module.exports = exports;
 
 
 /***/ }),
-/* 191 */
+/* 230 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_3_oneOf_1_2_node_modules_vue_loader_lib_index_js_vue_loader_options_nuxt_error_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(62);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_3_oneOf_1_2_node_modules_vue_loader_lib_index_js_vue_loader_options_nuxt_error_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(97);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_3_oneOf_1_2_node_modules_vue_loader_lib_index_js_vue_loader_options_nuxt_error_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_3_oneOf_1_2_node_modules_vue_loader_lib_index_js_vue_loader_options_nuxt_error_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_3_oneOf_1_2_node_modules_vue_loader_lib_index_js_vue_loader_options_nuxt_error_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_3_oneOf_1_2_node_modules_vue_loader_lib_index_js_vue_loader_options_nuxt_error_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
-/* 192 */
+/* 231 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -8211,18 +16767,18 @@ module.exports = exports;
 
 
 /***/ }),
-/* 193 */
+/* 232 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_3_oneOf_1_2_node_modules_vue_loader_lib_index_js_vue_loader_options_nuxt_loading_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(63);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_3_oneOf_1_2_node_modules_vue_loader_lib_index_js_vue_loader_options_nuxt_loading_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(98);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_3_oneOf_1_2_node_modules_vue_loader_lib_index_js_vue_loader_options_nuxt_loading_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_3_oneOf_1_2_node_modules_vue_loader_lib_index_js_vue_loader_options_nuxt_loading_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_3_oneOf_1_2_node_modules_vue_loader_lib_index_js_vue_loader_options_nuxt_loading_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_3_oneOf_1_2_node_modules_vue_loader_lib_index_js_vue_loader_options_nuxt_loading_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
-/* 194 */
+/* 233 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -8235,7 +16791,7 @@ module.exports = exports;
 
 
 /***/ }),
-/* 195 */
+/* 234 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -8248,7 +16804,7 @@ module.exports = exports;
 
 
 /***/ }),
-/* 196 */
+/* 235 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -8261,20 +16817,20 @@ module.exports = exports;
 
 
 /***/ }),
-/* 197 */
+/* 236 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(3);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "*,:after,:before{box-sizing:border-box;margin:0}#__layout,#__nuxt{height:100%}a{color:var(--primary-light);text-decoration:none}a:active,a:focus,a:hover{color:var(--primary);text-decoration:none}.scrollbar::-webkit-scrollbar{width:8px}.scrollbar::-webkit-scrollbar-thumb{background-color:var(--scrollbar-thumb);border-radius:8px}.scrollbar::-webkit-scrollbar-track{background-color:var(--scrollbar-track)}.link_no_styles{color:inherit;text-decoration:none}ul{margin:0;padding:0;list-style:none}.icon{max-width:100%;max-height:100%}.page{overflow:hidden;height:100%;min-height:100%}.page__wrapper{display:flex;flex-direction:column;height:100%}.page__body{height:100%;min-height:100%;color:var(--primary-text);font-family:\"Open Sans\",sans-serif;font-size:14px;line-height:1.4;background:var(--primary-background)}.page__body,.page__body_overflow_hidden{overflow:hidden}.page__header{z-index:99;width:100%}.page__main{position:relative;display:flex;overflow:hidden;flex-grow:1;flex-basis:100%}.page__main_state_mobile-open .page__aside-footer{right:0}@media screen and (min-width:768px){.page__main_state_mobile-open .page__aside-footer{right:-210px}}@media screen and (min-width:768px){.page__main_state_pc-open .page__chat{margin-right:250px}.page__main_state_pc-open .page__footer{margin-right:-4px}.page__main_state_pc-open .page__aside-footer{right:0}.page__main_state_pc-open .page__aside-menu{transform:rotate(180deg)}}.page__chat{position:relative;display:flex;flex-direction:column;width:100%;height:100%;margin:0 20px 0 0;transition:margin-right .15s ease}@media screen and (min-width:768px){.page__chat{margin-right:4px}}.page__footer{background:transparent;transition:margin-right .15s ease}@media screen and (min-width:768px){.page__footer{margin-right:36px}}.page__aside{position:absolute;top:0;right:-250px;bottom:0;z-index:100;overflow-x:hidden;overflow-y:auto;overflow:hidden auto;flex-shrink:0;width:250px;transition:all .15s ease}.page__aside_state_mobile-open{right:0}@media screen and (min-width:768px){.page__aside_state_mobile-open{right:-250px}}.page__aside_state_mobile-open+.page__aside-button{right:250px}@media screen and (min-width:768px){.page__aside_state_pc-open{right:0}}.page__aside-button{position:absolute;top:0;right:0;bottom:0;z-index:3;display:flex;justify-content:center;align-items:center;width:18px;fill:currentColor;cursor:pointer;background-color:var(--gray_700);transition:all .15s ease}@media screen and (min-width:768px){.page__aside-button{display:none}}.page__aside-icon{width:17px;height:17px}.page__aside-footer{position:absolute;right:-250px;bottom:0;z-index:200;display:flex;width:250px;height:52px;padding:4px;background-color:var(--primary-background);transition:right .15s ease}@media screen and (min-width:768px){.page__aside-footer{right:-210px;padding:4px 4px 4px 50px}}.page__aside-menu{position:absolute;top:10px;left:4px;display:none;width:32px;height:32px;margin:0;padding:4px 0;color:var(--primary-text);cursor:pointer;background:transparent;border:none;outline:none}@media screen and (min-width:768px){.page__aside-menu{display:block}}.page__aside-menu:hover{color:var(--accent-text)}.page__aside-menu .icon{fill:currentColor}.page__reminder{position:absolute;top:0;right:0;left:0;z-index:10}.page__error{margin:0 auto;align-self:center}.page-error{max-width:320px;padding:24px;background:var(--secondary-background);border-radius:4px;box-shadow:var(--shadow) 0 1px 3px}.page-error__illustration{margin:0 0 16px;text-align:center}.page-error__illustration:last-child{margin-bottom:0}.page-error__image{display:inline-block;max-height:100px}.page-error__text{margin:0 0 16px;font-size:20px;text-align:center}.page-error__text:last-child{margin-bottom:0}", ""]);
+exports.push([module.i, "*,:after,:before{box-sizing:border-box;margin:0}#__layout,#__nuxt{height:100%}a{color:var(--primary-light);text-decoration:none}a:active,a:focus,a:hover{color:var(--primary);text-decoration:none}.scrollbar::-webkit-scrollbar{width:8px}.scrollbar::-webkit-scrollbar-thumb{background-color:var(--scrollbar-thumb);border-radius:8px}.scrollbar::-webkit-scrollbar-track{background-color:var(--scrollbar-track)}.link_no_styles{color:inherit;text-decoration:none}ul{margin:0;padding:0;list-style:none}.icon{max-width:100%;max-height:100%}.page{overflow:hidden;height:100%;min-height:100%}.page__wrapper{display:flex;flex-direction:column;height:100%}.page__body{height:100%;min-height:100%;color:var(--primary-text);font-family:\"Open Sans\",sans-serif;font-size:14px;line-height:1.4;background:var(--primary-background)}.page__body,.page__body_overflow_hidden{overflow:hidden}.page__header{z-index:99;width:100%}.page__main{position:relative;display:flex;overflow:hidden;flex-grow:1;flex-basis:100%}.page__main_state_mobile-open .page__aside-footer{right:0}@media screen and (min-width:768px){.page__main_state_mobile-open .page__aside-footer{right:-210px}}@media screen and (min-width:768px){.page__main_state_pc-open .page__chat{margin-right:250px}.page__main_state_pc-open .page__footer{margin-right:-4px}.page__main_state_pc-open .page__aside-footer{right:0}.page__main_state_pc-open .page__aside-menu{transform:rotate(180deg)}}.page__chat{position:relative;display:flex;flex-direction:column;width:100%;min-height:100%;max-height:100%;margin:0 20px 0 0;transition:margin-right .15s ease}@media screen and (min-width:768px){.page__chat{margin-right:4px}}.page__footer{background:transparent;transition:margin-right .15s ease}@media screen and (min-width:768px){.page__footer{margin-right:36px}}.page__aside{position:absolute;top:0;right:-250px;bottom:0;z-index:100;overflow-x:hidden;overflow-y:auto;overflow:hidden auto;flex-shrink:0;width:250px;transition:all .15s ease}.page__aside_state_mobile-open{right:0}@media screen and (min-width:768px){.page__aside_state_mobile-open{right:-250px}}.page__aside_state_mobile-open+.page__aside-button{right:250px}@media screen and (min-width:768px){.page__aside_state_pc-open{right:0}}.page__aside-button{position:absolute;top:0;right:0;bottom:0;z-index:3;display:flex;justify-content:center;align-items:center;width:18px;fill:currentColor;cursor:pointer;background-color:var(--gray_700);transition:all .15s ease}@media screen and (min-width:768px){.page__aside-button{display:none}}.page__aside-icon{width:17px;height:17px}.page__aside-footer{position:absolute;right:-250px;bottom:0;z-index:200;display:flex;width:250px;height:52px;padding:4px;background-color:var(--primary-background);transition:right .15s ease}@media screen and (min-width:768px){.page__aside-footer{right:-210px;padding:4px 4px 4px 50px}}.page__aside-menu{position:absolute;top:10px;left:4px;display:none;width:32px;height:32px;margin:0;padding:4px 0;color:var(--primary-text);cursor:pointer;background:transparent;border:none;outline:none}@media screen and (min-width:768px){.page__aside-menu{display:block}}.page__aside-menu:hover{color:var(--accent-text)}.page__aside-menu .icon{fill:currentColor}.page__reminder{position:absolute;top:0;right:0;left:0;z-index:10}.page__error{margin:0 auto;align-self:center}.page-error{max-width:320px;padding:24px;background:var(--secondary-background);border-radius:4px;box-shadow:var(--shadow) 0 1px 3px}.page-error__illustration{margin:0 0 16px;text-align:center}.page-error__illustration:last-child{margin-bottom:0}.page-error__image{display:inline-block;max-height:100px}.page-error__text{margin:0 0 16px;font-size:20px;text-align:center}.page-error__text:last-child{margin-bottom:0}", ""]);
 // Exports
 module.exports = exports;
 
 
 /***/ }),
-/* 198 */
+/* 237 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -8287,19 +16843,19 @@ module.exports = exports;
 
 
 /***/ }),
-/* 199 */
+/* 238 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(200);
+var content = __webpack_require__(239);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 __webpack_require__(4).default("cdaf68f8", content, true)
 
 /***/ }),
-/* 200 */
+/* 239 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -8312,18 +16868,18 @@ module.exports = exports;
 
 
 /***/ }),
-/* 201 */
+/* 240 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_users_list_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(68);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_users_list_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(103);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_users_list_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_users_list_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_users_list_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_users_list_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
-/* 202 */
+/* 241 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -8336,18 +16892,18 @@ module.exports = exports;
 
 
 /***/ }),
-/* 203 */
+/* 242 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_aside_panel_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(69);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_aside_panel_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(104);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_aside_panel_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_aside_panel_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_aside_panel_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_aside_panel_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
-/* 204 */
+/* 243 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -8360,18 +16916,18 @@ module.exports = exports;
 
 
 /***/ }),
-/* 205 */
+/* 244 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_node_modules_vue_loader_lib_index_js_vue_loader_options_aside_footer_vue_vue_type_style_index_0_id_3de8956c_lang_stylus_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(70);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_node_modules_vue_loader_lib_index_js_vue_loader_options_aside_footer_vue_vue_type_style_index_0_id_3de8956c_lang_stylus_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(105);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_node_modules_vue_loader_lib_index_js_vue_loader_options_aside_footer_vue_vue_type_style_index_0_id_3de8956c_lang_stylus_scoped_true___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_node_modules_vue_loader_lib_index_js_vue_loader_options_aside_footer_vue_vue_type_style_index_0_id_3de8956c_lang_stylus_scoped_true___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_node_modules_vue_loader_lib_index_js_vue_loader_options_aside_footer_vue_vue_type_style_index_0_id_3de8956c_lang_stylus_scoped_true___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_node_modules_vue_loader_lib_index_js_vue_loader_options_aside_footer_vue_vue_type_style_index_0_id_3de8956c_lang_stylus_scoped_true___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
-/* 206 */
+/* 245 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -8384,18 +16940,18 @@ module.exports = exports;
 
 
 /***/ }),
-/* 207 */
+/* 246 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_aside_footer_styl_vue_type_style_index_1_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(71);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_aside_footer_styl_vue_type_style_index_1_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(106);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_aside_footer_styl_vue_type_style_index_1_lang_stylus___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_aside_footer_styl_vue_type_style_index_1_lang_stylus___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_aside_footer_styl_vue_type_style_index_1_lang_stylus___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_aside_footer_styl_vue_type_style_index_1_lang_stylus___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
-/* 208 */
+/* 247 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -8408,18 +16964,18 @@ module.exports = exports;
 
 
 /***/ }),
-/* 209 */
+/* 248 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_context_menu_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(72);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_context_menu_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(107);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_context_menu_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_context_menu_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_context_menu_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_context_menu_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
-/* 210 */
+/* 249 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -8432,18 +16988,18 @@ module.exports = exports;
 
 
 /***/ }),
-/* 211 */
+/* 250 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_context_menu_item_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(73);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_context_menu_item_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(108);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_context_menu_item_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_context_menu_item_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_context_menu_item_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_stylus_loader_index_js_ref_8_oneOf_1_3_context_menu_item_styl_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
-/* 212 */
+/* 251 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -8456,7 +17012,7 @@ module.exports = exports;
 
 
 /***/ }),
-/* 213 */
+/* 252 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8468,10 +17024,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "accessorType", function() { return accessorType; });
 /* harmony import */ var typed_vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
 /* harmony import */ var typed_vuex__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(typed_vuex__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _store_auth_ts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(17);
-/* harmony import */ var _store_chat_ts__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(18);
-/* harmony import */ var _store_modals_ts__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(19);
-/* harmony import */ var _store_settings_ts__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(20);
+/* harmony import */ var _store_auth_ts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(50);
+/* harmony import */ var _store_chat_ts__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(51);
+/* harmony import */ var _store_modals_ts__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(52);
+/* harmony import */ var _store_settings_ts__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(53);
 
 
 
@@ -8524,13 +17080,13 @@ const accessorType = Object(typed_vuex__WEBPACK_IMPORTED_MODULE_0__["getAccessor
 });
 
 /***/ }),
-/* 214 */
+/* 253 */
 /***/ (function(module, exports) {
 
 module.exports = require("is-https");
 
 /***/ }),
-/* 215 */
+/* 254 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -8558,13 +17114,13 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 216 */
+/* 255 */
 /***/ (function(module, exports) {
 
 module.exports = require("js-cookie");
 
 /***/ }),
-/* 217 */
+/* 256 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8603,7 +17159,7 @@ async function loadLanguageAsync(context, locale) {
 
         if (!messages) {
           try {
-            const langFileModule = await __webpack_require__(218)(`./${file}`);
+            const langFileModule = await __webpack_require__(257)(`./${file}`);
             const getter = langFileModule.default || langFileModule;
             messages = typeof getter === 'function' ? await Promise.resolve(getter(context, locale)) : getter;
           } catch (error) {
@@ -8627,24 +17183,24 @@ async function loadLanguageAsync(context, locale) {
 }
 
 /***/ }),
-/* 218 */
+/* 257 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
 	"./en-US": [
-		114,
+		151,
 		0
 	],
 	"./en-US.js": [
-		114,
+		151,
 		0
 	],
 	"./ru-RU": [
-		115,
+		152,
 		1
 	],
 	"./ru-RU.js": [
-		115,
+		152,
 		1
 	]
 };
@@ -8665,22 +17221,602 @@ function webpackAsyncContext(req) {
 webpackAsyncContext.keys = function webpackAsyncContextKeys() {
 	return Object.keys(map);
 };
-webpackAsyncContext.id = 218;
+webpackAsyncContext.id = 257;
 module.exports = webpackAsyncContext;
 
 /***/ }),
-/* 219 */
+/* 258 */
+/***/ (function(module, exports) {
+
+module.exports = require("graphql-tag");
+
+/***/ }),
+/* 259 */
 /***/ (function(module, exports) {
 
 module.exports = require("cross-fetch/polyfill");
 
 /***/ }),
-/* 220 */
+/* 260 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var tslib_1 = __webpack_require__(8);
+
+var zen_observable_ts_1 = tslib_1.__importDefault(__webpack_require__(33));
+
+var ts_invariant_1 = __webpack_require__(10);
+
+var linkUtils_1 = __webpack_require__(109);
+
+function passthrough(op, forward) {
+  return forward ? forward(op) : zen_observable_ts_1.default.of();
+}
+
+function toLink(handler) {
+  return typeof handler === 'function' ? new ApolloLink(handler) : handler;
+}
+
+function empty() {
+  return new ApolloLink(function () {
+    return zen_observable_ts_1.default.of();
+  });
+}
+
+exports.empty = empty;
+
+function from(links) {
+  if (links.length === 0) return empty();
+  return links.map(toLink).reduce(function (x, y) {
+    return x.concat(y);
+  });
+}
+
+exports.from = from;
+
+function split(test, left, right) {
+  var leftLink = toLink(left);
+  var rightLink = toLink(right || new ApolloLink(passthrough));
+
+  if (linkUtils_1.isTerminating(leftLink) && linkUtils_1.isTerminating(rightLink)) {
+    return new ApolloLink(function (operation) {
+      return test(operation) ? leftLink.request(operation) || zen_observable_ts_1.default.of() : rightLink.request(operation) || zen_observable_ts_1.default.of();
+    });
+  } else {
+    return new ApolloLink(function (operation, forward) {
+      return test(operation) ? leftLink.request(operation, forward) || zen_observable_ts_1.default.of() : rightLink.request(operation, forward) || zen_observable_ts_1.default.of();
+    });
+  }
+}
+
+exports.split = split;
+
+exports.concat = function (first, second) {
+  var firstLink = toLink(first);
+
+  if (linkUtils_1.isTerminating(firstLink)) {
+    ts_invariant_1.invariant.warn(new linkUtils_1.LinkError("You are calling concat on a terminating link, which will have no effect", firstLink));
+    return firstLink;
+  }
+
+  var nextLink = toLink(second);
+
+  if (linkUtils_1.isTerminating(nextLink)) {
+    return new ApolloLink(function (operation) {
+      return firstLink.request(operation, function (op) {
+        return nextLink.request(op) || zen_observable_ts_1.default.of();
+      }) || zen_observable_ts_1.default.of();
+    });
+  } else {
+    return new ApolloLink(function (operation, forward) {
+      return firstLink.request(operation, function (op) {
+        return nextLink.request(op, forward) || zen_observable_ts_1.default.of();
+      }) || zen_observable_ts_1.default.of();
+    });
+  }
+};
+
+var ApolloLink = function () {
+  function ApolloLink(request) {
+    if (request) this.request = request;
+  }
+
+  ApolloLink.prototype.split = function (test, left, right) {
+    return this.concat(split(test, left, right || new ApolloLink(passthrough)));
+  };
+
+  ApolloLink.prototype.concat = function (next) {
+    return exports.concat(this, next);
+  };
+
+  ApolloLink.prototype.request = function (operation, forward) {
+    throw new ts_invariant_1.InvariantError('request is not implemented');
+  };
+
+  ApolloLink.empty = empty;
+  ApolloLink.from = from;
+  ApolloLink.split = split;
+  ApolloLink.execute = execute;
+  return ApolloLink;
+}();
+
+exports.ApolloLink = ApolloLink;
+
+function execute(link, operation) {
+  return link.request(linkUtils_1.createOperation(operation.context, linkUtils_1.transformOperation(linkUtils_1.validateOperation(operation)))) || zen_observable_ts_1.default.of();
+}
+
+exports.execute = execute;
+
+/***/ }),
+/* 261 */
+/***/ (function(module, exports) {
+
+module.exports = require("fast-json-stable-stringify");
+
+/***/ }),
+/* 262 */
+/***/ (function(module, exports) {
+
+module.exports = require("@wry/equality");
+
+/***/ }),
+/* 263 */
+/***/ (function(module, exports) {
+
+module.exports = require("hash.js/lib/hash/sha/256");
+
+/***/ }),
+/* 264 */
+/***/ (function(module, exports) {
+
+module.exports = require("graphql");
+
+/***/ }),
+/* 265 */
+/***/ (function(module, exports) {
+
+module.exports = require("graphql-anywhere/lib/async");
+
+/***/ }),
+/* 266 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports.__esModule = true;
+exports.Cache = exports.ApolloCache = void 0;
+
+var _apolloUtilities = __webpack_require__(9);
+
+function queryFromPojo(obj) {
+  var op = {
+    kind: 'OperationDefinition',
+    operation: 'query',
+    name: {
+      kind: 'Name',
+      value: 'GeneratedClientQuery'
+    },
+    selectionSet: selectionSetFromObj(obj)
+  };
+  var out = {
+    kind: 'Document',
+    definitions: [op]
+  };
+  return out;
+}
+
+function fragmentFromPojo(obj, typename) {
+  var frag = {
+    kind: 'FragmentDefinition',
+    typeCondition: {
+      kind: 'NamedType',
+      name: {
+        kind: 'Name',
+        value: typename || '__FakeType'
+      }
+    },
+    name: {
+      kind: 'Name',
+      value: 'GeneratedClientQuery'
+    },
+    selectionSet: selectionSetFromObj(obj)
+  };
+  var out = {
+    kind: 'Document',
+    definitions: [frag]
+  };
+  return out;
+}
+
+function selectionSetFromObj(obj) {
+  if (typeof obj === 'number' || typeof obj === 'boolean' || typeof obj === 'string' || typeof obj === 'undefined' || obj === null) {
+    return null;
+  }
+
+  if (Array.isArray(obj)) {
+    return selectionSetFromObj(obj[0]);
+  }
+
+  var selections = [];
+  Object.keys(obj).forEach(function (key) {
+    var nestedSelSet = selectionSetFromObj(obj[key]);
+    var field = {
+      kind: 'Field',
+      name: {
+        kind: 'Name',
+        value: key
+      },
+      selectionSet: nestedSelSet || undefined
+    };
+    selections.push(field);
+  });
+  var selectionSet = {
+    kind: 'SelectionSet',
+    selections: selections
+  };
+  return selectionSet;
+}
+
+var justTypenameQuery = {
+  kind: 'Document',
+  definitions: [{
+    kind: 'OperationDefinition',
+    operation: 'query',
+    name: null,
+    variableDefinitions: null,
+    directives: [],
+    selectionSet: {
+      kind: 'SelectionSet',
+      selections: [{
+        kind: 'Field',
+        alias: null,
+        name: {
+          kind: 'Name',
+          value: '__typename'
+        },
+        arguments: [],
+        directives: [],
+        selectionSet: null
+      }]
+    }
+  }]
+};
+
+var ApolloCache = function () {
+  function ApolloCache() {}
+
+  ApolloCache.prototype.transformDocument = function (document) {
+    return document;
+  };
+
+  ApolloCache.prototype.transformForLink = function (document) {
+    return document;
+  };
+
+  ApolloCache.prototype.readQuery = function (options, optimistic) {
+    if (optimistic === void 0) {
+      optimistic = false;
+    }
+
+    return this.read({
+      query: options.query,
+      variables: options.variables,
+      optimistic: optimistic
+    });
+  };
+
+  ApolloCache.prototype.readFragment = function (options, optimistic) {
+    if (optimistic === void 0) {
+      optimistic = false;
+    }
+
+    return this.read({
+      query: (0, _apolloUtilities.getFragmentQueryDocument)(options.fragment, options.fragmentName),
+      variables: options.variables,
+      rootId: options.id,
+      optimistic: optimistic
+    });
+  };
+
+  ApolloCache.prototype.writeQuery = function (options) {
+    this.write({
+      dataId: 'ROOT_QUERY',
+      result: options.data,
+      query: options.query,
+      variables: options.variables
+    });
+  };
+
+  ApolloCache.prototype.writeFragment = function (options) {
+    this.write({
+      dataId: options.id,
+      result: options.data,
+      variables: options.variables,
+      query: (0, _apolloUtilities.getFragmentQueryDocument)(options.fragment, options.fragmentName)
+    });
+  };
+
+  ApolloCache.prototype.writeData = function (_a) {
+    var id = _a.id,
+        data = _a.data;
+
+    if (typeof id !== 'undefined') {
+      var typenameResult = null;
+
+      try {
+        typenameResult = this.read({
+          rootId: id,
+          optimistic: false,
+          query: justTypenameQuery
+        });
+      } catch (e) {}
+
+      var __typename = typenameResult && typenameResult.__typename || '__ClientData';
+
+      var dataToWrite = Object.assign({
+        __typename: __typename
+      }, data);
+      this.writeFragment({
+        id: id,
+        fragment: fragmentFromPojo(dataToWrite, __typename),
+        data: dataToWrite
+      });
+    } else {
+      this.writeQuery({
+        query: queryFromPojo(data),
+        data: data
+      });
+    }
+  };
+
+  return ApolloCache;
+}();
+
+exports.ApolloCache = ApolloCache;
+var Cache;
+exports.Cache = Cache;
+
+(function (Cache) {})(Cache || (exports.Cache = Cache = {}));
+
+/***/ }),
+/* 267 */
+/***/ (function(module, exports) {
+
+module.exports = require("optimism");
+
+/***/ }),
+/* 268 */
+/***/ (function(module, exports) {
+
+module.exports = require("@babel/runtime/helpers/interopRequireDefault");
+
+/***/ }),
+/* 269 */
+/***/ (function(module, exports) {
+
+module.exports = require("@babel/runtime/helpers/extends");
+
+/***/ }),
+/* 270 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var tslib_1 = __webpack_require__(8);
+
+var printer_1 = __webpack_require__(112);
+
+var ts_invariant_1 = __webpack_require__(10);
+
+var defaultHttpOptions = {
+  includeQuery: true,
+  includeExtensions: false
+};
+var defaultHeaders = {
+  accept: '*/*',
+  'content-type': 'application/json'
+};
+var defaultOptions = {
+  method: 'POST'
+};
+exports.fallbackHttpConfig = {
+  http: defaultHttpOptions,
+  headers: defaultHeaders,
+  options: defaultOptions
+};
+
+exports.throwServerError = function (response, result, message) {
+  var error = new Error(message);
+  error.name = 'ServerError';
+  error.response = response;
+  error.statusCode = response.status;
+  error.result = result;
+  throw error;
+};
+
+exports.parseAndCheckHttpResponse = function (operations) {
+  return function (response) {
+    return response.text().then(function (bodyText) {
+      try {
+        return JSON.parse(bodyText);
+      } catch (err) {
+        var parseError = err;
+        parseError.name = 'ServerParseError';
+        parseError.response = response;
+        parseError.statusCode = response.status;
+        parseError.bodyText = bodyText;
+        return Promise.reject(parseError);
+      }
+    }).then(function (result) {
+      if (response.status >= 300) {
+        exports.throwServerError(response, result, "Response not successful: Received status code " + response.status);
+      }
+
+      if (!Array.isArray(result) && !result.hasOwnProperty('data') && !result.hasOwnProperty('errors')) {
+        exports.throwServerError(response, result, "Server response was missing for query '" + (Array.isArray(operations) ? operations.map(function (op) {
+          return op.operationName;
+        }) : operations.operationName) + "'.");
+      }
+
+      return result;
+    });
+  };
+};
+
+exports.checkFetcher = function (fetcher) {
+  if (!fetcher && typeof fetch === 'undefined') {
+    var library = 'unfetch';
+    if (typeof window === 'undefined') library = 'node-fetch';
+    throw new ts_invariant_1.InvariantError("\nfetch is not found globally and no fetcher passed, to fix pass a fetch for\nyour environment like https://www.npmjs.com/package/" + library + ".\n\nFor example:\nimport fetch from '" + library + "';\nimport { createHttpLink } from 'apollo-link-http';\n\nconst link = createHttpLink({ uri: '/graphql', fetch: fetch });");
+  }
+};
+
+exports.createSignalIfSupported = function () {
+  if (typeof AbortController === 'undefined') return {
+    controller: false,
+    signal: false
+  };
+  var controller = new AbortController();
+  var signal = controller.signal;
+  return {
+    controller: controller,
+    signal: signal
+  };
+};
+
+exports.selectHttpOptionsAndBody = function (operation, fallbackConfig) {
+  var configs = [];
+
+  for (var _i = 2; _i < arguments.length; _i++) {
+    configs[_i - 2] = arguments[_i];
+  }
+
+  var options = tslib_1.__assign({}, fallbackConfig.options, {
+    headers: fallbackConfig.headers,
+    credentials: fallbackConfig.credentials
+  });
+
+  var http = fallbackConfig.http;
+  configs.forEach(function (config) {
+    options = tslib_1.__assign({}, options, config.options, {
+      headers: tslib_1.__assign({}, options.headers, config.headers)
+    });
+    if (config.credentials) options.credentials = config.credentials;
+    http = tslib_1.__assign({}, http, config.http);
+  });
+  var operationName = operation.operationName,
+      extensions = operation.extensions,
+      variables = operation.variables,
+      query = operation.query;
+  var body = {
+    operationName: operationName,
+    variables: variables
+  };
+  if (http.includeExtensions) body.extensions = extensions;
+  if (http.includeQuery) body.query = printer_1.print(query);
+  return {
+    options: options,
+    body: body
+  };
+};
+
+exports.serializeFetchParameter = function (p, label) {
+  var serialized;
+
+  try {
+    serialized = JSON.stringify(p);
+  } catch (e) {
+    var parseError = new ts_invariant_1.InvariantError("Network request failed. " + label + " is not serializable: " + e.message);
+    parseError.parseError = e;
+    throw parseError;
+  }
+
+  return serialized;
+};
+
+exports.selectURI = function (operation, fallbackURI) {
+  var context = operation.getContext();
+  var contextURI = context.uri;
+
+  if (contextURI) {
+    return contextURI;
+  } else if (typeof fallbackURI === 'function') {
+    return fallbackURI(operation);
+  } else {
+    return fallbackURI || '/graphql';
+  }
+};
+
+/***/ }),
+/* 271 */
+/***/ (function(module, exports) {
+
+module.exports = require("extract-files");
+
+/***/ }),
+/* 272 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var tslib_1 = __webpack_require__(8);
+
+var apollo_link_1 = __webpack_require__(7);
+
+var subscriptions_transport_ws_1 = __webpack_require__(54);
+
+var WebSocketLink = function (_super) {
+  tslib_1.__extends(WebSocketLink, _super);
+
+  function WebSocketLink(paramsOrClient) {
+    var _this = _super.call(this) || this;
+
+    if (paramsOrClient instanceof subscriptions_transport_ws_1.SubscriptionClient) {
+      _this.subscriptionClient = paramsOrClient;
+    } else {
+      _this.subscriptionClient = new subscriptions_transport_ws_1.SubscriptionClient(paramsOrClient.uri, paramsOrClient.options, paramsOrClient.webSocketImpl);
+    }
+
+    return _this;
+  }
+
+  WebSocketLink.prototype.request = function (operation) {
+    return this.subscriptionClient.request(operation);
+  };
+
+  return WebSocketLink;
+}(apollo_link_1.ApolloLink);
+
+exports.WebSocketLink = WebSocketLink;
+
+/***/ }),
+/* 273 */
+/***/ (function(module, exports) {
+
+module.exports = require("symbol-observable");
+
+/***/ }),
+/* 274 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var apollo_link_error__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(111);
+/* harmony import */ var apollo_link_error__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(148);
 /* harmony import */ var apollo_link_error__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(apollo_link_error__WEBPACK_IMPORTED_MODULE_0__);
 
 /* harmony default export */ __webpack_exports__["default"] = (function (ctx) {
@@ -8754,17 +17890,52 @@ __webpack_require__.r(__webpack_exports__);
 });
 
 /***/ }),
-/* 221 */
-/***/ (function(module, exports) {
+/* 275 */
+/***/ (function(module, exports, __webpack_require__) {
 
-module.exports = require("vue-apollo/ssr");
+const serializeJs = __webpack_require__(276);
+
+exports.serializeStates = function (apolloProvider, options = {}) {
+  const state = exports.getStates(apolloProvider, options);
+  return options.useUnsafeSerializer ? JSON.stringify(state) : serializeJs(state);
+};
+
+exports.getStates = function (apolloProvider, options = {}) {
+  const finalOptions = Object.assign({}, {
+    exportNamespace: ''
+  }, options);
+  const states = {};
+
+  for (const key in apolloProvider.clients) {
+    const client = apolloProvider.clients[key];
+    const state = client.cache.extract();
+    states[`${finalOptions.exportNamespace}${key}`] = state;
+  }
+
+  return states;
+};
+
+exports.exportStates = function (apolloProvider, options) {
+  const finalOptions = Object.assign({}, {
+    globalName: '__APOLLO_STATE__',
+    attachTo: 'window',
+    useUnsafeSerializer: false
+  }, options);
+  return `${finalOptions.attachTo}.${finalOptions.globalName} = ${exports.serializeStates(apolloProvider, options)};`;
+};
 
 /***/ }),
-/* 222 */
+/* 276 */
+/***/ (function(module, exports) {
+
+module.exports = require("serialize-javascript");
+
+/***/ }),
+/* 277 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
-	"./icons.svg": 223
+	"./icons.svg": 278
 };
 
 
@@ -8785,16 +17956,16 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = 222;
+webpackContext.id = 277;
 
 /***/ }),
-/* 223 */
+/* 278 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "02fc6ca6a46106804fa4a90560c6ce0f.svg";
 
 /***/ }),
-/* 224 */
+/* 279 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8802,19 +17973,19 @@ module.exports = __webpack_require__.p + "02fc6ca6a46106804fa4a90560c6ce0f.svg";
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: external "querystring"
-var external_querystring_ = __webpack_require__(74);
+var external_querystring_ = __webpack_require__(113);
 
 // EXTERNAL MODULE: external "vue"
 var external_vue_ = __webpack_require__(2);
 var external_vue_default = /*#__PURE__*/__webpack_require__.n(external_vue_);
 
 // EXTERNAL MODULE: external "node-fetch"
-var external_node_fetch_ = __webpack_require__(75);
+var external_node_fetch_ = __webpack_require__(114);
 var external_node_fetch_default = /*#__PURE__*/__webpack_require__.n(external_node_fetch_);
 
 // CONCATENATED MODULE: ./.nuxt/middleware.js
 const middleware = {};
-middleware['authenticated'] = __webpack_require__(117);
+middleware['authenticated'] = __webpack_require__(154);
 middleware['authenticated'] = middleware['authenticated'].default || middleware['authenticated'];
 /* harmony default export */ var _nuxt_middleware = (middleware);
 // CONCATENATED MODULE: ./.nuxt/utils.js
@@ -9519,23 +18690,23 @@ async function serverPrefetch() {
 
 });
 // EXTERNAL MODULE: external "vuex"
-var external_vuex_ = __webpack_require__(7);
+var external_vuex_ = __webpack_require__(24);
 var external_vuex_default = /*#__PURE__*/__webpack_require__.n(external_vuex_);
 
 // EXTERNAL MODULE: external "vue-meta"
-var external_vue_meta_ = __webpack_require__(8);
+var external_vue_meta_ = __webpack_require__(25);
 var external_vue_meta_default = /*#__PURE__*/__webpack_require__.n(external_vue_meta_);
 
 // EXTERNAL MODULE: external "vue-client-only"
-var external_vue_client_only_ = __webpack_require__(21);
+var external_vue_client_only_ = __webpack_require__(55);
 var external_vue_client_only_default = /*#__PURE__*/__webpack_require__.n(external_vue_client_only_);
 
 // EXTERNAL MODULE: external "vue-no-ssr"
-var external_vue_no_ssr_ = __webpack_require__(14);
+var external_vue_no_ssr_ = __webpack_require__(30);
 var external_vue_no_ssr_default = /*#__PURE__*/__webpack_require__.n(external_vue_no_ssr_);
 
 // EXTERNAL MODULE: external "vue-router"
-var external_vue_router_ = __webpack_require__(22);
+var external_vue_router_ = __webpack_require__(56);
 var external_vue_router_default = /*#__PURE__*/__webpack_require__.n(external_vue_router_);
 
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./pages/main/main.vue?vue&type=template&id=488e8216&
@@ -9548,12 +18719,12 @@ var staticRenderFns = []
 // EXTERNAL MODULE: external "nuxt-property-decorator"
 var external_nuxt_property_decorator_ = __webpack_require__(0);
 
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./components/chat/chat.vue?vue&type=template&id=09abf3e4&
-var chatvue_type_template_id_09abf3e4_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{ref:"scroll",staticClass:"chat scrollbar",on:{"scroll":_vm.onScroll}},[_c('transition',{attrs:{"name":"fade"}},[_c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.loading),expression:"loading"}],staticClass:"chat__loader"},[_c('img',{staticClass:"icon",attrs:{"src":__webpack_require__(26),"alt":""}})])]),_vm._ssrNode(" "),_c('transition',{attrs:{"name":"fade"}},[_c('div',{directives:[{name:"show",rawName:"v-show",value:(!_vm.loading),expression:"!loading"}],staticClass:"chat__messages"},[(_vm.loadingMoreMessages)?_c('div',{staticClass:"chat__messages-loader"},[_c('img',{staticClass:"icon",attrs:{"src":__webpack_require__(26),"alt":""}})]):_vm._e(),_vm._v(" "),_vm._l((_vm.messages.length),function(i){return _c('div',{key:i,staticClass:"chat__message"},[(_vm.messages[_vm.messages.length - i].dayFirst)?_c('b-messages-separator',{attrs:{"message":_vm.messages[_vm.messages.length - i]}}):_vm._e(),_vm._v(" "),_c('b-message',{attrs:{"message":_vm.messages[_vm.messages.length - i]}})],1)})],2)])],2)}
-var chatvue_type_template_id_09abf3e4_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./components/chat/chat.vue?vue&type=template&id=0d9c853c&
+var chatvue_type_template_id_0d9c853c_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{ref:"scroll",staticClass:"chat scrollbar",on:{"scroll":_vm.onScroll}},[_c('transition',{attrs:{"name":"fade"}},[_c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.loading),expression:"loading"}],staticClass:"chat__loader"},[_c('img',{staticClass:"icon",attrs:{"src":__webpack_require__(60),"alt":""}})])]),_vm._ssrNode(" "),_c('transition',{attrs:{"name":"fade"}},[_c('div',{directives:[{name:"show",rawName:"v-show",value:(!_vm.loading),expression:"!loading"}],staticClass:"chat__messages"},[(_vm.loadingMoreMessages)?_c('div',{staticClass:"chat__messages-loader"},[_c('img',{staticClass:"icon",attrs:{"src":__webpack_require__(60),"alt":""}})]):_vm._e(),_vm._v(" "),_vm._l((_vm.messages.length),function(i){return _c('div',{key:i,staticClass:"chat__message"},[(_vm.messages[_vm.messages.length - i].dayFirst)?_c('b-messages-separator',{attrs:{"message":_vm.messages[_vm.messages.length - i]}}):_vm._e(),_vm._v(" "),_c('b-message',{attrs:{"message":_vm.messages[_vm.messages.length - i]}})],1)})],2)])],2)}
+var chatvue_type_template_id_0d9c853c_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./components/chat/chat.vue?vue&type=template&id=09abf3e4&
+// CONCATENATED MODULE: ./components/chat/chat.vue?vue&type=template&id=0d9c853c&
 
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./components/upload-file/upload-file.vue?vue&type=template&id=41116998&
 var upload_filevue_type_template_id_41116998_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"upload-file"},[_vm._ssrNode("<div class=\"upload-file__wrapper\">","</div>",[_vm._ssrNode("<div class=\"upload-file__section\">","</div>",[_c('svg-icon',{staticClass:"upload-file__icon",attrs:{"name":"description"}}),_vm._ssrNode("\n      Upload as document\n    ")],2),_vm._ssrNode(" "),_vm._ssrNode("<div class=\"upload-file__section\">","</div>",[_c('svg-icon',{staticClass:"upload-file__icon",attrs:{"name":"image"}}),_vm._ssrNode("\n      Upload as image\n    ")],2)],2)])}
@@ -9685,7 +18856,7 @@ function normalizeComponent (
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(118)
+  var style0 = __webpack_require__(155)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -9704,17 +18875,17 @@ var upload_file_component = normalizeComponent(
 )
 
 /* harmony default export */ var upload_file = (upload_file_component.exports);
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./components/message/message.vue?vue&type=template&id=e1a9394c&
-var messagevue_type_template_id_e1a9394c_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"message",class:{
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./components/message/message.vue?vue&type=template&id=907b7a48&
+var messagevue_type_template_id_907b7a48_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"message",class:{
     message_view_compact: _vm.compact,
     message_type_system: _vm.system,
     message_type_deleted: _vm.deleted,
     'message_state_not-delivered': !_vm.delivered,
-  },on:{"contextmenu":_vm.openContextMenu}},[_vm._ssrNode(((_vm.avatar)?("<img"+(_vm._ssrAttr("src",_vm.avatar))+" class=\"message__avatar\">"):("<div class=\"message__avatar message__avatar_type_default\""+(_vm._ssrStyle(null,{ backgroundColor: _vm.avatarColor }, null))+">"+_vm._ssrEscape("\n    "+_vm._s(_vm.message.username && _vm.message.username[0])+"\n  ")+"</div>"))+" "),_vm._ssrNode("<div class=\"message__content\">","</div>",[(_vm.compact)?_vm._ssrNode("<div class=\"message__header\">","</div>",[_vm._ssrNode("<time"+(_vm._ssrAttr("datetime",_vm.timestamp))+(_vm._ssrAttr("title",_vm.localDateTimeFull))+" class=\"message__timestamp\">"+_vm._ssrEscape("\n        "+_vm._s(_vm.localDateTime)+"\n      ")+"</time> "),_c('router-link',{staticClass:"message__author-name link_no_styles",style:({ color: _vm.avatarColor }),attrs:{"to":{ name: 'modal_profile', params: { id: _vm.ownerId } }}},[_vm._v("\n        "+_vm._s(_vm.message.username + ':')+"\n      ")])],2):_vm._ssrNode("<div class=\"message__header\">","</div>",[_c('router-link',{staticClass:"message__author-name link_no_styles",attrs:{"to":{ name: 'modal_profile', params: { id: _vm.ownerId } }}},[_vm._v("\n        "+_vm._s(_vm.message.username)+"\n      ")]),_vm._ssrNode(" <time"+(_vm._ssrAttr("datetime",_vm.timestamp))+(_vm._ssrAttr("title",_vm.localDateTimeFull))+" class=\"message__timestamp\">"+_vm._ssrEscape("\n        "+_vm._s(_vm.localDateTime)+"\n      ")+"</time>")],2),_vm._ssrNode(" "),_vm._ssrNode("<div class=\"message__body\">","</div>",[(_vm.showUpdatingMessage)?_vm._ssrNode("<span class=\"message__text\">","</span>",[_c('b-message-update-input',{ref:"messageUpdateInput",on:{"save":_vm.saveMessage,"cancel":_vm.cancelUpdateMessage},model:{value:(_vm.updatingMessageText),callback:function ($$v) {_vm.updatingMessageText=$$v},expression:"updatingMessageText"}})],1):_vm._ssrNode(("<span class=\"message__text\">"+(_vm._s(_vm.text))+"</span>")),_vm._ssrNode(" "+(_vm._ssrList((_vm.pictures),function(picture){return ("<img"+(_vm._ssrAttr("src",picture.m.link))+(_vm._ssrAttr("width",picture.m.width))+(_vm._ssrAttr("height",picture.m.height))+" class=\"message__image\">")})))],2)],2)],2)}
-var messagevue_type_template_id_e1a9394c_staticRenderFns = []
+  },on:{"contextmenu":_vm.openContextMenu}},[_vm._ssrNode(((_vm.avatar)?("<img"+(_vm._ssrAttr("src",_vm.avatar))+" class=\"message__avatar\">"):("<div class=\"message__avatar message__avatar_type_default\""+(_vm._ssrStyle(null,{ backgroundColor: _vm.avatarColor }, null))+">"+_vm._ssrEscape("\n    "+_vm._s(_vm.message.username && _vm.message.username[0])+"\n  ")+"</div>"))+" "),_vm._ssrNode("<div class=\"message__content\">","</div>",[(_vm.compact)?_vm._ssrNode("<div class=\"message__header\">","</div>",[_vm._ssrNode("<time"+(_vm._ssrAttr("datetime",_vm.timestamp))+(_vm._ssrAttr("title",_vm.localDateTimeFull))+" class=\"message__timestamp\">"+_vm._ssrEscape("\n        "+_vm._s(_vm.localDateTime)+"\n      ")+"</time> "),_c('router-link',{staticClass:"message__author-name link_no_styles",style:({ color: _vm.avatarColor }),attrs:{"to":{ name: 'modal_profile', params: { id: _vm.ownerId } }}},[_vm._v("\n        "+_vm._s(_vm.message.username + ':')+"\n      ")])],2):_vm._ssrNode("<div class=\"message__header\">","</div>",[_c('router-link',{staticClass:"message__author-name link_no_styles",attrs:{"to":{ name: 'modal_profile', params: { id: _vm.ownerId } }}},[_vm._v("\n        "+_vm._s(_vm.message.username)+"\n      ")]),_vm._ssrNode(" <time"+(_vm._ssrAttr("datetime",_vm.timestamp))+(_vm._ssrAttr("title",_vm.localDateTimeFull))+" class=\"message__timestamp\">"+_vm._ssrEscape("\n        "+_vm._s(_vm.localDateTime)+"\n      ")+"</time>")],2),_vm._ssrNode(" "),_vm._ssrNode("<div class=\"message__body\">","</div>",[(_vm.showUpdatingMessage)?_vm._ssrNode("<span class=\"message__text\">","</span>",[_c('b-message-update-input',{ref:"messageUpdateInput",on:{"save":_vm.saveMessage,"cancel":_vm.cancelUpdateMessage},model:{value:(_vm.updatingMessageText),callback:function ($$v) {_vm.updatingMessageText=$$v},expression:"updatingMessageText"}})],1):_vm._ssrNode(("<span class=\"message__text\">"+(_vm._s(_vm.text))+"</span>")),_vm._ssrNode(" "),_vm._l((_vm.pictures),function(picture){return _c('b-message-img',{key:picture.id,attrs:{"picture":picture}})})],2)],2)],2)}
+var messagevue_type_template_id_907b7a48_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./components/message/message.vue?vue&type=template&id=e1a9394c&
+// CONCATENATED MODULE: ./components/message/message.vue?vue&type=template&id=907b7a48&
 
 // EXTERNAL MODULE: external "luxon"
 var external_luxon_ = __webpack_require__(6);
@@ -9836,7 +19007,7 @@ message_update_inputvue_type_script_lang_ts_MessageUpdateInput = message_update_
 
 function message_update_input_injectStyles (context) {
   
-  var style0 = __webpack_require__(120)
+  var style0 = __webpack_require__(157)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -9856,9 +19027,99 @@ var message_update_input_component = normalizeComponent(
 
 /* harmony default export */ var message_update_input = (message_update_input_component.exports);
 // EXTERNAL MODULE: ./graphql/mutations/update-message.graphql
-var update_message_graphql = __webpack_require__(76);
+var update_message_graphql = __webpack_require__(115);
 var update_message_graphql_default = /*#__PURE__*/__webpack_require__.n(update_message_graphql);
 
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./components/message-img/message-img.vue?vue&type=template&id=6898ffa0&
+var message_imgvue_type_template_id_6898ffa0_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"message-img",style:(_vm.style)},[_vm._ssrNode("<div class=\"message-img__responsive\""+(_vm._ssrStyle(null,{ paddingBottom: (_vm.aspectRatio + "%") }, null))+"><img"+(_vm._ssrAttr("src",_vm.picture.m.link))+" alt class=\"message-img__image\"></div>")])}
+var message_imgvue_type_template_id_6898ffa0_staticRenderFns = []
+
+
+// CONCATENATED MODULE: ./components/message-img/message-img.vue?vue&type=template&id=6898ffa0&
+
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--12-0!./node_modules/ts-loader??ref--12-1!./node_modules/vue-loader/lib??vue-loader-options!./components/message-img/message-img.vue?vue&type=script&lang=ts&
+var message_imgvue_type_script_lang_ts_decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
+  var c = arguments.length,
+      r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
+      d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+let message_imgvue_type_script_lang_ts_MessageImg = class MessageImg extends external_nuxt_property_decorator_["Vue"] {
+  get style() {
+    const style = {};
+    style['max-width'] = `${this.picture.m.width}px`;
+    style['max-height'] = `${this.picture.m.height}px`;
+    return style;
+  }
+
+  get aspectRatio() {
+    return Math.round(this.picture.m.height / this.picture.m.width * 10000) / 100;
+  }
+
+  openPicture() {
+    const limits = {
+      width: 1000,
+      height: 1000
+    };
+    const dimensions = {
+      width: this.picture.o.width,
+      height: this.picture.o.height
+    };
+
+    if (this.picture.o.width > limits.width || this.picture.o.height > limits.height) {
+      if (this.picture.o.width > this.picture.o.height) {
+        dimensions.width = limits.width;
+        dimensions.height = this.picture.o.height * (limits.width / this.picture.o.width);
+      } else {
+        dimensions.height = limits.height;
+        dimensions.width = this.picture.o.width * (limits.height / this.picture.o.height);
+      }
+    }
+
+    window.open(this.picture.o.link, this.picture.o.link, `height=${dimensions.height}px,width=${dimensions.width}px,resizable=1`);
+  }
+
+};
+
+message_imgvue_type_script_lang_ts_decorate([Object(external_nuxt_property_decorator_["Prop"])({
+  required: true,
+  type: Object
+})], message_imgvue_type_script_lang_ts_MessageImg.prototype, "picture", void 0);
+
+message_imgvue_type_script_lang_ts_MessageImg = message_imgvue_type_script_lang_ts_decorate([Object(external_nuxt_property_decorator_["Component"])({
+  name: 'b-message-img'
+})], message_imgvue_type_script_lang_ts_MessageImg);
+/* harmony default export */ var message_imgvue_type_script_lang_ts_ = (message_imgvue_type_script_lang_ts_MessageImg);
+// CONCATENATED MODULE: ./components/message-img/message-img.vue?vue&type=script&lang=ts&
+ /* harmony default export */ var message_img_message_imgvue_type_script_lang_ts_ = (message_imgvue_type_script_lang_ts_); 
+// CONCATENATED MODULE: ./components/message-img/message-img.vue
+
+
+
+function message_img_injectStyles (context) {
+  
+  var style0 = __webpack_require__(159)
+if (style0.__inject__) style0.__inject__(context)
+
+}
+
+/* normalize component */
+
+var message_img_component = normalizeComponent(
+  message_img_message_imgvue_type_script_lang_ts_,
+  message_imgvue_type_template_id_6898ffa0_render,
+  message_imgvue_type_template_id_6898ffa0_staticRenderFns,
+  false,
+  message_img_injectStyles,
+  null,
+  "fc0bb0aa"
+  
+)
+
+/* harmony default export */ var message_img = (message_img_component.exports);
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--12-0!./node_modules/ts-loader??ref--12-1!./node_modules/vue-loader/lib??vue-loader-options!./components/message/message.vue?vue&type=script&lang=ts&
 var messagevue_type_script_lang_ts_decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
   var c = arguments.length,
@@ -9867,6 +19128,7 @@ var messagevue_type_script_lang_ts_decorate = undefined && undefined.__decorate 
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -9986,29 +19248,6 @@ let messagevue_type_script_lang_ts_Message = class Message extends external_nuxt
     this.$bus.$off('message-updating');
   }
 
-  openPicture(picture) {
-    const limits = {
-      width: 1000,
-      height: 1000
-    };
-    const dimensions = {
-      width: picture.o.width,
-      height: picture.o.height
-    };
-
-    if (picture.o.width > limits.width || picture.o.height > limits.height) {
-      if (picture.o.width > picture.o.height) {
-        dimensions.width = limits.width;
-        dimensions.height = picture.o.height * (limits.width / picture.o.width);
-      } else {
-        dimensions.height = limits.height;
-        dimensions.width = picture.o.width * (limits.height / picture.o.height);
-      }
-    }
-
-    window.open(picture.o.link, picture.o.link, `height=${dimensions.height}px,width=${dimensions.width}px,resizable=1`);
-  }
-
   openContextMenu(event) {
     var _a;
 
@@ -10038,6 +19277,7 @@ messagevue_type_script_lang_ts_decorate([Object(external_nuxt_property_decorator
 messagevue_type_script_lang_ts_Message = messagevue_type_script_lang_ts_decorate([Object(external_nuxt_property_decorator_["Component"])({
   name: 'b-message',
   components: {
+    BMessageImg: message_img,
     BMessageUpdateInput: message_update_input
   }
 })], messagevue_type_script_lang_ts_Message);
@@ -10050,7 +19290,7 @@ messagevue_type_script_lang_ts_Message = messagevue_type_script_lang_ts_decorate
 
 function message_injectStyles (context) {
   
-  var style0 = __webpack_require__(122)
+  var style0 = __webpack_require__(161)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -10059,8 +19299,8 @@ if (style0.__inject__) style0.__inject__(context)
 
 var message_component = normalizeComponent(
   message_messagevue_type_script_lang_ts_,
-  messagevue_type_template_id_e1a9394c_render,
-  messagevue_type_template_id_e1a9394c_staticRenderFns,
+  messagevue_type_template_id_907b7a48_render,
+  messagevue_type_template_id_907b7a48_staticRenderFns,
   false,
   message_injectStyles,
   null,
@@ -10112,7 +19352,7 @@ messages_separatorvue_type_script_lang_ts_MessagesSeparator = messages_separator
 
 function messages_separator_injectStyles (context) {
   
-  var style0 = __webpack_require__(124)
+  var style0 = __webpack_require__(163)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -10151,13 +19391,12 @@ let chatvue_type_script_lang_ts_Chat = class Chat extends external_nuxt_property
     this.loadingMoreMessages = false;
   }
 
-  async onMessagesChange(force = false) {
-    await this.$nextTick();
+  onMessagesChange(force = false) {
+    if (!this.scroll) return;
+    const offsetBottom = this.scroll.scrollHeight - this.scroll.clientHeight - this.scroll.scrollTop;
 
-    if (this.scroll && (Math.abs(this.scroll.scrollTop) < 300 || force)) {
-      this.scroll.scrollTo({
-        top: this.scroll.scrollHeight
-      });
+    if (offsetBottom < 300 || force) {
+      this.scrollDownChat();
     }
   }
 
@@ -10165,8 +19404,10 @@ let chatvue_type_script_lang_ts_Chat = class Chat extends external_nuxt_property
     return this.loading ? [] : this.$accessor.chat.messages.filter(m => this.$accessor.auth.can.readAny('deleted-message').granted || !m.deletedAt);
   }
 
-  mounted() {
+  async mounted() {
     this.loading = false;
+    await this.$nextTick();
+    window.setTimeout(this.scrollDownChat, 50);
     this.$bus.$on('message-added', this.onMessagesChange);
   }
 
@@ -10174,23 +19415,40 @@ let chatvue_type_script_lang_ts_Chat = class Chat extends external_nuxt_property
     this.$bus.$off('message-added');
   }
 
+  scrollDownChat() {
+    if (this.scroll) {
+      this.scroll.scrollTop = this.scroll.scrollHeight;
+    }
+  }
+
   async onScroll(event) {
     var _a;
 
-    const offsetTop = event.target.scrollHeight - (Math.abs(event.target.scrollTop) + event.target.clientHeight);
-
-    if (!this.loadingMoreMessages && offsetTop < 50) {
+    if (!this.loadingMoreMessages && event.target.scrollTop < 100) {
       this.loadingMoreMessages = true;
+      await this.$nextTick();
 
       try {
         const lastId = (_a = this.messages[this.messages.length - 1]) === null || _a === void 0 ? void 0 : _a.id;
-        await this.$accessor.chat.getMessages({
+        const variables = {
           count: 50,
           reverse: true,
           lastId
-        });
+        };
+        const messages = await this.$accessor.chat.getMessages(variables);
+        const oldScrollTop = event.target.scrollTop;
+        const oldScroll = event.target.scrollHeight - event.target.clientHeight;
+
+        if (messages) {
+          await this.$accessor.chat.pushMessages({
+            variables,
+            messages
+          });
+          await this.$nextTick();
+          const newScroll = event.target.scrollHeight - event.target.clientHeight;
+          event.target.scrollTop = oldScrollTop + (newScroll - oldScroll);
+        }
       } finally {
-        await this.$nextTick();
         this.loadingMoreMessages = false;
       }
     }
@@ -10217,9 +19475,9 @@ chatvue_type_script_lang_ts_Chat = chatvue_type_script_lang_ts_decorate([Object(
 
 function chat_injectStyles (context) {
   
-  var style0 = __webpack_require__(126)
+  var style0 = __webpack_require__(165)
 if (style0.__inject__) style0.__inject__(context)
-var style1 = __webpack_require__(128)
+var style1 = __webpack_require__(167)
 if (style1.__inject__) style1.__inject__(context)
 
 }
@@ -10228,8 +19486,8 @@ if (style1.__inject__) style1.__inject__(context)
 
 var chat_component = normalizeComponent(
   chat_chatvue_type_script_lang_ts_,
-  chatvue_type_template_id_09abf3e4_render,
-  chatvue_type_template_id_09abf3e4_staticRenderFns,
+  chatvue_type_template_id_0d9c853c_render,
+  chatvue_type_template_id_0d9c853c_staticRenderFns,
   false,
   chat_injectStyles,
   null,
@@ -10246,7 +19504,7 @@ var footervue_type_template_id_05936746_staticRenderFns = []
 // CONCATENATED MODULE: ./components/footer/footer.vue?vue&type=template&id=05936746&
 
 // EXTERNAL MODULE: external "axios"
-var external_axios_ = __webpack_require__(11);
+var external_axios_ = __webpack_require__(27);
 var external_axios_default = /*#__PURE__*/__webpack_require__.n(external_axios_);
 
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./components/emoji-panel/emoji-panel.vue?vue&type=template&id=ae2f94a4&
@@ -10297,7 +19555,7 @@ emoji_panelvue_type_script_lang_ts_EmojiPanel = emoji_panelvue_type_script_lang_
 
 function emoji_panel_injectStyles (context) {
   
-  var style0 = __webpack_require__(130)
+  var style0 = __webpack_require__(169)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -10364,7 +19622,7 @@ attach_panelvue_type_script_lang_ts_AttachPanel = attach_panelvue_type_script_la
 
 function attach_panel_injectStyles (context) {
   
-  var style0 = __webpack_require__(132)
+  var style0 = __webpack_require__(171)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -10475,7 +19733,7 @@ buttonvue_type_script_lang_ts_Button = buttonvue_type_script_lang_ts_decorate([O
 
 function button_injectStyles (context) {
   
-  var style0 = __webpack_require__(134)
+  var style0 = __webpack_require__(173)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -10495,11 +19753,11 @@ var button_component = normalizeComponent(
 
 /* harmony default export */ var button_button = (button_component.exports);
 // EXTERNAL MODULE: ./graphql/mutations/create-message.graphql
-var create_message_graphql = __webpack_require__(77);
+var create_message_graphql = __webpack_require__(116);
 var create_message_graphql_default = /*#__PURE__*/__webpack_require__.n(create_message_graphql);
 
 // EXTERNAL MODULE: external "universal-cookie"
-var external_universal_cookie_ = __webpack_require__(12);
+var external_universal_cookie_ = __webpack_require__(28);
 var external_universal_cookie_default = /*#__PURE__*/__webpack_require__.n(external_universal_cookie_);
 
 // CONCATENATED MODULE: ./tools/http-client.ts
@@ -10558,7 +19816,7 @@ progress_barvue_type_script_lang_ts_ProgressBar = progress_barvue_type_script_la
 
 function progress_bar_injectStyles (context) {
   
-  var style0 = __webpack_require__(136)
+  var style0 = __webpack_require__(175)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -10742,7 +20000,7 @@ footervue_type_script_lang_ts_Footer = footervue_type_script_lang_ts_decorate([O
 
 function footer_injectStyles (context) {
   
-  var style0 = __webpack_require__(138)
+  var style0 = __webpack_require__(177)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -10814,7 +20072,7 @@ remindervue_type_script_lang_ts_Reminder = remindervue_type_script_lang_ts_decor
 
 function reminder_injectStyles (context) {
   
-  var style0 = __webpack_require__(142)
+  var style0 = __webpack_require__(181)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -10840,7 +20098,7 @@ var ReminderTypes;
   ReminderTypes["EMAIL_CONFIRMATION"] = "email_confirmation";
 })(ReminderTypes || (ReminderTypes = {}));
 // EXTERNAL MODULE: ./graphql/mutations/request-email-confirmation.graphql
-var request_email_confirmation_graphql = __webpack_require__(78);
+var request_email_confirmation_graphql = __webpack_require__(117);
 var request_email_confirmation_graphql_default = /*#__PURE__*/__webpack_require__.n(request_email_confirmation_graphql);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--12-0!./node_modules/ts-loader??ref--12-1!./node_modules/vue-loader/lib??vue-loader-options!./pages/main/main.vue?vue&type=script&lang=ts&
@@ -10892,7 +20150,7 @@ mainvue_type_script_lang_ts_MainPage = mainvue_type_script_lang_ts_decorate([Obj
 
 function main_injectStyles (context) {
   
-  var style0 = __webpack_require__(144)
+  var style0 = __webpack_require__(183)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -10912,7 +20170,7 @@ var main_component = normalizeComponent(
 
 /* harmony default export */ var main = (main_component.exports);
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./pages/confirmation/confirmation.vue?vue&type=template&id=4e9bc38c&
-var confirmationvue_type_template_id_4e9bc38c_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"page__error"},[(_vm.error)?_vm._ssrNode("<div class=\"page-error\">","</div>",[_vm._ssrNode("<div class=\"page-error__illustration\"><img"+(_vm._ssrAttr("src",__webpack_require__(15)))+" alt class=\"page-error__image\"></div> <div class=\"page-error__text\">"+_vm._ssrEscape("\n      "+_vm._s(_vm.error)+"\n    ")+"</div> "),_c('router-link',{attrs:{"to":{ name: 'main' },"custom":""},scopedSlots:_vm._u([{key:"default",fn:function(ref){
+var confirmationvue_type_template_id_4e9bc38c_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"page__error"},[(_vm.error)?_vm._ssrNode("<div class=\"page-error\">","</div>",[_vm._ssrNode("<div class=\"page-error__illustration\"><img"+(_vm._ssrAttr("src",__webpack_require__(31)))+" alt class=\"page-error__image\"></div> <div class=\"page-error__text\">"+_vm._ssrEscape("\n      "+_vm._s(_vm.error)+"\n    ")+"</div> "),_c('router-link',{attrs:{"to":{ name: 'main' },"custom":""},scopedSlots:_vm._u([{key:"default",fn:function(ref){
 var href = ref.href;
 var navigate = ref.navigate;
 return [_c('b-button',{attrs:{"tag":"a","href":href,"large":"","width-full":""},on:{"click":navigate}},[_vm._v("Вернуться в чат")])]}}],null,false,2274148816)})],2):_vm._e()])}
@@ -10922,7 +20180,7 @@ var confirmationvue_type_template_id_4e9bc38c_staticRenderFns = []
 // CONCATENATED MODULE: ./pages/confirmation/confirmation.vue?vue&type=template&id=4e9bc38c&
 
 // EXTERNAL MODULE: ./graphql/mutations/confirm-email.graphql
-var confirm_email_graphql = __webpack_require__(79);
+var confirm_email_graphql = __webpack_require__(118);
 var confirm_email_graphql_default = /*#__PURE__*/__webpack_require__.n(confirm_email_graphql);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--12-0!./node_modules/ts-loader??ref--12-1!./node_modules/vue-loader/lib??vue-loader-options!./pages/confirmation/confirmation.vue?vue&type=script&lang=ts&
@@ -11013,7 +20271,7 @@ confirmationvue_type_script_lang_ts_ConfirmationPage = confirmationvue_type_scri
 
 function confirmation_injectStyles (context) {
   
-  var style0 = __webpack_require__(146)
+  var style0 = __webpack_require__(185)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -11033,7 +20291,7 @@ var confirmation_component = normalizeComponent(
 
 /* harmony default export */ var confirmation = (confirmation_component.exports);
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./pages/reset-password/reset-password.vue?vue&type=template&id=555aa86a&
-var reset_passwordvue_type_template_id_555aa86a_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (_vm.error)?_c('div',{staticClass:"page__error"},[(_vm.error)?_vm._ssrNode("<div class=\"page-error\">","</div>",[_vm._ssrNode("<div class=\"page-error__illustration\"><img"+(_vm._ssrAttr("src",__webpack_require__(15)))+" alt class=\"page-error__image\"></div> <div class=\"page-error__text\">"+_vm._ssrEscape("\n      "+_vm._s(_vm.error)+"\n    ")+"</div> "),_c('router-link',{attrs:{"to":{ name: 'main' },"custom":""},scopedSlots:_vm._u([{key:"default",fn:function(ref){
+var reset_passwordvue_type_template_id_555aa86a_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (_vm.error)?_c('div',{staticClass:"page__error"},[(_vm.error)?_vm._ssrNode("<div class=\"page-error\">","</div>",[_vm._ssrNode("<div class=\"page-error__illustration\"><img"+(_vm._ssrAttr("src",__webpack_require__(31)))+" alt class=\"page-error__image\"></div> <div class=\"page-error__text\">"+_vm._ssrEscape("\n      "+_vm._s(_vm.error)+"\n    ")+"</div> "),_c('router-link',{attrs:{"to":{ name: 'main' },"custom":""},scopedSlots:_vm._u([{key:"default",fn:function(ref){
 var href = ref.href;
 var navigate = ref.navigate;
 return [_c('b-button',{attrs:{"tag":"a","href":href,"large":"","width-full":""},on:{"click":navigate}},[_vm._v("Вернуться в чат")])]}}],null,false,2274148816)})],2):_vm._e()]):_c('div',{staticClass:"page__error"},[_c('b-form',{attrs:{"errors":_vm.errors,"name":"login-form"}},[_c('div',{staticClass:"form__row"},[_c('b-text-field',{attrs:{"id":"reset_password","name":"username","placeholder":"Новый пароль","width-full":"","type":"password"},on:{"keydown":function($event){if(!$event.type.indexOf('key')&&_vm._k($event.keyCode,"enter",13,$event.key,"Enter")){ return null; }return _vm.passwordInput.focus()}},model:{value:(_vm.password),callback:function ($$v) {_vm.password=$$v},expression:"password"}})],1),_vm._v(" "),_c('div',{staticClass:"form__row"},[_c('b-text-field',{ref:"passwordInput",attrs:{"id":"reset_password_confirm","name":"password","placeholder":"Подтверждение пароля","width-full":"","type":"password"},on:{"keydown":function($event){if(!$event.type.indexOf('key')&&_vm._k($event.keyCode,"enter",13,$event.key,"Enter")){ return null; }return _vm.reset()}},model:{value:(_vm.passwordConfirm),callback:function ($$v) {_vm.passwordConfirm=$$v},expression:"passwordConfirm"}})],1),_vm._v(" "),_c('div',{staticClass:"form__row"},[_c('b-button',{attrs:{"large":"","width-full":""},on:{"click":function($event){$event.preventDefault();return _vm.reset()}}},[_vm._v("Восстановить пароль")])],1)])],1)}
@@ -11133,7 +20391,7 @@ text_fieldvue_type_script_lang_ts_TextField = text_fieldvue_type_script_lang_ts_
 
 function text_field_injectStyles (context) {
   
-  var style0 = __webpack_require__(148)
+  var style0 = __webpack_require__(187)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -11211,7 +20469,7 @@ form_errorvue_type_script_lang_ts_FormError = form_errorvue_type_script_lang_ts_
 
 function form_error_injectStyles (context) {
   
-  var style0 = __webpack_require__(150)
+  var style0 = __webpack_require__(189)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -11272,7 +20530,7 @@ formvue_type_script_lang_ts_Form = formvue_type_script_lang_ts_decorate([Object(
 
 function form_injectStyles (context) {
   
-  var style0 = __webpack_require__(152)
+  var style0 = __webpack_require__(191)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -11393,7 +20651,7 @@ reset_passwordvue_type_script_lang_ts_ResetPasswordPage = reset_passwordvue_type
 
 function reset_password_injectStyles (context) {
   
-  var style0 = __webpack_require__(154)
+  var style0 = __webpack_require__(193)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -11413,7 +20671,7 @@ var reset_password_component = normalizeComponent(
 
 /* harmony default export */ var reset_password = (reset_password_component.exports);
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./pages/oauth/discord/discord.vue?vue&type=template&id=eaf3f7ca&
-var discordvue_type_template_id_eaf3f7ca_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"page__error"},[(_vm.error)?_vm._ssrNode("<div class=\"page-error\">","</div>",[_vm._ssrNode("<div class=\"page-error__illustration\"><img"+(_vm._ssrAttr("src",__webpack_require__(15)))+" alt class=\"page-error__image\"></div> <div class=\"page-error__text\">"+_vm._ssrEscape("\n      "+_vm._s(_vm.error)+"\n    ")+"</div> "),_c('router-link',{attrs:{"to":{ name: 'main' },"custom":""},scopedSlots:_vm._u([{key:"default",fn:function(ref){
+var discordvue_type_template_id_eaf3f7ca_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"page__error"},[(_vm.error)?_vm._ssrNode("<div class=\"page-error\">","</div>",[_vm._ssrNode("<div class=\"page-error__illustration\"><img"+(_vm._ssrAttr("src",__webpack_require__(31)))+" alt class=\"page-error__image\"></div> <div class=\"page-error__text\">"+_vm._ssrEscape("\n      "+_vm._s(_vm.error)+"\n    ")+"</div> "),_c('router-link',{attrs:{"to":{ name: 'main' },"custom":""},scopedSlots:_vm._u([{key:"default",fn:function(ref){
 var href = ref.href;
 var navigate = ref.navigate;
 return [_c('b-button',{attrs:{"tag":"a","href":href,"large":"","width-full":""},on:{"click":navigate}},[_vm._v("Вернуться в чат")])]}}],null,false,2274148816)})],2):_vm._e()])}
@@ -11423,7 +20681,7 @@ var discordvue_type_template_id_eaf3f7ca_staticRenderFns = []
 // CONCATENATED MODULE: ./pages/oauth/discord/discord.vue?vue&type=template&id=eaf3f7ca&
 
 // EXTERNAL MODULE: ./graphql/mutations/oauth-discord.graphql
-var oauth_discord_graphql = __webpack_require__(80);
+var oauth_discord_graphql = __webpack_require__(119);
 var oauth_discord_graphql_default = /*#__PURE__*/__webpack_require__.n(oauth_discord_graphql);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--12-0!./node_modules/ts-loader??ref--12-1!./node_modules/vue-loader/lib??vue-loader-options!./pages/oauth/discord/discord.vue?vue&type=script&lang=ts&
@@ -11498,7 +20756,7 @@ discordvue_type_script_lang_ts_OAuthDiscordPage = discordvue_type_script_lang_ts
 
 function discord_injectStyles (context) {
   
-  var style0 = __webpack_require__(156)
+  var style0 = __webpack_require__(195)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -11583,7 +20841,7 @@ checkboxvue_type_script_lang_ts_Checkbox = checkboxvue_type_script_lang_ts_decor
 
 function checkbox_injectStyles (context) {
   
-  var style0 = __webpack_require__(158)
+  var style0 = __webpack_require__(197)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -11639,7 +20897,7 @@ tilevue_type_script_lang_ts_Tile = tilevue_type_script_lang_ts_decorate([Object(
 
 function tile_injectStyles (context) {
   
-  var style0 = __webpack_require__(160)
+  var style0 = __webpack_require__(199)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -11697,9 +20955,9 @@ modalvue_type_script_lang_ts_Modal = modalvue_type_script_lang_ts_decorate([Obje
 
 function modal_injectStyles (context) {
   
-  var style0 = __webpack_require__(162)
+  var style0 = __webpack_require__(201)
 if (style0.__inject__) style0.__inject__(context)
-var style1 = __webpack_require__(164)
+var style1 = __webpack_require__(203)
 if (style1.__inject__) style1.__inject__(context)
 
 }
@@ -11818,7 +21076,7 @@ login_modalvue_type_script_lang_ts_Login = login_modalvue_type_script_lang_ts_de
 
 function login_modal_injectStyles (context) {
   
-  var style0 = __webpack_require__(166)
+  var style0 = __webpack_require__(205)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -11995,7 +21253,7 @@ register_modalvue_type_script_lang_ts_RegisterModal = register_modalvue_type_scr
 
 function register_modal_injectStyles (context) {
   
-  var style0 = __webpack_require__(168)
+  var style0 = __webpack_require__(207)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -12027,14 +21285,14 @@ var avatarvue_type_template_id_11928367_render = function () {var _vm=this;var _
     avatar_size_medium: _vm.medium,
     avatar_size_large: _vm.large,
     avatar_size_stretch: _vm.stretch,
-  },style:({ backgroundColor: _vm.color ? _vm.color : 'var(--input-background)' })},[_vm._ssrNode(((_vm.avatar)?("<img"+(_vm._ssrAttr("src",_vm.avatar))+" alt=\"avatar\" class=\"avatar__image\">"):("<span class=\"avatar__content\">"+_vm._ssrEscape(_vm._s(_vm.letter))+"</span>"))+" "),(_vm.isOwner && !_vm.loading)?_vm._ssrNode("<label for=\"avatar-upload\" class=\"avatar__upload\">","</label>",[_c('svg-icon',{staticClass:"avatar__upload-icon",attrs:{"name":"upload"}}),_vm._ssrNode(" <input id=\"avatar-upload\" type=\"file\" class=\"avatar__upload-input\">")],2):_vm._e(),_vm._ssrNode(" "+((_vm.loading)?("<div class=\"avatar__loading\"><img"+(_vm._ssrAttr("src",__webpack_require__(170)))+" alt=\"loading\" class=\"avatar__loading-image\"></div>"):"<!---->"))],2)}
+  },style:({ backgroundColor: _vm.color ? _vm.color : 'var(--input-background)' })},[_vm._ssrNode(((_vm.avatar)?("<img"+(_vm._ssrAttr("src",_vm.avatar))+" alt=\"avatar\" class=\"avatar__image\">"):("<span class=\"avatar__content\">"+_vm._ssrEscape(_vm._s(_vm.letter))+"</span>"))+" "),(_vm.isOwner && !_vm.loading)?_vm._ssrNode("<label for=\"avatar-upload\" class=\"avatar__upload\">","</label>",[_c('svg-icon',{staticClass:"avatar__upload-icon",attrs:{"name":"upload"}}),_vm._ssrNode(" <input id=\"avatar-upload\" type=\"file\" class=\"avatar__upload-input\">")],2):_vm._e(),_vm._ssrNode(" "+((_vm.loading)?("<div class=\"avatar__loading\"><img"+(_vm._ssrAttr("src",__webpack_require__(209)))+" alt=\"loading\" class=\"avatar__loading-image\"></div>"):"<!---->"))],2)}
 var avatarvue_type_template_id_11928367_staticRenderFns = []
 
 
 // CONCATENATED MODULE: ./components/avatar/avatar.vue?vue&type=template&id=11928367&
 
 // EXTERNAL MODULE: ./graphql/mutations/update-avatar.graphql
-var update_avatar_graphql = __webpack_require__(81);
+var update_avatar_graphql = __webpack_require__(120);
 var update_avatar_graphql_default = /*#__PURE__*/__webpack_require__.n(update_avatar_graphql);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--12-0!./node_modules/ts-loader??ref--12-1!./node_modules/vue-loader/lib??vue-loader-options!./components/avatar/avatar.vue?vue&type=script&lang=ts&
@@ -12153,7 +21411,7 @@ avatarvue_type_script_lang_ts_Avatar = avatarvue_type_script_lang_ts_decorate([O
 
 function avatar_injectStyles (context) {
   
-  var style0 = __webpack_require__(171)
+  var style0 = __webpack_require__(210)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -12236,7 +21494,7 @@ profile_modalvue_type_script_lang_ts_ProfileModal = profile_modalvue_type_script
 
 function profile_modal_injectStyles (context) {
   
-  var style0 = __webpack_require__(173)
+  var style0 = __webpack_require__(212)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -12256,7 +21514,7 @@ var profile_modal_component = normalizeComponent(
 
 /* harmony default export */ var profile_modal = (profile_modal_component.exports);
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./components/modals/request-password-reset-modal/request-password-reset-modal.vue?vue&type=template&id=6cc8aaa5&
-var request_password_reset_modalvue_type_template_id_6cc8aaa5_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('b-modal',{on:{"close":function($event){return _vm.$emit('close', $event)}},scopedSlots:_vm._u([{key:"title",fn:function(){return [_vm._v("Восстановление пароля")]},proxy:true},{key:"default",fn:function(){return [(!_vm.requested)?_c('div',{staticClass:"request-password-reset-modal"},[_c('b-form',{attrs:{"errors":_vm.errors,"name":"request-password-reset-form"}},[_c('div',{staticClass:"form__row"},[_c('b-text-field',{attrs:{"id":"password_reset_email","name":"email","placeholder":"E-mail","width-full":""},on:{"keydown":function($event){if(!$event.type.indexOf('key')&&_vm._k($event.keyCode,"enter",13,$event.key,"Enter")){ return null; }return _vm.reset()}},model:{value:(_vm.email),callback:function ($$v) {_vm.email=$$v},expression:"email"}})],1),_vm._v(" "),_c('div',{staticClass:"form__row"},[_c('b-button',{attrs:{"large":"","width-full":""},on:{"click":function($event){$event.preventDefault();return _vm.reset()}}},[_vm._v("Восстановить")])],1)])],1):_c('div',{staticClass:"request-password-reset-modal"},[_c('div',{staticClass:"request-password-reset-modal__illustration"},[_c('img',{staticClass:"request-password-reset-modal__image",attrs:{"src":__webpack_require__(16),"alt":""}})]),_vm._v(" "),_c('div',{staticClass:"request-password-reset-modal__text"},[_vm._v("\n        Письмо для восстановления пароля будет отправлено, если пользователь с таким E-mail зарегистрирован\n      ")]),_vm._v(" "),(_vm.domain)?_c('b-button',{attrs:{"href":("https://" + _vm.domain),"target":"_blank","tag":"a","width-full":"","large":""}},[_vm._v("\n        Перейти в почтовый ящик\n      ")]):_vm._e()],1)]},proxy:true}])})}
+var request_password_reset_modalvue_type_template_id_6cc8aaa5_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('b-modal',{on:{"close":function($event){return _vm.$emit('close', $event)}},scopedSlots:_vm._u([{key:"title",fn:function(){return [_vm._v("Восстановление пароля")]},proxy:true},{key:"default",fn:function(){return [(!_vm.requested)?_c('div',{staticClass:"request-password-reset-modal"},[_c('b-form',{attrs:{"errors":_vm.errors,"name":"request-password-reset-form"}},[_c('div',{staticClass:"form__row"},[_c('b-text-field',{attrs:{"id":"password_reset_email","name":"email","placeholder":"E-mail","width-full":""},on:{"keydown":function($event){if(!$event.type.indexOf('key')&&_vm._k($event.keyCode,"enter",13,$event.key,"Enter")){ return null; }return _vm.reset()}},model:{value:(_vm.email),callback:function ($$v) {_vm.email=$$v},expression:"email"}})],1),_vm._v(" "),_c('div',{staticClass:"form__row"},[_c('b-button',{attrs:{"large":"","width-full":""},on:{"click":function($event){$event.preventDefault();return _vm.reset()}}},[_vm._v("Восстановить")])],1)])],1):_c('div',{staticClass:"request-password-reset-modal"},[_c('div',{staticClass:"request-password-reset-modal__illustration"},[_c('img',{staticClass:"request-password-reset-modal__image",attrs:{"src":__webpack_require__(32),"alt":""}})]),_vm._v(" "),_c('div',{staticClass:"request-password-reset-modal__text"},[_vm._v("\n        Письмо для восстановления пароля будет отправлено, если пользователь с таким E-mail зарегистрирован\n      ")]),_vm._v(" "),(_vm.domain)?_c('b-button',{attrs:{"href":("https://" + _vm.domain),"target":"_blank","tag":"a","width-full":"","large":""}},[_vm._v("\n        Перейти в почтовый ящик\n      ")]):_vm._e()],1)]},proxy:true}])})}
 var request_password_reset_modalvue_type_template_id_6cc8aaa5_staticRenderFns = []
 
 
@@ -12356,7 +21614,7 @@ request_password_reset_modalvue_type_script_lang_ts_RequestPasswordResetModal = 
 
 function request_password_reset_modal_injectStyles (context) {
   
-  var style0 = __webpack_require__(175)
+  var style0 = __webpack_require__(214)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -12376,7 +21634,7 @@ var request_password_reset_modal_component = normalizeComponent(
 
 /* harmony default export */ var request_password_reset_modal = (request_password_reset_modal_component.exports);
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./components/modals/request-email-confirmation-modal/request-email-confirmation-modal.vue?vue&type=template&id=49ed37a0&
-var request_email_confirmation_modalvue_type_template_id_49ed37a0_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('b-modal',{on:{"close":function($event){return _vm.$emit('close', $event)}},scopedSlots:_vm._u([{key:"title",fn:function(){return [_vm._v("Подтверждение E-mail")]},proxy:true},{key:"default",fn:function(){return [_c('div',{staticClass:"request-email-confirmation-modal"},[_c('div',{staticClass:"request-email-confirmation-modal__illustration"},[_c('img',{staticClass:"request-email-confirmation-modal__image",attrs:{"src":__webpack_require__(16),"alt":""}})]),_vm._v(" "),_c('div',{staticClass:"request-email-confirmation-modal__text"},[_vm._v("\n        Письмо было отправлено на адрес, указанный при регистрации.\n      ")]),_vm._v(" "),(_vm.domain)?_c('b-button',{attrs:{"href":("https://" + _vm.domain),"tag":"a","target":"_blank","width-full":"","large":""}},[_vm._v("\n        Перейти в почтовый ящик\n      ")]):_vm._e()],1)]},proxy:true}])})}
+var request_email_confirmation_modalvue_type_template_id_49ed37a0_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('b-modal',{on:{"close":function($event){return _vm.$emit('close', $event)}},scopedSlots:_vm._u([{key:"title",fn:function(){return [_vm._v("Подтверждение E-mail")]},proxy:true},{key:"default",fn:function(){return [_c('div',{staticClass:"request-email-confirmation-modal"},[_c('div',{staticClass:"request-email-confirmation-modal__illustration"},[_c('img',{staticClass:"request-email-confirmation-modal__image",attrs:{"src":__webpack_require__(32),"alt":""}})]),_vm._v(" "),_c('div',{staticClass:"request-email-confirmation-modal__text"},[_vm._v("\n        Письмо было отправлено на адрес, указанный при регистрации.\n      ")]),_vm._v(" "),(_vm.domain)?_c('b-button',{attrs:{"href":("https://" + _vm.domain),"tag":"a","target":"_blank","width-full":"","large":""}},[_vm._v("\n        Перейти в почтовый ящик\n      ")]):_vm._e()],1)]},proxy:true}])})}
 var request_email_confirmation_modalvue_type_template_id_49ed37a0_staticRenderFns = []
 
 
@@ -12423,7 +21681,7 @@ request_email_confirmation_modalvue_type_script_lang_ts_RequestEmailConfirmation
 
 function request_email_confirmation_modal_injectStyles (context) {
   
-  var style0 = __webpack_require__(177)
+  var style0 = __webpack_require__(216)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -12443,7 +21701,7 @@ var request_email_confirmation_modal_component = normalizeComponent(
 
 /* harmony default export */ var request_email_confirmation_modal = (request_email_confirmation_modal_component.exports);
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./components/modals/email-confirmed-modal/email-confirmed-modal.vue?vue&type=template&id=65c38e9c&
-var email_confirmed_modalvue_type_template_id_65c38e9c_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('b-modal',{on:{"close":function($event){return _vm.$emit('close', $event)}},scopedSlots:_vm._u([{key:"title",fn:function(){return [_vm._v("Подтверждение E-mail")]},proxy:true},{key:"default",fn:function(){return [_c('div',{staticClass:"email-confirmed-modal"},[_c('div',{staticClass:"email-confirmed-modal__illustration"},[_c('img',{staticClass:"email-confirmed-modal__image",attrs:{"src":__webpack_require__(16),"alt":""}})]),_vm._v(" "),_c('div',{staticClass:"email-confirmed-modal__text"},[_vm._v("\n        Ваш e-mail адрес подтверждён. Теперь вам доступен весь функционал чата.\n      ")]),_vm._v(" "),_c('b-button',{staticClass:"email-confirmed-modal__button",attrs:{"width-full":"","large":""},on:{"click":function($event){return _vm.$emit('close', $event)}}},[_vm._v("\n        Закрыть\n      ")])],1)]},proxy:true}])})}
+var email_confirmed_modalvue_type_template_id_65c38e9c_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('b-modal',{on:{"close":function($event){return _vm.$emit('close', $event)}},scopedSlots:_vm._u([{key:"title",fn:function(){return [_vm._v("Подтверждение E-mail")]},proxy:true},{key:"default",fn:function(){return [_c('div',{staticClass:"email-confirmed-modal"},[_c('div',{staticClass:"email-confirmed-modal__illustration"},[_c('img',{staticClass:"email-confirmed-modal__image",attrs:{"src":__webpack_require__(32),"alt":""}})]),_vm._v(" "),_c('div',{staticClass:"email-confirmed-modal__text"},[_vm._v("\n        Ваш e-mail адрес подтверждён. Теперь вам доступен весь функционал чата.\n      ")]),_vm._v(" "),_c('b-button',{staticClass:"email-confirmed-modal__button",attrs:{"width-full":"","large":""},on:{"click":function($event){return _vm.$emit('close', $event)}}},[_vm._v("\n        Закрыть\n      ")])],1)]},proxy:true}])})}
 var email_confirmed_modalvue_type_template_id_65c38e9c_staticRenderFns = []
 
 
@@ -12478,7 +21736,7 @@ email_confirmed_modalvue_type_script_lang_ts_EmailConfirmedModal = email_confirm
 
 function email_confirmed_modal_injectStyles (context) {
   
-  var style0 = __webpack_require__(179)
+  var style0 = __webpack_require__(218)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -12588,9 +21846,9 @@ selectvue_type_script_lang_ts_Select = selectvue_type_script_lang_ts_decorate([O
 
 function select_injectStyles (context) {
   
-  var style0 = __webpack_require__(181)
+  var style0 = __webpack_require__(220)
 if (style0.__inject__) style0.__inject__(context)
-var style1 = __webpack_require__(183)
+var style1 = __webpack_require__(222)
 if (style1.__inject__) style1.__inject__(context)
 
 }
@@ -12713,7 +21971,7 @@ punishment_modalvue_type_script_lang_ts_PunishmentModal = punishment_modalvue_ty
 
 function punishment_modal_injectStyles (context) {
   
-  var style0 = __webpack_require__(185)
+  var style0 = __webpack_require__(224)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -12795,7 +22053,7 @@ switchvue_type_script_lang_ts_Switch = switchvue_type_script_lang_ts_decorate([O
 
 function switch_injectStyles (context) {
   
-  var style0 = __webpack_require__(187)
+  var style0 = __webpack_require__(226)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -12860,7 +22118,7 @@ settings_modalvue_type_script_lang_ts_SettingsModal = settings_modalvue_type_scr
 
 function settings_modal_injectStyles (context) {
   
-  var style0 = __webpack_require__(189)
+  var style0 = __webpack_require__(228)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -13113,7 +22371,7 @@ var nuxt_errorvue_type_template_id_38a3918a_staticRenderFns = []
 
 function nuxt_error_injectStyles (context) {
   
-  var style0 = __webpack_require__(191)
+  var style0 = __webpack_require__(230)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -13417,7 +22675,7 @@ var nuxt_loading_render, nuxt_loading_staticRenderFns
 
 function nuxt_loading_injectStyles (context) {
   
-  var style0 = __webpack_require__(193)
+  var style0 = __webpack_require__(232)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -13444,16 +22702,16 @@ var confirmationvue_type_template_id_ba92d4d4_staticRenderFns = []
 // CONCATENATED MODULE: ./layouts/confirmation.vue?vue&type=template&id=ba92d4d4&
 
 // EXTERNAL MODULE: ./assets/stylus/normalize.styl
-var normalize = __webpack_require__(64);
+var normalize = __webpack_require__(99);
 
 // EXTERNAL MODULE: ./assets/stylus/grid.styl
-var grid = __webpack_require__(65);
+var grid = __webpack_require__(100);
 
 // EXTERNAL MODULE: ./assets/stylus/global.styl
-var stylus_global = __webpack_require__(66);
+var stylus_global = __webpack_require__(101);
 
 // EXTERNAL MODULE: ./assets/stylus/colors.styl
-var colors = __webpack_require__(67);
+var colors = __webpack_require__(102);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--12-0!./node_modules/ts-loader??ref--12-1!./node_modules/vue-loader/lib??vue-loader-options!./layouts/confirmation.vue?vue&type=script&lang=ts&
 var lib_vue_loader_options_layouts_confirmationvue_type_script_lang_ts_decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
@@ -13517,7 +22775,7 @@ var defaultvue_type_template_id_6b439404_staticRenderFns = []
 // CONCATENATED MODULE: ./layouts/default.vue?vue&type=template&id=6b439404&
 
 // EXTERNAL MODULE: ./node_modules/vue-snotify/styles/material.css
-var material = __webpack_require__(199);
+var material = __webpack_require__(238);
 
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./components/aside-panel/aside-panel.vue?vue&type=template&id=2054ecc8&
 var aside_panelvue_type_template_id_2054ecc8_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"aside-panel"},[_vm._ssrNode("<section class=\"aside-panel__section\">","</section>",[_vm._ssrNode("<h2 class=\"aside-panel__section-title\">"+_vm._ssrEscape("Пользователи в сети – "+_vm._s(_vm.users.length))+"</h2> "),_vm._ssrNode("<div class=\"aside-panel__section-body\">","</div>",[_c('b-users-list',{attrs:{"users":_vm.users}})],1)],2)])}
@@ -13567,7 +22825,7 @@ users_listvue_type_script_lang_ts_UsersList = users_listvue_type_script_lang_ts_
 
 function users_list_injectStyles (context) {
   
-  var style0 = __webpack_require__(201)
+  var style0 = __webpack_require__(240)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -13618,7 +22876,7 @@ aside_panelvue_type_script_lang_ts_AsidePanel = aside_panelvue_type_script_lang_
 
 function aside_panel_injectStyles (context) {
   
-  var style0 = __webpack_require__(203)
+  var style0 = __webpack_require__(242)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -13716,9 +22974,9 @@ aside_footervue_type_script_lang_ts_AsideFooter = aside_footervue_type_script_la
 
 function aside_footer_injectStyles (context) {
   
-  var style0 = __webpack_require__(205)
+  var style0 = __webpack_require__(244)
 if (style0.__inject__) style0.__inject__(context)
-var style1 = __webpack_require__(207)
+var style1 = __webpack_require__(246)
 if (style1.__inject__) style1.__inject__(context)
 
 }
@@ -13745,7 +23003,7 @@ var context_menuvue_type_template_id_8654dade_staticRenderFns = []
 // CONCATENATED MODULE: ./components/context-menu/context-menu.vue?vue&type=template&id=8654dade&
 
 // EXTERNAL MODULE: external "popper.js"
-var external_popper_js_ = __webpack_require__(82);
+var external_popper_js_ = __webpack_require__(121);
 var external_popper_js_default = /*#__PURE__*/__webpack_require__.n(external_popper_js_);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--12-0!./node_modules/ts-loader??ref--12-1!./node_modules/vue-loader/lib??vue-loader-options!./components/context-menu/context-menu.vue?vue&type=script&lang=ts&
@@ -13880,7 +23138,7 @@ context_menuvue_type_script_lang_ts_ContextMenu = context_menuvue_type_script_la
 
 function context_menu_injectStyles (context) {
   
-  var style0 = __webpack_require__(209)
+  var style0 = __webpack_require__(248)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -13954,7 +23212,7 @@ context_menu_itemvue_type_script_lang_ts_ContextMenuItem = context_menu_itemvue_
 
 function context_menu_item_injectStyles (context) {
   
-  var style0 = __webpack_require__(211)
+  var style0 = __webpack_require__(250)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -14395,14 +23653,14 @@ const VUEX_PROPERTIES = ['state', 'getters', 'actions', 'mutations'];
 let store_store = {};
 
 (function updateModules() {
-  store_store = normalizeRoot(__webpack_require__(213), 'store/index.ts'); // If store is an exported method = classic mode (deprecated)
+  store_store = normalizeRoot(__webpack_require__(252), 'store/index.ts'); // If store is an exported method = classic mode (deprecated)
   // Enforce store modules
 
   store_store.modules = store_store.modules || {};
-  resolveStoreModules(__webpack_require__(17), 'auth.ts');
-  resolveStoreModules(__webpack_require__(18), 'chat.ts');
-  resolveStoreModules(__webpack_require__(19), 'modals.ts');
-  resolveStoreModules(__webpack_require__(20), 'settings.ts'); // If the environment supports hot reloading...
+  resolveStoreModules(__webpack_require__(50), 'auth.ts');
+  resolveStoreModules(__webpack_require__(51), 'chat.ts');
+  resolveStoreModules(__webpack_require__(52), 'modals.ts');
+  resolveStoreModules(__webpack_require__(53), 'settings.ts'); // If the environment supports hot reloading...
 })(); // createStore
 
 
@@ -14658,7 +23916,7 @@ function switchLocalePath(locale) {
       let protocol;
 
       if (true) {
-        const isHTTPS = __webpack_require__(214);
+        const isHTTPS = __webpack_require__(253);
 
         protocol = this.req && isHTTPS(this.req) ? 'https' : 'http';
       } else {}
@@ -14753,14 +24011,66 @@ const plugin_routing_plugin = {
   app.getRouteBaseName = NuxtContextProxy(context, getRouteBaseName);
 });
 // EXTERNAL MODULE: ./node_modules/lodash.clonedeep/index.js
-var lodash_clonedeep = __webpack_require__(101);
+var lodash_clonedeep = __webpack_require__(140);
 var lodash_clonedeep_default = /*#__PURE__*/__webpack_require__.n(lodash_clonedeep);
 
 // EXTERNAL MODULE: external "vue-i18n"
-var external_vue_i18n_ = __webpack_require__(23);
+var external_vue_i18n_ = __webpack_require__(57);
 var external_vue_i18n_default = /*#__PURE__*/__webpack_require__.n(external_vue_i18n_);
 
+// EXTERNAL MODULE: external "core-js/modules/esnext.map.delete-all.js"
+var esnext_map_delete_all_js_ = __webpack_require__(11);
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.map.every.js"
+var esnext_map_every_js_ = __webpack_require__(12);
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.map.filter.js"
+var esnext_map_filter_js_ = __webpack_require__(13);
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.map.find.js"
+var esnext_map_find_js_ = __webpack_require__(14);
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.map.find-key.js"
+var esnext_map_find_key_js_ = __webpack_require__(15);
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.map.includes.js"
+var esnext_map_includes_js_ = __webpack_require__(16);
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.map.key-of.js"
+var esnext_map_key_of_js_ = __webpack_require__(17);
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.map.map-keys.js"
+var esnext_map_map_keys_js_ = __webpack_require__(18);
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.map.map-values.js"
+var esnext_map_map_values_js_ = __webpack_require__(19);
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.map.merge.js"
+var esnext_map_merge_js_ = __webpack_require__(20);
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.map.reduce.js"
+var esnext_map_reduce_js_ = __webpack_require__(21);
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.map.some.js"
+var esnext_map_some_js_ = __webpack_require__(22);
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.map.update.js"
+var esnext_map_update_js_ = __webpack_require__(23);
+
 // CONCATENATED MODULE: ./.nuxt/nuxt-i18n/seo-head.js
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 const nuxtI18nSeo = function () {
@@ -14888,11 +24198,11 @@ function codeFromLocale(locale) {
   return locale[nuxt_i18n_options["b" /* LOCALE_CODE_KEY */]];
 }
 // EXTERNAL MODULE: external "cookie"
-var external_cookie_ = __webpack_require__(24);
+var external_cookie_ = __webpack_require__(58);
 var external_cookie_default = /*#__PURE__*/__webpack_require__.n(external_cookie_);
 
 // EXTERNAL MODULE: external "js-cookie"
-var external_js_cookie_ = __webpack_require__(216);
+var external_js_cookie_ = __webpack_require__(255);
 
 // CONCATENATED MODULE: ./.nuxt/nuxt-i18n/utils-common.js
 
@@ -15329,7 +24639,7 @@ const getLocaleFromRoute = createLocaleFromRouteGetter(nuxt_i18n_options["o" /* 
     if (nuxt_i18n_options["n" /* lazy */]) {
       const {
         loadLanguageAsync
-      } = __webpack_require__(217); // Load fallback locale.
+      } = __webpack_require__(256); // Load fallback locale.
 
 
       if (app.i18n.fallbackLocale && newLocale !== app.i18n.fallbackLocale) {
@@ -15526,46 +24836,46 @@ const getLocaleFromRoute = createLocaleFromRouteGetter(nuxt_i18n_options["o" /* 
 
   if (false) {}
 });
-// EXTERNAL MODULE: external "vue-apollo"
-var external_vue_apollo_ = __webpack_require__(25);
-var external_vue_apollo_default = /*#__PURE__*/__webpack_require__.n(external_vue_apollo_);
+// EXTERNAL MODULE: ./node_modules/vue-apollo/dist/vue-apollo.umd.js
+var vue_apollo_umd = __webpack_require__(59);
+var vue_apollo_umd_default = /*#__PURE__*/__webpack_require__.n(vue_apollo_umd);
 
 // EXTERNAL MODULE: external "cross-fetch/polyfill"
-var polyfill_ = __webpack_require__(219);
+var polyfill_ = __webpack_require__(259);
 
-// EXTERNAL MODULE: external "apollo-client"
-var external_apollo_client_ = __webpack_require__(102);
+// EXTERNAL MODULE: ./node_modules/apollo-client/bundle.umd.js
+var bundle_umd = __webpack_require__(147);
 
-// EXTERNAL MODULE: external "apollo-link"
-var external_apollo_link_ = __webpack_require__(9);
+// EXTERNAL MODULE: ./node_modules/apollo-link/lib/index.js
+var lib = __webpack_require__(7);
 
-// EXTERNAL MODULE: external "apollo-upload-client"
-var external_apollo_upload_client_ = __webpack_require__(103);
+// EXTERNAL MODULE: ./node_modules/apollo-upload-client/lib/index.js
+var apollo_upload_client_lib = __webpack_require__(144);
 
-// EXTERNAL MODULE: external "apollo-cache-inmemory"
-var external_apollo_cache_inmemory_ = __webpack_require__(13);
+// EXTERNAL MODULE: ./node_modules/apollo-cache-inmemory/lib/bundle.cjs.js
+var bundle_cjs = __webpack_require__(29);
 
 // EXTERNAL MODULE: external "subscriptions-transport-ws"
-var external_subscriptions_transport_ws_ = __webpack_require__(104);
+var external_subscriptions_transport_ws_ = __webpack_require__(54);
 
 // EXTERNAL MODULE: external "subscriptions-transport-ws/dist/message-types"
-var message_types_ = __webpack_require__(105);
+var message_types_ = __webpack_require__(141);
 var message_types_default = /*#__PURE__*/__webpack_require__.n(message_types_);
 
-// EXTERNAL MODULE: external "apollo-link-ws"
-var external_apollo_link_ws_ = __webpack_require__(106);
+// EXTERNAL MODULE: ./node_modules/apollo-link-ws/lib/index.js
+var apollo_link_ws_lib = __webpack_require__(146);
 
-// EXTERNAL MODULE: external "apollo-utilities"
-var external_apollo_utilities_ = __webpack_require__(107);
+// EXTERNAL MODULE: ./node_modules/apollo-utilities/lib/bundle.cjs.js
+var lib_bundle_cjs = __webpack_require__(9);
 
-// EXTERNAL MODULE: external "apollo-link-persisted-queries"
-var external_apollo_link_persisted_queries_ = __webpack_require__(108);
+// EXTERNAL MODULE: ./node_modules/apollo-link-persisted-queries/lib/bundle.umd.js
+var lib_bundle_umd = __webpack_require__(142);
 
-// EXTERNAL MODULE: external "apollo-link-context"
-var external_apollo_link_context_ = __webpack_require__(109);
+// EXTERNAL MODULE: ./node_modules/apollo-link-context/lib/index.js
+var apollo_link_context_lib = __webpack_require__(145);
 
-// EXTERNAL MODULE: external "apollo-link-state"
-var external_apollo_link_state_ = __webpack_require__(110);
+// EXTERNAL MODULE: ./node_modules/apollo-link-state/lib/bundle.umd.js
+var apollo_link_state_lib_bundle_umd = __webpack_require__(143);
 
 // CONCATENATED MODULE: ./node_modules/vue-cli-plugin-apollo/graphql-client/src/index.js
 
@@ -15578,10 +24888,9 @@ var external_apollo_link_state_ = __webpack_require__(110);
 
 
 
+ // Create the apollo client
 
-
-// Create the apollo client
-function createApolloClient ({
+function createApolloClient({
   // Client ID if using multiple Clients
   clientId = 'defaultClient',
   // URL to the HTTP API
@@ -15622,174 +24931,172 @@ function createApolloClient ({
   // Local Resolvers
   resolvers = undefined,
   // Hook called when you should write local state in the cache
-  onCacheInit = undefined,
+  onCacheInit = undefined
 }) {
-  let wsClient, authLink, stateLink
-  const disableHttp = websocketsOnly && !ssr && wsEndpoint
+  let wsClient, authLink, stateLink;
+  const disableHttp = websocketsOnly && !ssr && wsEndpoint; // Apollo cache
 
-  // Apollo cache
   if (!cache) {
-    cache = new external_apollo_cache_inmemory_["InMemoryCache"](inMemoryCacheOptions)
+    cache = new bundle_cjs["InMemoryCache"](inMemoryCacheOptions);
   }
 
   if (!disableHttp) {
-    const httpLink = Object(external_apollo_upload_client_["createUploadLink"])({
+    const httpLink = Object(apollo_upload_client_lib["createUploadLink"])({
       uri: httpEndpoint,
-      ...httpLinkOptions,
-    })
+      ...httpLinkOptions
+    });
 
     if (!link) {
-      link = httpLink
+      link = httpLink;
     } else if (defaultHttpLink) {
-      link = Object(external_apollo_link_["from"])([link, httpLink])
-    }
+      link = Object(lib["from"])([link, httpLink]);
+    } // HTTP Auth header injection
 
-    // HTTP Auth header injection
-    authLink = Object(external_apollo_link_context_["setContext"])(async (_, { headers }) => {
-      const Authorization = await getAuth(tokenName)
-      const authorizationHeader = Authorization ? { Authorization } : {}
+
+    authLink = Object(apollo_link_context_lib["setContext"])(async (_, {
+      headers
+    }) => {
+      const Authorization = await getAuth(tokenName);
+      const authorizationHeader = Authorization ? {
+        Authorization
+      } : {};
       return {
-        headers: {
-          ...headers,
-          ...authorizationHeader,
-        },
-      }
-    })
+        headers: { ...headers,
+          ...authorizationHeader
+        }
+      };
+    }); // Concat all the http link parts
 
-    // Concat all the http link parts
-    link = authLink.concat(link)
+    link = authLink.concat(link);
 
     if (preAuthLinks.length) {
-      link = Object(external_apollo_link_["from"])(preAuthLinks).concat(authLink)
+      link = Object(lib["from"])(preAuthLinks).concat(authLink);
     }
-  }
+  } // On the server, we don't want WebSockets and Upload links
 
-  // On the server, we don't want WebSockets and Upload links
+
   if (!ssr) {
     // If on the client, recover the injected state
     if (typeof window !== 'undefined') {
       // eslint-disable-next-line no-underscore-dangle
-      const state = window.__APOLLO_STATE__
+      const state = window.__APOLLO_STATE__;
+
       if (state && state[clientId]) {
         // Restore state
-        cache.restore(state[clientId])
+        cache.restore(state[clientId]);
       }
     }
 
     if (!disableHttp) {
-      let persistingOpts = {}
-      if (typeof persisting === 'object' && persisting != null) {
-        persistingOpts = persisting
-        persisting = true
-      }
-      if (persisting === true) {
-        link = Object(external_apollo_link_persisted_queries_["createPersistedQueryLink"])(persistingOpts).concat(link)
-      }
-    }
+      let persistingOpts = {};
 
-    // Web socket
+      if (typeof persisting === 'object' && persisting != null) {
+        persistingOpts = persisting;
+        persisting = true;
+      }
+
+      if (persisting === true) {
+        link = Object(lib_bundle_umd["createPersistedQueryLink"])(persistingOpts).concat(link);
+      }
+    } // Web socket
+
+
     if (wsEndpoint) {
       wsClient = new external_subscriptions_transport_ws_["SubscriptionClient"](wsEndpoint, {
         reconnect: true,
         connectionParams: () => {
-          const Authorization = getAuth(tokenName)
-          return Authorization ? { Authorization, headers: { Authorization } } : {}
-        },
-      })
+          const Authorization = getAuth(tokenName);
+          return Authorization ? {
+            Authorization,
+            headers: {
+              Authorization
+            }
+          } : {};
+        }
+      }); // Create the subscription websocket link
 
-      // Create the subscription websocket link
-      const wsLink = new external_apollo_link_ws_["WebSocketLink"](wsClient)
+      const wsLink = new apollo_link_ws_lib["WebSocketLink"](wsClient);
 
       if (disableHttp) {
-        link = link ? link.concat(wsLink) : wsLink
+        link = link ? link.concat(wsLink) : wsLink;
       } else {
-        link = Object(external_apollo_link_["split"])(
-          // split based on operation type
-          ({ query }) => {
-            const { kind, operation } = Object(external_apollo_utilities_["getMainDefinition"])(query)
-            return kind === 'OperationDefinition' &&
-              operation === 'subscription'
-          },
-          wsLink,
-          link,
-        )
+        link = Object(lib["split"])( // split based on operation type
+        ({
+          query
+        }) => {
+          const {
+            kind,
+            operation
+          } = Object(lib_bundle_cjs["getMainDefinition"])(query);
+          return kind === 'OperationDefinition' && operation === 'subscription';
+        }, wsLink, link);
       }
     }
   }
 
   if (clientState) {
-    console.warn('clientState is deprecated, see https://vue-cli-plugin-apollo.netlify.com/guide/client-state.html')
-    stateLink = Object(external_apollo_link_state_["withClientState"])({
+    console.warn('clientState is deprecated, see https://vue-cli-plugin-apollo.netlify.com/guide/client-state.html');
+    stateLink = Object(apollo_link_state_lib_bundle_umd["withClientState"])({
       cache,
-      ...clientState,
-    })
-    link = Object(external_apollo_link_["from"])([stateLink, link])
+      ...clientState
+    });
+    link = Object(lib["from"])([stateLink, link]);
   }
 
-  const apolloClient = new external_apollo_client_["ApolloClient"]({
+  const apolloClient = new bundle_umd["ApolloClient"]({
     link,
     cache,
     // Additional options
     ...(ssr ? {
       // Set this on the server to optimize queries when SSR
-      ssrMode: true,
+      ssrMode: true
     } : {
       // This will temporary disable query force-fetching
       ssrForceFetchDelay: 100,
       // Apollo devtools
-      connectToDevTools: "production" !== 'production',
+      connectToDevTools: "production" !== 'production'
     }),
     typeDefs,
     resolvers,
-    ...apollo,
-  })
+    ...apollo
+  }); // Re-write the client state defaults on cache reset
 
-  // Re-write the client state defaults on cache reset
   if (stateLink) {
-    apolloClient.onResetStore(stateLink.writeDefaults)
+    apolloClient.onResetStore(stateLink.writeDefaults);
   }
 
   if (onCacheInit) {
-    onCacheInit(cache)
-    apolloClient.onResetStore(() => onCacheInit(cache))
+    onCacheInit(cache);
+    apolloClient.onResetStore(() => onCacheInit(cache));
   }
 
   return {
     apolloClient,
     wsClient,
-    stateLink,
-  }
+    stateLink
+  };
 }
-
-function restartWebsockets (wsClient) {
+function restartWebsockets(wsClient) {
   // Copy current operations
-  const operations = Object.assign({}, wsClient.operations)
+  const operations = Object.assign({}, wsClient.operations); // Close connection
 
-  // Close connection
-  wsClient.close(true)
+  wsClient.close(true); // Open a new one
 
-  // Open a new one
-  wsClient.connect()
+  wsClient.connect(); // Push all current operations to the new connection
 
-  // Push all current operations to the new connection
   Object.keys(operations).forEach(id => {
-    wsClient.sendMessage(
-      id,
-      message_types_default.a.GQL_START,
-      operations[id].options,
-    )
-  })
+    wsClient.sendMessage(id, message_types_default.a.GQL_START, operations[id].options);
+  });
 }
 
-function src_defaultGetAuth (tokenName) {
+function src_defaultGetAuth(tokenName) {
   if (typeof window !== 'undefined') {
     // get the authentication token from local storage if it exists
-    const token = window.localStorage.getItem(tokenName)
-    // return the headers to the context so httpLink can read them
-    return token ? `Bearer ${token}` : ''
+    const token = window.localStorage.getItem(tokenName); // return the headers to the context so httpLink can read them
+
+    return token ? `Bearer ${token}` : '';
   }
 }
-
 // CONCATENATED MODULE: ./.nuxt/apollo-module.js
 
 
@@ -15797,7 +25104,7 @@ function src_defaultGetAuth (tokenName) {
 
 
 
-external_vue_default.a.use(external_vue_apollo_default.a);
+external_vue_default.a.use(vue_apollo_umd_default.a);
 /* harmony default export */ var apollo_module = ((ctx, inject) => {
   const providerOptions = {
     clients: {}
@@ -15824,7 +25131,7 @@ external_vue_default.a.use(external_vue_apollo_default.a);
   }
 
   let defaultClientConfig;
-  defaultClientConfig = __webpack_require__(220);
+  defaultClientConfig = __webpack_require__(274);
 
   if ('default' in defaultClientConfig) {
     defaultClientConfig = defaultClientConfig.default;
@@ -15838,7 +25145,7 @@ external_vue_default.a.use(external_vue_apollo_default.a);
     defaultClientConfig.validateToken = defaultValidateToken;
   }
 
-  const defaultCache = defaultClientConfig.cache ? defaultClientConfig.cache : new external_apollo_cache_inmemory_["InMemoryCache"](defaultClientConfig.inMemoryCacheOptions ? defaultClientConfig.inMemoryCacheOptions : undefined);
+  const defaultCache = defaultClientConfig.cache ? defaultClientConfig.cache : new bundle_cjs["InMemoryCache"](defaultClientConfig.inMemoryCacheOptions ? defaultClientConfig.inMemoryCacheOptions : undefined);
 
   if (false) {}
 
@@ -15875,12 +25182,12 @@ external_vue_default.a.use(external_vue_apollo_default.a);
     }
 
   });
-  const apolloProvider = new external_vue_apollo_default.a(vueApolloOptions); // Allow access to the provider in the context
+  const apolloProvider = new vue_apollo_umd_default.a(vueApolloOptions); // Allow access to the provider in the context
 
   app.apolloProvider = apolloProvider;
 
   if (true) {
-    const ApolloSSR = __webpack_require__(221);
+    const ApolloSSR = __webpack_require__(275);
 
     beforeNuxtRender(({
       nuxtState
@@ -15936,7 +25243,7 @@ external_vue_default.a.use(external_vue_apollo_default.a);
   });
 });
 // EXTERNAL MODULE: external "vue-functional-data-merge"
-var external_vue_functional_data_merge_ = __webpack_require__(112);
+var external_vue_functional_data_merge_ = __webpack_require__(149);
 
 // CONCATENATED MODULE: ./.nuxt/nuxt-svg-sprite.js
 
@@ -15952,7 +25259,7 @@ function generateName(name) {
 
 
 function getSpritePath(sprite) {
-  const module = __webpack_require__(222)("./" + sprite + ".svg");
+  const module = __webpack_require__(277)("./" + sprite + ".svg");
 
   if (typeof module === 'string') {
     return module;
@@ -16050,7 +25357,7 @@ const SvgIcon = {
 };
 external_vue_default.a.component(SvgIcon.name, SvgIcon);
 // EXTERNAL MODULE: external "cookie-universal"
-var external_cookie_universal_ = __webpack_require__(113);
+var external_cookie_universal_ = __webpack_require__(150);
 var external_cookie_universal_default = /*#__PURE__*/__webpack_require__.n(external_cookie_universal_);
 
 // CONCATENATED MODULE: ./.nuxt/cookie-universal-nuxt.js
@@ -16066,12 +25373,12 @@ var external_cookie_universal_default = /*#__PURE__*/__webpack_require__.n(exter
   inject(options.alias, external_cookie_universal_default()(req, res, options.parseJSON));
 });
 // EXTERNAL MODULE: ./node_modules/typed-vuex/lib/index.js
-var lib = __webpack_require__(5);
+var typed_vuex_lib = __webpack_require__(5);
 
 // CONCATENATED MODULE: ./.nuxt/nuxt-typed-vuex.js
 
 
-const storeAccessor = Object(lib["getAccessorFromStore"])(createStore());
+const storeAccessor = Object(typed_vuex_lib["getAccessorFromStore"])(createStore());
 /* harmony default export */ var nuxt_typed_vuex = (async ({
   store
 }, inject) => {
@@ -16086,7 +25393,7 @@ const eventBusPlugin = (_, inject) => {
 
 /* harmony default export */ var bus = (eventBusPlugin);
 // EXTERNAL MODULE: ./.nuxt/empty.js
-var _nuxt_empty = __webpack_require__(10);
+var _nuxt_empty = __webpack_require__(26);
 
 // CONCATENATED MODULE: ./.nuxt/index.js
 
