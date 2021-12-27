@@ -22,8 +22,6 @@ export function getUserColor(id?: number) {
     '#FFA726',
     '#FF7043',
     '#8D6E63',
-    '#BDBDBD',
-    '#78909C',
   ];
   return id ? colors[(id - 1) % colors.length] : '#BDBDBD';
 }
