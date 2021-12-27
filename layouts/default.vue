@@ -75,9 +75,18 @@ import { ChatMessage } from '~/types/messages';
 
 @Component({
   head() {
+    const classes: string[] = [];
+
+    if (this.$route.query.style === 'obs') {
+      classes.push('page_style_obs');
+      classes.push('page_theme_dark');
+    } else {
+      classes.push('page_theme_' + this.$accessor.settings.theme);
+    }
+
     return {
       htmlAttrs: {
-        class: ['page_theme_' + this.$accessor.settings.theme],
+        class: classes,
       },
     };
   },
