@@ -2,7 +2,7 @@
   <!-- begin .users-list-->
   <ul class="users-list">
     <router-link
-      v-for="user in users"
+      v-for="user of users"
       :key="user.id"
       :to="{ name: 'modal_profile', params: { id: user.id } }"
       tag="li"

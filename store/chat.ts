@@ -213,7 +213,6 @@ export const actions = actionTree(
           await dispatch('updateOnlineStatus', context);
         }, 30 * 1000);
       }
-      await dispatch('getChatData', context);
     },
 
     subscribeMessageCreated({ state, commit, dispatch }, context: Context) {
