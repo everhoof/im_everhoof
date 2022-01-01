@@ -217,7 +217,6 @@ export const actions = actionTree(
 
     subscribeMessageCreated({ state, commit, dispatch }, context: Context) {
       const client = context?.app.apolloProvider?.defaultClient ?? this.app.apolloProvider?.defaultClient;
-      const self = context ?? this;
       if (client) {
         const messageCreatedObserver = client.subscribe<MessageCreatedSubscription>({
           query: MessageCreated,
@@ -238,7 +237,6 @@ export const actions = actionTree(
             } else {
               commit('ADD_MESSAGE', data.messageCreated);
             }
-            self.app.$bus.$emit('message-added');
           },
         });
       }

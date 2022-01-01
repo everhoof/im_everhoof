@@ -26,7 +26,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Ref, Vue } from 'nuxt-property-decorator';
+import { Component, Ref, Vue, Watch } from 'nuxt-property-decorator';
 import BUploadFile from '~/components/upload-file/upload-file.vue';
 import BMessage from '~/components/message/message.vue';
 import { ChatMessage } from '~/types/messages';
@@ -42,11 +42,13 @@ export default class Chat extends Vue {
   private loading = true;
   private loadingMoreMessages = false;
 
-  onMessagesChange(force: boolean = false): void {
+  @Watch('messages')
+  async onMessagesChange(force: boolean = false): Promise<void> {
     if (!this.scroll) return;
     const offsetBottom = this.scroll.scrollHeight - this.scroll.clientHeight - this.scroll.scrollTop;
 
     if (offsetBottom < 300 || force) {
+      await this.$nextTick();
       this.scrollDownChat();
     }
   }
@@ -64,12 +66,6 @@ export default class Chat extends Vue {
 
     await this.$nextTick();
     window.setTimeout(this.scrollDownChat, 50);
-
-    this.$bus.$on('message-added', this.onMessagesChange);
-  }
-
-  beforeDestroy(): void {
-    this.$bus.$off('message-added');
   }
 
   scrollDownChat(): void {
