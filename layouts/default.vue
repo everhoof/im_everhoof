@@ -199,8 +199,7 @@ export default class Default extends Vue {
     this.messageContextMenu?.close();
   }
 
-  openContextMenu(event: MouseEvent) {
-    event.preventDefault();
+  openContextMenu() {
     this.closeContextMenus();
   }
 
