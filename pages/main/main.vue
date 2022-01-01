@@ -1,6 +1,6 @@
 <template>
   <div class="page__chat">
-    <div class="page__reminder">
+    <div v-if="false" class="page__reminder">
       <b-reminder :id="reminderId" @click="confirmEmail()">
         <template #default>Подтвердите адрес эл. почты, чтобы использовать все возможности чата</template>
         <template #button>Подтвердить</template>
