@@ -19,7 +19,7 @@
       {{ message.username && message.username[0] }}
     </div>
     <div class="message__content">
-      <div v-if="compact" class="message__header">
+      <span v-if="compact" class="message__header">
         <time class="message__timestamp" :datetime="timestamp" :title="localDateTimeFull">
           {{ localDateTime }}
         </time>
@@ -30,8 +30,8 @@
         >
           {{ message.username + ':' }}
         </router-link>
-      </div>
-      <div v-else class="message__header">
+      </span>
+      <span v-else class="message__header">
         <router-link
           :to="{ name: 'modal_profile', params: { id: ownerId } }"
           class="message__author-name link_no_styles"
@@ -41,19 +41,17 @@
         <time class="message__timestamp" :datetime="timestamp" :title="localDateTimeFull">
           {{ localDateTime }}
         </time>
-      </div>
-      <div class="message__body">
-        <span v-if="showUpdatingMessage" class="message__text">
-          <b-message-update-input
-            ref="messageUpdateInput"
-            v-model="updatingMessageText"
-            @save="saveMessage"
-            @cancel="cancelUpdateMessage"
-          />
-        </span>
-        <span v-else class="message__text" v-html="text" />
-        <b-message-img v-for="picture in pictures" :key="picture.id" :picture="picture" />
-      </div>
+      </span>
+      <span v-if="showUpdatingMessage" class="message__text">
+        <b-message-update-input
+          ref="messageUpdateInput"
+          v-model="updatingMessageText"
+          @save="saveMessage"
+          @cancel="cancelUpdateMessage"
+        />
+      </span>
+      <span v-else class="message__text" v-html="text" />
+      <b-message-img v-for="picture in pictures" :key="picture.id" :picture="picture" />
     </div>
   </div>
   <!-- end .message-->

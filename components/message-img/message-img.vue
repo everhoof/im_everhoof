@@ -1,16 +1,20 @@
 <template>
   <!-- begin .message-img-->
-  <div class="message-img" :style="style">
-    <div class="message-img__responsive" :style="{ paddingBottom: `${aspectRatio}%` }">
-      <img :src="picture.m.link" class="message-img__image" alt="" @click="openPicture" />
-    </div>
-  </div>
+  <img
+    class="message-img"
+    :src="picture.m.link"
+    alt=""
+    :height="displayDimensions.height"
+    :width="displayDimensions.width"
+    @click="openPicture"
+  />
   <!-- end .message-img-->
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'nuxt-property-decorator';
 import { Picture } from '~/graphql/schema';
+import { Dimensions } from '~/types/dimensions';
 
 @Component({
   name: 'b-message-img',
@@ -22,6 +26,8 @@ export default class MessageImg extends Vue {
   })
   readonly picture!: Picture;
 
+  displayDimensions: Dimensions = { width: 0, height: 0 };
+
   get style(): Record<string, string> {
     const style: Record<string, string> = {};
     style['max-width'] = `${this.picture.m.width}px`;
@@ -29,13 +35,31 @@ export default class MessageImg extends Vue {
     return style;
   }
 
-  get aspectRatio(): number {
-    return Math.round((this.picture.m.height / this.picture.m.width) * 10000) / 100;
+  created(): void {
+    const limits = {
+      width: Math.min(window.innerWidth, 500),
+      height: Math.min(window.innerWidth, 400),
+    };
+
+    this.displayDimensions = this.transformDimensions(
+      { width: this.picture.m.width, height: this.picture.m.height },
+      limits,
+    );
   }
 
   openPicture(): void {
-    const limits = { width: 1000, height: 1000 };
-    const dimensions = { width: this.picture.o.width, height: this.picture.o.height };
+    const dimensions = this.transformDimensions(
+      { width: this.picture.o.width, height: this.picture.o.height },
+      { width: 1000, height: 1000 },
+    );
+    window.open(
+      this.picture.o.link,
+      this.picture.o.link,
+      `height=${dimensions.height}px,width=${dimensions.width}px,resizable=1`,
+    );
+  }
+
+  transformDimensions(dimensions: Dimensions, limits: Dimensions): Dimensions {
     if (this.picture.o.width > limits.width || this.picture.o.height > limits.height) {
       if (this.picture.o.width > this.picture.o.height) {
         dimensions.width = limits.width;
@@ -45,11 +69,8 @@ export default class MessageImg extends Vue {
         dimensions.width = this.picture.o.width * (limits.height / this.picture.o.height);
       }
     }
-    window.open(
-      this.picture.o.link,
-      this.picture.o.link,
-      `height=${dimensions.height}px,width=${dimensions.width}px,resizable=1`,
-    );
+
+    return dimensions;
   }
 }
 </script>

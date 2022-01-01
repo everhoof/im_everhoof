@@ -5,7 +5,7 @@
 	flex-shrink 0
 	min-height 60px
 	padding 8px 50px 8px 70px
-	line-height 22px
+	line-height 1.5
 	defaultTransition(background, opacity)
 
 	&:hover,
@@ -20,21 +20,17 @@
 
 			& ^[0]
 				&__content
-					display flex
+					display block
 
 				&__header
-					display flex
-					margin-right 8px
-					align-self flex-end
+					margin-right 5px
 
 				&__timestamp
-					margin-right 8px
+					margin-right 5px
 					margin-left 0
 
-				&__body
-					flex-shrink 1
-
 				&__text
+					display inline
 					margin-bottom 0
 					color var(--primary-text)
 
@@ -100,7 +96,7 @@
 
 	&__author-name
 		display inline-block
-		vertical-align middle
+		vertical-align bottom
 		overflow hidden
 		max-width 150px
 		font-size 14px
@@ -113,8 +109,6 @@
 			text-decoration underline
 
 	&__header
-		min-height 22px
-		font-size 0
 		white-space pre-line
 
 	&__timestamp
@@ -130,7 +124,6 @@
 		display block
 		margin 0 0 6px
 		color var(--secondary-text)
-		line-height 20px
 		word-break break-word
 
 		&:last-child
