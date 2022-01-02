@@ -93,7 +93,7 @@ export default class Message extends Vue {
       '<a href="$1" target="_blank">$1</a>',
     );
 
-    const mentionRegex = /<@!(\d+):(.+)>/gm;
+    const mentionRegex = /<@!(\d+):(.+?)>/gm;
     message = message.replace(mentionRegex, (_match, p1, p2) => {
       const route = `{ name: 'modal_profile', params: { id: ${p1} } }`;
       return `<span class="message__mention" onclick="window.$nuxt.$router.push(${route})">@${p2}</span>`;
