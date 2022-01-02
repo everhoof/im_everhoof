@@ -178,7 +178,7 @@ export default class Message extends Vue {
       if (errors[0] && errors[0].message) {
         this.message.content = errors && errors[0].message;
         this.message.system = true;
-        this.$accessor.chat.ADD_MESSAGE(this.message);
+        this.$accessor.chat.addMessage(this.message);
       }
     }
   }

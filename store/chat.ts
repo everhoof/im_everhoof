@@ -127,26 +127,17 @@ export type ChatState = ReturnType<typeof state>;
 export const mutations = mutationTree(state, {
   SET_MESSAGES: (_state, payload: GetChatDataQuery['getMessages']) => (_state.messages = payload),
   SET_MESSAGE: (_state, payload: string) => (_state.message = payload),
-  ADD_MESSAGE: (_state, payload: MessageCreatedSubscription['messageCreated']) => {
-    let index = payload.id && payload.id > 0 ? _state.messages.findIndex(({ id }) => id === payload.id) : -1;
-    if (index === -1) {
-      index = payload.randomId
-        ? _state.messages.findIndex(({ randomId }) => randomId === payload.randomId)
-        : -1;
-    }
-    if (payload.deletedAt && index !== -1) {
-      _state.messages.splice(index, 1);
-    } else if (index === -1) {
-      _state.messages.unshift(payload);
-    } else {
-      Vue.set(_state.messages, index, payload);
-    }
-  },
   ADD_MESSAGES_TO_START: (_state, payload: GetChatDataQuery['getMessages']) => {
     _state.messages.unshift(...payload);
   },
   ADD_MESSAGES_TO_END: (_state, payload: GetChatDataQuery['getMessages']) => {
     _state.messages.push(...payload);
+  },
+  DELETE_MESSAGE_BY_INDEX: (_state, payload: number) => {
+    _state.messages.splice(payload, 1);
+  },
+  SET_MESSAGE_BY_INDEX: (_state, payload: { index: number; message: GetChatDataQuery['getMessages'][0] }) => {
+    _state.messages.splice(payload.index, 1, payload.message);
   },
   DELETE_MESSAGES_AFTER_ID: (_state, payload: number) => {
     if (_state.messages.length === 0) return;
@@ -215,7 +206,27 @@ export const actions = actionTree(
       }
     },
 
-    subscribeMessageCreated({ state, commit, dispatch }, context: Context) {
+    addMessage({ state, commit, rootGetters }, payload: MessageCreatedSubscription['messageCreated']) {
+      let index = payload.id && payload.id > 0 ? state.messages.findIndex(({ id }) => id === payload.id) : -1;
+      if (index === -1) {
+        index = payload.randomId
+          ? state.messages.findIndex(({ randomId }) => randomId === payload.randomId)
+          : -1;
+      }
+      if (payload.deletedAt && index !== -1) {
+        if (rootGetters['auth/isAdmin']) {
+          commit('SET_MESSAGE_BY_INDEX', { index, message: payload });
+        } else {
+          commit('DELETE_MESSAGE_BY_INDEX', index);
+        }
+      } else if (index === -1) {
+        commit('ADD_MESSAGES_TO_START', [payload]);
+      } else {
+        commit('SET_MESSAGE_BY_INDEX', { index, message: payload });
+      }
+    },
+
+    subscribeMessageCreated({ state, dispatch }, context: Context) {
       const client = context?.app.apolloProvider?.defaultClient ?? this.app.apolloProvider?.defaultClient;
       if (client) {
         const messageCreatedObserver = client.subscribe<MessageCreatedSubscription>({
@@ -232,10 +243,10 @@ export const actions = actionTree(
                   break;
                 }
               }
-              commit('ADD_MESSAGE', data.messageCreated);
+              await dispatch('addMessage', data.messageCreated);
               if (lastId) await dispatch('getMessages', { lastId });
             } else {
-              commit('ADD_MESSAGE', data.messageCreated);
+              await dispatch('addMessage', data.messageCreated);
             }
           },
         });
@@ -257,7 +268,7 @@ export const actions = actionTree(
       }
     },
 
-    subscribeMessageDeleted({ commit }, context?: Context) {
+    subscribeMessageDeleted({ dispatch }, context?: Context) {
       const client = context?.app.apolloProvider?.defaultClient ?? this.app.apolloProvider?.defaultClient;
       if (client) {
         const onlineUpdatedObserver = client.subscribe<MessageDeletedSubscription>({
@@ -266,13 +277,13 @@ export const actions = actionTree(
         onlineUpdatedObserver.subscribe({
           next({ data }) {
             if (!data?.messageDeleted) return;
-            commit('ADD_MESSAGE', data.messageDeleted);
+            dispatch('addMessage', data.messageDeleted);
           },
         });
       }
     },
 
-    subscribeMessageUpdated({ commit }, context?: Context) {
+    subscribeMessageUpdated({ dispatch }, context?: Context) {
       const client = context?.app.apolloProvider?.defaultClient ?? this.app.apolloProvider?.defaultClient;
       if (client) {
         const onlineUpdatedObserver = client.subscribe<MessageUpdatedSubscription>({
@@ -281,7 +292,7 @@ export const actions = actionTree(
         onlineUpdatedObserver.subscribe({
           next({ data }) {
             if (!data?.messageUpdated) return;
-            commit('ADD_MESSAGE', data.messageUpdated);
+            dispatch('addMessage', data.messageUpdated);
           },
         });
       }
@@ -362,7 +373,7 @@ export const actions = actionTree(
       } catch (e) {}
     },
 
-    async deleteMessage({ commit }, payload: DeleteMessageMutationVariables) {
+    async deleteMessage({ dispatch }, payload: DeleteMessageMutationVariables) {
       const client = this.app.apolloProvider?.defaultClient;
       if (!client) return;
       try {
@@ -371,7 +382,7 @@ export const actions = actionTree(
           variables: payload,
         });
         if (errors || !data?.deleteMessage) return;
-        commit('ADD_MESSAGE', data.deleteMessage);
+        dispatch('addMessage', data.deleteMessage);
       } catch (e) {}
     },
 

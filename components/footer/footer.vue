@@ -166,7 +166,7 @@ export default class Footer extends Vue {
       pictures: [],
     };
 
-    this.$accessor.chat.ADD_MESSAGE(message);
+    this.$accessor.chat.addMessage(message);
     const content = this.$accessor.chat.message;
     this.$accessor.chat.SET_MESSAGE('');
 
