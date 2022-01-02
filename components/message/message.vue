@@ -59,7 +59,7 @@ import { Component, InjectReactive, Prop, Ref, Vue } from 'nuxt-property-decorat
 import { DateTime } from 'luxon';
 import { UpdateMessageMutation, UpdateMessageMutationVariables } from '~/graphql/schema';
 import { toLocalDateTime } from '~/tools/filters';
-import { getUserColor } from '~/tools/util';
+import { decodePunycodeURL, getUserColor } from '~/tools/util';
 import BContextMenu from '~/components/context-menu/context-menu.vue';
 import { ChatMessage, ChatMessageState } from '~/types/messages';
 import BMessageUpdateInput from '~/components/message-update-input/message-update-input.vue';
@@ -89,8 +89,10 @@ export default class Message extends Vue {
 
   get text() {
     let message = this.message.content.replace(
-      /(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*))/gm,
-      '<a href="$1" target="_blank">$1</a>',
+      /(https?:\/\/(www\.)?[-a-zA-Zа-яА-Я0-9@:%._+~#=]{1,256}\.[a-zA-Zа-яА-Я0-9()]{1,6}(\b|[\u0400-\u04FF])([-a-zA-Zа-яА-Я0-9()@:%_+.~#?&/=]*))/gm,
+      (_match, p1) => {
+        return `<a href="${p1}" target="_blank">${decodePunycodeURL(p1)}</a>`;
+      },
     );
 
     const mentionRegex = /<@!(\d+):(.+?)>/gm;

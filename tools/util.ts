@@ -1,3 +1,5 @@
+import { toUnicode } from 'punycode/';
+
 // [0, 1)
 export function getRandomIntInRange(min: number, max: number): number {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -24,4 +26,10 @@ export function getUserColor(id?: number) {
     '#8D6E63',
   ];
   return id ? colors[(id - 1) % colors.length] : '#BDBDBD';
+}
+
+export function decodePunycodeURL(input: string): string {
+  const url = new URL(input);
+  url.host = toUnicode(url.host);
+  return decodeURI(input.replace(url.host, toUnicode(url.host)));
 }
