@@ -6,6 +6,7 @@
       message_view_compact: compact,
       message_type_system: system,
       message_type_deleted: deleted,
+      message_type_mentioning: mentioning,
       'message_state_not-delivered': !delivered,
     }"
     @contextmenu="openContextMenu"
@@ -23,13 +24,9 @@
         <time class="message__timestamp" :datetime="timestamp" :title="localDateTimeFull">
           {{ localDateTime }}
         </time>
-        <router-link
-          :to="{ name: 'modal_profile', params: { id: ownerId } }"
-          class="message__author-name link_no_styles"
-          :style="{ color: avatarColor }"
-        >
+        <span class="message__author-name link_no_styles" :style="{ color: avatarColor }" @click="mention">
           {{ message.username + ':' }}
-        </router-link>
+        </span>
       </span>
       <span v-else class="message__header">
         <router-link
@@ -91,10 +88,17 @@ export default class Message extends Vue {
   private showUpdatingMessage: boolean = false;
 
   get text() {
-    const message = this.message.content.replace(
+    let message = this.message.content.replace(
       /(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*))/gm,
       '<a href="$1" target="_blank">$1</a>',
     );
+
+    const mentionRegex = /<@!(\d+):(.+)>/gm;
+    message = message.replace(mentionRegex, (_match, p1, p2) => {
+      const route = `{ name: 'modal_profile', params: { id: ${p1} } }`;
+      return `<span class="message__mention" onclick="window.$nuxt.$router.push(${route})">@${p2}</span>`;
+    });
+
     const emojiRegex = new RegExp(`:(${this.$accessor.chat.emoji.map(({ name }) => name).join('|')}):`, 'mg');
     return message.replace(emojiRegex, (_match, p1) => {
       const emoji = this.$accessor.chat.emoji.find((e) => e.name === p1);
@@ -121,6 +125,10 @@ export default class Message extends Vue {
 
   get system() {
     return this.message.system;
+  }
+
+  get mentioning(): boolean {
+    return new RegExp(`<@!${this.$accessor.auth.user?.id}(:.+)?>`).test(this.message.content);
   }
 
   get delivered(): boolean {
@@ -201,6 +209,20 @@ export default class Message extends Vue {
       event.stopPropagation();
       this.contextMenu.open(event, { message: this.message });
     }
+  }
+
+  mention(): void {
+    const id = this.message.owner?.id;
+    const username = this.message.username?.trim();
+    if (!id || !username) return;
+
+    let message = this.$accessor.chat.message.trim();
+    if (!new RegExp(`^<@!${id}:${username}>`).test(message)) {
+      message = `<@!${id}:${username}> ${message}`;
+      this.$accessor.chat.SET_MESSAGE(message);
+    }
+
+    this.$nuxt.$emit('input-focus');
   }
 }
 </script>

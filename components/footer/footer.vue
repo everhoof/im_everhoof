@@ -31,6 +31,7 @@
         />
       </div>
       <input
+        ref="inputEl"
         :value="$accessor.chat.message"
         name="message"
         autocomplete="off"
@@ -71,6 +72,7 @@ export default class Footer extends Vue {
   @Ref() emojiPanel!: HTMLDivElement;
   @Ref() attach!: HTMLDivElement;
   @Ref() attachPanel!: HTMLDivElement;
+  @Ref() inputEl!: HTMLDivElement;
   private attachIds: number[] = [];
   private progress: number = 0;
   private showProgress: boolean = false;
@@ -101,13 +103,24 @@ export default class Footer extends Vue {
     this.emoji.style.backgroundPosition = `-${(x - 1) * options.size}px -${(y - 1) * options.size}px`;
   }
 
-  mounted() {
+  mounted(): void {
+    this.$nuxt.$on('input-focus', this.onInputFocus);
+
     document.body.addEventListener('click', (event: MouseEvent) => {
       if (!this.emoji.contains(event.target as Node) && !this.emojiPanel.contains(event.target as Node))
         this.$accessor.SET_EMOJIS_PANEL_ACTIVE(false);
       if (!this.attach.contains(event.target as Node) && !this.attachPanel.contains(event.target as Node))
         this.$accessor.SET_ATTACH_PANEL_ACTIVE(false);
     });
+  }
+
+  beforeDestroy(): void {
+    this.$nuxt.$off('input-focus');
+  }
+
+  async onInputFocus(): Promise<void> {
+    await this.$nextTick();
+    this.inputEl.focus();
   }
 
   input(event: InputEvent) {
