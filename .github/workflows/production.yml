@@ -84,7 +84,7 @@ jobs:
           APP_DIR: ${{ secrets.PRODUCTION_APP_DIR }}
 
       - name: Run deploy script
-        run: ssh staging 'cd $APP_DIR && export NODE_ENV=$APP_NODE_ENV && bash deploy.sh'
+        run: ssh production 'cd $APP_DIR && export NODE_ENV=$APP_NODE_ENV && bash deploy.sh'
         env:
           APP_DIR: ${{ secrets.PRODUCTION_APP_DIR }}
           APP_NODE_ENV: ${{ secrets.PRODUCTION_NODE_ENV }}
