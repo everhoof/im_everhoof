@@ -77,10 +77,9 @@ jobs:
       - name: Copy dist files
         run: |
           ssh staging 'mkdir -p $APP_DIR/artifacts/'
-          scp deploy.sh staging:$APP_DIR/
           scp -r .nuxt staging:$APP_DIR/artifacts/.nuxt
           scp -r static staging:$APP_DIR/artifacts/static
-          scp -r .env.staging ecosystem.config.js environment.js nuxt.config.ts package.json tsconfig.json yarn.lock staging:$APP_DIR/artifacts/
+          scp -r .env.staging deploy.sh ecosystem.config.js environment.js nuxt.config.ts package.json tsconfig.json yarn.lock staging:$APP_DIR/artifacts/
         env:
           APP_DIR: ${{ secrets.STAGING_APP_DIR }}
 
