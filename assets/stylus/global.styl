@@ -1,4 +1,9 @@
-$aside-width = 250px
+.page
+	--aside-width 250px
+
+	&_style
+		&_compact
+			--aside-width 180px
 
 *,
 *:before,
@@ -87,13 +92,13 @@ ul
 					right 0
 
 					+above(size-m)
-						right 'calc(-%s + 40px)' % $aside-width
+						right calc(calc(var(--aside-width) * -1) + 40px)
 
 		+above(size-m)
 			&_state
 				&_pc-open
 					& ^[0]__chat
-						margin-right $aside-width
+						margin-right var(--aside-width)
 
 					& ^[0]__footer
 						margin-right -4px
@@ -127,12 +132,12 @@ ul
 	&__aside
 		position absolute
 		top 0
-		right -($aside-width)
+		right calc(var(--aside-width) * -1)
 		bottom 0
 		z-index 100
 		overflow hidden auto
 		flex-shrink 0
-		width $aside-width
+		width var(--aside-width)
 		defaultTransition()
 
 		&_state
@@ -140,11 +145,11 @@ ul
 				right 0
 
 				+above(size-m)
-					right '-%s' % $aside-width
+					right calc(var(--aside-width) * -1)
 
 				& +
 					& ^[0]__aside-button
-						right $aside-width
+						right var(--aside-width)
 
 			&_pc-open
 				+above(size-m)
@@ -174,18 +179,18 @@ ul
 
 	&__aside-footer
 		position absolute
-		right -($aside-width)
+		right calc(var(--aside-width) * -1)
 		bottom 0
 		z-index 200
 		display flex
-		width $aside-width
+		width var(--aside-width)
 		height 52px
 		padding 4px
 		background-color var(--primary-background)
 		defaultTransition(right)
 
 		+above(size-m)
-			right 'calc(-%s + 40px)' % $aside-width
+			right calc(calc(var(--aside-width) * -1) + 40px)
 			padding 4px 4px 4px 50px
 
 	&__aside-menu

@@ -82,6 +82,9 @@ import { ChatMessage } from '~/types/messages';
       classes.push('page_theme_dark');
     } else {
       classes.push('page_theme_' + this.$accessor.settings.theme);
+      if (this.$accessor.settings.compact) {
+        classes.push('page_style_compact');
+      }
     }
 
     return {

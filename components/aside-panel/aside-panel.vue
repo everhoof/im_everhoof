@@ -2,7 +2,7 @@
   <!-- begin .aside-panel-->
   <div class="aside-panel">
     <section class="aside-panel__section">
-      <h2 class="aside-panel__section-title">Пользователи в сети – {{ users.length }}</h2>
+      <h2 class="aside-panel__section-title">В сети – {{ users.length }}</h2>
       <div class="aside-panel__section-body"><b-users-list :users="users" /></div>
     </section>
   </div>
