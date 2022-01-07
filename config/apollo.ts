@@ -5,7 +5,7 @@ export default function (context: Context) {
   const errorLink = onError(({ response, graphQLErrors }) => {
     if (response) {
       response.errors = [
-        (graphQLErrors && graphQLErrors[0] && graphQLErrors[0].extensions?.exception.response) || {
+        (graphQLErrors && graphQLErrors[0] && graphQLErrors[0].extensions?.exception?.response) || {
           message: 'Неизвестная ошибка',
           error: 'UNKNOWN',
         },
@@ -14,7 +14,7 @@ export default function (context: Context) {
 
     if (graphQLErrors) {
       graphQLErrors.forEach((error: any) => {
-        const response = graphQLErrors?.[0]?.extensions?.exception.response;
+        const response = graphQLErrors?.[0]?.extensions?.exception?.response;
         if (!response) return;
         const statusCode = response.statusCode || response.status;
         if (!statusCode) return;
