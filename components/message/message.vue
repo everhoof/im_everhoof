@@ -29,12 +29,9 @@
         </span>
       </span>
       <span v-else class="message__header">
-        <router-link
-          :to="{ name: 'modal_profile', params: { id: ownerId } }"
-          class="message__author-name link_no_styles"
-        >
+        <span class="message__author-name link_no_styles" :style="{ color: avatarColor }" @click="mention">
           {{ message.username }}
-        </router-link>
+        </span>
         <time class="message__timestamp" :datetime="timestamp" :title="localDateTimeFull">
           {{ localDateTime }}
         </time>
