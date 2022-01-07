@@ -41,6 +41,7 @@
     </div>
     <b-context-menu ref="message-context-menu">
       <b-context-menu-item @click="openProfileModal">Профиль</b-context-menu-item>
+      <b-context-menu-item v-if="showMention" @click="mentionByMessage">Упомянуть</b-context-menu-item>
       <b-context-menu-item v-if="showEditMessage" icon="edit" @click="updateMessage">
         Изменить сообщение
       </b-context-menu-item>
@@ -50,6 +51,10 @@
       <b-context-menu-item v-if="showPunish" icon="hammer" important @click="punish">
         {{ $t('modals.punishment.mute') }}
       </b-context-menu-item>
+    </b-context-menu>
+    <b-context-menu ref="user-context-menu">
+      <b-context-menu-item @click="openProfileModalByUser">Профиль</b-context-menu-item>
+      <b-context-menu-item v-if="showMention" @click="mentionByUser">Упомянуть</b-context-menu-item>
     </b-context-menu>
     <b-context-menu ref="context-menu" />
   </div>
@@ -104,6 +109,7 @@ import { ChatMessage } from '~/types/messages';
 })
 export default class Default extends Vue {
   @ProvideReactive('context-menu') contextMenu: BContextMenu | null = null;
+  @ProvideReactive('user-context-menu') userContextMenu: BContextMenu | null = null;
   @ProvideReactive('message-context-menu') messageContextMenu: BContextMenu | null = null;
   asideMobileOpened: boolean = false;
 
@@ -118,6 +124,7 @@ export default class Default extends Vue {
   mounted() {
     this.onUserChanged();
     this.contextMenu = this.$refs['context-menu'] as BContextMenu;
+    this.userContextMenu = this.$refs['user-context-menu'] as BContextMenu;
     this.messageContextMenu = this.$refs['message-context-menu'] as BContextMenu;
     this.$bus.$on('snotify-error', this.handleSnotifyError);
   }
@@ -234,6 +241,10 @@ export default class Default extends Vue {
     );
   }
 
+  get showMention(): boolean {
+    return this.$accessor.auth.loggedIn;
+  }
+
   updateMessage() {
     const message: ChatMessage = this.messageContextMenu?.contextData?.message;
 
@@ -257,6 +268,25 @@ export default class Default extends Vue {
   openProfileModal(): void {
     const ownerId = this.messageContextMenu?.contextData?.message.owner?.id;
     this.$router.push({ name: 'modal_profile', params: { id: ownerId } });
+  }
+
+  openProfileModalByUser(): void {
+    const ownerId = this.userContextMenu?.contextData?.user.id;
+    this.$router.push({ name: 'modal_profile', params: { id: ownerId } });
+  }
+
+  mentionByMessage(): void {
+    const owner = this.messageContextMenu?.contextData?.message.owner;
+    if (!owner || !owner.id || !owner.username) return;
+
+    this.$accessor.chat.mention({ id: owner.id, username: owner.username });
+  }
+
+  mentionByUser(): void {
+    const user = this.userContextMenu?.contextData?.user;
+    if (!user) return;
+
+    this.$accessor.chat.mention({ id: user.id, username: user.username });
   }
 }
 </script>

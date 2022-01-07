@@ -20,6 +20,7 @@ import Popper from 'popper.js';
 })
 export default class ContextMenu extends Vue {
   @InjectReactive('context-menu') readonly contextMenu!: ContextMenu | null;
+  @InjectReactive('user-context-menu') readonly userContextMenu!: ContextMenu | null;
   @InjectReactive('message-context-menu') readonly messageContextMenu!: ContextMenu | null;
   @Prop({ type: String, default: 'body' }) boundariesElement!: string;
   @Ref('popper') popperElm!: Element;
@@ -51,6 +52,7 @@ export default class ContextMenu extends Vue {
 
   open(evt: MouseEvent, contextData = {}) {
     this.contextMenu?.close();
+    this.userContextMenu?.close();
     this.messageContextMenu?.close();
     this.opened = true;
     this.contextData = contextData;

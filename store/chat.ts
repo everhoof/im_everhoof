@@ -412,5 +412,18 @@ export const actions = actionTree(
         if (errors || !data?.punish) return;
       } catch (e) {}
     },
+
+    mention({ state, commit }, payload: { id: number; username: string }) {
+      const username = payload.username?.trim();
+      if (!payload.id || !username) return;
+
+      let message = state.message.trim();
+      if (!new RegExp(`^<@!${payload.id}:${username}>`).test(message)) {
+        message = `<@!${payload.id}:${username}> ${message}`;
+        commit('SET_MESSAGE', message);
+      }
+
+      window.$nuxt.$emit('input-focus');
+    },
   },
 );

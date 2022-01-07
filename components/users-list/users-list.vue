@@ -2,11 +2,12 @@
   <!-- begin .users-list-->
   <ul class="users-list">
     <router-link
-      v-for="user of users"
+      v-for="(user, i) of users"
       :key="user.id"
       :to="{ name: 'modal_profile', params: { id: user.id } }"
       tag="li"
       class="users-list__item"
+      @contextmenu.native="openContextMenu($event, i)"
     >
       <img v-if="user.avatar" :src="user.avatar.s.link" class="users-list__avatar" alt="" />
       <div
@@ -25,9 +26,10 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'nuxt-property-decorator';
+import { Component, InjectReactive, Prop, Vue } from 'nuxt-property-decorator';
 import { GetChatDataQuery } from '~/graphql/schema';
 import { getUserColor } from '~/tools/util';
+import BContextMenu from '~/components/context-menu/context-menu.vue';
 
 @Component({
   name: 'b-users-list',
@@ -35,8 +37,17 @@ import { getUserColor } from '~/tools/util';
 export default class UsersList extends Vue {
   @Prop({ required: true }) users!: GetChatDataQuery['getOnline'];
 
+  @InjectReactive('user-context-menu')
+  readonly contextMenu!: BContextMenu;
+
   get avatarColor() {
     return (id: number): string => getUserColor(id);
+  }
+
+  openContextMenu(event: MouseEvent, index: number) {
+    event.preventDefault();
+    event.stopPropagation();
+    this.contextMenu.open(event, { user: this.users[index] });
   }
 }
 </script>

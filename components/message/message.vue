@@ -212,16 +212,11 @@ export default class Message extends Vue {
 
   mention(): void {
     const id = this.message.owner?.id;
-    const username = this.message.username?.trim();
+    const username = this.message.username;
+
     if (!id || !username) return;
 
-    let message = this.$accessor.chat.message.trim();
-    if (!new RegExp(`^<@!${id}:${username}>`).test(message)) {
-      message = `<@!${id}:${username}> ${message}`;
-      this.$accessor.chat.SET_MESSAGE(message);
-    }
-
-    this.$nuxt.$emit('input-focus');
+    this.$accessor.chat.mention({ id, username });
   }
 }
 </script>
