@@ -198,6 +198,7 @@ export default class Footer extends Vue {
     }
 
     this.attachIds = [];
+    this.$nuxt.$emit('force-scroll');
   }
 }
 </script>

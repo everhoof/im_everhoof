@@ -43,11 +43,11 @@ export default class Chat extends Vue {
   private loadingMoreMessages = false;
 
   @Watch('messages')
-  async onMessagesChange(force: boolean = false): Promise<void> {
+  async onMessagesChange(): Promise<void> {
     if (!this.scroll) return;
     const offsetBottom = this.scroll.scrollHeight - this.scroll.clientHeight - this.scroll.scrollTop;
 
-    if (offsetBottom < 300 || force) {
+    if (offsetBottom < 300) {
       await this.$nextTick();
       this.scrollDownChat();
     }
@@ -66,6 +66,12 @@ export default class Chat extends Vue {
 
     await this.$nextTick();
     window.setTimeout(this.scrollDownChat, 50);
+
+    this.$nuxt.$on('force-scroll', this.scrollDownChat);
+  }
+
+  beforeDestroy(): void {
+    this.$nuxt.$off('force-scroll', this.scrollDownChat);
   }
 
   scrollDownChat(): void {
