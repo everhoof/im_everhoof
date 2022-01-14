@@ -19,6 +19,7 @@ type User {
   id: Int!
   username: String
   avatarId: String
+  state: UserState!
   wasOnlineAt: DateTime
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -27,6 +28,11 @@ type User {
   emailConfirmed: Boolean
   muted: Boolean
   email: String
+}
+enum UserState {
+  ONLINE
+  IDLE
+  OFFLINE
 }
 """A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format."""
 scalar DateTime
@@ -63,6 +69,8 @@ type Message {
   content: String!
   username: String
   deletedById: Float
+  schema: String!
+  type: Int!
   createdAt: DateTime!
   updatedAt: DateTime!
   deletedAt: DateTime

@@ -17,26 +17,63 @@
       class="message__avatar message__avatar_type_default"
       :style="{ backgroundColor: avatarColor }"
     >
-      {{ message.username && message.username[0] }}
+      {{ username && username[0] }}
     </div>
     <div class="message__content">
       <span v-if="compact" class="message__header">
         <time class="message__timestamp" :datetime="timestamp" :title="localDateTimeFull">
           {{ localDateTime }}
         </time>
-        <span class="message__author-name link_no_styles" :style="{ color: avatarColor }" @click="mention">
-          {{ message.username + ':' }}
+        <span
+          v-if="!system"
+          class="message__author-name link_no_styles"
+          :style="{ color: avatarColor }"
+          @click="mention"
+        >
+          {{ username + ':' }}
         </span>
       </span>
       <span v-else class="message__header">
-        <span class="message__author-name link_no_styles" :style="{ color: avatarColor }" @click="mention">
-          {{ message.username }}
+        <span
+          v-if="!system"
+          class="message__author-name link_no_styles"
+          :style="{ color: avatarColor }"
+          @click="mention"
+        >
+          {{ username }}
         </span>
         <time class="message__timestamp" :datetime="timestamp" :title="localDateTimeFull">
           {{ localDateTime }}
         </time>
       </span>
-      <span v-if="showUpdatingMessage" class="message__text">
+      <template v-if="system">
+        <span class="message__text">
+          <template v-if="message.type === 3">
+            К нам присоединяется
+            <span
+              class="message__author-name link_no_styles"
+              :style="{ color: avatarColor }"
+              @click="mention"
+            >
+              {{ username }}
+            </span>
+          </template>
+          <template v-else-if="message.type === 4">
+            <span
+              class="message__author-name link_no_styles"
+              :style="{ color: avatarColor }"
+              @click="mention"
+            >
+              {{ username }}
+            </span>
+            выходит из чата
+          </template>
+          <template v-else>
+            <span v-html="text" />
+          </template>
+        </span>
+      </template>
+      <span v-else-if="showUpdatingMessage" class="message__text">
         <b-message-update-input
           ref="messageUpdateInput"
           v-model="updatingMessageText"
@@ -106,6 +143,10 @@ export default class Message extends Vue {
     });
   }
 
+  get username(): string {
+    return this.message.username || this.message?.owner?.username || '';
+  }
+
   get ownerId(): number {
     return this.message?.owner?.id || 0;
   }
@@ -123,7 +164,7 @@ export default class Message extends Vue {
   }
 
   get system() {
-    return this.message.system;
+    return this.message.system || this.message.type !== 2;
   }
 
   get mentioning(): boolean {
@@ -211,8 +252,8 @@ export default class Message extends Vue {
   }
 
   mention(): void {
-    const id = this.message.owner?.id;
-    const username = this.message.username;
+    const id = this.ownerId;
+    const username = this.username;
 
     if (!id || !username) return;
 

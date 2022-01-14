@@ -14,6 +14,8 @@ query GetMessages($count: Int = 100, $page: Int = 1, $lastId: Int, $reverse: Boo
     content
     username
     system
+    schema
+    type
     pictures {
       m {
         link

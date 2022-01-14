@@ -53,6 +53,7 @@ export type User = {
   id: Scalars['Int'];
   username?: Maybe<Scalars['String']>;
   avatarId?: Maybe<Scalars['String']>;
+  state: UserState;
   wasOnlineAt?: Maybe<Scalars['DateTime']>;
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
@@ -62,6 +63,12 @@ export type User = {
   muted?: Maybe<Scalars['Boolean']>;
   email?: Maybe<Scalars['String']>;
 };
+
+export enum UserState {
+  Online = 'ONLINE',
+  Idle = 'IDLE',
+  Offline = 'OFFLINE',
+}
 
 export type Role = {
   __typename?: 'Role';
@@ -103,6 +110,8 @@ export type Message = {
   content: Scalars['String'];
   username?: Maybe<Scalars['String']>;
   deletedById?: Maybe<Scalars['Float']>;
+  schema: Scalars['String'];
+  type: Scalars['Int'];
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
   deletedAt?: Maybe<Scalars['DateTime']>;
@@ -249,7 +258,16 @@ export type DeleteMessageMutationVariables = Exact<{
 export type DeleteMessageMutation = { __typename?: 'Mutation' } & {
   deleteMessage: { __typename?: 'Message' } & Pick<
     Message,
-    'id' | 'randomId' | 'content' | 'username' | 'system' | 'createdAt' | 'updatedAt' | 'deletedAt'
+    | 'id'
+    | 'randomId'
+    | 'content'
+    | 'username'
+    | 'system'
+    | 'schema'
+    | 'type'
+    | 'createdAt'
+    | 'updatedAt'
+    | 'deletedAt'
   > & {
       owner?: Maybe<
         { __typename?: 'User' } & Pick<User, 'id' | 'username'> & {
@@ -371,7 +389,16 @@ export type UpdateMessageMutationVariables = Exact<{
 export type UpdateMessageMutation = { __typename?: 'Mutation' } & {
   updateMessage: { __typename?: 'Message' } & Pick<
     Message,
-    'id' | 'randomId' | 'content' | 'username' | 'system' | 'createdAt' | 'updatedAt' | 'deletedAt'
+    | 'id'
+    | 'randomId'
+    | 'content'
+    | 'username'
+    | 'system'
+    | 'schema'
+    | 'type'
+    | 'createdAt'
+    | 'updatedAt'
+    | 'deletedAt'
   > & {
       owner?: Maybe<
         { __typename?: 'User' } & Pick<User, 'id' | 'username'> & {
@@ -408,7 +435,16 @@ export type GetChatDataQuery = { __typename?: 'Query' } & {
   getMessages: Array<
     { __typename?: 'Message' } & Pick<
       Message,
-      'id' | 'randomId' | 'content' | 'username' | 'system' | 'createdAt' | 'updatedAt' | 'deletedAt'
+      | 'id'
+      | 'randomId'
+      | 'content'
+      | 'username'
+      | 'system'
+      | 'schema'
+      | 'type'
+      | 'createdAt'
+      | 'updatedAt'
+      | 'deletedAt'
     > & {
         owner?: Maybe<
           { __typename?: 'User' } & Pick<User, 'id' | 'username'> & {
@@ -487,7 +523,16 @@ export type GetMessagesQuery = { __typename?: 'Query' } & {
   getMessages: Array<
     { __typename?: 'Message' } & Pick<
       Message,
-      'id' | 'randomId' | 'content' | 'username' | 'system' | 'createdAt' | 'updatedAt' | 'deletedAt'
+      | 'id'
+      | 'randomId'
+      | 'content'
+      | 'username'
+      | 'system'
+      | 'schema'
+      | 'type'
+      | 'createdAt'
+      | 'updatedAt'
+      | 'deletedAt'
     > & {
         owner?: Maybe<
           { __typename?: 'User' } & Pick<User, 'id' | 'username'> & {
@@ -548,7 +593,16 @@ export type MessageCreatedSubscriptionVariables = Exact<{ [key: string]: never }
 export type MessageCreatedSubscription = { __typename?: 'Subscription' } & {
   messageCreated: { __typename?: 'Message' } & Pick<
     Message,
-    'id' | 'randomId' | 'content' | 'username' | 'system' | 'createdAt' | 'updatedAt' | 'deletedAt'
+    | 'id'
+    | 'randomId'
+    | 'content'
+    | 'username'
+    | 'system'
+    | 'schema'
+    | 'type'
+    | 'createdAt'
+    | 'updatedAt'
+    | 'deletedAt'
   > & {
       owner?: Maybe<
         { __typename?: 'User' } & Pick<User, 'id' | 'username'> & {
@@ -580,7 +634,16 @@ export type MessageDeletedSubscriptionVariables = Exact<{ [key: string]: never }
 export type MessageDeletedSubscription = { __typename?: 'Subscription' } & {
   messageDeleted: { __typename?: 'Message' } & Pick<
     Message,
-    'id' | 'randomId' | 'content' | 'username' | 'system' | 'createdAt' | 'updatedAt' | 'deletedAt'
+    | 'id'
+    | 'randomId'
+    | 'content'
+    | 'username'
+    | 'system'
+    | 'schema'
+    | 'type'
+    | 'createdAt'
+    | 'updatedAt'
+    | 'deletedAt'
   > & {
       owner?: Maybe<
         { __typename?: 'User' } & Pick<User, 'id' | 'username'> & {
@@ -612,7 +675,16 @@ export type MessageUpdatedSubscriptionVariables = Exact<{ [key: string]: never }
 export type MessageUpdatedSubscription = { __typename?: 'Subscription' } & {
   messageUpdated: { __typename?: 'Message' } & Pick<
     Message,
-    'id' | 'randomId' | 'content' | 'username' | 'system' | 'createdAt' | 'updatedAt' | 'deletedAt'
+    | 'id'
+    | 'randomId'
+    | 'content'
+    | 'username'
+    | 'system'
+    | 'schema'
+    | 'type'
+    | 'createdAt'
+    | 'updatedAt'
+    | 'deletedAt'
   > & {
       owner?: Maybe<
         { __typename?: 'User' } & Pick<User, 'id' | 'username'> & {

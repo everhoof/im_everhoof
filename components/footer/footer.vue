@@ -171,6 +171,8 @@ export default class Footer extends Vue {
       content: this.$accessor.chat.message,
       state: ChatMessageState.sent,
       system: false,
+      schema: '1',
+      type: 2,
       randomId,
       username: this.$accessor.auth.user?.username,
       owner: this.$accessor.auth.user as User,

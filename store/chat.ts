@@ -198,6 +198,7 @@ export const actions = actionTree(
       dispatch('subscribeOnlineUpdated', context);
       dispatch('subscribeUserUpdated', context);
       if (this.app.$accessor.auth.loggedIn) {
+        await dispatch('getChatData', context);
         await dispatch('updateOnlineStatus', context);
         window.setInterval(async () => {
           if (!this.app.$accessor.auth.loggedIn) return;
