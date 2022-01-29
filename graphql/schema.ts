@@ -477,6 +477,7 @@ export type GetChatDataQuery = { __typename?: 'Query' } & {
             s: { __typename?: 'PictureRepresentation' } & Pick<PictureRepresentation, 'link'>;
           }
         >;
+        roles: Array<{ __typename?: 'Role' } & Pick<Role, 'id' | 'name'>>;
       }
   >;
 };
@@ -721,6 +722,7 @@ export type OnlineUpdatedSubscription = { __typename?: 'Subscription' } & {
             s: { __typename?: 'PictureRepresentation' } & Pick<PictureRepresentation, 'link'>;
           }
         >;
+        roles: Array<{ __typename?: 'Role' } & Pick<Role, 'id' | 'name'>>;
       }
   >;
 };

@@ -44,5 +44,9 @@ query GetChatData {
         link
       }
     }
+    roles {
+      id
+      name
+    }
   }
 }
