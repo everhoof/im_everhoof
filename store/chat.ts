@@ -120,6 +120,7 @@ export const state = () => ({
   ] as Emoji[],
   users: [] as GetUserByIdQuery['getUserById'][],
   asidePcOpened: true as boolean,
+  unreadCount: 0 as number,
 });
 
 export type ChatState = ReturnType<typeof state>;
@@ -175,6 +176,12 @@ export const mutations = mutationTree(state, {
     if (index === -1) _state.users.push(payload);
     else Vue.set(_state.users, index, payload);
   },
+  INCREMENT_UNREAD: (_state) => {
+    _state.unreadCount = _state.unreadCount + 1;
+  },
+  RESET_UNREAD: (_state) => {
+    _state.unreadCount = 0;
+  },
 });
 
 export const getters = getterTree(state, {
@@ -191,13 +198,14 @@ export const actions = actionTree(
       await dispatch('getChatData', context);
     },
 
-    async nuxtClientInit({ dispatch }, context?: Context) {
+    async nuxtClientInit({ dispatch, commit }, context?: Context) {
       dispatch('subscribeMessageCreated', context);
       dispatch('subscribeMessageDeleted', context);
       dispatch('subscribeMessageUpdated', context);
       dispatch('subscribeOnlineUpdated', context);
       dispatch('subscribeUserUpdated', context);
       if (this.app.$accessor.auth.loggedIn) {
+        await dispatch('getChatData', context);
         await dispatch('updateOnlineStatus', context);
         window.setInterval(async () => {
           if (!this.app.$accessor.auth.loggedIn) return;
@@ -205,9 +213,11 @@ export const actions = actionTree(
         }, 30 * 1000);
       }
 
-      window.setTimeout(async () => {
-        await dispatch('getChatData', context);
-      }, 5000);
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') {
+          commit('RESET_UNREAD');
+        }
+      });
     },
 
     addMessage({ state, commit, rootGetters }, payload: MessageCreatedSubscription['messageCreated']) {
@@ -230,7 +240,7 @@ export const actions = actionTree(
       }
     },
 
-    subscribeMessageCreated({ state, dispatch }, context: Context) {
+    subscribeMessageCreated({ state, dispatch, commit }, context: Context) {
       const client = context?.app.apolloProvider?.defaultClient ?? this.app.apolloProvider?.defaultClient;
       if (client) {
         const messageCreatedObserver = client.subscribe<MessageCreatedSubscription>({
@@ -251,6 +261,10 @@ export const actions = actionTree(
               if (lastId) await dispatch('getMessages', { lastId });
             } else {
               await dispatch('addMessage', data.messageCreated);
+            }
+
+            if (process.client && document.visibilityState === 'hidden') {
+              commit('INCREMENT_UNREAD');
             }
           },
         });

@@ -113,6 +113,10 @@ export default class Default extends Vue {
   @ProvideReactive('message-context-menu') messageContextMenu: BContextMenu | null = null;
   asideMobileOpened: boolean = false;
 
+  pageTitle: string = '';
+  pageTitleInterval: number | null = null;
+  pageTitleTimeout: number | null = null;
+
   created() {
     this.onRouteChanged();
   }
@@ -127,10 +131,35 @@ export default class Default extends Vue {
     this.userContextMenu = this.$refs['user-context-menu'] as BContextMenu;
     this.messageContextMenu = this.$refs['message-context-menu'] as BContextMenu;
     this.$bus.$on('snotify-error', this.handleSnotifyError);
+
+    this.pageTitle = document.title;
   }
 
   beforeDestroy() {
     this.$bus.$off('snotify-error');
+  }
+
+  @Watch('$accessor.chat.unreadCount')
+  onUnreadCountChanged() {
+    if (process.client) {
+      if (this.pageTitleInterval !== null) {
+        window.clearInterval(this.pageTitleInterval);
+      }
+      if (this.pageTitleTimeout !== null) {
+        window.clearTimeout(this.pageTitleTimeout);
+      }
+      if (this.$accessor.chat.unreadCount === 0) {
+        document.title = this.pageTitle;
+        return;
+      }
+
+      this.pageTitleInterval = window.setInterval(() => {
+        document.title = 'Новое сообщение';
+        this.pageTitleTimeout = window.setTimeout(() => {
+          document.title = this.pageTitle;
+        }, 1000);
+      }, 2000);
+    }
   }
 
   @Watch('$accessor.auth.user')
