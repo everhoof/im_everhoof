@@ -36,6 +36,7 @@ export default class EmojiPanel extends Vue {
     }
     this.$accessor.chat.SET_MESSAGE(this.$accessor.chat.message + `:${name}: `);
     if (!event.shiftKey) this.$accessor.SET_EMOJIS_PANEL_ACTIVE(false);
+    this.$nuxt.$emit('input-focus');
   }
 }
 </script>
