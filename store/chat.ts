@@ -129,7 +129,17 @@ export const mutations = mutationTree(state, {
   SET_MESSAGES: (_state, payload: GetChatDataQuery['getMessages']) => (_state.messages = payload),
   SET_MESSAGE: (_state, payload: string) => (_state.message = payload),
   ADD_MESSAGES_TO_START: (_state, payload: GetChatDataQuery['getMessages']) => {
-    _state.messages.unshift(...payload);
+    Array.from(payload)
+      .reverse()
+      .forEach((message) => {
+        const createdAt = DateTime.fromISO(message.createdAt).toMillis();
+        const index = _state.messages.findIndex((m) => DateTime.fromISO(m.createdAt).toMillis() < createdAt);
+        if (index !== -1) {
+          _state.messages.splice(index, 0, message);
+        } else {
+          _state.messages.unshift(message);
+        }
+      });
   },
   ADD_MESSAGES_TO_END: (_state, payload: GetChatDataQuery['getMessages']) => {
     _state.messages.push(...payload);
@@ -261,7 +271,14 @@ export const actions = actionTree(
                 }
               }
               await dispatch('addMessage', data.messageCreated);
-              if (lastId) await dispatch('getMessages', { lastId });
+              if (lastId) {
+                const variables = { lastId: lastId - 1 };
+                const messages = await dispatch('getMessages', variables);
+
+                for (let j = 0; j < messages.length; ++j) {
+                  await dispatch('addMessage', messages[j]);
+                }
+              }
             } else {
               await dispatch('addMessage', data.messageCreated);
             }
@@ -269,6 +286,8 @@ export const actions = actionTree(
             if (process.client && document.visibilityState === 'hidden') {
               commit('INCREMENT_UNREAD');
             }
+
+            commit('UPDATE_MESSAGES_SEPARATORS');
           },
         });
       }
@@ -372,9 +391,9 @@ export const actions = actionTree(
       if (payload.variables?.reverse) {
         commit('ADD_MESSAGES_TO_END', payload.messages);
       } else {
-        if (payload.variables?.lastId) {
-          commit('DELETE_MESSAGES_AFTER_ID', payload.variables.lastId);
-        }
+        // if (payload.variables?.lastId) {
+        //   commit('DELETE_MESSAGES_AFTER_ID', payload.variables.lastId);
+        // }
         commit('ADD_MESSAGES_TO_START', payload.messages);
       }
       commit('UPDATE_MESSAGES_SEPARATORS');
