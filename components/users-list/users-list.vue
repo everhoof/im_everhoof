@@ -7,7 +7,6 @@
       :to="{ name: 'modal_profile', params: { id: user.id } }"
       tag="li"
       class="users-list__item"
-      :class="{ 'users-list__item_style_vip': vip(i) }"
       @contextmenu.native="openContextMenu($event, i)"
     >
       <img v-if="user.avatar" :src="user.avatar.s.link" class="users-list__avatar" alt="" />
@@ -43,12 +42,6 @@ export default class UsersList extends Vue {
 
   get avatarColor() {
     return (id: number): string => getUserColor(id);
-  }
-
-  get vip() {
-    return (i: number): boolean =>
-      !!this.users[i].roles.find((r) => r.name === 'ADMIN') ||
-      !!this.users[i].roles.find((r) => r.name === 'MODERATOR');
   }
 
   openContextMenu(event: MouseEvent, index: number) {
