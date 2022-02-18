@@ -70,6 +70,7 @@ type Message {
   username: String
   deletedById: Float
   schema: String!
+  json: String
   type: Int!
   createdAt: DateTime!
   updatedAt: DateTime!

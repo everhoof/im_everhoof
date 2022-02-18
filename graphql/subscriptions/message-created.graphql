@@ -16,6 +16,7 @@ subscription MessageCreated {
     system
     schema
     type
+    json
     pictures {
       m {
         link
