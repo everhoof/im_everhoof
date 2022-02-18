@@ -111,6 +111,7 @@ export type Message = {
   username?: Maybe<Scalars['String']>;
   deletedById?: Maybe<Scalars['Float']>;
   schema: Scalars['String'];
+  json?: Maybe<Scalars['String']>;
   type: Scalars['Int'];
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
@@ -442,6 +443,7 @@ export type GetChatDataQuery = { __typename?: 'Query' } & {
       | 'system'
       | 'schema'
       | 'type'
+      | 'json'
       | 'createdAt'
       | 'updatedAt'
       | 'deletedAt'
@@ -531,6 +533,7 @@ export type GetMessagesQuery = { __typename?: 'Query' } & {
       | 'system'
       | 'schema'
       | 'type'
+      | 'json'
       | 'createdAt'
       | 'updatedAt'
       | 'deletedAt'
@@ -601,6 +604,7 @@ export type MessageCreatedSubscription = { __typename?: 'Subscription' } & {
     | 'system'
     | 'schema'
     | 'type'
+    | 'json'
     | 'createdAt'
     | 'updatedAt'
     | 'deletedAt'
@@ -642,6 +646,7 @@ export type MessageDeletedSubscription = { __typename?: 'Subscription' } & {
     | 'system'
     | 'schema'
     | 'type'
+    | 'json'
     | 'createdAt'
     | 'updatedAt'
     | 'deletedAt'
@@ -683,6 +688,7 @@ export type MessageUpdatedSubscription = { __typename?: 'Subscription' } & {
     | 'system'
     | 'schema'
     | 'type'
+    | 'json'
     | 'createdAt'
     | 'updatedAt'
     | 'deletedAt'

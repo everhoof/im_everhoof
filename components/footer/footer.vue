@@ -29,6 +29,7 @@
           :class="{ 'footer__actions-button_type_active': attachPanelActive }"
           @click="attachEmojiClicked"
         />
+        <b-donate-button />
       </div>
       <input
         ref="inputEl"
@@ -62,10 +63,11 @@ import { CreateMessageMutation, CreateMessageMutationVariables, User } from '~/g
 import { ChatMessage, ChatMessageState } from '~/types/messages';
 import { HttpClient } from '~/tools/http-client';
 import BProgressBar from '~/components/progress-bar/progress-bar.vue';
+import BDonateButton from '~/components/donate-button/donate-button.vue';
 
 @Component({
   name: 'b-footer',
-  components: { BButton, BAttachPanel, BEmojiPanel, BProgressBar },
+  components: { BDonateButton, BButton, BAttachPanel, BEmojiPanel, BProgressBar },
 })
 export default class Footer extends Vue {
   @Ref() emoji!: HTMLDivElement;

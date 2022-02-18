@@ -16,6 +16,7 @@ query GetMessages($count: Int = 100, $page: Int = 1, $lastId: Int, $reverse: Boo
     system
     schema
     type
+    json
     pictures {
       m {
         link

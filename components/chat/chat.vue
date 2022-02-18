@@ -17,7 +17,12 @@
             v-if="messages[messages.length - i].dayFirst"
             :message="messages[messages.length - i]"
           />
-          <b-message :message="messages[messages.length - i]" />
+          <template v-if="messages[messages.length - i].type === 5">
+            <b-message-donation :message="messages[messages.length - i]" />
+          </template>
+          <template v-else>
+            <b-message :message="messages[messages.length - i]" />
+          </template>
         </div>
       </div>
     </transition>
@@ -31,10 +36,11 @@ import BUploadFile from '~/components/upload-file/upload-file.vue';
 import BMessage from '~/components/message/message.vue';
 import { ChatMessage } from '~/types/messages';
 import BMessagesSeparator from '~/components/messages-separator/messages-separator.vue';
+import BMessageDonation from '~/components/message-donation/message-donation.vue';
 
 @Component({
   name: 'b-chat',
-  components: { BMessagesSeparator, BMessage, BUploadFile },
+  components: { BMessageDonation, BMessagesSeparator, BMessage, BUploadFile },
 })
 export default class Chat extends Vue {
   @Ref('scroll') scroll?: HTMLDivElement;
