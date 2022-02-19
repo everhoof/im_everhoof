@@ -16,7 +16,7 @@
       <transition>
         <ul v-show="dropdown" ref="dropdown" class="aside-footer__dropdown">
           <li class="aside-footer__dropdown-item">
-            <b-button :to="{ name: 'modal_profile', params: { id: user.id } }" width-full>Профиль</b-button>
+            <b-button :to="{ name: 'modal_profile', params: { id: userId } }" width-full>Профиль</b-button>
           </li>
           <li class="aside-footer__dropdown-item">
             <b-button :to="{ name: 'modal_settings' }" width-full>Настройки</b-button>
@@ -55,6 +55,10 @@ export default class AsideFooter extends Vue {
 
   get user(): AuthState['user'] {
     return this.$accessor.auth.user;
+  }
+
+  get userId(): number {
+    return this.user?.id || 0;
   }
 
   get username(): string {
