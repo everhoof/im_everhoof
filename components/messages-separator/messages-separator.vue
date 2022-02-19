@@ -9,13 +9,18 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'nuxt-property-decorator';
 import { DateTime } from 'luxon';
-import { Message as ChatMessage } from '~/graphql/schema';
+import { Message } from '~/types/message';
 
 @Component({
   name: 'b-messages-separator',
 })
 export default class MessagesSeparator extends Vue {
-  @Prop({ required: true, type: Object, default: () => {} }) message!: ChatMessage;
+  @Prop({
+    required: true,
+    type: Object,
+    default: () => {},
+  })
+  private readonly message!: Message;
 
   get date(): string {
     return DateTime.fromISO(this.message.createdAt).toFormat('dd LLLL yyyy');

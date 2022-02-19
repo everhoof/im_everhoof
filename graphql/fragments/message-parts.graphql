@@ -1,0 +1,41 @@
+fragment MessageParts on Message {
+    id
+    randomId
+    owner {
+        id
+        username
+        avatar {
+            id
+            s {
+                id
+                link
+            }
+        }
+    }
+    content
+    username
+    schema
+    type
+    json
+    pictures {
+        m {
+            id
+            link
+            width
+            height
+        }
+        o {
+            id
+            link
+            width
+            height
+        }
+    }
+    deletedBy {
+        id
+        username
+    }
+    createdAt
+    updatedAt
+    deletedAt
+}

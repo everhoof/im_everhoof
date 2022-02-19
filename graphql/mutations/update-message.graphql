@@ -1,39 +1,7 @@
+#import "../fragments/message-parts.graphql"
+
 mutation UpdateMessage($messageId: Int!, $content: String!) {
   updateMessage(messageId: $messageId, content: $content) {
-    id
-    randomId
-    owner {
-      id
-      username
-      avatar {
-        s {
-          link
-        }
-      }
-    }
-    content
-    username
-    system
-    schema
-    type
-    pictures {
-      m {
-        link
-        width
-        height
-      }
-      o {
-        link
-        width
-        height
-      }
-    }
-    deletedBy {
-      id
-      username
-    }
-    createdAt
-    updatedAt
-    deletedAt
+    ...MessageParts
   }
 }

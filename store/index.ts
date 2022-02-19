@@ -1,10 +1,11 @@
 import { actionTree, getAccessorType, getterTree, mutationTree } from 'typed-vuex';
 
 import { Context } from '@nuxt/types';
-import * as auth from '~/store/auth.ts';
-import * as chat from '~/store/chat.ts';
-import * as modals from '~/store/modals.ts';
-import * as settings from '~/store/settings.ts';
+import * as auth from '~/store/auth';
+import * as chat from '~/store/chat';
+import * as modals from '~/store/modals';
+import * as settings from '~/store/settings';
+import * as messages from '~/store/messages';
 
 export const state = () => ({
   now: 0 as number,
@@ -33,6 +34,7 @@ export const actions = actionTree(
         context.app.$accessor.chat.nuxtServerInit(context),
         context.app.$accessor.modals.nuxtServerInit(context),
         context.app.$accessor.settings.nuxtServerInit(context),
+        context.app.$accessor.messages.nuxtServerInit(context),
       ]);
       commit('SET_NOW', Date.now());
     },
@@ -43,6 +45,7 @@ export const actions = actionTree(
         context.app.$accessor.chat.nuxtClientInit(context),
         context.app.$accessor.modals.nuxtClientInit(context),
         context.app.$accessor.settings.nuxtClientInit(context),
+        context.app.$accessor.messages.nuxtClientInit(context),
       ]);
       commit('SET_NOW', Date.now());
       setInterval(() => commit('SET_NOW', Date.now()), 1000);
@@ -59,5 +62,6 @@ export const accessorType = getAccessorType({
     chat,
     modals,
     settings,
+    messages,
   },
 });

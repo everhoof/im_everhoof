@@ -31,10 +31,10 @@ export default class EmojiPanel extends Vue {
   }
 
   selectEmoji(event: MouseEvent, name: string) {
-    if (this.$accessor.chat.message && this.$accessor.chat.message.slice(-1) !== ' ') {
-      this.$accessor.chat.SET_MESSAGE(this.$accessor.chat.message + ' ');
+    if (this.$accessor.messages.input && this.$accessor.messages.input.slice(-1) !== ' ') {
+      this.$accessor.messages.SET_INPUT(this.$accessor.messages.input + ' ');
     }
-    this.$accessor.chat.SET_MESSAGE(this.$accessor.chat.message + `:${name}: `);
+    this.$accessor.messages.SET_INPUT(this.$accessor.messages.input + `:${name}: `);
     if (!event.shiftKey) this.$accessor.SET_EMOJIS_PANEL_ACTIVE(false);
     this.$nuxt.$emit('input-focus');
   }

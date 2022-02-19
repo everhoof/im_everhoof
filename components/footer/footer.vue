@@ -33,7 +33,7 @@
       </div>
       <input
         ref="inputEl"
-        :value="$accessor.chat.message"
+        :value="$accessor.messages.input"
         name="message"
         autocomplete="off"
         type="text"
@@ -52,18 +52,17 @@
 
 <script lang="ts">
 import { Component, Ref, Vue } from 'nuxt-property-decorator';
-import { DateTime } from 'luxon';
 import axios from 'axios';
-import { getRandomIntInRange, getRandomString } from '~/tools/util';
+import { getRandomIntInRange } from '~/tools/util';
 import BEmojiPanel from '~/components/emoji-panel/emoji-panel.vue';
 import BAttachPanel from '~/components/attach-panel/attach-panel.vue';
 import BButton from '~/components/button/button.vue';
 import CreateMessage from '~/graphql/mutations/create-message.graphql';
-import { CreateMessageMutation, CreateMessageMutationVariables, User } from '~/graphql/schema';
-import { ChatMessage, ChatMessageState } from '~/types/messages';
+import { CreateMessageMutation, CreateMessageMutationVariables } from '~/graphql/schema';
 import { HttpClient } from '~/tools/http-client';
 import BProgressBar from '~/components/progress-bar/progress-bar.vue';
 import BDonateButton from '~/components/donate-button/donate-button.vue';
+import { Message } from '~/types/message';
 
 @Component({
   name: 'b-footer',
@@ -105,19 +104,28 @@ export default class Footer extends Vue {
     this.emoji.style.backgroundPosition = `-${(x - 1) * options.size}px -${(y - 1) * options.size}px`;
   }
 
-  mounted(): void {
-    this.$nuxt.$on('input-focus', this.onInputFocus);
+  created(): void {
+    if (process.client) {
+      this.$nuxt.$on('input-focus', this.onInputFocus);
+    }
+  }
 
-    document.body.addEventListener('click', (event: MouseEvent) => {
-      if (!this.emoji.contains(event.target as Node) && !this.emojiPanel.contains(event.target as Node))
-        this.$accessor.SET_EMOJIS_PANEL_ACTIVE(false);
-      if (!this.attach.contains(event.target as Node) && !this.attachPanel.contains(event.target as Node))
-        this.$accessor.SET_ATTACH_PANEL_ACTIVE(false);
-    });
+  mounted(): void {
+    document.body.addEventListener('click', this.onDocumentClick);
   }
 
   beforeDestroy(): void {
-    this.$nuxt.$off('input-focus');
+    if (process.client) {
+      this.$nuxt.$off('input-focus', this.onInputFocus);
+      document.body.addEventListener('click', this.onDocumentClick);
+    }
+  }
+
+  onDocumentClick(event: MouseEvent): void {
+    if (!this.emoji.contains(event.target as Node) && !this.emojiPanel.contains(event.target as Node))
+      this.$accessor.SET_EMOJIS_PANEL_ACTIVE(false);
+    if (!this.attach.contains(event.target as Node) && !this.attachPanel.contains(event.target as Node))
+      this.$accessor.SET_ATTACH_PANEL_ACTIVE(false);
   }
 
   async onInputFocus(): Promise<void> {
@@ -127,7 +135,7 @@ export default class Footer extends Vue {
 
   input(event: InputEvent) {
     const input: HTMLInputElement = event.target as HTMLInputElement;
-    this.$accessor.chat.SET_MESSAGE(input.value);
+    this.$accessor.messages.SET_INPUT(input.value);
   }
 
   attachEmojiClicked() {
@@ -166,39 +174,26 @@ export default class Footer extends Vue {
   }
 
   async createMessage() {
-    if (!this.$accessor.chat.message.trim() && this.attachIds.length === 0) return;
-    const randomId = getRandomString(32);
-    const message: ChatMessage = {
-      id: getRandomIntInRange(0, 10000),
-      content: this.$accessor.chat.message,
-      state: ChatMessageState.sent,
-      system: false,
-      schema: '1',
-      type: 2,
-      randomId,
-      username: this.$accessor.auth.user?.username,
-      owner: this.$accessor.auth.user as User,
-      createdAt: DateTime.local().toISO(),
-      updatedAt: DateTime.local().toISO(),
-      pictures: [],
-    };
+    if (!this.$accessor.messages.input.trim() && this.attachIds.length === 0) return;
 
-    this.$accessor.chat.addMessage(message);
-    const content = this.$accessor.chat.message;
-    this.$accessor.chat.SET_MESSAGE('');
+    const content = this.$accessor.messages.input.trim();
+    const message = Message.create(content, this.$accessor.auth.user);
+
+    this.$accessor.messages.ADD_RAW_MESSAGE_TO_START(message);
+    this.$accessor.messages.SET_INPUT('');
 
     const createdMessage = await this.$apollo.mutate<CreateMessageMutation, CreateMessageMutationVariables>({
       mutation: CreateMessage,
       variables: {
-        content,
-        randomId,
+        content: message.content,
+        randomId: message.randomId,
         pictures: this.attachIds,
       },
     });
 
     if (createdMessage.errors) {
       if (!message.randomId) return;
-      this.$accessor.chat.DELETE_MESSAGE_BY_RANDOM_ID(message.randomId);
+      this.$accessor.messages.DELETE_MESSAGE_BY_RANDOM_ID(message.randomId);
     }
 
     this.attachIds = [];

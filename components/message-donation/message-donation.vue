@@ -22,15 +22,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'nuxt-property-decorator';
-import { ChatMessage } from '~/types/messages';
-
-interface Donation {
-  id: number;
-  username: string;
-  message: string;
-  amount: number;
-  currency: string;
-}
+import { DonationJson, Message } from '~/types/message';
 
 @Component({
   name: 'b-message-donation',
@@ -41,10 +33,10 @@ export default class MessageDonation extends Vue {
     type: Object,
     default: () => {},
   })
-  readonly message!: ChatMessage;
+  readonly message!: Message;
 
-  get donation(): Donation {
-    return JSON.parse(this.message.json || '{}') as Donation;
+  get donation(): DonationJson {
+    return this.message.json as DonationJson;
   }
 }
 </script>

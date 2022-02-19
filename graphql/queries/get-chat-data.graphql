@@ -1,41 +1,8 @@
+#import "../fragments/message-parts.graphql"
+
 query GetChatData {
   getMessages {
-    id
-    randomId
-    owner {
-      id
-      username
-      avatar {
-        s {
-          link
-        }
-      }
-    }
-    content
-    username
-    system
-    schema
-    type
-    json
-    pictures {
-      m {
-        link
-        width
-        height
-      }
-      o {
-        link
-        width
-        height
-      }
-    }
-    deletedBy {
-      id
-      username
-    }
-    createdAt
-    updatedAt
-    deletedAt
+    ...MessageParts
   }
   getOnline {
     id

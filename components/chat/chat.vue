@@ -13,10 +13,6 @@
           <img class="icon" src="~/assets/icons/spinner.svg" alt="" />
         </div>
         <div v-for="i in messages.length" :key="i" class="chat__message">
-          <b-messages-separator
-            v-if="messages[messages.length - i].dayFirst"
-            :message="messages[messages.length - i]"
-          />
           <template v-if="messages[messages.length - i].type === 5">
             <b-message-donation :message="messages[messages.length - i]" />
           </template>
@@ -34,9 +30,9 @@
 import { Component, Ref, Vue, Watch } from 'nuxt-property-decorator';
 import BUploadFile from '~/components/upload-file/upload-file.vue';
 import BMessage from '~/components/message/message.vue';
-import { ChatMessage } from '~/types/messages';
 import BMessagesSeparator from '~/components/messages-separator/messages-separator.vue';
 import BMessageDonation from '~/components/message-donation/message-donation.vue';
+import { Message } from '~/types/message';
 
 @Component({
   name: 'b-chat',
@@ -59,12 +55,11 @@ export default class Chat extends Vue {
     }
   }
 
-  get messages(): ChatMessage[] {
-    return this.loading
-      ? []
-      : this.$accessor.chat.messages.filter(
-          (m: ChatMessage) => this.$accessor.auth.can.readAny('deleted-message').granted || !m.deletedAt,
-        );
+  get messages(): Message[] {
+    const messages = this.$accessor.messages.messages;
+
+    if (this.loading) return [];
+    return messages.filter((m) => this.$accessor.auth.can.readAny('deleted-message').granted || !m.deletedAt);
   }
 
   async mounted(): Promise<void> {
@@ -99,13 +94,13 @@ export default class Chat extends Vue {
           lastId,
         };
 
-        const messages = await this.$accessor.chat.getMessages(variables);
+        const messages = await this.$accessor.messages.fetchMessages(variables);
 
         const oldScrollTop = event.target.scrollTop;
         const oldScroll = event.target.scrollHeight - event.target.clientHeight;
 
         if (messages) {
-          await this.$accessor.chat.pushMessages({
+          await this.$accessor.messages.pushMessages({
             variables,
             messages,
           });

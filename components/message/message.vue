@@ -95,16 +95,16 @@ import { UpdateMessageMutation, UpdateMessageMutationVariables } from '~/graphql
 import { toLocalDateTime } from '~/tools/filters';
 import { decodePunycodeURL, getUserColor } from '~/tools/util';
 import BContextMenu from '~/components/context-menu/context-menu.vue';
-import { ChatMessage, ChatMessageState } from '~/types/messages';
 import BMessageUpdateInput from '~/components/message-update-input/message-update-input.vue';
 import UpdateMessage from '~/graphql/mutations/update-message.graphql';
 import BMessageImg from '~/components/message-img/message-img.vue';
+import { Message, MessageState, MessageType } from '~/types/message';
 
 @Component({
   name: 'b-message',
   components: { BMessageImg, BMessageUpdateInput },
 })
-export default class Message extends Vue {
+export default class BMessage extends Vue {
   @Ref()
   readonly messageUpdateInput!: BMessageUpdateInput;
 
@@ -116,7 +116,7 @@ export default class Message extends Vue {
     type: Object,
     default: () => {},
   })
-  readonly message!: ChatMessage;
+  readonly message!: Message;
 
   private updatingMessageText: string = '';
   private showUpdatingMessage: boolean = false;
@@ -164,7 +164,7 @@ export default class Message extends Vue {
   }
 
   get system() {
-    return this.message.system || this.message.type !== 2;
+    return this.message.type !== MessageType.GENERAL;
   }
 
   get mentioning(): boolean {
@@ -172,7 +172,7 @@ export default class Message extends Vue {
   }
 
   get delivered(): boolean {
-    return this.message.state === undefined || this.message.state === ChatMessageState.delivered;
+    return this.message.state === MessageState.DELIVERED;
   }
 
   get avatar() {
@@ -199,7 +199,7 @@ export default class Message extends Vue {
     this.showUpdatingMessage = false;
   }
 
-  async onMessageUpdating(message: ChatMessage) {
+  async onMessageUpdating(message: Message) {
     if (message.id !== this.message.id) return;
 
     this.showUpdatingMessage = true;
@@ -222,25 +222,25 @@ export default class Message extends Vue {
       },
     });
 
-    if (errors) {
-      if (errors[0] && errors[0].message) {
-        this.message.content = errors && errors[0].message;
-        this.message.system = true;
-        this.$accessor.chat.addMessage(this.message);
-      }
+    if (errors?.[0].message) {
+      this.$snotify.error(errors[0].message);
     }
   }
 
-  mounted() {
-    this.$bus.$on('message-updating', this.onMessageUpdating);
+  created() {
+    if (process.client) {
+      this.$nuxt.$on('message-updating', this.onMessageUpdating);
+    }
   }
 
   beforeDestroy() {
-    this.$bus.$off('message-updating');
+    if (process.client) {
+      this.$nuxt.$off('message-updating', this.onMessageUpdating);
+    }
   }
 
   openContextMenu(event: MouseEvent) {
-    if (this.message.system) return;
+    if (this.system) return;
     if (
       this.$accessor.auth.can.deleteAny('message') ||
       (this.$accessor.auth.can.deleteOwn('message') && this.message.id === this.$accessor.auth.user?.id)
@@ -257,7 +257,7 @@ export default class Message extends Vue {
 
     if (!id || !username) return;
 
-    this.$accessor.chat.mention({ id, username });
+    this.$accessor.messages.mention({ id, username });
   }
 }
 </script>

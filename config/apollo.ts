@@ -24,10 +24,12 @@ export default function (context: Context) {
           context.app.$accessor.auth.logout();
         }
 
-        if (Array.isArray(response.message)) {
-          response.message.forEach((msg: string) => context.$bus.$emit('snotify-error', msg));
-        } else {
-          context.$bus.$emit('snotify-error', response.message);
+        if (process.client) {
+          if (Array.isArray(response.message)) {
+            response.message.forEach((msg: string) => window.$nuxt.$emit('snotify-error', msg));
+          } else {
+            window.$nuxt.$emit('snotify-error', response.message);
+          }
         }
       });
     }
@@ -44,7 +46,7 @@ export default function (context: Context) {
       },
     },
     inMemoryCacheOptions: {
-      addTypename: false,
+      addTypename: true,
     },
     apollo: {
       defaultOptions: {

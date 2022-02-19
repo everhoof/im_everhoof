@@ -76,7 +76,7 @@ import BAsideFooter from '~/components/aside-footer/aside-footer.vue';
 import BContextMenu from '~/components/context-menu/context-menu.vue';
 import BContextMenuItem from '~/components/context-menu-item/context-menu-item.vue';
 import { ReminderTypes } from '~/types/reminderTypes';
-import { ChatMessage } from '~/types/messages';
+import { Message } from '~/types/message';
 
 @Component({
   head() {
@@ -117,26 +117,31 @@ export default class Default extends Vue {
   pageTitleInterval: number | null = null;
   pageTitleTimeout: number | null = null;
 
-  created() {
-    this.onRouteChanged();
-  }
-
   handleSnotifyError(message: string) {
     this.$snotify.error(message);
   }
 
-  mounted() {
+  created(): void {
+    this.onRouteChanged();
+
+    if (process.client) {
+      this.$nuxt.$on('snotify-error', this.handleSnotifyError);
+    }
+  }
+
+  mounted(): void {
     this.onUserChanged();
     this.contextMenu = this.$refs['context-menu'] as BContextMenu;
     this.userContextMenu = this.$refs['user-context-menu'] as BContextMenu;
     this.messageContextMenu = this.$refs['message-context-menu'] as BContextMenu;
-    this.$bus.$on('snotify-error', this.handleSnotifyError);
 
     this.pageTitle = document.title;
   }
 
   beforeDestroy() {
-    this.$bus.$off('snotify-error');
+    if (process.client) {
+      this.$nuxt.$off('snotify-error', this.handleSnotifyError);
+    }
   }
 
   @Watch('$accessor.chat.unreadCount')
@@ -148,7 +153,7 @@ export default class Default extends Vue {
       if (this.pageTitleTimeout !== null) {
         window.clearTimeout(this.pageTitleTimeout);
       }
-      if (this.$accessor.chat.unreadCount === 0) {
+      if (this.$accessor.messages.unreadCount === 0) {
         document.title = this.pageTitle;
         return;
       }
@@ -275,18 +280,18 @@ export default class Default extends Vue {
   }
 
   updateMessage() {
-    const message: ChatMessage = this.messageContextMenu?.contextData?.message;
+    const message: Message = this.messageContextMenu?.contextData?.message;
 
     if (!message) return;
 
-    this.$bus.$emit('message-updating', message);
+    this.$nuxt.$emit('message-updating', message);
   }
 
   async deleteMessage() {
     const messageId: number = this.messageContextMenu?.contextData?.message.id;
     this.closeContextMenus();
     if (!messageId) return;
-    await this.$accessor.chat.deleteMessage({ messageId });
+    await this.$accessor.messages.deleteMessage({ messageId });
   }
 
   punish(): void {
@@ -308,14 +313,14 @@ export default class Default extends Vue {
     const owner = this.messageContextMenu?.contextData?.message.owner;
     if (!owner || !owner.id || !owner.username) return;
 
-    this.$accessor.chat.mention({ id: owner.id, username: owner.username });
+    this.$accessor.messages.mention({ id: owner.id, username: owner.username });
   }
 
   mentionByUser(): void {
     const user = this.userContextMenu?.contextData?.user;
     if (!user) return;
 
-    this.$accessor.chat.mention({ id: user.id, username: user.username });
+    this.$accessor.messages.mention({ id: user.id, username: user.username });
   }
 }
 </script>

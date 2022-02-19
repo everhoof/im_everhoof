@@ -3,18 +3,21 @@ mutation UpdateAvatar($pictureId: Int!) {
     avatar {
       id
       s {
+        id
         height
         width
         link
         size
       }
       m {
+        id
         height
         width
         link
         size
       }
       o {
+        id
         height
         width
         link

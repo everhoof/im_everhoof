@@ -1,35 +1,8 @@
+#import "../fragments/user-parts.graphql"
+
 query GetCurrentUser {
   getGrants
   getCurrentUser {
-    id
-    username
-    email
-    emailConfirmed
-    avatar {
-      id
-      s {
-        height
-        width
-        link
-        size
-      }
-      m {
-        height
-        width
-        link
-        size
-      }
-      o {
-        height
-        width
-        link
-        size
-      }
-    }
-    createdAt
-    wasOnlineAt
-    roles {
-      name
-    }
+    ...UserParts
   }
 }

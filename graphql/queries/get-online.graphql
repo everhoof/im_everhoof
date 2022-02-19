@@ -1,5 +1,5 @@
-subscription OnlineUpdated {
-  onlineUpdated {
+query GetOnline {
+  getOnline {
     id
     username
     avatar {
@@ -14,4 +14,3 @@ subscription OnlineUpdated {
     }
   }
 }
-
