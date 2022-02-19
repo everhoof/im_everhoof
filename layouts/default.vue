@@ -132,7 +132,7 @@ export default class Default extends Vue {
     }
   }
 
-  @Watch('$accessor.chat.unreadCount')
+  @Watch('$accessor.messages.unreadCount')
   onUnreadCountChanged() {
     if (process.client) {
       if (this.pageTitleInterval !== null) {
