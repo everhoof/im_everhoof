@@ -127,12 +127,16 @@ export const actions = actionTree(
     async nuxtServerInit({ dispatch, commit }, context: Context) {
       const asidePcOpened = (context.app.$cookies.get('aside_pc_opened') ?? true) === true;
       commit('SET_ASIDE_PC_OPENED', asidePcOpened);
-      await dispatch('fetchOnline', context);
+      await dispatch('fetchOnline');
     },
 
     nuxtClientInit({ dispatch }, context?: Context) {
       dispatch('subscribeOnlineUpdated', context);
       dispatch('subscribeUserUpdated', context);
+
+      window.setTimeout(async () => {
+        await dispatch('fetchOnline');
+      }, 3000);
 
       if (this.app.$accessor.auth.loggedIn) {
         window.setInterval(async () => {

@@ -427,9 +427,9 @@ export type GetChatDataQuery = { __typename?: 'Query' } & {
   getOnline: Array<
     { __typename?: 'User' } & Pick<User, 'id' | 'username'> & {
         avatar?: Maybe<
-          { __typename?: 'Picture' } & {
-            s: { __typename?: 'PictureRepresentation' } & Pick<PictureRepresentation, 'link'>;
-          }
+          { __typename?: 'Picture' } & Pick<Picture, 'id'> & {
+              s: { __typename?: 'PictureRepresentation' } & Pick<PictureRepresentation, 'link'>;
+            }
         >;
         roles: Array<{ __typename?: 'Role' } & Pick<Role, 'id' | 'name'>>;
       }
@@ -463,9 +463,9 @@ export type GetOnlineQuery = { __typename?: 'Query' } & {
   getOnline: Array<
     { __typename?: 'User' } & Pick<User, 'id' | 'username'> & {
         avatar?: Maybe<
-          { __typename?: 'Picture' } & {
-            s: { __typename?: 'PictureRepresentation' } & Pick<PictureRepresentation, 'id' | 'link'>;
-          }
+          { __typename?: 'Picture' } & Pick<Picture, 'id'> & {
+              s: { __typename?: 'PictureRepresentation' } & Pick<PictureRepresentation, 'id' | 'link'>;
+            }
         >;
         roles: Array<{ __typename?: 'Role' } & Pick<Role, 'id' | 'name'>>;
       }
@@ -504,9 +504,9 @@ export type OnlineUpdatedSubscription = { __typename?: 'Subscription' } & {
   onlineUpdated: Array<
     { __typename?: 'User' } & Pick<User, 'id' | 'username'> & {
         avatar?: Maybe<
-          { __typename?: 'Picture' } & {
-            s: { __typename?: 'PictureRepresentation' } & Pick<PictureRepresentation, 'id' | 'link'>;
-          }
+          { __typename?: 'Picture' } & Pick<Picture, 'id'> & {
+              s: { __typename?: 'PictureRepresentation' } & Pick<PictureRepresentation, 'id' | 'link'>;
+            }
         >;
         roles: Array<{ __typename?: 'Role' } & Pick<Role, 'id' | 'name'>>;
       }

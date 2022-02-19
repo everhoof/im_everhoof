@@ -3,6 +3,7 @@ query GetOnline {
     id
     username
     avatar {
+      id
       s {
         id
         link

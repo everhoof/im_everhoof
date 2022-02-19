@@ -8,6 +8,7 @@ query GetChatData {
     id
     username
     avatar {
+      id
       s {
         link
       }
