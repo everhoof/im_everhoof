@@ -34,8 +34,13 @@ export const mutations = mutationTree(state, {
   ADD_RAW_MESSAGES_TO_START: (_state, payload: Message[]) => _state.rawMessages.unshift(...payload),
   ADD_RAW_MESSAGES_TO_END: (_state, payload: Message[]) => _state.rawMessages.push(...payload),
   UPDATE_MESSAGE: (_state, payload: Message) => {
-    let index = _state.rawMessages.findIndex((message) => message.randomId === payload.randomId);
-    if (index === -1) index = _state.rawMessages.findIndex((message) => message.id === payload.id);
+    let index = -1;
+    if (payload.randomId !== null) {
+      _state.rawMessages.findIndex((message) => message.randomId === payload.randomId);
+    }
+    if (index === -1) {
+      index = _state.rawMessages.findIndex((message) => message.id === payload.id);
+    }
     if (index !== -1) {
       _state.rawMessages.splice(index, 1, payload);
     } else {
