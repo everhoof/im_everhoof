@@ -83,6 +83,14 @@
       </span>
       <span v-else class="message__text" v-html="text" />
       <b-message-img v-for="picture in pictures" :key="picture.id" :picture="picture" />
+      <div v-if="youtubeId" class="message__embed">
+        <iframe
+          :src="`https://www.youtube.com/embed/${youtubeId}`"
+          allowfullscreen="allowfullscreen"
+          width="400"
+          height="224"
+        ></iframe>
+      </div>
     </div>
   </div>
   <!-- end .message-->
@@ -141,6 +149,12 @@ export default class BMessage extends Vue {
       if (!emoji) return p1;
       return `<img src="/emoji/${emoji.name}.${emoji.ext}" class="message__emoji" title=":${emoji.name}:" width="70px" height="70px" />`;
     });
+  }
+
+  get youtubeId(): string | null {
+    const regex = /(?:youtube\.com\/(?:[^/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?/\s]{11})/i;
+    const matches = this.message.content.match(regex);
+    return matches?.[1] ?? null;
   }
 
   get username(): string {
