@@ -1,6 +1,6 @@
 <template>
   <!-- begin .message-donation-->
-  <div class="message-donation" @contextmenu="openContextMenu">
+  <div class="message-donation" :class="modifiers" @contextmenu="openContextMenu">
     <div class="message-donation__logo">
       <svg-icon name="donationalerts" class="message-donation__logo-icon" />
     </div>
@@ -38,6 +38,12 @@ export default class MessageDonation extends Vue {
 
   @InjectReactive('message-context-menu')
   readonly contextMenu?: BContextMenu;
+
+  get modifiers(): string[] {
+    const modifiers: string[] = [];
+    if (this.message.deletedAt) modifiers.push('message-donation_type_deleted');
+    return modifiers;
+  }
 
   get donation(): DonationJson {
     return this.message.json as DonationJson;
