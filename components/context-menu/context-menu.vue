@@ -33,6 +33,12 @@ export default class ContextMenu extends Vue {
     return this.opened;
   }
 
+  created(): void {
+    if (process.client) {
+      this.$nuxt.$on('close-context-menus', this.close);
+    }
+  }
+
   mounted() {
     document.addEventListener('click', this.documentClick);
     document.addEventListener('keydown', this.documentKeyDown);
@@ -61,7 +67,7 @@ export default class ContextMenu extends Vue {
       this.popper.destroy();
     }
 
-    this.popper = new Popper(this.referenceObject(evt), this.popperElm, {
+    this.popper = new Popper(this.referenceObject(evt) as any, this.popperElm, {
       placement: 'right-start',
       modifiers: {
         preventOverflow: {
@@ -107,11 +113,15 @@ export default class ContextMenu extends Vue {
     };
   }
 
-  beforeDestroy() {
-    document.removeEventListener('click', this.documentClick);
-    document.removeEventListener('keydown', this.documentKeyDown);
-    if (this.popper !== undefined) {
-      this.popper.destroy();
+  beforeDestroy(): void {
+    if (process.client) {
+      document.removeEventListener('click', this.documentClick);
+      document.removeEventListener('keydown', this.documentKeyDown);
+      if (this.popper !== undefined) {
+        this.popper.destroy();
+      }
+
+      this.$nuxt.$off('close-context-menus', this.close);
     }
   }
 }

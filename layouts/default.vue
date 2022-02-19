@@ -39,23 +39,8 @@
         <b-aside-footer v-if="$accessor.auth.loggedIn" />
       </div>
     </div>
-    <b-context-menu ref="message-context-menu">
-      <b-context-menu-item @click="openProfileModal">Профиль</b-context-menu-item>
-      <b-context-menu-item v-if="showMention" @click="mentionByMessage">Упомянуть</b-context-menu-item>
-      <b-context-menu-item v-if="showEditMessage" icon="edit" @click="updateMessage">
-        Изменить сообщение
-      </b-context-menu-item>
-      <b-context-menu-item v-if="showDeleteMessage" icon="delete" @click="deleteMessage">
-        Удалить сообщение
-      </b-context-menu-item>
-      <b-context-menu-item v-if="showPunish" icon="hammer" important @click="punish">
-        {{ $t('modals.punishment.mute') }}
-      </b-context-menu-item>
-    </b-context-menu>
-    <b-context-menu ref="user-context-menu">
-      <b-context-menu-item @click="openProfileModalByUser">Профиль</b-context-menu-item>
-      <b-context-menu-item v-if="showMention" @click="mentionByUser">Упомянуть</b-context-menu-item>
-    </b-context-menu>
+    <b-message-cm ref="message-cm" />
+    <b-user-cm ref="user-cm" />
     <b-context-menu ref="context-menu" />
   </div>
 </template>
@@ -66,7 +51,7 @@ import '~/assets/stylus/grid.styl';
 import '~/assets/stylus/global.styl';
 import '~/assets/stylus/colors.styl';
 import 'vue-snotify/styles/material.css';
-import { Component, Vue, ProvideReactive, Watch } from 'nuxt-property-decorator';
+import { Component, ProvideReactive, Vue, Watch } from 'nuxt-property-decorator';
 import { VueConstructor } from 'vue';
 import { Route } from 'vue-router';
 import BAsidePanel from '~/components/aside-panel/aside-panel.vue';
@@ -76,7 +61,8 @@ import BAsideFooter from '~/components/aside-footer/aside-footer.vue';
 import BContextMenu from '~/components/context-menu/context-menu.vue';
 import BContextMenuItem from '~/components/context-menu-item/context-menu-item.vue';
 import { ReminderTypes } from '~/types/reminderTypes';
-import { Message } from '~/types/message';
+import BMessageCm from '~/components/context-menus/message-cm/message-cm.vue';
+import BUserCm from '~/components/context-menus/user-cm/user-cm.vue';
 
 @Component({
   head() {
@@ -99,6 +85,8 @@ import { Message } from '~/types/message';
     };
   },
   components: {
+    BUserCm,
+    BMessageCm,
     BContextMenuItem,
     BContextMenu,
     BAsideFooter,
@@ -132,8 +120,8 @@ export default class Default extends Vue {
   mounted(): void {
     this.onUserChanged();
     this.contextMenu = this.$refs['context-menu'] as BContextMenu;
-    this.userContextMenu = this.$refs['user-context-menu'] as BContextMenu;
-    this.messageContextMenu = this.$refs['message-context-menu'] as BContextMenu;
+    this.userContextMenu = (this.$refs['user-cm'] as BUserCm).contextMenu ?? null;
+    this.messageContextMenu = (this.$refs['message-cm'] as BMessageCm).contextMenu ?? null;
 
     this.pageTitle = document.title;
   }
@@ -238,89 +226,8 @@ export default class Default extends Vue {
     });
   }
 
-  closeContextMenus() {
-    this.contextMenu?.close();
-    this.messageContextMenu?.close();
-  }
-
   openContextMenu() {
-    this.closeContextMenus();
-  }
-
-  get showDeleteMessage(): boolean {
-    const ownerId = this.messageContextMenu?.contextData?.message.owner?.id;
-
-    if (!ownerId || this.messageContextMenu?.contextData?.message.deletedAt) return false;
-
-    if (this.$accessor.auth.can.deleteAny('message').granted) {
-      return true;
-    }
-
-    return ownerId === this.$accessor.auth.user?.id && this.$accessor.auth.can.deleteOwn('message').granted;
-  }
-
-  get showEditMessage(): boolean {
-    const ownerId = this.messageContextMenu?.contextData?.message.owner?.id;
-
-    if (!ownerId || ownerId !== this.$accessor.auth.user?.id) return false;
-
-    return this.$accessor.auth.can.updateOwn('message').granted;
-  }
-
-  get showPunish(): boolean {
-    const ownerId = this.messageContextMenu?.contextData?.message.owner?.id;
-    return (
-      (this.$accessor.auth.can.update('ban').granted || this.$accessor.auth.can.update('mute').granted) &&
-      ownerId !== this.$accessor.auth.user?.id
-    );
-  }
-
-  get showMention(): boolean {
-    return this.$accessor.auth.loggedIn;
-  }
-
-  updateMessage() {
-    const message: Message = this.messageContextMenu?.contextData?.message;
-
-    if (!message) return;
-
-    this.$nuxt.$emit('message-updating', message);
-  }
-
-  async deleteMessage() {
-    const messageId: number = this.messageContextMenu?.contextData?.message.id;
-    this.closeContextMenus();
-    if (!messageId) return;
-    await this.$accessor.messages.deleteMessage({ messageId });
-  }
-
-  punish(): void {
-    const ownerId = this.messageContextMenu?.contextData?.message.owner?.id;
-    this.$router.push({ name: 'modal_punishment', params: { id: ownerId } });
-  }
-
-  openProfileModal(): void {
-    const ownerId = this.messageContextMenu?.contextData?.message.owner?.id;
-    this.$router.push({ name: 'modal_profile', params: { id: ownerId } });
-  }
-
-  openProfileModalByUser(): void {
-    const ownerId = this.userContextMenu?.contextData?.user.id;
-    this.$router.push({ name: 'modal_profile', params: { id: ownerId } });
-  }
-
-  mentionByMessage(): void {
-    const owner = this.messageContextMenu?.contextData?.message.owner;
-    if (!owner || !owner.id || !owner.username) return;
-
-    this.$accessor.messages.mention({ id: owner.id, username: owner.username });
-  }
-
-  mentionByUser(): void {
-    const user = this.userContextMenu?.contextData?.user;
-    if (!user) return;
-
-    this.$accessor.messages.mention({ id: user.id, username: user.username });
+    this.$nuxt.$emit('close-context-menus');
   }
 }
 </script>

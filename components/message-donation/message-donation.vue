@@ -1,6 +1,6 @@
 <template>
   <!-- begin .message-donation-->
-  <div class="message-donation">
+  <div class="message-donation" @contextmenu="openContextMenu">
     <div class="message-donation__logo">
       <svg-icon name="donationalerts" class="message-donation__logo-icon" />
     </div>
@@ -21,8 +21,9 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'nuxt-property-decorator';
+import { Component, InjectReactive, Prop, Vue } from 'nuxt-property-decorator';
 import { DonationJson, Message } from '~/types/message';
+import BContextMenu from '~/components/context-menu/context-menu.vue';
 
 @Component({
   name: 'b-message-donation',
@@ -35,8 +36,18 @@ export default class MessageDonation extends Vue {
   })
   readonly message!: Message;
 
+  @InjectReactive('message-context-menu')
+  readonly contextMenu?: BContextMenu;
+
   get donation(): DonationJson {
     return this.message.json as DonationJson;
+  }
+
+  openContextMenu(event: MouseEvent) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    this.contextMenu?.open(event, { message: this.message });
   }
 }
 </script>
