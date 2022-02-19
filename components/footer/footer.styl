@@ -108,4 +108,38 @@
 			position absolute
 			top 50%
 			right 24px
-			transform translateY(-50%) rotate(45deg)
+			transform translateY(-50%)
+
+	&__donate-button
+		display none
+
+		+above(size-m)
+			display block
+
+	&__send-button
+		position relative
+		width 24px
+		padding 0
+		background transparent
+		border none
+		outline none
+
+		+above(size-m)
+			width 44px
+			padding-left 20px
+
+			&::before
+				content ''
+				position absolute
+				top 50%
+				left 10px
+				width 1px
+				height 20px
+				background rgba(0, 0, 0, .1)
+				transform translateY(-50%)
+
+				.page_theme_dark &
+					background rgba(255, 255, 255, .1)
+
+			& .icon
+				transform rotate(45deg)

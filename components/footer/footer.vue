@@ -29,7 +29,6 @@
           :class="{ 'footer__actions-button_type_active': attachPanelActive }"
           @click="attachEmojiClicked"
         />
-        <b-donate-button />
       </div>
       <input
         ref="inputEl"
@@ -44,7 +43,10 @@
       />
     </div>
     <div v-show="loggedIn" class="footer__actions-right" @click="createMessage">
-      <svg-icon name="paper_plane" class="footer__actions-button footer__send-button" />
+      <b-donate-button class="footer__donate-button" />
+      <button class="footer__actions-button footer__send-button">
+        <svg-icon name="paper_plane" />
+      </button>
     </div>
   </div>
   <!-- end .footer-->
