@@ -36,7 +36,7 @@ export const mutations = mutationTree(state, {
   UPDATE_MESSAGE: (_state, payload: Message) => {
     let index = -1;
     if (payload.randomId !== null) {
-      _state.rawMessages.findIndex((message) => message.randomId === payload.randomId);
+      index = _state.rawMessages.findIndex((message) => message.randomId === payload.randomId);
     }
     if (index === -1) {
       index = _state.rawMessages.findIndex((message) => message.id === payload.id);
