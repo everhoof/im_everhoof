@@ -240,7 +240,6 @@ export default class BMessage extends Vue {
   }
 
   openContextMenu(event: MouseEvent) {
-    if (this.system) return;
     if (
       this.$accessor.auth.can.deleteAny('message') ||
       (this.$accessor.auth.can.deleteOwn('message') && this.message.id === this.$accessor.auth.user?.id)
