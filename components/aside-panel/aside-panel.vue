@@ -62,7 +62,15 @@ export default class AsidePanel extends Vue {
 
   get online(): User[] {
     const users = this.$accessor.chat.online as User[];
-    return Array.from(users).sort((a, b) => a.username?.localeCompare(b.username || '') || 0);
+
+    return Array.from(users).sort((a, b) => {
+      const nameA = a.username?.toLowerCase() || '';
+      const nameB = b.username?.toLowerCase() || '';
+
+      if (nameA < nameB) return -1;
+      if (nameA > nameB) return 1;
+      return 0;
+    });
   }
 
   hasRole(user: User, role: string): boolean {
