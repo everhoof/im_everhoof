@@ -32,6 +32,7 @@ export class Message {
   json: Maybe<DonationJson>;
   type: MessageType;
   createdAt: string;
+  createdAtDate: string;
   createdAtMillis: number;
   updatedAt: string;
   updatedAtMillis: number;
@@ -51,6 +52,7 @@ export class Message {
     this.type = message.type;
     this.createdAt = message.createdAt;
     this.createdAtMillis = DateTime.fromISO(message.createdAt).toMillis();
+    this.createdAtDate = message.createdAt.slice(0, 10);
     this.updatedAt = message.updatedAt;
     this.updatedAtMillis = DateTime.fromISO(message.updatedAt).toMillis();
     this.deletedAt = message.deletedAt ?? null;
@@ -83,6 +85,9 @@ export class Message {
     return message;
   }
 
+  /**
+   * Fixes: "Cannot stringify arbitrary non-POJOs Message" warning
+   */
   toJSON(): Message {
     return { ...this };
   }

@@ -13,6 +13,9 @@
           <img class="icon" src="~/assets/icons/spinner.svg" alt="" />
         </div>
         <div v-for="i in messages.length" :key="i" class="chat__message">
+          <template v-if="separators.includes(messages[messages.length - i].id)">
+            <b-messages-separator :message="messages[messages.length - i]" />
+          </template>
           <template v-if="messages[messages.length - i].type === 5">
             <b-message-donation :message="messages[messages.length - i]" />
           </template>
@@ -53,6 +56,21 @@ export default class Chat extends Vue {
       await this.$nextTick();
       this.scrollDownChat();
     }
+  }
+
+  get separators(): number[] {
+    const separators: number[] = [];
+
+    for (let i = 1; i < this.messages.length; ++i) {
+      const message = this.messages[i];
+      const prevMessage = this.messages[i - 1];
+
+      if (message.createdAtDate !== prevMessage.createdAtDate) {
+        separators.push(prevMessage.id);
+      }
+    }
+
+    return separators;
   }
 
   get messages(): Message[] {
