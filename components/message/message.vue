@@ -21,7 +21,7 @@
     </div>
     <div class="message__content">
       <span v-if="compact" class="message__header">
-        <time class="message__timestamp" :datetime="timestamp" :title="localDateTimeFull">
+        <time class="message__timestamp" :datetime="message.createdAt" :title="localDateTimeFull">
           {{ localDateTime }}
         </time>
         <span
@@ -42,7 +42,7 @@
         >
           {{ username }}
         </span>
-        <time class="message__timestamp" :datetime="timestamp" :title="localDateTimeFull">
+        <time class="message__timestamp" :datetime="message.createdAt" :title="localDateTimeFull">
           {{ localDateTime }}
         </time>
       </span>
@@ -170,7 +170,7 @@ export default class BMessage extends Vue {
   }
 
   get timestamp() {
-    return this.message.createdAt;
+    return this.message.createdAtMillis;
   }
 
   get compact() {
@@ -198,11 +198,11 @@ export default class BMessage extends Vue {
   }
 
   get localDateTime(): string {
-    return toLocalDateTime(this.timestamp, this.compact);
+    return toLocalDateTime(this.message.createdAt, this.compact);
   }
 
   get localDateTimeFull(): string {
-    return DateTime.fromISO(this.timestamp).toFormat('cccc, dd LLLL yyyy г., HH:mm');
+    return DateTime.fromMillis(this.timestamp).toFormat('cccc, dd LLLL yyyy г., HH:mm');
   }
 
   get deleted(): boolean {

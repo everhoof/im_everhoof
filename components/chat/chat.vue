@@ -31,6 +31,7 @@
 
 <script lang="ts">
 import { Component, Ref, Vue, Watch } from 'nuxt-property-decorator';
+import { DateTime } from 'luxon';
 import BUploadFile from '~/components/upload-file/upload-file.vue';
 import BMessage from '~/components/message/message.vue';
 import BMessagesSeparator from '~/components/messages-separator/messages-separator.vue';
@@ -58,6 +59,10 @@ export default class Chat extends Vue {
     }
   }
 
+  get timeZone(): string {
+    return this.$accessor.settings.timeZone;
+  }
+
   get separators(): number[] {
     const separators: number[] = [];
 
@@ -65,7 +70,10 @@ export default class Chat extends Vue {
       const message = this.messages[i];
       const prevMessage = this.messages[i - 1];
 
-      if (message.createdAtLocalDate !== prevMessage.createdAtLocalDate) {
+      const date = DateTime.fromISO(message.createdAt).setZone(this.timeZone).toISODate();
+      const prevDate = DateTime.fromISO(prevMessage.createdAt).setZone(this.timeZone).toISODate();
+
+      if (date !== prevDate) {
         separators.push(prevMessage.id);
       }
     }
