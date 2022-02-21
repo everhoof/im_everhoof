@@ -32,7 +32,7 @@ export class Message {
   json: Maybe<DonationJson>;
   type: MessageType;
   createdAt: string;
-  createdAtDate: string;
+  createdAtLocalDate: string;
   createdAtMillis: number;
   updatedAt: string;
   updatedAtMillis: number;
@@ -43,6 +43,11 @@ export class Message {
   state: MessageState = MessageState.DELIVERED;
 
   constructor(message: MessagePartsFragment) {
+    const createdAtDateTime = DateTime.fromISO(message.createdAt);
+    const updatedAtDateTime = DateTime.fromISO(message.updatedAt);
+
+    const createdAtLocalDate = createdAtDateTime.toLocal().toISODate();
+
     this.id = message.id;
     this.randomId = message.randomId ?? null;
     this.content = message.content;
@@ -51,10 +56,10 @@ export class Message {
     this.json = message.json ? JSON.parse(message.json) : null;
     this.type = message.type;
     this.createdAt = message.createdAt;
-    this.createdAtMillis = DateTime.fromISO(message.createdAt).toMillis();
-    this.createdAtDate = message.createdAt.slice(0, 10);
+    this.createdAtMillis = createdAtDateTime.toMillis();
+    this.createdAtLocalDate = createdAtLocalDate;
     this.updatedAt = message.updatedAt;
-    this.updatedAtMillis = DateTime.fromISO(message.updatedAt).toMillis();
+    this.updatedAtMillis = updatedAtDateTime.toMillis();
     this.deletedAt = message.deletedAt ?? null;
     this.owner = message.owner ?? null;
     this.pictures = message.pictures ?? [];

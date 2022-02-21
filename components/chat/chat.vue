@@ -65,7 +65,7 @@ export default class Chat extends Vue {
       const message = this.messages[i];
       const prevMessage = this.messages[i - 1];
 
-      if (message.createdAtDate !== prevMessage.createdAtDate) {
+      if (message.createdAtLocalDate !== prevMessage.createdAtLocalDate) {
         separators.push(prevMessage.id);
       }
     }
