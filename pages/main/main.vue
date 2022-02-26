@@ -1,5 +1,8 @@
 <template>
   <div class="page__chat">
+    <div v-if="false" class="page__warning">
+      <b-warning />
+    </div>
     <div v-if="false" class="page__reminder">
       <b-reminder :id="reminderId" @click="confirmEmail()">
         <template #default>Подтвердите адрес эл. почты, чтобы использовать все возможности чата</template>
@@ -20,9 +23,10 @@ import BFooter from '~/components/footer/footer.vue';
 import BReminder from '~/components/reminder/reminder.vue';
 import { ReminderTypes } from '~/types/reminderTypes';
 import RequestEmailConfirmation from '~/graphql/mutations/request-email-confirmation.graphql';
+import BWarning from '~/components/warning/warning.vue';
 
 @Component({
-  components: { BReminder, BFooter, BChat },
+  components: { BWarning, BReminder, BFooter, BChat },
 })
 export default class MainPage extends Vue {
   get reminderId(): string {

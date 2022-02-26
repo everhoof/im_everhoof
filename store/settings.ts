@@ -7,6 +7,7 @@ export const namespaced = true;
 export const state = () => ({
   theme: 'dark' as string,
   compact: true as boolean,
+  warning: true as boolean,
   timeZone: 'Europe/Moscow' as string,
 });
 
@@ -16,6 +17,7 @@ export const mutations = mutationTree(state, {
   SET_THEME: (_state, payload: string) => (_state.theme = payload),
   SET_COMPACT: (_state, payload: boolean) => (_state.compact = payload),
   SET_TIMEZONE: (_state, payload: string) => (_state.timeZone = payload),
+  SET_WARNING: (_state, payload: boolean) => (_state.warning = payload),
 });
 
 export const getters = getterTree(state, {});
@@ -27,10 +29,12 @@ export const actions = actionTree(
       const theme = context.app.$cookies.get('settings_theme');
       const compact = context.app.$cookies.get('settings_compact');
       const timeZone = context.app.$cookies.get('settings_timezone');
+      const warning = context.app.$cookies.get('settings_warning');
 
       if (theme) dispatch('setTheme', theme);
       if (compact !== null && compact !== undefined) dispatch('setCompact', compact);
       if (timeZone) commit('SET_TIMEZONE', timeZone);
+      if (warning !== null && warning !== undefined) commit('SET_WARNING', warning === 'true');
     },
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -64,6 +68,15 @@ export const actions = actionTree(
         maxAge: 86400 * 90,
       });
       commit('SET_TIMEZONE', payload);
+    },
+
+    setWarning({ commit }, payload: boolean) {
+      this.app.$cookies.set('settings_warning', payload, {
+        path: '/',
+        sameSite: 'lax',
+        maxAge: 86400 * 6,
+      });
+      commit('SET_WARNING', payload);
     },
   },
 );

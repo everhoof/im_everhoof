@@ -63,6 +63,7 @@ import BContextMenuItem from '~/components/context-menu-item/context-menu-item.v
 import { ReminderTypes } from '~/types/reminderTypes';
 import BMessageCm from '~/components/context-menus/message-cm/message-cm.vue';
 import BUserCm from '~/components/context-menus/user-cm/user-cm.vue';
+import PoliticsRestrictedModal from '~/components/modals/politics-restricted-modal/politics-restricted-modal.vue';
 
 @Component({
   head() {
@@ -114,6 +115,17 @@ export default class Default extends Vue {
 
     if (process.client) {
       this.$nuxt.$on('snotify-error', this.handleSnotifyError);
+    }
+
+    if (process.client && this.$route.query.style !== 'obs') {
+      this.$modal.show(
+        PoliticsRestrictedModal,
+        {},
+        {
+          width: '100%',
+          height: 'auto',
+        },
+      );
     }
   }
 

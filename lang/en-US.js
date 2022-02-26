@@ -22,5 +22,19 @@ export default {
       delete_all_users_messages: "Delete all user's messages",
       mute: 'Mute',
     },
+
+    politics: {
+      title: 'Warning!',
+      text:
+        'We ask you to respect the broadcasters and listeners and not to start the topic of politics. ' +
+        'Everyone has their own opinion on the current situation, and we respect them all.' +
+        '<br />' +
+        '<br />' +
+        'Users who ignore this request will be muted for 15 minutes.',
+      close: 'Ok. I get it.',
+    },
   },
+
+  warning:
+    'We ask you to respect the presenters and other listeners, and not to raise the topic of politics.',
 };
