@@ -30,23 +30,25 @@
           @click="attachEmojiClicked"
         />
       </div>
-      <input
-        ref="inputEl"
-        :value="$accessor.messages.input"
-        name="message"
-        autocomplete="off"
-        type="text"
-        class="footer__input"
-        placeholder="Введите сообщение"
-        @input="input"
-        @keydown.enter="createMessage"
-      />
-    </div>
-    <div v-show="loggedIn" class="footer__actions-right" @click="createMessage">
-      <b-donate-button class="footer__donate-button" />
-      <button class="footer__actions-button footer__send-button">
-        <svg-icon name="paper_plane" />
-      </button>
+      <div class="footer__input-container">
+        <input
+          ref="inputEl"
+          :value="$accessor.messages.input"
+          name="message"
+          autocomplete="off"
+          type="text"
+          class="footer__input"
+          placeholder="Введите сообщение"
+          @input="input"
+          @keydown.enter="createMessage"
+        />
+      </div>
+      <div v-show="loggedIn" class="footer__actions-right" @click="createMessage">
+        <b-donate-button class="footer__donate-button" />
+        <button class="footer__actions-button footer__send-button">
+          <svg-icon name="paper_plane" />
+        </button>
+      </div>
     </div>
   </div>
   <!-- end .footer-->
