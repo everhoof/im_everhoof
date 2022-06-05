@@ -12,7 +12,7 @@
         <div v-if="loadingMoreMessages" class="chat__messages-loader">
           <img class="icon" src="~/assets/icons/spinner.svg" alt="" />
         </div>
-        <div v-for="i in messages.length" :key="i" class="chat__message">
+        <div v-for="i in messages.length" :key="messages[messages.length - i].randomId" class="chat__message">
           <template v-if="separators.includes(messages[messages.length - i].id)">
             <b-messages-separator :message="messages[messages.length - i]" />
           </template>
