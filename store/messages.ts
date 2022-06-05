@@ -191,7 +191,7 @@ export const actions = actionTree(
             commit('UPDATE_MESSAGE', new Message(messages[i]));
           }
 
-          if (process.client && document.visibilityState === 'hidden') {
+          if (messages.length > 0 && process.client && document.visibilityState === 'hidden') {
             commit('INCREMENT_UNREAD');
           }
 
