@@ -33,3 +33,7 @@ export function decodePunycodeURL(input: string): string {
   url.host = toUnicode(url.host);
   return decodeURI(input.replace(url.host, toUnicode(url.host)));
 }
+
+export function sleep(millis: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, millis));
+}

@@ -1,7 +1,7 @@
 #import "../fragments/message-parts.graphql"
 
-query GetMessages($count: Int = 100, $page: Int = 1, $lastId: Int, $reverse: Boolean = false) {
-  getMessages(count: $count, page: $page, lastId: $lastId, reverse: $reverse) {
+query GetMessages($count: Int = 100, $page: Int = 1, $lastId: Int, $reverse: Boolean = false, $poll: Boolean = false) {
+  getMessages(count: $count, page: $page, lastId: $lastId, reverse: $reverse, poll: $poll) {
     ...MessageParts
   }
 }

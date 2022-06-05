@@ -34,6 +34,7 @@ export type QueryGetMessagesArgs = {
   page?: Maybe<Scalars['Int']>;
   lastId?: Maybe<Scalars['Int']>;
   reverse?: Maybe<Scalars['Boolean']>;
+  poll?: Maybe<Scalars['Boolean']>;
 };
 
 export type QueryIsUsernameFreeArgs = {
@@ -451,6 +452,7 @@ export type GetMessagesQueryVariables = Exact<{
   page?: Maybe<Scalars['Int']>;
   lastId?: Maybe<Scalars['Int']>;
   reverse?: Maybe<Scalars['Boolean']>;
+  poll?: Maybe<Scalars['Boolean']>;
 }>;
 
 export type GetMessagesQuery = { __typename?: 'Query' } & {

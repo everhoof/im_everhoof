@@ -7,16 +7,15 @@ import {
   GetChatDataQuery,
   GetMessagesQuery,
   GetMessagesQueryVariables,
-  MessageCreatedSubscription,
   MessageDeletedSubscription,
   MessageUpdatedSubscription,
 } from '~/graphql/schema';
 import GetChatData from '~/graphql/queries/get-chat-data.graphql';
-import MessageCreated from '~/graphql/subscriptions/message-created.graphql';
 import MessageDeleted from '~/graphql/subscriptions/message-deleted.graphql';
 import MessageUpdated from '~/graphql/subscriptions/message-updated.graphql';
 import GetMessages from '~/graphql/queries/get-messages.graphql';
 import DeleteMessage from '~/graphql/mutations/delete-message.graphql';
+import { sleep } from '~/tools/util';
 
 export const namespaced = true;
 
@@ -60,6 +59,15 @@ export const mutations = mutationTree(state, {
 
 export const getters = getterTree(state, {
   messages: (_state) => Array.from(_state.rawMessages).sort((a, b) => b.createdAtMillis - a.createdAtMillis),
+  lastDeliveredId: (_state, getters): null | number => {
+    for (let i = 0; i < getters.messages.length; i++) {
+      if (getters.messages[i].state === MessageState.DELIVERED) {
+        return getters.messages[i].id;
+      }
+    }
+
+    return null;
+  },
 });
 
 export const actions = actionTree(
@@ -157,45 +165,51 @@ export const actions = actionTree(
       window.$nuxt.$emit('input-focus');
     },
 
-    subscribeMessageCreated({ getters, dispatch, commit }) {
+    async subscribeMessageCreated({ getters, commit }) {
       const client = this.app.apolloProvider.defaultClient;
       if (!client) return;
 
-      client
-        .subscribe<MessageCreatedSubscription>({ query: MessageCreated })
-        .subscribe({
-          async next({ data }) {
-            if (!data?.messageCreated) return;
+      let errorsCount: number = 0;
+      const errorTimeouts: number[] = [1, 5, 5, 5, 10, 10, 10, 30, 30, 60];
 
-            const messages: Message[] = getters.messages;
-            if (messages.length > 0) {
-              let lastId;
-              for (let i = 0; i < getters.messages.length; i++) {
-                if (messages[i].state === MessageState.DELIVERED) {
-                  lastId = messages[i].id;
-                  break;
-                }
-              }
+      do {
+        try {
+          const variables: GetMessagesQueryVariables = {
+            poll: true,
+          };
+          if (getters.lastDeliveredId) {
+            variables.lastId = getters.lastDeliveredId;
+          }
 
-              await commit('UPDATE_MESSAGE', new Message(data.messageCreated));
+          const response = await client.query<GetMessagesQuery, GetMessagesQueryVariables>({
+            query: GetMessages,
+            variables,
+          });
 
-              if (lastId) {
-                const variables = { lastId: lastId - 1 };
-                const messages = await dispatch('fetchMessages', variables);
+          const messages = response.data.getMessages;
+          for (let i = 0; i < messages.length; ++i) {
+            commit('UPDATE_MESSAGE', new Message(messages[i]));
+          }
 
-                for (let j = 0; j < messages.length; ++j) {
-                  await commit('UPDATE_MESSAGE', new Message(messages[j]));
-                }
-              }
-            } else {
-              await commit('UPDATE_MESSAGE', new Message(data.messageCreated));
-            }
+          if (process.client && document.visibilityState === 'hidden') {
+            commit('INCREMENT_UNREAD');
+          }
 
-            if (process.client && document.visibilityState === 'hidden') {
-              commit('INCREMENT_UNREAD');
-            }
-          },
-        });
+          errorsCount = 0;
+        } catch (e) {
+          await sleep((errorTimeouts[errorsCount] ?? 1) * 1000);
+          /* eslint-disable no-console */
+          console.error(e);
+          console.log(`Polling error: waiting ${errorTimeouts[errorsCount]} seconds before retry...`);
+          /* eslint-enable no-console */
+
+          errorsCount += 1;
+
+          if (errorsCount >= errorTimeouts.length) {
+            errorsCount = 0;
+          }
+        }
+      } while (true);
     },
 
     subscribeMessageDeleted({ commit }) {
