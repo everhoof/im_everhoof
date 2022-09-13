@@ -117,7 +117,11 @@ export default class Default extends Vue {
       this.$nuxt.$on('snotify-error', this.handleSnotifyError);
     }
 
-    if (process.client && this.$route.query.style !== 'obs') {
+    if (
+      process.client &&
+      this.$route.query.style !== 'obs' &&
+      !this.$accessor.modals.politicsRestrictedShowed
+    ) {
       this.$modal.show(
         PoliticsRestrictedModal,
         {},

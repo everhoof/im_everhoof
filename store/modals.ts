@@ -6,6 +6,7 @@ export const namespaced = true;
 
 export const state = () => ({
   reminders: [] as Reminder[],
+  politicsRestrictedShowed: false,
 });
 
 export type ModalsState = ReturnType<typeof state>;
@@ -19,6 +20,9 @@ export const mutations = mutationTree(state, {
     localStorage.setItem('reminders', JSON.stringify(payload));
     _state.reminders = payload;
   },
+  SET_POLITICS_RESTRICTED_SHOWED: (_state, payload: boolean) => {
+    _state.politicsRestrictedShowed = payload;
+  },
 });
 
 export const getters = getterTree(state, {});
@@ -30,6 +34,9 @@ export const actions = actionTree(
     nuxtServerInit({ dispatch }, context: Context) {},
 
     nuxtClientInit({ state, commit, dispatch }, _context: Context) {
+      const politicsRestrictedShowed = +(this.$cookies.get('politics_restricted_showed') ?? '0');
+      commit('SET_POLITICS_RESTRICTED_SHOWED', politicsRestrictedShowed === 1);
+
       commit('GET_REMINDERS_FROM_STORAGE');
       const userId = this.app.$accessor.auth.user?.id;
       if (!userId) return;
@@ -79,6 +86,15 @@ export const actions = actionTree(
         reminders[index].timeout = timeout;
       }
       commit('SET_REMINDERS_TO_STORAGE', reminders);
+    },
+
+    setPoliticsRestrictedShowed({ commit }) {
+      this.$cookies.set('politics_restricted_showed', 1, {
+        path: '/',
+        sameSite: 'lax',
+        maxAge: 86400 * 30,
+      });
+      commit('SET_POLITICS_RESTRICTED_SHOWED', true);
     },
   },
 );

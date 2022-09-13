@@ -24,6 +24,7 @@ import BModal from '~/components/modals/modal/modal.vue';
 export default class PoliticsRestrictedModal extends Vue {
   onClose(event: MouseEvent): void {
     this.$emit('close', event);
+    this.$accessor.modals.setPoliticsRestrictedShowed();
   }
 }
 </script>
