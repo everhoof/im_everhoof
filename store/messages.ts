@@ -50,6 +50,11 @@ export const mutations = mutationTree(state, {
   ADD_RAW_MESSAGE_TO_END: (_state, payload: Message) => _state.rawMessages.push(payload),
   ADD_RAW_MESSAGES_TO_START: (_state, payload: Message[]) => _state.rawMessages.unshift(...payload),
   ADD_RAW_MESSAGES_TO_END: (_state, payload: Message[]) => _state.rawMessages.push(...payload),
+  CLEAR_MESSAGES: (_state) => {
+    if (_state.rawMessages.length > 200) {
+      _state.rawMessages = _state.rawMessages.slice(0, 200);
+    }
+  },
   UPDATE_MESSAGE: (_state, payload: Message) => {
     let index = -1;
     if (payload.randomId !== null) {

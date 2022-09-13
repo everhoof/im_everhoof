@@ -138,6 +138,8 @@ export default class Chat extends Vue {
       } finally {
         this.loadingMoreMessages = false;
       }
+    } else if (event.target.scrollHeight - event.target.clientHeight - event.target.scrollTop < 50) {
+      this.$accessor.messages.CLEAR_MESSAGES();
     }
   }
 }
