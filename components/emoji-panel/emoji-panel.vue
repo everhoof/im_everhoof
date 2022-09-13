@@ -31,12 +31,8 @@ export default class EmojiPanel extends Vue {
   }
 
   selectEmoji(event: MouseEvent, name: string) {
-    if (this.$accessor.messages.input && this.$accessor.messages.input.slice(-1) !== ' ') {
-      this.$accessor.messages.SET_INPUT(this.$accessor.messages.input + ' ');
-    }
-    this.$accessor.messages.SET_INPUT(this.$accessor.messages.input + `:${name}: `);
+    this.$accessor.messages.INSERT_INPUT_TEXT(`:${name}:`);
     if (!event.shiftKey) this.$accessor.SET_EMOJIS_PANEL_ACTIVE(false);
-    this.$nuxt.$emit('input-focus');
   }
 }
 </script>

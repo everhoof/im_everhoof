@@ -40,6 +40,8 @@
           class="footer__input"
           placeholder="Введите сообщение"
           @input="input"
+          @blur="input"
+          @focus="input"
           @keydown.enter="createMessage"
         />
       </div>
@@ -77,7 +79,7 @@ export default class Footer extends Vue {
   @Ref() emojiPanel!: HTMLDivElement;
   @Ref() attach!: HTMLDivElement;
   @Ref() attachPanel!: HTMLDivElement;
-  @Ref() inputEl!: HTMLDivElement;
+  @Ref() inputEl!: HTMLInputElement;
   private attachIds: number[] = [];
   private progress: number = 0;
   private showProgress: boolean = false;
@@ -132,14 +134,19 @@ export default class Footer extends Vue {
       this.$accessor.SET_ATTACH_PANEL_ACTIVE(false);
   }
 
-  async onInputFocus(): Promise<void> {
-    await this.$nextTick();
-    this.inputEl.focus();
+  async onInputFocus(payload: { position?: number }): Promise<void> {
+    if (payload.position !== undefined) {
+      await this.$nextTick();
+      this.inputEl.focus();
+      this.inputEl.selectionStart = payload.position;
+      this.inputEl.selectionEnd = payload.position;
+    }
   }
 
   input(event: InputEvent) {
     const input: HTMLInputElement = event.target as HTMLInputElement;
     this.$accessor.messages.SET_INPUT(input.value);
+    this.$accessor.messages.SET_INPUT_POSITION(input.selectionStart ?? input.value.length);
   }
 
   attachEmojiClicked() {

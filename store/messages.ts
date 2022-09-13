@@ -21,12 +21,30 @@ export const namespaced = true;
 
 export const state = () => ({
   input: '' as string,
+  inputPosition: 0 as number,
   rawMessages: [] as Message[],
   unreadCount: 0 as number,
 });
 
 export const mutations = mutationTree(state, {
   SET_INPUT: (_state, payload: string) => (_state.input = payload),
+  SET_INPUT_POSITION: (_state, payload: number) => (_state.inputPosition = payload),
+  INSERT_INPUT_TEXT: (_state, payload: string) => {
+    let message = _state.input.trim();
+    const position = _state.inputPosition;
+    let insertionText = `${payload} `;
+
+    const start = message.slice(0, position) ?? '';
+    const end = message.slice(position) ?? '';
+    const lastStartLetter = start.slice(-1) ?? '';
+    if (start && lastStartLetter !== ' ') insertionText = ` ${insertionText}`;
+
+    message = [start, insertionText, end].filter((part) => !!part).join('');
+
+    _state.input = message;
+
+    window.$nuxt.$emit('input-focus', { position: position + insertionText.length });
+  },
   SET_RAW_MESSAGES: (_state, payload: Message[]) => (_state.rawMessages = payload),
   ADD_RAW_MESSAGE_TO_START: (_state, payload: Message) => _state.rawMessages.unshift(payload),
   ADD_RAW_MESSAGE_TO_END: (_state, payload: Message) => _state.rawMessages.push(payload),
@@ -152,17 +170,12 @@ export const actions = actionTree(
       } catch (e) {}
     },
 
-    mention({ state, commit }, payload: { id: number; username: string }) {
+    mention({ commit }, payload: { id: number; username: string }) {
       const username = payload.username?.trim();
       if (!payload.id || !username) return;
 
-      let message = state.input.trim();
-      if (!new RegExp(`^<@!${payload.id}:${username}>`).test(message)) {
-        message = `<@!${payload.id}:${username}> ${message}`;
-        commit('SET_INPUT', message);
-      }
-
-      window.$nuxt.$emit('input-focus');
+      const mention = `<@!${payload.id}:${username}>`;
+      commit('INSERT_INPUT_TEXT', mention);
     },
 
     async subscribeMessageCreated({ getters, commit }) {
