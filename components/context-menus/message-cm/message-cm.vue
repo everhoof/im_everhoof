@@ -1,8 +1,8 @@
 <template>
   <!-- begin .message-cm-->
   <b-context-menu ref="context-menu">
-    <b-context-menu-item v-if="showProfile" @click="openProfile">Профиль</b-context-menu-item>
-    <b-context-menu-item v-if="showMention" @click="mention">Упомянуть</b-context-menu-item>
+    <b-context-menu-item v-if="showProfile" icon="person" @click="openProfile">Профиль</b-context-menu-item>
+    <b-context-menu-item v-if="showMention" icon="reply" @click="mention">Ответить</b-context-menu-item>
     <b-context-menu-item v-if="showUpdate" icon="edit" @click="update">
       Изменить сообщение
     </b-context-menu-item>

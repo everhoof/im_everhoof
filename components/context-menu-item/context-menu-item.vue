@@ -2,8 +2,10 @@
   <!-- begin .context-menu-item-->
   <li class="context-menu__item" :class="{ 'context-menu__item_color_danger': important }">
     <button class="context-menu__button" @click="click">
+      <span class="context-menu__text">
+        <slot />
+      </span>
       <svg-icon v-if="icon" class="context-menu__icon" :name="icon" />
-      <slot />
     </button>
   </li>
   <!-- end .context-menu-item-->

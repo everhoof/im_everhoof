@@ -2,13 +2,19 @@
 	position relative
 	z-index 300
 	display block
+	min-width 150px
 	padding 8px
-	background #101010
+	background var(--primary-background)
 	border-radius 3px
-	defaultShadow()
+	box-shadow 0 8px 16px hsla(0, 0, 0, .16)
+
+	.page_theme_dark &
+		background #101010
 
 	&__item
 		margin 0 0 4px
+		--context-item__background-color var(--primary-dark)
+		--context-item__color var(--primary-text)
 
 		&:last-child
 			margin-bottom 0
@@ -22,34 +28,40 @@
 
 		&_color
 			&_danger
-				color #f04747
+				--context-item__color #f04747
+				--context-item__background-color #f04747
 
 	&__button
 		display flex
+		justify-content space-between
 		align-items center
 		width 100%
 		height 32px
 		padding 4px
-		color inherit
+		color var(--context-item__color)
 		font-size 13px
 		font-weight 600
 		cursor pointer
 		background transparent
 		border none
 		outline none
+		column-gap 8px
 
 		&:disabled
 			opacity .3
 
 		&:not(:disabled)
 			&:hover
-				color var(--primary-text)
-				background var(--primary-dark)
+				color var(--gray_20)
+				background var(--context-item__background-color)
 				border-radius 3px
+
+	&__text
+		flex-shrink 1
 
 	&__icon
 		display inline-block
+		flex-shrink 0
 		width 24px
 		height 24px
-		margin-right 8px
 		fill currentColor

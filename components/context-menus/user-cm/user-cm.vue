@@ -1,8 +1,8 @@
 <template>
   <!-- begin .user-cm-->
   <b-context-menu ref="context-menu">
-    <b-context-menu-item @click="openProfile">Профиль</b-context-menu-item>
-    <b-context-menu-item v-if="showMention" @click="mention">Упомянуть</b-context-menu-item>
+    <b-context-menu-item icon="person" @click="openProfile">Профиль</b-context-menu-item>
+    <b-context-menu-item v-if="showMention" icon="reply" @click="mention">Упомянуть</b-context-menu-item>
   </b-context-menu>
   <!-- end .user-cm-->
 </template>
