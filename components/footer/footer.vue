@@ -118,12 +118,14 @@ export default class Footer extends Vue {
 
   mounted(): void {
     document.body.addEventListener('click', this.onDocumentClick);
+    document.addEventListener('paste', this.onDocumentPaste);
   }
 
   beforeDestroy(): void {
     if (process.client) {
       this.$nuxt.$off('input-focus', this.onInputFocus);
-      document.body.addEventListener('click', this.onDocumentClick);
+      document.body.removeEventListener('click', this.onDocumentClick);
+      document.removeEventListener('paste', this.onDocumentPaste);
     }
   }
 
@@ -132,6 +134,18 @@ export default class Footer extends Vue {
       this.$accessor.SET_EMOJIS_PANEL_ACTIVE(false);
     if (!this.attach.contains(event.target as Node) && !this.attachPanel.contains(event.target as Node))
       this.$accessor.SET_ATTACH_PANEL_ACTIVE(false);
+  }
+
+  async onDocumentPaste(event: ClipboardEvent): Promise<void> {
+    if (!this.loggedIn) return;
+
+    const item = event.clipboardData?.items?.[0];
+    if (item?.kind === 'file' && /^image\/*/.test(item.type)) {
+      const file = item.getAsFile();
+      if (file) {
+        await this.uploadPicture(file);
+      }
+    }
   }
 
   async onInputFocus(payload: { position?: number }): Promise<void> {
@@ -159,29 +173,35 @@ export default class Footer extends Vue {
 
       if (!file) return;
 
-      try {
-        this.showProgress = true;
-        const attachId = await HttpClient.uploadPicture(file, {
-          onUploadProgress: (event) => {
-            this.progress = Math.floor((100 / event.total) * event.loaded);
-          },
-        });
+      await this.uploadPicture(file);
+    });
+  }
 
-        if (!attachId) return;
+  async uploadPicture(file: File): Promise<void> {
+    if (this.showProgress) return;
 
-        this.attachIds.push(attachId);
-        await this.createMessage();
-      } catch (error) {
-        if (axios.isAxiosError(error)) {
-          if (error?.response?.data.message) {
-            this.$snotify.error(error.response.data.message);
-          }
+    try {
+      this.showProgress = true;
+      const attachId = await HttpClient.uploadPicture(file, {
+        onUploadProgress: (event) => {
+          this.progress = Math.floor((100 / event.total) * event.loaded);
+        },
+      });
+
+      if (!attachId) return;
+
+      this.attachIds.push(attachId);
+      await this.createMessage();
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        if (error?.response?.data.message) {
+          this.$snotify.error(error.response.data.message);
         }
       }
-
+    } finally {
       this.showProgress = false;
       this.progress = 0;
-    });
+    }
   }
 
   async createMessage() {
