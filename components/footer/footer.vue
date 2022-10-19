@@ -113,6 +113,7 @@ export default class Footer extends Vue {
   created(): void {
     if (process.client) {
       this.$nuxt.$on('input-focus', this.onInputFocus);
+      this.$nuxt.$on('file-drag', this.onFileDragEvent);
     }
   }
 
@@ -124,6 +125,7 @@ export default class Footer extends Vue {
   beforeDestroy(): void {
     if (process.client) {
       this.$nuxt.$off('input-focus', this.onInputFocus);
+      this.$nuxt.$off('file-drag', this.onFileDragEvent);
       document.body.removeEventListener('click', this.onDocumentClick);
       document.removeEventListener('paste', this.onDocumentPaste);
     }
@@ -140,6 +142,18 @@ export default class Footer extends Vue {
     if (!this.loggedIn) return;
 
     const item = event.clipboardData?.items?.[0];
+    if (item?.kind === 'file' && /^image\/*/.test(item.type)) {
+      const file = item.getAsFile();
+      if (file) {
+        await this.uploadPicture(file);
+      }
+    }
+  }
+
+  async onFileDragEvent(event: DragEvent): Promise<void> {
+    if (!this.loggedIn) return;
+
+    const item = event.dataTransfer?.items?.[0];
     if (item?.kind === 'file' && /^image\/*/.test(item.type)) {
       const file = item.getAsFile();
       if (file) {

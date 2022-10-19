@@ -4,6 +4,9 @@
     v-touch:swipe.right="swipeRight"
     class="page__wrapper"
     @contextmenu="openContextMenu"
+    @drop.prevent="onDrop"
+    @dragenter.prevent
+    @dragover.prevent
   >
     <client-only>
       <vue-snotify />
@@ -244,6 +247,10 @@ export default class Default extends Vue {
 
   openContextMenu() {
     this.$nuxt.$emit('close-context-menus');
+  }
+
+  onDrop(event: DragEvent) {
+    this.$nuxt.$emit('file-drag', event);
   }
 }
 </script>
