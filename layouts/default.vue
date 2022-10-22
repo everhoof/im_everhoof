@@ -109,6 +109,23 @@ export default class Default extends Vue {
   pageTitleInterval: number | null = null;
   pageTitleTimeout: number | null = null;
 
+  get messageSoundAudio(): HTMLAudioElement | undefined {
+    const soundId = this.$accessor.settings.messageSound;
+
+    if (process.client && soundId !== 'none') {
+      const audio = new Audio(`/message-sounds/${soundId}.ogg`);
+      audio.volume = 0.1;
+      return audio;
+    }
+
+    return undefined;
+  }
+
+  @Watch('messageSoundAudio')
+  onMessageSoundAudioChange(): void {
+    this.messageSoundAudio?.play();
+  }
+
   handleSnotifyError(message: string) {
     this.$snotify.error(message);
   }
@@ -164,6 +181,8 @@ export default class Default extends Vue {
         document.title = this.pageTitle;
         return;
       }
+
+      this.messageSoundAudio?.play();
 
       this.pageTitleInterval = window.setInterval(() => {
         document.title = 'Новое сообщение';

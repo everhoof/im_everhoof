@@ -1,6 +1,6 @@
 import { actionTree, getterTree, mutationTree } from 'typed-vuex';
 import { Context } from '@nuxt/types';
-import { Message, MessageState } from '~/types/message';
+import { Message, MessageState, MessageType } from '~/types/message';
 import {
   DeleteMessageMutation,
   DeleteMessageMutationVariables,
@@ -209,7 +209,11 @@ export const actions = actionTree(
             commit('UPDATE_MESSAGE', new Message(messages[i]));
           }
 
-          if (messages.length > 0 && process.client && document.visibilityState === 'hidden') {
+          const filteredMessages = messages.filter((message) => {
+            return message.type === MessageType.GENERAL || message.type === MessageType.DONATION;
+          });
+
+          if (filteredMessages.length > 0 && process.client && document.visibilityState === 'hidden') {
             commit('INCREMENT_UNREAD');
           }
 

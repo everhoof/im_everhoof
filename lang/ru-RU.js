@@ -18,6 +18,17 @@ export default {
       was_online: 'Был в сети',
     },
 
+    settings: {
+      dark_theme: 'Тёмная тема',
+      compact_view: 'Компактный вид',
+      message_sound: 'Звук сообщения',
+      message_sound_options: {
+        none: 'Нет',
+        sound_1: 'Звук 1',
+        sound_2: 'Звук 2',
+      },
+    },
+
     punishment: {
       times: {
         forever: 'Навсегда',

@@ -7,6 +7,17 @@ export default {
       was_online: 'Was online',
     },
 
+    settings: {
+      dark_theme: 'Dark theme',
+      compact_view: 'Compact view',
+      message_sound: 'Message Sound',
+      message_sound_options: {
+        none: 'None',
+        sound_1: 'Sound 1',
+        sound_2: 'Sound 2',
+      },
+    },
+
     punishment: {
       times: {
         forever: 'Forever',
