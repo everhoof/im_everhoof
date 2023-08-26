@@ -36,11 +36,8 @@ export default class MainPage extends Vue {
   }
 
   mounted() {
-    if (!this.$accessor.auth.user || this.$accessor.auth.user.emailConfirmed)
-      this.remind = false;
-
-    if (!this.$accessor.auth.user.emailConfirmed)
-      this.remind = true;
+    if (!this.$accessor.auth.user || this.$accessor.auth.user.emailConfirmed) this.remind = false;
+    if (!this.$accessor.auth.user.emailConfirmed) this.remind = true;
   }
 
   async confirmEmail() {
