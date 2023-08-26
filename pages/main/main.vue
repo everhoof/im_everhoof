@@ -3,9 +3,9 @@
     <div v-if="false" class="page__warning">
       <b-warning />
     </div>
-    <div v-if="false" class="page__reminder">
+    <div v-if="remind" class="page__reminder">
       <b-reminder :id="reminderId" @click="confirmEmail()">
-        <template #default>Подтвердите адрес эл. почты, чтобы использовать все возможности чата</template>
+        <template #default>Подтвердите адрес эл. почты, чтобы использовать чат</template>
         <template #button>Подтвердить</template>
       </b-reminder>
     </div>
@@ -29,8 +29,18 @@ import BWarning from '~/components/warning/warning.vue';
   components: { BWarning, BReminder, BFooter, BChat },
 })
 export default class MainPage extends Vue {
+  remind: boolean = false;
+
   get reminderId(): string {
     return ReminderTypes.EMAIL_CONFIRMATION;
+  }
+
+  mounted() {
+    if (!this.$accessor.auth.user || this.$accessor.auth.user.emailConfirmed)
+      this.remind = false;
+
+    if (!this.$accessor.auth.user.emailConfirmed)
+      this.remind = true;
   }
 
   async confirmEmail() {
