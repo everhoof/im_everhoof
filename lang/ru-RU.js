@@ -2,15 +2,15 @@ export default {
   welcome: 'Добро пожаловать',
 
   // Authentication
-  username_fill_error: 'Fill in the username field.',
-  username_length_error: 'Wrong nickname format: max 32, min 3 characters.',
-  username_regex_error: 'Wrong nickname format: [a-z, 0-9, _].',
-  email_fill_error: 'Fill in the email field.',
-  email_length_error: 'Wrong email format.',
-  email_regex_error: 'Wrong email format.',
-  password_fill_error: 'Fill in the password field.',
-  passport_length_error: 'Password must be at least 5 characters long.',
-  passwords_do_not_match: 'Passwords do not match.',
+  username_fill_error: 'Заполните поле Логин.',
+  username_length_error: 'Неверная длина логина: макс. 32, мин. 3 символов.',
+  username_regex_error: 'Неверный формат логина: [a-z, 0-9, _].',
+  email_fill_error: 'Заполните поле E-mail.',
+  email_length_error: 'Неверный формат почты.',
+  email_regex_error: 'Неверный формат почты.',
+  password_fill_error: 'Заполните поле Пароль.',
+  passport_length_error: 'Пароль должен быть не менее 5 символов.',
+  passwords_do_not_match: 'Пароли не совпадают',
 
   modals: {
     profile: {
@@ -54,6 +54,13 @@ export default {
         '<br />' +
         'Пользователи, проигнорировавшие эту просьбу, будут заглушены на 15 минут.',
       close: 'Хорошо, я понял.',
+    },
+  },
+
+  reminders: {
+    confirm_email: {
+      message: 'Подтвердите адрес эл. почты, чтобы использовать чат.',
+      action: 'Подтвердить',
     },
   },
 

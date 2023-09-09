@@ -5,8 +5,8 @@
     </div>
     <div v-if="remind" class="page__reminder">
       <b-reminder :id="reminderId" @click="confirmEmail()">
-        <template #default>Подтвердите адрес эл. почты, чтобы использовать чат</template>
-        <template #button>Подтвердить</template>
+        <template #default>{{ $t('reminders.confirm_email.message') }}</template>
+        <template #button>{{ $t('reminders.confirm_email.action') }}</template>
       </b-reminder>
     </div>
     <b-chat />
