@@ -10,11 +10,13 @@
         отправил
         <span class="message-donation__amount">{{ donation.amount }} {{ donation.currency }}</span>
       </div>
-      <div class="message-donation__bottom">
-        <div class="message-donation__text">
-          {{ donation.message }}
+      <template v-if="donation.message">
+        <div class="message-donation__bottom">
+          <div class="message-donation__text">
+            {{ donation.message }}
+          </div>
         </div>
-      </div>
+      </template>
     </div>
   </div>
   <!-- end .message-donation-->
