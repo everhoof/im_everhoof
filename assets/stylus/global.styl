@@ -81,6 +81,7 @@ ul
 
 	&__main
 		position relative
+		z-index 1
 		display flex
 		overflow hidden
 		flex-grow 1
@@ -227,6 +228,12 @@ ul
 	&__error
 		margin 0 auto
 		align-self center
+
+	&__snow
+		position absolute
+		z-index 10
+		pointer-events none
+		inset 0
 
 	&_style
 		&_obs

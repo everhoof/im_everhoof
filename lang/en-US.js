@@ -21,6 +21,7 @@ export default {
     settings: {
       dark_theme: 'Dark theme',
       compact_view: 'Compact view',
+      snow: 'Snow',
       message_sound: 'Message Sound',
       message_sound_options: {
         none: 'None',

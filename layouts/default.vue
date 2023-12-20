@@ -8,6 +8,9 @@
     @dragenter.prevent
     @dragover.prevent
   >
+    <div v-if="$accessor.settings.snow" class="page__snow">
+      <b-snow />
+    </div>
     <client-only>
       <vue-snotify />
     </client-only>
@@ -67,6 +70,7 @@ import { ReminderTypes } from '~/types/reminderTypes';
 import BMessageCm from '~/components/context-menus/message-cm/message-cm.vue';
 import BUserCm from '~/components/context-menus/user-cm/user-cm.vue';
 import PoliticsRestrictedModal from '~/components/modals/politics-restricted-modal/politics-restricted-modal.vue';
+import BSnow from '~/components/snow/snow.vue';
 
 @Component({
   head() {
@@ -89,6 +93,7 @@ import PoliticsRestrictedModal from '~/components/modals/politics-restricted-mod
     };
   },
   components: {
+    BSnow,
     BUserCm,
     BMessageCm,
     BContextMenuItem,
