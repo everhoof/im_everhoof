@@ -9,6 +9,9 @@
         <b-switch id="settings_compact" :checked="compact" @update:checked="setCompact">
           {{ $t('modals.settings.compact_view') }}
         </b-switch>
+        <b-switch id="settings_snow" :checked="snow" @update:checked="setSnow">
+          {{ $t('modals.settings.snow') }}
+        </b-switch>
         <div class="settings-modal__row">
           <span class="settings-modal__label">{{ $t('modals.settings.message_sound') }}:</span>
           <b-select :items="messageSoundOptions" :value="messageSoundIndex" @input="setMessageSound" />
@@ -53,12 +56,20 @@ export default class SettingsModal extends Vue {
     return this.$accessor.settings.compact;
   }
 
+  get snow(): boolean {
+    return this.$accessor.settings.snow;
+  }
+
   setTheme(value: boolean) {
     this.$accessor.settings.setTheme(value ? 'dark' : 'light');
   }
 
   setCompact(value: boolean) {
     this.$accessor.settings.setCompact(value);
+  }
+
+  setSnow(value: boolean) {
+    this.$accessor.settings.setSnow(value);
   }
 
   setMessageSound(index: number) {
