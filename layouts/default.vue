@@ -8,7 +8,7 @@
     @dragenter.prevent
     @dragover.prevent
   >
-    <div v-if="$accessor.settings.snow" class="page__snow">
+    <div v-if="isSnowEnabled" class="page__snow">
       <b-snow />
     </div>
     <client-only>
@@ -124,6 +124,10 @@ export default class Default extends Vue {
     }
 
     return undefined;
+  }
+
+  get isSnowEnabled(): boolean {
+    return this.$accessor.settings.snow && this.$route.query.style !== 'obs';
   }
 
   @Watch('messageSoundAudio')
