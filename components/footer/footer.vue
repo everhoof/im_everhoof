@@ -5,7 +5,7 @@
       <b-progress-bar :progress="progress" />
     </div>
     <div v-show="emojisPanelActive" ref="emojiPanel" class="footer__emoji-panel scrollbar">
-      <b-emoji-panel />
+      <b-emoji-panel @insert="insertEmoji" />
     </div>
     <div v-show="attachPanelActive" ref="attachPanel" class="footer__attach-panel">
       <b-attach-panel />
@@ -22,7 +22,6 @@
           @click="$accessor.TOGGLE_EMOJIS_PANEL()"
         />
         <svg-icon
-          v-if="true"
           ref="attach"
           name="attach_file"
           class="footer__actions-button footer__attach-button"
@@ -31,18 +30,11 @@
         />
       </div>
       <div class="footer__input-container">
-        <input
-          ref="inputEl"
-          :value="$accessor.messages.input"
-          name="message"
-          autocomplete="off"
-          type="text"
+        <b-rich-input
+          ref="richInput"
           class="footer__input"
           placeholder="Введите сообщение"
-          @input="input"
-          @blur="input"
-          @focus="input"
-          @keydown.enter="createMessage"
+          @enter="createMessage"
         />
       </div>
       <div v-show="loggedIn" class="footer__actions-right" @click="createMessage">
@@ -69,10 +61,12 @@ import { HttpClient } from '~/tools/http-client';
 import BProgressBar from '~/components/progress-bar/progress-bar.vue';
 import BDonateButton from '~/components/donate-button/donate-button.vue';
 import { Message } from '~/types/message';
+import BRichInput from '~/components/rich-input/rich-input.vue';
+import type { MentionEvent } from '~/store/messages';
 
 @Component({
   name: 'b-footer',
-  components: { BDonateButton, BButton, BAttachPanel, BEmojiPanel, BProgressBar },
+  components: { BRichInput, BDonateButton, BButton, BAttachPanel, BEmojiPanel, BProgressBar },
 })
 export default class Footer extends Vue {
   @Ref() emoji!: HTMLDivElement;
@@ -80,6 +74,7 @@ export default class Footer extends Vue {
   @Ref() attach!: HTMLDivElement;
   @Ref() attachPanel!: HTMLDivElement;
   @Ref() inputEl!: HTMLInputElement;
+  @Ref() richInput!: BRichInput;
   private attachIds: number[] = [];
   private progress: number = 0;
   private showProgress: boolean = false;
@@ -112,8 +107,8 @@ export default class Footer extends Vue {
 
   created(): void {
     if (process.client) {
-      this.$nuxt.$on('input-focus', this.onInputFocus);
       this.$nuxt.$on('file-drag', this.onFileDragEvent);
+      this.$nuxt.$on('mention', this.onMention);
     }
   }
 
@@ -124,8 +119,8 @@ export default class Footer extends Vue {
 
   beforeDestroy(): void {
     if (process.client) {
-      this.$nuxt.$off('input-focus', this.onInputFocus);
       this.$nuxt.$off('file-drag', this.onFileDragEvent);
+      this.$nuxt.$off('mention', this.onMention);
       document.body.removeEventListener('click', this.onDocumentClick);
       document.removeEventListener('paste', this.onDocumentPaste);
     }
@@ -150,6 +145,10 @@ export default class Footer extends Vue {
     }
   }
 
+  onMention(event: MentionEvent): void {
+    this.richInput.mention(event);
+  }
+
   async onFileDragEvent(event: DragEvent): Promise<void> {
     if (!this.loggedIn) return;
 
@@ -162,19 +161,8 @@ export default class Footer extends Vue {
     }
   }
 
-  async onInputFocus(payload: { position?: number }): Promise<void> {
-    if (payload.position !== undefined) {
-      await this.$nextTick();
-      this.inputEl.focus();
-      this.inputEl.selectionStart = payload.position;
-      this.inputEl.selectionEnd = payload.position;
-    }
-  }
-
-  input(event: InputEvent) {
-    const input: HTMLInputElement = event.target as HTMLInputElement;
-    this.$accessor.messages.SET_INPUT(input.value);
-    this.$accessor.messages.SET_INPUT_POSITION(input.selectionStart ?? input.value.length);
+  insertEmoji(content: string): void {
+    this.richInput.insertContent(content);
   }
 
   attachEmojiClicked() {
@@ -219,13 +207,15 @@ export default class Footer extends Vue {
   }
 
   async createMessage() {
-    if (!this.$accessor.messages.input.trim() && this.attachIds.length === 0) return;
+    const text = this.richInput.getText();
 
-    const content = this.$accessor.messages.input.trim();
-    const message = Message.create(content, this.$accessor.auth.user);
+    if (!text.trim() && this.attachIds.length === 0) return;
+
+    const html = this.richInput.getHtml();
+    const message = Message.create(html, this.$accessor.auth.user);
 
     this.$accessor.messages.ADD_RAW_MESSAGE_TO_START(message);
-    this.$accessor.messages.SET_INPUT('');
+    this.richInput.setContent('');
 
     const createdMessage = await this.$apollo.mutate<CreateMessageMutation, CreateMessageMutationVariables>({
       mutation: CreateMessage,

@@ -4,6 +4,7 @@ import Vue from 'vue';
 import UserUpdated from '~/graphql/subscriptions/user-updated.graphql';
 import UpdateOnlineStatus from '~/graphql/mutations/update-online-status.graphql';
 import GetUserById from '~/graphql/queries/get-user-by-id.graphql';
+import SearchUsers from '~/graphql/queries/search-users.graphql';
 import Punish from '~/graphql/mutations/punish.graphql';
 import GetOnline from '~/graphql/queries/get-online.graphql';
 import OnlineUpdated from '~/graphql/subscriptions/online-updated.graphql';
@@ -14,6 +15,8 @@ import {
   OnlineUpdatedSubscription,
   PunishMutation,
   PunishMutationVariables,
+  SearchUsersQuery,
+  SearchUsersQueryVariables,
   UpdateOnlineStatusMutation,
   UserUpdatedSubscription,
 } from '~/graphql/schema';
@@ -212,6 +215,21 @@ export const actions = actionTree(
         if (errors || !data?.getUserById) return;
         commit('ADD_USER', data.getUserById);
       } catch (e) {}
+    },
+
+    async searchUsers(_, payload: SearchUsersQueryVariables): Promise<SearchUsersQuery['searchUsers']> {
+      const client = this.app.apolloProvider?.defaultClient;
+      if (!client) return [];
+      try {
+        const { data, errors } = await client.query<SearchUsersQuery, SearchUsersQueryVariables>({
+          query: SearchUsers,
+          variables: payload,
+        });
+        if (errors || !data?.searchUsers) return [];
+        return data.searchUsers;
+      } catch (e) {}
+
+      return [];
     },
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars

@@ -1,0 +1,19 @@
+.rich-input
+	& .ProseMirror
+		padding 6px 0 5px
+		outline none
+
+		& p
+			color inherit
+			font-size inherit
+
+		& strong
+			font-weight bolder
+
+		& > .is-editor-empty
+			&:first-child::before
+				content attr(data-placeholder)
+				float left
+				height 0
+				color var(--secondary-text)
+				pointer-events none

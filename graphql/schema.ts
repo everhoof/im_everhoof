@@ -16,6 +16,7 @@ export type Query = {
   getCurrentUser: User;
   getUserById: User;
   getOnline: Array<User>;
+  searchUsers: Array<User>;
   getMessages: Array<Message>;
   isUsernameFree: Scalars['Boolean'];
   getTokenByDiscordId?: Maybe<Token>;
@@ -27,6 +28,10 @@ export type Query = {
 
 export type QueryGetUserByIdArgs = {
   id: Scalars['Int'];
+};
+
+export type QuerySearchUsersArgs = {
+  query: Scalars['String'];
 };
 
 export type QueryGetMessagesArgs = {
@@ -480,6 +485,14 @@ export type GetUserByIdQueryVariables = Exact<{
 
 export type GetUserByIdQuery = { __typename?: 'Query' } & {
   getUserById: { __typename?: 'User' } & UserPartsFragment;
+};
+
+export type SearchUsersQueryVariables = Exact<{
+  query: Scalars['String'];
+}>;
+
+export type SearchUsersQuery = { __typename?: 'Query' } & {
+  searchUsers: Array<{ __typename?: 'User' } & UserPartsFragment>;
 };
 
 export type MessageCreatedSubscriptionVariables = Exact<{ [key: string]: never }>;

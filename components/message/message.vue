@@ -139,8 +139,7 @@ export default class BMessage extends Vue {
 
     const mentionRegex = /<@!(\d+):(.+?)>/gm;
     message = message.replace(mentionRegex, (_match, p1, p2) => {
-      const route = `{ name: 'modal_profile', params: { id: ${p1} } }`;
-      return `<span class="message__mention" onclick="window.$nuxt.$router.push(${route})">@${p2}</span>`;
+      return `<mention data-id="${p1}" data-name="${p2}">@${p2}</mention>`;
     });
 
     const emojiRegex = new RegExp(`:(${this.$accessor.chat.emoji.map(({ name }) => name).join('|')}):`, 'mg');
@@ -182,7 +181,8 @@ export default class BMessage extends Vue {
   }
 
   get mentioning(): boolean {
-    return new RegExp(`<@!${this.$accessor.auth.user?.id}(:.+)?>`).test(this.message.content);
+    const regexp = new RegExp(`<mention(.+?)data-id="${this.$accessor.auth.user?.id}"`);
+    return regexp.test(this.text);
   }
 
   get delivered(): boolean {

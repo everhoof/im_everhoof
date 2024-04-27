@@ -31,7 +31,7 @@ export default class EmojiPanel extends Vue {
   }
 
   selectEmoji(event: MouseEvent, name: string) {
-    this.$accessor.messages.INSERT_INPUT_TEXT(`:${name}:`);
+    this.$emit('insert', `:${name}:`);
     if (!event.shiftKey) this.$accessor.SET_EMOJIS_PANEL_ACTIVE(false);
   }
 }

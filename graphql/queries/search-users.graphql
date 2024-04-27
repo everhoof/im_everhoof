@@ -1,0 +1,7 @@
+#import "../fragments/user-parts.graphql"
+
+query SearchUsers($query: String!) {
+  searchUsers(query: $query) {
+    ...UserParts
+  }
+}
