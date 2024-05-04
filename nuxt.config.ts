@@ -124,7 +124,7 @@ export default {
         ];
       },
     },
-    transpile: [/typed-vuex/, /apollo/],
+    transpile: [/typed-vuex/, /apollo/, /tiptap/],
     /*
      ** You can extend webpack config here
      */
