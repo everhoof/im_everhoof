@@ -7,7 +7,7 @@ export const namespaced = true;
 export const state = () => ({
   theme: 'dark' as string,
   compact: true as boolean,
-  snow: true as boolean,
+  snow: false as boolean,
   messageSound: 'none' as string,
   warning: true as boolean,
   timeZone: 'Europe/Moscow' as string,
@@ -32,14 +32,14 @@ export const actions = actionTree(
     nuxtServerInit({ dispatch, commit }, context: Context) {
       const theme = context.app.$cookies.get('settings_theme');
       const compact = context.app.$cookies.get('settings_compact');
-      const snow = context.app.$cookies.get('settings_snow');
+      // const snow = context.app.$cookies.get('settings_snow');
       const messageSound = context.app.$cookies.get('settings_message_sound');
       const timeZone = context.app.$cookies.get('settings_timezone');
       const warning = context.app.$cookies.get('settings_warning');
 
       if (theme) dispatch('setTheme', theme);
       if (compact !== null && compact !== undefined) dispatch('setCompact', compact);
-      if (snow !== null && snow !== undefined) dispatch('setSnow', snow);
+      // if (snow !== null && snow !== undefined) dispatch('setSnow', snow);
       if (messageSound) commit('SET_MESSAGE_SOUND', messageSound);
       if (timeZone) commit('SET_TIMEZONE', timeZone);
       if (warning !== null && warning !== undefined) commit('SET_WARNING', warning === 'true');
