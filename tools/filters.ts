@@ -15,9 +15,9 @@ export function toHHMMSS(time: string | number) {
   return `${hours ? `${hours}:` : ''}${minutes}:${seconds}`;
 }
 
-export function toLocalDateTime(iso: string, compact: boolean = false) {
-  const date = DateTime.fromISO(iso);
-  const currentDate = DateTime.local();
+export function toLocalDateTime(iso: string, timezone: string, compact: boolean = false) {
+  const date = DateTime.fromISO(iso).setZone(timezone);
+  const currentDate = DateTime.local().setZone(timezone);
 
   if (currentDate.startOf('day').toSeconds() === date.startOf('day').toSeconds()) {
     if (compact) return date.setLocale('ru').toFormat('HH:mm');

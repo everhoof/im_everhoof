@@ -54,13 +54,17 @@ export default class ProfileModal extends Vue {
 
   get registered(): string {
     return this.user?.createdAt
-      ? DateTime.fromISO(this.user?.createdAt).toLocaleString(DateTime.DATE_FULL)
+      ? DateTime.fromISO(this.user?.createdAt)
+          .setZone(this.$accessor.settings.timeZone)
+          .toLocaleString(DateTime.DATE_FULL)
       : 'loading...';
   }
 
   get online(): string {
     return this.user?.createdAt
-      ? DateTime.fromISO(this.user?.wasOnlineAt).toLocaleString(DateTime.DATE_FULL)
+      ? DateTime.fromISO(this.user?.wasOnlineAt)
+          .setZone(this.$accessor.settings.timeZone)
+          .toLocaleString(DateTime.DATE_FULL)
       : 'loading...';
   }
 }

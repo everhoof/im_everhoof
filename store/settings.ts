@@ -5,6 +5,7 @@ import { DateTime } from 'luxon';
 export const namespaced = true;
 
 export const state = () => ({
+  isOBS: false as boolean,
   theme: 'dark' as string,
   compact: true as boolean,
   snow: false as boolean,
@@ -16,6 +17,7 @@ export const state = () => ({
 export type SettingsState = ReturnType<typeof state>;
 
 export const mutations = mutationTree(state, {
+  SET_IS_OBS: (_state, payload: boolean) => (_state.isOBS = payload),
   SET_THEME: (_state, payload: string) => (_state.theme = payload),
   SET_COMPACT: (_state, payload: boolean) => (_state.compact = payload),
   SET_SNOW: (_state, payload: boolean) => (_state.snow = payload),
@@ -30,25 +32,33 @@ export const actions = actionTree(
   { state, mutations, getters },
   {
     nuxtServerInit({ dispatch, commit }, context: Context) {
+      const isOBS = context.query.style === 'obs';
+      commit('SET_IS_OBS', isOBS);
+
+      if (!isOBS) {
+        const timeZone = context.app.$cookies.get('settings_timezone');
+        if (timeZone) commit('SET_TIMEZONE', timeZone);
+      }
+
       const theme = context.app.$cookies.get('settings_theme');
       const compact = context.app.$cookies.get('settings_compact');
       // const snow = context.app.$cookies.get('settings_snow');
       const messageSound = context.app.$cookies.get('settings_message_sound');
-      const timeZone = context.app.$cookies.get('settings_timezone');
       const warning = context.app.$cookies.get('settings_warning');
 
       if (theme) dispatch('setTheme', theme);
       if (compact !== null && compact !== undefined) dispatch('setCompact', compact);
       // if (snow !== null && snow !== undefined) dispatch('setSnow', snow);
       if (messageSound) commit('SET_MESSAGE_SOUND', messageSound);
-      if (timeZone) commit('SET_TIMEZONE', timeZone);
       if (warning !== null && warning !== undefined) commit('SET_WARNING', warning === 'true');
     },
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    nuxtClientInit({ dispatch }, { app }: Context) {
-      const timeZone = DateTime.local().zoneName;
-      dispatch('setTimeZone', timeZone);
+    nuxtClientInit({ state, dispatch }, { app }: Context) {
+      if (!state.isOBS) {
+        const timeZone = DateTime.local().zoneName;
+        dispatch('setTimeZone', timeZone);
+      }
     },
 
     setTheme({ commit }, payload: string) {

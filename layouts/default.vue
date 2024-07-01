@@ -76,7 +76,7 @@ import BSnow from '~/components/snow/snow.vue';
   head() {
     const classes: string[] = [];
 
-    if (this.$route.query.style === 'obs') {
+    if (this.$accessor.settings.isOBS) {
       classes.push('page_style_obs');
       classes.push('page_theme_dark');
     } else {

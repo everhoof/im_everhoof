@@ -197,12 +197,18 @@ export default class BMessage extends Vue {
     return getUserColor(this.message?.owner?.id);
   }
 
+  get timezone(): string {
+    return this.$accessor.settings.timeZone;
+  }
+
   get localDateTime(): string {
-    return toLocalDateTime(this.message.createdAt, this.compact);
+    return toLocalDateTime(this.message.createdAt, this.timezone, this.compact);
   }
 
   get localDateTimeFull(): string {
-    return DateTime.fromMillis(this.timestamp).toFormat('cccc, dd LLLL yyyy г., HH:mm');
+    return DateTime.fromMillis(this.timestamp)
+      .setZone(this.timezone)
+      .toFormat('cccc, dd LLLL yyyy г., HH:mm');
   }
 
   get deleted(): boolean {

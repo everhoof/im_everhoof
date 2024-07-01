@@ -23,7 +23,9 @@ export default class MessagesSeparator extends Vue {
   private readonly message!: Message;
 
   get date(): string {
-    return DateTime.fromISO(this.message.createdAt).toFormat('dd LLLL yyyy');
+    return DateTime.fromISO(this.message.createdAt)
+      .setZone(this.$accessor.settings.timeZone)
+      .toFormat('dd LLLL yyyy');
   }
 }
 </script>
