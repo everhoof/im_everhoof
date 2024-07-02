@@ -1,8 +1,11 @@
 #import "../fragments/message-parts.graphql"
 
-query GetChatData {
-  getMessages {
+query GetChatData($fromDateTime: String, $reverse: Boolean = false) {
+  messages: getMessages(fromDateTime: $fromDateTime, reverse: $reverse) {
     ...MessageParts
+  }
+  lastMessages: getMessages(count: 1) {
+    id
   }
   getOnline {
     id

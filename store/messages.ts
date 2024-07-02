@@ -1,10 +1,12 @@
 import { actionTree, getterTree, mutationTree } from 'typed-vuex';
+import { DateTime } from 'luxon';
 import { Context } from '@nuxt/types';
-import { Message, MessageState, MessageType } from '~/types/message';
+import { Message, MessageType } from '~/types/message';
 import {
   DeleteMessageMutation,
   DeleteMessageMutationVariables,
   GetChatDataQuery,
+  GetChatDataQueryVariables,
   GetMessagesQuery,
   GetMessagesQueryVariables,
   MessageDeletedSubscription,
@@ -29,6 +31,7 @@ export const namespaced = true;
 export const state = () => ({
   rawMessages: [] as Message[],
   unreadCount: 0 as number,
+  lastDeliveredId: null as null | number,
   isEverythingFetched: 'newer' as FetchDirection,
 });
 
@@ -61,7 +64,7 @@ export const mutations = mutationTree(state, {
     }
     if (index !== -1) {
       _state.rawMessages.splice(index, 1, payload);
-    } else {
+    } else if (_state.isEverythingFetched === 'newer') {
       _state.rawMessages.unshift(payload);
     }
   },
@@ -75,19 +78,11 @@ export const mutations = mutationTree(state, {
   INCREMENT_UNREAD: (_state) => (_state.unreadCount = _state.unreadCount + 1),
   RESET_UNREAD: (_state) => (_state.unreadCount = 0),
   SET_IS_EVERYTHING_FETCHED: (_state, payload: FetchDirection) => (_state.isEverythingFetched = payload),
+  SET_LAST_DELIVERED_ID: (_state, payload: number) => (_state.lastDeliveredId = payload),
 });
 
 export const getters = getterTree(state, {
   messages: (_state) => Array.from(_state.rawMessages).sort((a, b) => b.createdAtMillis - a.createdAtMillis),
-  lastDeliveredId: (_state, getters): null | number => {
-    for (let i = 0; i < getters.messages.length; i++) {
-      if (getters.messages[i].state === MessageState.DELIVERED) {
-        return getters.messages[i].id;
-      }
-    }
-
-    return null;
-  },
 });
 
 export const actions = actionTree(
@@ -102,10 +97,6 @@ export const actions = actionTree(
       dispatch('subscribeMessageDeleted');
       dispatch('subscribeMessageUpdated');
 
-      window.setTimeout(async () => {
-        await dispatch('fetchBaseData');
-      }, 3000);
-
       document.addEventListener('visibilitychange', () => {
         if (document.visibilityState === 'visible') {
           commit('RESET_UNREAD');
@@ -117,11 +108,34 @@ export const actions = actionTree(
       const client = this.app.apolloProvider.defaultClient;
       if (!client) return;
 
-      const { data, errors } = await client.query<GetChatDataQuery>({ query: GetChatData });
+      let variables: GetChatDataQueryVariables = {};
+
+      if (this.$router.currentRoute.query.from) {
+        const datetime = DateTime.fromISO(this.$router.currentRoute.query.from.toString());
+
+        if (datetime.isValid) {
+          variables = {
+            fromDateTime: datetime.toISO(),
+            reverse: true,
+          };
+        }
+
+        commit('SET_IS_EVERYTHING_FETCHED', 'none');
+      }
+
+      const { data, errors } = await client.query<GetChatDataQuery, GetChatDataQueryVariables>({
+        query: GetChatData,
+        variables,
+      });
       if (errors || !data) return;
 
-      const messages = data.getMessages.map((message) => new Message(message));
+      const messages = data.messages.map((message) => new Message(message));
       commit('SET_RAW_MESSAGES', messages);
+
+      const lastMessage = data.lastMessages[0];
+      if (lastMessage) {
+        commit('SET_LAST_DELIVERED_ID', lastMessage.id);
+      }
     },
 
     async fetchMessages(
@@ -176,7 +190,7 @@ export const actions = actionTree(
       window.$nuxt.$emit('mention', payload);
     },
 
-    async subscribeMessageCreated({ getters, commit }) {
+    async subscribeMessageCreated({ state, commit }) {
       const client = this.app.apolloProvider.defaultClient;
       if (!client) return;
 
@@ -188,8 +202,9 @@ export const actions = actionTree(
           const variables: GetMessagesQueryVariables = {
             poll: true,
           };
-          if (getters.lastDeliveredId) {
-            variables.lastId = getters.lastDeliveredId;
+
+          if (state.lastDeliveredId) {
+            variables.lastId = state.lastDeliveredId;
           }
 
           const response = await client.query<GetMessagesQuery, GetMessagesQueryVariables>({
@@ -200,6 +215,11 @@ export const actions = actionTree(
           const messages = response.data.getMessages;
           for (let i = 0; i < messages.length; ++i) {
             commit('UPDATE_MESSAGE', new Message(messages[i]));
+          }
+
+          const lastMessage = messages[0];
+          if (lastMessage) {
+            commit('SET_LAST_DELIVERED_ID', lastMessage.id);
           }
 
           const filteredMessages = messages.filter((message) => {

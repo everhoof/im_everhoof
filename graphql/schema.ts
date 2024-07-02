@@ -38,6 +38,7 @@ export type QueryGetMessagesArgs = {
   count?: Maybe<Scalars['Int']>;
   page?: Maybe<Scalars['Int']>;
   lastId?: Maybe<Scalars['Int']>;
+  fromDateTime?: Maybe<Scalars['String']>;
   reverse?: Maybe<Scalars['Boolean']>;
   poll?: Maybe<Scalars['Boolean']>;
 };
@@ -426,10 +427,14 @@ export type UpdateOnlineStatusMutationVariables = Exact<{ [key: string]: never }
 
 export type UpdateOnlineStatusMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'updateOnlineStatus'>;
 
-export type GetChatDataQueryVariables = Exact<{ [key: string]: never }>;
+export type GetChatDataQueryVariables = Exact<{
+  fromDateTime?: Maybe<Scalars['String']>;
+  reverse?: Maybe<Scalars['Boolean']>;
+}>;
 
 export type GetChatDataQuery = { __typename?: 'Query' } & {
-  getMessages: Array<{ __typename?: 'Message' } & MessagePartsFragment>;
+  messages: Array<{ __typename?: 'Message' } & MessagePartsFragment>;
+  lastMessages: Array<{ __typename?: 'Message' } & Pick<Message, 'id'>>;
   getOnline: Array<
     { __typename?: 'User' } & Pick<User, 'id' | 'username'> & {
         avatar?: Maybe<
