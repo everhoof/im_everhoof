@@ -169,17 +169,21 @@ export default class Chat extends Vue {
   }
 
   async forceScroll(): Promise<void> {
-    const variables = {
-      count: 100,
-      reverse: true,
-      lastId: this.$accessor.messages.lastDeliveredId,
-    };
+    if (this.$accessor.messages.isEverythingFetched !== 'newer') {
+      const variables = {
+        count: 100,
+        reverse: true,
+        lastId: this.$accessor.messages.lastDeliveredId,
+      };
 
-    const messages = await this.$accessor.messages.fetchMessages(variables);
+      const messages = await this.$accessor.messages.fetchMessages(variables);
 
-    if (messages) {
-      this.$accessor.messages.SET_RAW_MESSAGES(messages.map((message) => new Message(message)));
-      await this.$nextTick();
+      if (messages) {
+        this.$accessor.messages.SET_RAW_MESSAGES(messages.map((message) => new Message(message)));
+        await this.$nextTick();
+        this.scrollDownChat();
+      }
+    } else {
       this.scrollDownChat();
     }
   }
