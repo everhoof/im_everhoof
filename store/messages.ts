@@ -22,22 +22,33 @@ export interface MentionEvent {
   username: string;
 }
 
+export type FetchDirection = 'none' | 'older' | 'newer';
+
 export const namespaced = true;
 
 export const state = () => ({
   rawMessages: [] as Message[],
   unreadCount: 0 as number,
+  isEverythingFetched: 'newer' as FetchDirection,
 });
 
 export const mutations = mutationTree(state, {
   SET_RAW_MESSAGES: (_state, payload: Message[]) => (_state.rawMessages = payload),
   ADD_RAW_MESSAGE_TO_START: (_state, payload: Message) => _state.rawMessages.unshift(payload),
   ADD_RAW_MESSAGE_TO_END: (_state, payload: Message) => _state.rawMessages.push(payload),
-  ADD_RAW_MESSAGES_TO_START: (_state, payload: Message[]) => _state.rawMessages.unshift(...payload),
-  ADD_RAW_MESSAGES_TO_END: (_state, payload: Message[]) => _state.rawMessages.push(...payload),
-  CLEAR_MESSAGES: (_state) => {
+  ADD_RAW_MESSAGES_TO_START: (_state, payload: Message[]) => {
+    _state.rawMessages.unshift(...payload);
+  },
+  ADD_RAW_MESSAGES_TO_END: (_state, payload: Message[]) => {
+    _state.rawMessages.push(...payload);
+  },
+  CLEAR_MESSAGES: (_state, payload: 'from-start' | 'from-end' = 'from-end') => {
     if (_state.rawMessages.length > 200) {
-      _state.rawMessages = _state.rawMessages.slice(0, 200);
+      if (payload === 'from-end') {
+        _state.rawMessages = _state.rawMessages.slice(0, 200);
+      } else {
+        _state.rawMessages = _state.rawMessages.slice(-200);
+      }
     }
   },
   UPDATE_MESSAGE: (_state, payload: Message) => {
@@ -63,6 +74,7 @@ export const mutations = mutationTree(state, {
   },
   INCREMENT_UNREAD: (_state) => (_state.unreadCount = _state.unreadCount + 1),
   RESET_UNREAD: (_state) => (_state.unreadCount = 0),
+  SET_IS_EVERYTHING_FETCHED: (_state, payload: FetchDirection) => (_state.isEverythingFetched = payload),
 });
 
 export const getters = getterTree(state, {

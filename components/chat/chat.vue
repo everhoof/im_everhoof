@@ -9,9 +9,11 @@
     </transition>
     <transition name="fade">
       <div v-show="!loading" class="chat__messages">
-        <div v-if="loadingMoreMessages" class="chat__messages-loader">
-          <img class="icon" src="~/assets/icons/spinner.svg" alt="" />
-        </div>
+        <template v-if="fetchMore === 'older'">
+          <div class="chat__messages-loader">
+            <img class="icon" src="~/assets/icons/spinner.svg" alt="" />
+          </div>
+        </template>
         <div v-for="i in messages.length" :key="messages[messages.length - i].randomId" class="chat__message">
           <template v-if="separators.includes(messages[messages.length - i].id)">
             <b-messages-separator :message="messages[messages.length - i]" />
@@ -23,6 +25,11 @@
             <b-message :message="messages[messages.length - i]" />
           </template>
         </div>
+        <template v-if="fetchMore === 'newer'">
+          <div class="chat__messages-loader">
+            <img class="icon" src="~/assets/icons/spinner.svg" alt="" />
+          </div>
+        </template>
       </div>
     </transition>
   </div>
@@ -37,6 +44,7 @@ import BMessage from '~/components/message/message.vue';
 import BMessagesSeparator from '~/components/messages-separator/messages-separator.vue';
 import BMessageDonation from '~/components/message-donation/message-donation.vue';
 import { Message } from '~/types/message';
+import type { FetchDirection } from '~/store/messages';
 
 @Component({
   name: 'b-chat',
@@ -45,8 +53,8 @@ import { Message } from '~/types/message';
 export default class Chat extends Vue {
   @Ref('scroll') scroll?: HTMLDivElement;
 
-  private loading = true;
-  private loadingMoreMessages = false;
+  loading = true;
+  fetchMore: FetchDirection = 'none';
 
   @Watch('messages')
   async onMessagesChange(): Promise<void> {
@@ -107,39 +115,77 @@ export default class Chat extends Vue {
     }
   }
 
-  async onScroll(event: any) {
-    if (!this.loadingMoreMessages && event.target.scrollTop < 100) {
-      this.loadingMoreMessages = true;
+  async onScroll(event: Event): Promise<void> {
+    if (this.fetchMore !== 'none') {
+      return;
+    }
+
+    const target = event.target as HTMLElement;
+
+    const offsetTop = target.scrollTop;
+    const offsetBottom = target.scrollHeight - target.clientHeight - target.scrollTop;
+
+    if (offsetTop < 100) {
+      this.fetchMore = 'older';
+    } else if (offsetBottom < 100) {
+      this.fetchMore = 'newer';
+    } else {
+      return;
+    }
+
+    if (this.$accessor.messages.isEverythingFetched === this.fetchMore) {
+      this.fetchMore = 'none';
+      return;
+    }
+
+    const variables = {
+      count: 100,
+      reverse: true,
+      lastId: this.messages[this.messages.length - 1]?.id,
+    };
+
+    if (this.fetchMore === 'newer') {
+      variables.reverse = false;
+      variables.lastId = this.messages[0]?.id;
+    }
+
+    const messages = await this.$accessor.messages.fetchMessages(variables);
+
+    const oldScrollTop = target.scrollTop;
+    const oldScroll = target.scrollHeight - target.clientHeight;
+
+    if (messages) {
+      if (messages.length === 0) {
+        this.$accessor.messages.SET_IS_EVERYTHING_FETCHED(this.fetchMore);
+      } else {
+        this.$accessor.messages.SET_IS_EVERYTHING_FETCHED('none');
+      }
+
+      this.$accessor.messages.pushMessages({
+        variables,
+        messages,
+      });
+
       await this.$nextTick();
 
-      try {
-        const lastId = this.messages[this.messages.length - 1]?.id;
-        const variables = {
-          count: 50,
-          reverse: true,
-          lastId,
-        };
-
-        const messages = await this.$accessor.messages.fetchMessages(variables);
-
-        const oldScrollTop = event.target.scrollTop;
-        const oldScroll = event.target.scrollHeight - event.target.clientHeight;
-
-        if (messages) {
-          await this.$accessor.messages.pushMessages({
-            variables,
-            messages,
-          });
-
-          await this.$nextTick();
-          const newScroll = event.target.scrollHeight - event.target.clientHeight;
-          event.target.scrollTop = oldScrollTop + (newScroll - oldScroll);
-        }
-      } finally {
-        this.loadingMoreMessages = false;
+      if (variables.reverse) {
+        const newScroll = target.scrollHeight - target.clientHeight;
+        target.scrollTop = oldScrollTop + (newScroll - oldScroll);
       }
-    } else if (event.target.scrollHeight - event.target.clientHeight - event.target.scrollTop < 50) {
-      this.$accessor.messages.CLEAR_MESSAGES();
+    }
+
+    this.fetchMore = 'none';
+
+    await this.$nextTick();
+
+    if (!variables.reverse) {
+      target.scrollTop = oldScrollTop;
+    }
+
+    if (variables.reverse) {
+      this.$accessor.messages.CLEAR_MESSAGES('from-start');
+    } else {
+      this.$accessor.messages.CLEAR_MESSAGES('from-end');
     }
   }
 }
