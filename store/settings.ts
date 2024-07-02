@@ -6,6 +6,7 @@ export const namespaced = true;
 
 export const state = () => ({
   isOBS: false as boolean,
+  isPlay: false as boolean,
   theme: 'dark' as string,
   compact: true as boolean,
   snow: false as boolean,
@@ -18,6 +19,7 @@ export type SettingsState = ReturnType<typeof state>;
 
 export const mutations = mutationTree(state, {
   SET_IS_OBS: (_state, payload: boolean) => (_state.isOBS = payload),
+  SET_IS_PLAY: (_state, payload: boolean) => (_state.isPlay = payload),
   SET_THEME: (_state, payload: string) => (_state.theme = payload),
   SET_COMPACT: (_state, payload: boolean) => (_state.compact = payload),
   SET_SNOW: (_state, payload: boolean) => (_state.snow = payload),
@@ -34,6 +36,7 @@ export const actions = actionTree(
     nuxtServerInit({ dispatch, commit }, context: Context) {
       const isOBS = context.query.style === 'obs';
       commit('SET_IS_OBS', isOBS);
+      commit('SET_IS_PLAY', !!context.query.play);
 
       if (!isOBS) {
         const timeZone = context.app.$cookies.get('settings_timezone');

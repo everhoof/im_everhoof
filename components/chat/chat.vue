@@ -55,6 +55,7 @@ export default class Chat extends Vue {
 
   loading = true;
   fetchMore: FetchDirection = 'none';
+  playTimestamp: number = 0;
 
   @Watch('messages')
   async onMessagesChange(): Promise<void> {
@@ -90,10 +91,17 @@ export default class Chat extends Vue {
   }
 
   get messages(): Message[] {
-    const messages = this.$accessor.messages.messages;
-
     if (this.loading) return [];
-    return messages.filter((m) => this.$accessor.auth.can.readAny('deleted-message').granted || !m.deletedAt);
+
+    let messages = this.$accessor.messages.messages.filter(
+      (m) => this.$accessor.auth.can.readAny('deleted-message').granted || !m.deletedAt,
+    );
+
+    if (this.$accessor.settings.isPlay) {
+      messages = messages.filter((m) => DateTime.fromISO(m.createdAt).toMillis() <= this.playTimestamp);
+    }
+
+    return messages;
   }
 
   async mounted(): Promise<void> {
@@ -102,7 +110,58 @@ export default class Chat extends Vue {
     await this.$nextTick();
     window.setTimeout(this.scrollDownChat, 50);
 
+    if (this.$accessor.settings.isPlay) {
+      const datetime = DateTime.fromISO(this.$route.query.from?.toString() ?? '');
+
+      if (datetime.isValid) {
+        this.playTimestamp = datetime.toMillis();
+
+        const offset = Date.now() - this.playTimestamp;
+
+        setInterval(() => {
+          this.playTimestamp = Date.now() - offset;
+          this.fetchNewMessagesOnPlay();
+        }, 500);
+
+        setInterval(() => {
+          this.scrollDownChat();
+        }, 50);
+      }
+    }
+
     this.$nuxt.$on('force-scroll', this.forceScroll);
+  }
+
+  async fetchNewMessagesOnPlay(): Promise<void> {
+    if (this.$accessor.messages.isEverythingFetched === 'newer') {
+      return;
+    }
+
+    const lastMessage = this.$accessor.messages.messages[0];
+    const filteredLastMessage = this.messages[0];
+
+    if (lastMessage && filteredLastMessage && lastMessage.id === filteredLastMessage.id) {
+      const variables = {
+        count: 100,
+        reverse: false,
+        lastId: lastMessage.id,
+      };
+
+      const messages = await this.$accessor.messages.fetchMessages(variables);
+
+      if (messages) {
+        if (messages.length === 0) {
+          this.$accessor.messages.SET_IS_EVERYTHING_FETCHED('newer');
+        } else {
+          this.$accessor.messages.pushMessages({
+            variables,
+            messages,
+          });
+
+          this.$accessor.messages.CLEAR_MESSAGES('from-end');
+        }
+      }
+    }
   }
 
   beforeDestroy(): void {
@@ -132,7 +191,7 @@ export default class Chat extends Vue {
   }
 
   async onScroll(event: Event): Promise<void> {
-    if (this.fetchMore !== 'none') {
+    if (this.$accessor.settings.isPlay || this.fetchMore !== 'none') {
       return;
     }
 
