@@ -24,6 +24,10 @@ export interface MentionEvent {
   username: string;
 }
 
+export interface StartMessageEditEvent {
+  message: Message;
+}
+
 export type FetchDirection = 'none' | 'older' | 'newer';
 
 export const namespaced = true;
@@ -33,6 +37,7 @@ export const state = () => ({
   unreadCount: 0 as number,
   lastDeliveredId: null as null | number,
   isEverythingFetched: 'newer' as FetchDirection,
+  editableMessage: null as null | Message,
 });
 
 export const mutations = mutationTree(state, {
@@ -79,6 +84,8 @@ export const mutations = mutationTree(state, {
   RESET_UNREAD: (_state) => (_state.unreadCount = 0),
   SET_IS_EVERYTHING_FETCHED: (_state, payload: FetchDirection) => (_state.isEverythingFetched = payload),
   SET_LAST_DELIVERED_ID: (_state, payload: number) => (_state.lastDeliveredId = payload),
+  SET_EDITABLE_MESSAGE: (_state, payload: Message) => (_state.editableMessage = payload),
+  CLEAR_EDITABLE_MESSAGE: (_state) => (_state.editableMessage = null),
 });
 
 export const getters = getterTree(state, {
@@ -188,6 +195,16 @@ export const actions = actionTree(
 
     mention(_, payload: MentionEvent) {
       window.$nuxt.$emit('mention', payload);
+    },
+
+    startMessageEdit({ commit }, payload: Message) {
+      window.$nuxt.$emit('start-message-edit', payload);
+      commit('SET_EDITABLE_MESSAGE', payload);
+    },
+
+    stopMessageEdit({ commit }) {
+      window.$nuxt.$emit('stop-message-edit');
+      commit('CLEAR_EDITABLE_MESSAGE');
     },
 
     async subscribeMessageCreated({ state, commit }) {

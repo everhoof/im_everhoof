@@ -13,6 +13,11 @@
     <b-button v-show="!loggedIn" class="button_size_compact" :to="{ name: 'modal_login' }">
       Войти в чат
     </b-button>
+    <template v-if="$accessor.messages.editableMessage">
+      <div class="footer__message-editor">
+        <b-edited-message-preview />
+      </div>
+    </template>
     <div v-show="loggedIn" class="footer__input-field">
       <div class="footer__actions-left">
         <div
@@ -56,17 +61,32 @@ import BEmojiPanel from '~/components/emoji-panel/emoji-panel.vue';
 import BAttachPanel from '~/components/attach-panel/attach-panel.vue';
 import BButton from '~/components/button/button.vue';
 import CreateMessage from '~/graphql/mutations/create-message.graphql';
-import { CreateMessageMutation, CreateMessageMutationVariables } from '~/graphql/schema';
+import UpdateMessage from '~/graphql/mutations/update-message.graphql';
+import {
+  CreateMessageMutation,
+  CreateMessageMutationVariables,
+  UpdateMessageMutation,
+  UpdateMessageMutationVariables,
+} from '~/graphql/schema';
 import { HttpClient } from '~/tools/http-client';
 import BProgressBar from '~/components/progress-bar/progress-bar.vue';
 import BDonateButton from '~/components/donate-button/donate-button.vue';
-import { Message } from '~/types/message';
+import { Message, MessageType } from '~/types/message';
 import BRichInput from '~/components/rich-input/rich-input.vue';
 import type { MentionEvent } from '~/store/messages';
+import BEditedMessagePreview from '~/components/edited-message-preview/edited-message-preview.vue';
 
 @Component({
   name: 'b-footer',
-  components: { BRichInput, BDonateButton, BButton, BAttachPanel, BEmojiPanel, BProgressBar },
+  components: {
+    BEditedMessagePreview,
+    BRichInput,
+    BDonateButton,
+    BButton,
+    BAttachPanel,
+    BEmojiPanel,
+    BProgressBar,
+  },
 })
 export default class Footer extends Vue {
   @Ref() emoji!: HTMLDivElement;
@@ -78,6 +98,7 @@ export default class Footer extends Vue {
   private attachIds: number[] = [];
   private progress: number = 0;
   private showProgress: boolean = false;
+  private tempMessageContent: string = '';
 
   get loggedIn(): boolean {
     return this.$accessor.auth.loggedIn;
@@ -109,20 +130,26 @@ export default class Footer extends Vue {
     if (process.client) {
       this.$nuxt.$on('file-drag', this.onFileDragEvent);
       this.$nuxt.$on('mention', this.onMention);
+      this.$nuxt.$on('start-message-edit', this.onStartMessageEdit);
+      this.$nuxt.$on('stop-message-edit', this.onStopMessageEdit);
     }
   }
 
   mounted(): void {
     document.body.addEventListener('click', this.onDocumentClick);
     document.addEventListener('paste', this.onDocumentPaste);
+    document.addEventListener('keydown', this.onDocumentKeydown);
   }
 
   beforeDestroy(): void {
     if (process.client) {
       this.$nuxt.$off('file-drag', this.onFileDragEvent);
       this.$nuxt.$off('mention', this.onMention);
+      this.$nuxt.$off('start-message-edit', this.onStartMessageEdit);
+      this.$nuxt.$off('stop-message-edit', this.onStopMessageEdit);
       document.body.removeEventListener('click', this.onDocumentClick);
       document.removeEventListener('paste', this.onDocumentPaste);
+      document.removeEventListener('keydown', this.onDocumentKeydown);
     }
   }
 
@@ -131,6 +158,23 @@ export default class Footer extends Vue {
       this.$accessor.SET_EMOJIS_PANEL_ACTIVE(false);
     if (!this.attach.contains(event.target as Node) && !this.attachPanel.contains(event.target as Node))
       this.$accessor.SET_ATTACH_PANEL_ACTIVE(false);
+  }
+
+  onDocumentKeydown(event: KeyboardEvent): void {
+    if (event.key === 'Escape') {
+      if (this.$accessor.messages.editableMessage) {
+        this.$accessor.messages.stopMessageEdit();
+      }
+    } else if (event.key === 'ArrowUp') {
+      const myId = this.$accessor.auth.user?.id;
+      const message = this.$accessor.messages.messages.find(
+        (m) => m.type === MessageType.GENERAL && m.owner?.id === myId,
+      );
+
+      if (message) {
+        this.$accessor.messages.startMessageEdit(message);
+      }
+    }
   }
 
   async onDocumentPaste(event: ClipboardEvent): Promise<void> {
@@ -147,6 +191,17 @@ export default class Footer extends Vue {
 
   onMention(event: MentionEvent): void {
     this.richInput.mention(event);
+  }
+
+  onStartMessageEdit(message: Message): void {
+    this.tempMessageContent = this.richInput.getHtml();
+    this.richInput.setContent(message.content);
+    this.richInput.focus();
+  }
+
+  onStopMessageEdit(): void {
+    this.richInput.setContent(this.tempMessageContent);
+    this.tempMessageContent = '';
   }
 
   async onFileDragEvent(event: DragEvent): Promise<void> {
@@ -212,27 +267,50 @@ export default class Footer extends Vue {
     if (!text.trim() && this.attachIds.length === 0) return;
 
     const html = this.richInput.getHtml();
-    const message = Message.create(html, this.$accessor.auth.user);
 
-    this.$accessor.messages.ADD_RAW_MESSAGE_TO_START(message);
-    this.richInput.setContent('');
+    if (this.$accessor.messages.editableMessage) {
+      this.richInput.setContent('');
 
-    const createdMessage = await this.$apollo.mutate<CreateMessageMutation, CreateMessageMutationVariables>({
-      mutation: CreateMessage,
-      variables: {
-        content: message.content,
-        randomId: message.randomId,
-        pictures: this.attachIds,
-      },
-    });
+      const updatedMessage = await this.$apollo.mutate<UpdateMessageMutation, UpdateMessageMutationVariables>(
+        {
+          mutation: UpdateMessage,
+          variables: {
+            messageId: this.$accessor.messages.editableMessage.id,
+            content: html,
+          },
+        },
+      );
 
-    if (createdMessage.errors) {
-      if (!message.randomId) return;
-      this.$accessor.messages.DELETE_MESSAGE_BY_RANDOM_ID(message.randomId);
+      if (updatedMessage.errors) {
+        this.$accessor.messages.editableMessage.content = html;
+      }
+
+      this.$accessor.messages.stopMessageEdit();
+    } else {
+      const message = Message.create(html, this.$accessor.auth.user);
+
+      this.$accessor.messages.ADD_RAW_MESSAGE_TO_START(message);
+      this.richInput.setContent('');
+
+      const createdMessage = await this.$apollo.mutate<CreateMessageMutation, CreateMessageMutationVariables>(
+        {
+          mutation: CreateMessage,
+          variables: {
+            content: message.content,
+            randomId: message.randomId,
+            pictures: this.attachIds,
+          },
+        },
+      );
+
+      if (createdMessage.errors) {
+        if (!message.randomId) return;
+        this.$accessor.messages.DELETE_MESSAGE_BY_RANDOM_ID(message.randomId);
+      }
+
+      this.attachIds = [];
+      this.$nuxt.$emit('force-scroll');
     }
-
-    this.attachIds = [];
-    this.$nuxt.$emit('force-scroll');
   }
 }
 </script>

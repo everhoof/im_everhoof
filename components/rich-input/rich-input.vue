@@ -217,6 +217,10 @@ export default class RichInput extends Vue {
       .run();
   }
 
+  focus(): void {
+    this.editor?.chain().focus().run();
+  }
+
   beforeDestroy(): void {
     this.editor?.destroy();
   }

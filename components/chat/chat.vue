@@ -62,7 +62,7 @@ export default class Chat extends Vue {
     if (!this.scroll) return;
     const offsetBottom = this.scroll.scrollHeight - this.scroll.clientHeight - this.scroll.scrollTop;
 
-    if (offsetBottom < 300) {
+    if (offsetBottom < 200) {
       await this.$nextTick();
       this.scrollDownChat();
     }
@@ -130,6 +130,8 @@ export default class Chat extends Vue {
     }
 
     this.$nuxt.$on('force-scroll', this.forceScroll);
+    this.$nuxt.$on('force-scroll', this.forceScroll);
+    this.$nuxt.$on('start-message-edit', this.onMessagesChange);
   }
 
   async fetchNewMessagesOnPlay(): Promise<void> {
@@ -166,6 +168,7 @@ export default class Chat extends Vue {
 
   beforeDestroy(): void {
     this.$nuxt.$off('force-scroll', this.forceScroll);
+    this.$nuxt.$off('start-message-edit', this.onMessagesChange);
   }
 
   async forceScroll(): Promise<void> {

@@ -115,7 +115,7 @@ export default class MessageCm extends Vue {
 
   update(): void {
     if (!this.message) return;
-    this.$nuxt.$emit('message-updating', this.message);
+    this.$accessor.messages.startMessageEdit(this.message);
 
     this.$nuxt.$emit('close-context-menus');
   }

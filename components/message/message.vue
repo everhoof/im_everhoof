@@ -73,14 +73,6 @@
           </template>
         </span>
       </template>
-      <span v-else-if="showUpdatingMessage" class="message__text">
-        <b-message-update-input
-          ref="messageUpdateInput"
-          v-model="updatingMessageText"
-          @save="saveMessage"
-          @cancel="cancelUpdateMessage"
-        />
-      </span>
       <span v-else class="message__text" v-html="text" />
       <b-message-img v-for="picture in pictures" :key="picture.id" :picture="picture" />
       <div v-if="youtubeId" class="message__embed">
@@ -97,25 +89,19 @@
 </template>
 
 <script lang="ts">
-import { Component, InjectReactive, Prop, Ref, Vue } from 'nuxt-property-decorator';
+import { Component, InjectReactive, Prop, Vue } from 'nuxt-property-decorator';
 import { DateTime } from 'luxon';
-import { UpdateMessageMutation, UpdateMessageMutationVariables } from '~/graphql/schema';
 import { toLocalDateTime } from '~/tools/filters';
 import { decodePunycodeURL, getUserColor } from '~/tools/util';
 import BContextMenu from '~/components/context-menu/context-menu.vue';
-import BMessageUpdateInput from '~/components/message-update-input/message-update-input.vue';
-import UpdateMessage from '~/graphql/mutations/update-message.graphql';
 import BMessageImg from '~/components/message-img/message-img.vue';
 import { Message, MessageState, MessageType } from '~/types/message';
 
 @Component({
   name: 'b-message',
-  components: { BMessageImg, BMessageUpdateInput },
+  components: { BMessageImg },
 })
 export default class BMessage extends Vue {
-  @Ref()
-  readonly messageUpdateInput!: BMessageUpdateInput;
-
   @InjectReactive('message-context-menu')
   readonly contextMenu!: BContextMenu;
 
@@ -125,9 +111,6 @@ export default class BMessage extends Vue {
     default: () => {},
   })
   readonly message!: Message;
-
-  private updatingMessageText: string = '';
-  private showUpdatingMessage: boolean = false;
 
   get text() {
     let message = this.message.content.replace(
@@ -213,50 +196,6 @@ export default class BMessage extends Vue {
 
   get deleted(): boolean {
     return !!this.message.deletedAt;
-  }
-
-  cancelUpdateMessage() {
-    this.showUpdatingMessage = false;
-  }
-
-  async onMessageUpdating(message: Message) {
-    if (message.id !== this.message.id) return;
-
-    this.showUpdatingMessage = true;
-    this.updatingMessageText = message.content;
-
-    await this.$nextTick();
-    this.messageUpdateInput.focus();
-  }
-
-  async saveMessage() {
-    this.showUpdatingMessage = false;
-
-    if (this.message.content === this.updatingMessageText || !this.updatingMessageText) return;
-
-    const { errors } = await this.$apollo.mutate<UpdateMessageMutation, UpdateMessageMutationVariables>({
-      mutation: UpdateMessage,
-      variables: {
-        messageId: this.message.id,
-        content: this.updatingMessageText,
-      },
-    });
-
-    if (errors?.[0].message) {
-      this.$snotify.error(errors[0].message);
-    }
-  }
-
-  created() {
-    if (process.client) {
-      this.$nuxt.$on('message-updating', this.onMessageUpdating);
-    }
-  }
-
-  beforeDestroy() {
-    if (process.client) {
-      this.$nuxt.$off('message-updating', this.onMessageUpdating);
-    }
   }
 
   openContextMenu(event: MouseEvent) {
