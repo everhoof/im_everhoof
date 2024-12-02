@@ -187,7 +187,7 @@ export default class RichInput extends Vue {
   }
 
   getHtml(): string {
-    return this.editor?.getHTML() ?? '';
+    return this.editor?.getHTML().replaceAll('&amp;', '&') ?? '';
   }
 
   setContent(content: string): void {
