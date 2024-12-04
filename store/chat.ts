@@ -9,9 +9,10 @@ import Punish from '~/graphql/mutations/punish.graphql';
 import GetOnline from '~/graphql/queries/get-online.graphql';
 import OnlineUpdated from '~/graphql/subscriptions/online-updated.graphql';
 import {
-  GetChatDataQuery,
+  GetOnlineQuery,
   GetUserByIdQuery,
   GetUserByIdQueryVariables,
+  OnlinePartsFragment,
   OnlineUpdatedSubscription,
   PunishMutation,
   PunishMutationVariables,
@@ -25,7 +26,7 @@ import { Emoji } from '~/types/emoji';
 export const namespaced = true;
 
 export const state = () => ({
-  online: [] as GetChatDataQuery['getOnline'],
+  online: [] as OnlinePartsFragment[],
   emoji: [
     { name: 'ab4', ext: 'png' },
     { name: 'chrysalis4', ext: 'png' },
@@ -110,7 +111,7 @@ export const state = () => ({
 });
 
 export const mutations = mutationTree(state, {
-  SET_ONLINE: (_state, payload: GetChatDataQuery['getOnline']) => (_state.online = payload),
+  SET_ONLINE: (_state, payload: OnlinePartsFragment[]) => (_state.online = payload),
   SET_ASIDE_PC_OPENED: (_state, payload: boolean) => (_state.asidePcOpened = payload),
   ADD_USER: (_state, payload: GetUserByIdQuery['getUserById']) => {
     const index = _state.users.findIndex(({ id }) => id === payload.id);
@@ -195,7 +196,7 @@ export const actions = actionTree(
       if (!client) return;
 
       try {
-        const { data, errors } = await client.query<GetChatDataQuery>({
+        const { data, errors } = await client.query<GetOnlineQuery>({
           query: GetOnline,
         });
         if (errors || !data) return;

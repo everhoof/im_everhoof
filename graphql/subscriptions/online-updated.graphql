@@ -1,18 +1,8 @@
+#import "../fragments/online-parts.graphql"
+
 subscription OnlineUpdated {
   onlineUpdated {
-    id
-    username
-    avatar {
-      id
-      s {
-        id
-        link
-      }
-    }
-    roles {
-      id
-      name
-    }
+    ...OnlineParts
   }
 }
 

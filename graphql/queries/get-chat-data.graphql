@@ -7,18 +7,4 @@ query GetChatData($fromDateTime: String, $reverse: Boolean = false) {
   lastMessages: getMessages(count: 1) {
     id
   }
-  getOnline {
-    id
-    username
-    avatar {
-      id
-      s {
-        link
-      }
-    }
-    roles {
-      id
-      name
-    }
-  }
 }

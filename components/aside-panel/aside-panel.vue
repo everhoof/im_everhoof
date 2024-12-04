@@ -26,18 +26,16 @@
 <script lang="ts">
 import { Component, Vue, Watch } from 'nuxt-property-decorator';
 import BUsersList from '~/components/users-list/users-list.vue';
-import { GetChatDataQuery } from '~/graphql/schema';
-
-type User = GetChatDataQuery['getOnline'][0];
+import type { OnlinePartsFragment } from '~/graphql/schema';
 
 @Component({
   name: 'b-aside-panel',
   components: { BUsersList },
 })
 export default class AsidePanel extends Vue {
-  private broadcasters: User[] = [];
-  private moderators: User[] = [];
-  private users: User[] = [];
+  private broadcasters: OnlinePartsFragment[] = [];
+  private moderators: OnlinePartsFragment[] = [];
+  private users: OnlinePartsFragment[] = [];
 
   @Watch('online')
   onOnlineChanged(): void {
@@ -60,8 +58,8 @@ export default class AsidePanel extends Vue {
     this.onOnlineChanged();
   }
 
-  get online(): User[] {
-    const users = this.$accessor.chat.online as User[];
+  get online(): OnlinePartsFragment[] {
+    const users = this.$accessor.chat.online;
 
     return Array.from(users).sort((a, b) => {
       const nameA = a.username?.toLowerCase() || '';
@@ -73,7 +71,7 @@ export default class AsidePanel extends Vue {
     });
   }
 
-  hasRole(user: User, role: string): boolean {
+  hasRole(user: OnlinePartsFragment, role: string): boolean {
     return !!user.roles.find((r) => r.name === role);
   }
 }

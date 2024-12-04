@@ -1,17 +1,7 @@
+#import "../fragments/online-parts.graphql"
+
 query GetOnline {
   getOnline {
-    id
-    username
-    avatar {
-      id
-      s {
-        id
-        link
-      }
-    }
-    roles {
-      id
-      name
-    }
+    ...OnlineParts
   }
 }

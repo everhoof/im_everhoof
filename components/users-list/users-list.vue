@@ -27,7 +27,7 @@
 
 <script lang="ts">
 import { Component, InjectReactive, Prop, Vue } from 'nuxt-property-decorator';
-import { GetChatDataQuery } from '~/graphql/schema';
+import type { OnlinePartsFragment } from '~/graphql/schema';
 import { getUserColor } from '~/tools/util';
 import BContextMenu from '~/components/context-menu/context-menu.vue';
 
@@ -35,7 +35,7 @@ import BContextMenu from '~/components/context-menu/context-menu.vue';
   name: 'b-users-list',
 })
 export default class UsersList extends Vue {
-  @Prop({ required: true }) users!: GetChatDataQuery['getOnline'];
+  @Prop({ required: true }) users!: OnlinePartsFragment[];
 
   @InjectReactive('user-context-menu')
   readonly contextMenu!: BContextMenu;

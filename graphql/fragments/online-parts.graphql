@@ -1,0 +1,36 @@
+fragment OnlineParts on User {
+    id
+    username
+    email
+    emailConfirmed
+    avatar {
+        id
+        s {
+            id
+            height
+            width
+            link
+            size
+        }
+        m {
+            id
+            height
+            width
+            link
+            size
+        }
+        o {
+            id
+            height
+            width
+            link
+            size
+        }
+    }
+    createdAt
+    wasOnlineAt
+    roles {
+        id
+        name
+    }
+}
