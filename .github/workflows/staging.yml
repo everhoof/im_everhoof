@@ -74,6 +74,10 @@ jobs:
           SSH_HOST: ${{ secrets.STAGING_SSH_HOST }}
           SSH_PORT: ${{ secrets.STAGING_SSH_PORT }}
 
+      - name: Create version file
+        run: |
+          echo "{\"version\": $(date +%s)}" > static/version.json
+
       - name: Tar files
         run: >
           tar --ignore-failed-read --exclude=./artifacts.tgz -czvf artifacts.tgz

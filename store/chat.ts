@@ -1,17 +1,20 @@
 import { actionTree, getterTree, mutationTree } from 'typed-vuex';
 import { Context } from '@nuxt/types';
 import Vue from 'vue';
+import { DateTime } from 'luxon';
 import UserUpdated from '~/graphql/subscriptions/user-updated.graphql';
 import UpdateOnlineStatus from '~/graphql/mutations/update-online-status.graphql';
 import GetUserById from '~/graphql/queries/get-user-by-id.graphql';
 import SearchUsers from '~/graphql/queries/search-users.graphql';
 import Punish from '~/graphql/mutations/punish.graphql';
 import GetOnline from '~/graphql/queries/get-online.graphql';
+import GetVersion from '~/graphql/queries/get-version.graphql';
 import OnlineUpdated from '~/graphql/subscriptions/online-updated.graphql';
 import {
   GetOnlineQuery,
   GetUserByIdQuery,
   GetUserByIdQueryVariables,
+  GetVersionQuery,
   OnlinePartsFragment,
   OnlineUpdatedSubscription,
   PunishMutation,
@@ -26,6 +29,8 @@ import { Emoji } from '~/types/emoji';
 export const namespaced = true;
 
 export const state = () => ({
+  apiVersion: 'unknown' as string,
+  appVersion: 0 as number,
   online: [] as OnlinePartsFragment[],
   emoji: [
     { name: 'ab4', ext: 'png' },
@@ -111,6 +116,8 @@ export const state = () => ({
 });
 
 export const mutations = mutationTree(state, {
+  SET_API_VERSION: (_state, payload: string) => (_state.apiVersion = payload),
+  SET_APP_VERSION: (_state, payload: number) => (_state.appVersion = payload),
   SET_ONLINE: (_state, payload: OnlinePartsFragment[]) => (_state.online = payload),
   SET_ASIDE_PC_OPENED: (_state, payload: boolean) => (_state.asidePcOpened = payload),
   ADD_USER: (_state, payload: GetUserByIdQuery['getUserById']) => {
@@ -129,9 +136,11 @@ export const actions = actionTree(
   { state, mutations, getters },
   {
     async nuxtServerInit({ dispatch, commit }, context: Context) {
+      commit('SET_APP_VERSION', DateTime.now().toUnixInteger());
+
       const asidePcOpened = (context.app.$cookies.get('aside_pc_opened') ?? true) === true;
       commit('SET_ASIDE_PC_OPENED', asidePcOpened);
-      await dispatch('fetchOnline');
+      await Promise.all([dispatch('fetchOnline'), dispatch('fetchApiVersion')]);
     },
 
     nuxtClientInit({ dispatch }, context?: Context) {
@@ -141,6 +150,11 @@ export const actions = actionTree(
       window.setTimeout(async () => {
         await dispatch('fetchOnline');
       }, 3000);
+
+      window.setInterval(async () => {
+        await dispatch('fetchApiVersion');
+        await dispatch('checkAppVersion');
+      }, 5 * 60 * 1000);
 
       if (this.app.$accessor.auth.loggedIn) {
         window.setInterval(async () => {
@@ -203,6 +217,35 @@ export const actions = actionTree(
 
         commit('SET_ONLINE', data.getOnline);
       } catch (e) {}
+    },
+
+    async fetchApiVersion({ commit }) {
+      const client = this.app.apolloProvider.defaultClient;
+      if (!client) return;
+
+      try {
+        const { data, errors } = await client.query<GetVersionQuery>({
+          query: GetVersion,
+        });
+        if (errors || !data) return;
+
+        commit('SET_API_VERSION', data.version);
+      } catch {
+        //
+      }
+    },
+
+    async checkAppVersion({ state }) {
+      try {
+        const response = await fetch('/version.json', { cache: 'no-cache' });
+        const json = await response.json();
+
+        if ('version' in json && typeof json.version === 'number' && json.version > state.appVersion) {
+          window.location.reload();
+        }
+      } catch {
+        //
+      }
     },
 
     async fetchUserById({ commit }, payload: GetUserByIdQueryVariables) {

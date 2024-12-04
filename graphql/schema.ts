@@ -23,6 +23,7 @@ export type Query = {
   getTokens: Array<Token>;
   getGrants: Scalars['String'];
   getHello: Scalars['String'];
+  version: Scalars['String'];
   getPictureById: Picture;
 };
 
@@ -495,6 +496,10 @@ export type GetUserByIdQueryVariables = Exact<{
 export type GetUserByIdQuery = { __typename?: 'Query' } & {
   getUserById: { __typename?: 'User' } & UserPartsFragment;
 };
+
+export type GetVersionQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetVersionQuery = { __typename?: 'Query' } & Pick<Query, 'version'>;
 
 export type SearchUsersQueryVariables = Exact<{
   query: Scalars['String'];
